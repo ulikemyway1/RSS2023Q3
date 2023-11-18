@@ -186,6 +186,7 @@ h1 span {
 }
 
 .about_wrapper {
+    margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     /* grid-template-rows: 1fr 0.3fr 1fr; */
@@ -201,6 +202,7 @@ h1 span {
     grid-area: a;
     height: 590px;
 }
+
 #about2 {
     grid-area: b;
     height: 430px;
@@ -215,7 +217,7 @@ h1 span {
 }
 
 .about img:hover {
-    transform: scale(1.1);
+    transform: scale(0.91);
     transition: all 0.4s;
 }
 
@@ -225,4 +227,8 @@ h1 span {
 
 .img_container {
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
 }
