@@ -166,3 +166,21 @@ h1 span {
 .button_enjoy:hover span {
    transform: translateX(0px);
 }
+
+.about .container {
+    margin-top: 100px;
+}
+
+.about_descr {
+    color: var(--text-dark);
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 125%;
+}
+
+.about_descr span {
+    color: var(--text-accent, #B0907A);
+    font-size: 60px;
+    font-style: italic;
+    font-weight: 600;
+}
