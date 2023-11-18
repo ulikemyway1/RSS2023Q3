@@ -184,3 +184,45 @@ h1 span {
     font-style: italic;
     font-weight: 600;
 }
+
+.about_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 1fr 0.3fr 1fr; */
+    gap: 40px;
+    overflow: hidden;
+    grid-template-areas:
+        "a c"
+        "a d"
+        "b d";
+}
+
+#about1 {
+    grid-area: a;
+    height: 590px;
+}
+#about2 {
+    grid-area: b;
+    height: 430px;
+}
+#about3{
+    grid-area: c;
+    height: 430px;
+}
+#about4 {
+    grid-area: d;
+    height: 590px;
+}
+
+.about img:hover {
+    transform: scale(1.1);
+    transition: all 0.4s;
+}
+
+.about img {
+    transition: all 0.4s;
+}
+
+.img_container {
+    overflow: hidden;
+}
