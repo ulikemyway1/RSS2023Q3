@@ -171,14 +171,14 @@ h1 span {
     margin-top: 100px;
 }
 
-.about_descr {
+h2 {
     color: var(--text-dark);
     font-size: 60px;
     font-weight: 600;
     line-height: 125%;
 }
 
-.about_descr span {
+h2 span {
     color: var(--text-accent, #B0907A);
     font-size: 60px;
     font-style: italic;
@@ -231,4 +231,55 @@ h1 span {
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+}
+
+.mobile_app .container {
+    margin-top: 100px;
+}
+
+.mobile_app .wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.mobile_app_descr {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.mobile_app_text {
+    color: var(--text-dark);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.button_mobile_app {
+    border-radius: 100px;
+ }
+
+.button_wrapper {
+    display: flex;
+    gap: 20px;
+ }
+
+ .button_mobile_app:hover svg rect {
+    fill: #665F55;
+    stroke: #665F55;
+    transition: all 0.4s;
+
+}
+.button_mobile_app:hover svg path {
+    fill: #E1D4C9;
+    transition: all 0.4s;
+}
+
+.button_mobile_app:hover svg rect, .button_mobile_app:hover svg path {
+    transition: all 0.4s;
+}
+
+.mobile_app_photo img {
+    width: 630px;
+    height: 630px;
 }
