@@ -17,6 +17,7 @@
 body {
     background-color: var(--bg-body);
     font-family: Inter;
+    user-select: none;
 }
 
 .container {
