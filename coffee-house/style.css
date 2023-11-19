@@ -262,23 +262,43 @@ h2 span {
 }
 
 .button_mobile_app {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 200px;
     border-radius: 100px;
+    border: 1px solid var(--border-dard);
+    padding: 12px 20px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+    color: var(--text-dark);
+    transition: all 0.6s;
  }
+
+ .button_mobile_app:hover {
+    background: #665F55;
+    color: var(--borger-light);
+    transition: all 0.6s;
+ }
+
+span.strong {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+}
 
 .button_wrapper {
     display: flex;
     gap: 20px;
  }
 
- .button_mobile_app svg rect, .button_mobile_app:hover svg path {
-    transition: all 0.6s;
- }
- .button_mobile_app:hover svg rect {
-    fill: #665F55;
-    stroke: #665F55;
-    transition: all 0.6s;
 
+.button_mobile_app svg path {
+    transition: all 0.6s;
 }
+
 .button_mobile_app:hover svg path {
     fill: #E1D4C9;
     transition: all 0.6s;
