@@ -313,17 +313,17 @@ footer h2 {
     align-items: center;
     border: 1px solid var(--borger-light);
     border-radius: 100%;
-    transition: all 0.4s;
+    transition: all 0.6s;
 }
 
 .footer_social a:hover {
     background: var(--bg-body);
     border: 1px solid var(--bg-body);
-    transition: all 0.4s;
+    transition: all 0.6s;
 }
 .footer_social a:hover svg path{
     stroke: #403F3D;
-    transition: all 0.4s;
+    transition: all 0.6s;
 }
 
 .footer_right {
