@@ -27,11 +27,10 @@ body {
 
 .container {
     margin: 0 auto;
-    padding: 0 40px;
-    width: 1440px;
+    width: 1360px;
 }
 
-header .container {
+header {
     margin-top: 20px;
     height: 60px;
     display: flex;
@@ -97,7 +96,7 @@ img {
     display: block;
 }
 
-.enjoy .container {
+.enjoy {
     margin-top: 20px;
     border-radius: 40px;
     padding: 100px;
@@ -195,7 +194,6 @@ h2 span {
     margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* grid-template-rows: 1fr 0.3fr 1fr; */
     gap: 40px;
     overflow: hidden;
     grid-template-areas:
@@ -246,12 +244,14 @@ h2 span {
 .mobile_app .wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .mobile_app_descr {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    width: 630px;
 }
 
 .mobile_app_text {
@@ -314,8 +314,9 @@ span.strong {
 }
 
 footer .container {
+    margin-top: 100px;
     display: flex;
-    gap: 100px;
+    gap: 135px;
     border-radius: 40px;
     background: var(--bg-container);
     padding: 100px;
@@ -366,7 +367,6 @@ address {
     display: flex;
     flex-direction: column;
     margin-top: 40px;
-    gap: 16px;
     font-style: normal;
     font-size: 16px;
     font-weight: 600;
@@ -376,7 +376,7 @@ address {
 address ul {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 address li {
     display: flex;
@@ -405,6 +405,12 @@ address li:last-child:after {
 address li:hover::after {
     width: 100%;
     transition: all 0.6s;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%;
 }
 
 .favorites .container {
@@ -492,3 +498,4 @@ address li:hover::after {
 .control_item.active {
     background: var(--border-dard)
 }
+
