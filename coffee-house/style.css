@@ -407,4 +407,88 @@ address li:hover::after {
     transition: all 0.6s;
 }
 
+.favorites .container {
+    margin-top: 100px;
+}
+.favorites h2 {
+    text-align: center;
+}
 
+.slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.arrow_left, .arrow_right {
+    cursor: pointer;
+    display: flex;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border-dard);
+    border-radius: 100%;
+    transition: all 0.6s;
+}
+
+.arrow_left:hover, .arrow_right:hover {
+    background: var(--bg-container);
+    transition: all 0.6s;
+} 
+
+.slider_content img {
+    width: 480px;
+    height: 480px;
+}
+
+.slider_item_descr {
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    align-self: stretch;
+    text-align: center;
+    color: var(--text-dark);
+    margin-top: 20px;
+}
+
+.item_title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%;
+}
+
+.item_descr {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%; 
+}
+
+.item_price {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%;
+}
+
+.slider_controls {
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.control_item {
+    width: 40px;
+    height: 4px;
+    border-radius: 100px;
+    background: var(--borger-light)
+}
+
+.control_item.active {
+    background: var(--border-dard)
+}
