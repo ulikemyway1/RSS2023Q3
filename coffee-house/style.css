@@ -266,19 +266,22 @@ h2 span {
     gap: 20px;
  }
 
+ .button_mobile_app svg rect, .button_mobile_app:hover svg path {
+    transition: all 0.6s;
+ }
  .button_mobile_app:hover svg rect {
     fill: #665F55;
     stroke: #665F55;
-    transition: all 0.4s;
+    transition: all 0.6s;
 
 }
 .button_mobile_app:hover svg path {
     fill: #E1D4C9;
-    transition: all 0.4s;
+    transition: all 0.6s;
 }
 
 .button_mobile_app:hover svg rect, .button_mobile_app:hover svg path {
-    transition: all 0.4s;
+    transition: all 0.6s;
 }
 
 .mobile_app_photo img {
