@@ -477,6 +477,7 @@ h3 {
     font-size: 16px;
     font-weight: 400;
     line-height: 150%; 
+    height: 72px;
 }
 
 .item_price {
@@ -514,11 +515,15 @@ h3 {
     text-align: center;
 }
 
+.menu_category {
+    margin-top: 40px;
+}
 
 .menu_content {
     display: grid;
     grid-template-columns: repeat(4, 310px);
     gap: 40px;
+    margin-top: 40px;
 }
 
 .menu_item {
@@ -528,8 +533,7 @@ h3 {
     width: 310px;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    flex-direction: column;;
 }
 
 .item_info {
@@ -554,7 +558,6 @@ h3 {
     height: 310px;
     width: 310px;
     overflow: hidden;
-    border: 1px solid var(--border-light, #C1B6AD);
 }
 
 .menu_item:hover img {
@@ -570,3 +573,4 @@ h3 {
     font-style: normal;
     font-weight: 600;
 }
+
