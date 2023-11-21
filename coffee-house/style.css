@@ -517,6 +517,11 @@ h3 {
 
 .menu_category {
     margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: 46px;
 }
 
 .menu_content {
@@ -533,7 +538,8 @@ h3 {
     width: 310px;
     overflow: hidden;
     display: flex;
-    flex-direction: column;;
+    flex-direction: column;
+    cursor: pointer;
 }
 
 .item_info {
@@ -574,3 +580,49 @@ h3 {
     font-weight: 600;
 }
 
+.menu_category input {
+    display: none;
+}
+
+.menu_category label {
+    display: flex;
+    padding: 8px 16px 8px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 46px;
+    border-radius: 100px;
+    padding: 8px 16px 8px 8px;
+    color: var(--text-dark);
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid var(--borger-light);
+    cursor: pointer;
+}
+
+.menu_category input:checked + label, label:hover   {
+    color: var(--text-light);
+    background: var(--bg-container);
+    border: 1px solid var(--bg-body);
+}
+
+.menu_category input:checked + label .icon_wrapper, label:hover .icon_wrapper   {
+    background: var(--bg-body);
+}
+
+.menu_category label img {
+    height: 16px;
+}
+
+.menu_category input:checked + label {
+    cursor: default;
+}
+.menu_category label .icon_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    background: var(--borger-light);
+}

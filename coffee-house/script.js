@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
     }
     
-    loadMenu(showCoffee)
+    loadMenu(showCoffee);
 
     function createMenuItem(name, descr, price, index) {
         const menuItem = document.createElement('div');
