@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/inter');
 * {
     margin: 0;
     padding: 0;
@@ -47,6 +48,7 @@ header {
     align-items: center;
 }
 
+
 .hover_underline {
     position: relative;
 }
@@ -62,7 +64,7 @@ header {
 }
 
 .menu_button.hover_underline::after {
-    margin-top: -6px;
+    margin-top: -3px;
 }
 
 
@@ -108,6 +110,8 @@ img {
     padding: 100px;
     border-radius: 40px;
     background: url('img/enjoy_bg.jpg'), lightgray 50% / cover no-repeat;
+    background-position: center;
+    background-size: 1360px auto;
     height: 644px;
 }
 
@@ -116,7 +120,7 @@ h1 {
     font-size: 72px;
     font-style: normal;
     font-weight: 600;
-    line-height: 105%;
+    line-height: 106%;
     color: var(--text-light);
     cursor: default;
 }
@@ -196,6 +200,24 @@ h2 span {
     font-weight: 600;
 }
 
+.about_descr {
+    letter-spacing: -0.066px;
+}
+
+.menu h1 {
+    color: var(--text-dark);
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 125%;
+}
+
+.menu h1 span {
+    color: var(--text-accent, #B0907A);
+    font-size: 60px;
+    font-style: italic;
+    font-weight: 600;
+}
+
 .about_wrapper {
     margin-top: 40px;
     display: grid;
@@ -232,6 +254,8 @@ h2 span {
 }
 
 .about img {
+    height: 726px;
+    width: 726px;
     transition: all 0.4s;
 }
 
@@ -269,12 +293,13 @@ h2 span {
 
 .button_mobile_app {
     display: flex;
-    gap: 8px;
+    gap: 8.3px;
     align-items: center;
     width: 200px;
+    height: 64px;
     border-radius: 100px;
     border: 1px solid var(--border-dard);
-    padding: 12px 20px;
+    padding: 12px 19px;
     font-size: 10px;
     font-style: normal;
     font-weight: 600;
@@ -282,11 +307,20 @@ h2 span {
     color: var(--text-dark);
     transition: all 0.6s;
  }
-
+.button_mobile_app div {
+    display: flex;
+    flex-direction: column;
+    height: 40px;
+    gap: 2px;
+}
  .button_mobile_app:hover {
     background: #665F55;
     color: var(--borger-light);
     transition: all 0.6s;
+ }
+
+ .button_mobile_app span {
+    line-height: 140%;
  }
 
 span.strong {
@@ -431,6 +465,7 @@ h3 {
     justify-content: space-between;
     align-items: center;
     margin-top: 40px;
+    padding: 0 4px;
 }
 
 .arrow_left, .arrow_right {
@@ -477,7 +512,7 @@ h3 {
     font-size: 16px;
     font-weight: 400;
     line-height: 150%; 
-    height: 72px;
+    height: 50px;
 }
 
 .item_price {
@@ -488,7 +523,7 @@ h3 {
 
 .slider_controls {
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 38px;
     display: flex;
     justify-content: center;
     gap: 12px;
@@ -509,7 +544,7 @@ h3 {
 .menu {
     margin-top: 20px;
 }
-.menu h2 {
+.menu h1 {
     width: 800px;
     margin: 0 auto;
     text-align: center;
@@ -580,6 +615,10 @@ h3 {
     font-weight: 600;
 }
 
+.menu_item .item_descr {
+    height: 72px;
+}
+
 .menu_category input {
     display: none;
 }
@@ -598,16 +637,19 @@ h3 {
     font-weight: 600;
     border: 1px solid var(--borger-light);
     cursor: pointer;
+    transition: all 0.6s;
 }
 
 .menu_category input:checked + label, label:hover   {
     color: var(--text-light);
     background: var(--bg-container);
     border: 1px solid var(--bg-body);
+    transition: all 0.6s;
 }
 
 .menu_category input:checked + label .icon_wrapper, label:hover .icon_wrapper   {
     background: var(--bg-body);
+    transition: all 0.6s;
 }
 
 .menu_category label img {
