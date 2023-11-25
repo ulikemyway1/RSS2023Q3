@@ -62,16 +62,10 @@ header {
     background: #403F3D;
 }
 
-.menu_button.hover_underline::after {
-    margin-top: -3px;
-}
-
-
 .header_nav ul li:hover > .hover_underline::after, .menu_button:hover.hover_underline::after, .active_menu.hover_underline::after {
     width: 100%;
     opacity: 1;
 }
-
 
 a {
     text-decoration: none;
@@ -96,8 +90,31 @@ a {
 
 .menu_button.active_menu {
     cursor: default;
+    color: var(--text-dark);
+    margin-top: 1px;
 }
 
+.menu_button a {
+    display: flex;
+    gap: 8px;
+}
+
+.menu_button span {
+    display: inline;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+.menu_button img {
+    width: 20px;
+    height: 20px;
+}
+
+.active_menu img {
+    display: inline;
+    margin-left: 8px;
+}
 
 img {
     display: block;
