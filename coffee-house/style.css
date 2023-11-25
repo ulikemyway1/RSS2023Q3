@@ -94,7 +94,7 @@ a {
     padding: 0;
 }
 
-.menu_button.active_menu a{
+.menu_button.active_menu {
     cursor: default;
 }
 
