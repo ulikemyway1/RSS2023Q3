@@ -23,7 +23,6 @@ html {
 body {
     background-color: var(--bg-body);
     font-family: Inter;
-    user-select: none;
 }
 
 .container {
@@ -625,7 +624,7 @@ h3 {
 }
 
 .menu_item .item_descr {
-    height: 72px;
+    height: 71px;
 }
 
 .menu_category input {
@@ -656,7 +655,7 @@ h3 {
     transition: all 0.6s;
 }
 
-.menu_category input:checked + label .icon_wrapper, label:hover .icon_wrapper   {
+.menu_category input:checked + label .icon_wrapper, .menu_category label:hover .icon_wrapper   {
     background: var(--bg-body);
     transition: all 0.6s;
 }
@@ -676,4 +675,5 @@ h3 {
     width: 30px;
     border-radius: 100%;
     background: var(--borger-light);
+    transition: all 0.6s;
 }

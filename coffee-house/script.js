@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < 8; i += 1) {
             coffee.push(menu[i])
         }
-        console.log(coffee)
         coffee.forEach((item, index) => {
             createMenuItem(item.name, item.description, item.price, index)
         })
