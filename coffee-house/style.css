@@ -485,6 +485,15 @@ h3 {
     transition: all 0.6s;
 } 
 
+.arrow_left:hover svg path, .arrow_right:hover svg path {
+    stroke: var(--text-light);
+    transition: all 0.6s;
+}
+
+.arrow_left svg path, .arrow_right svg path {
+    transition: all 0.6s;
+}
+
 .slider_content img {
     width: 480px;
     height: 480px;
