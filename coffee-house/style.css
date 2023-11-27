@@ -46,7 +46,9 @@ header {
     list-style: none;
     align-items: center;
 }
-
+.header_nav ul li {
+    height: 23px;
+}
 
 .hover_underline {
     position: relative;
@@ -60,6 +62,10 @@ header {
     width: 0px;
     opacity: 0;
     background: #403F3D;
+}
+
+.header_nav ul li > .hover_underline::after {
+    margin-top: 5px;
 }
 
 .header_nav ul li:hover > .hover_underline::after, .menu_button:hover.hover_underline::after, .active_menu.hover_underline::after {
@@ -91,29 +97,19 @@ a {
 .menu_button.active_menu {
     cursor: default;
     color: var(--text-dark);
-    margin-top: 1px;
 }
 
-.menu_button a {
+.menu_button a, .menu_button p.menu_link {
     display: flex;
+    align-items: center;
     gap: 8px;
-}
-
-.menu_button span {
-    display: inline;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 150%;
+    height: 28px;
 }
 
 .menu_button img {
     width: 20px;
     height: 20px;
-}
-
-.active_menu img {
-    display: inline;
-    margin-left: 8px;
+    align-self: flex-start;
 }
 
 img {
@@ -410,6 +406,10 @@ footer h2 {
     transition: all 0.6s;
 }
 
+.footer_social a svg path{
+    transition: all 0.6s;
+}
+
 .footer_right {
     display: flex;
     align-items: center;
@@ -582,7 +582,7 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 14px;
     height: 46px;
 }
 
@@ -622,9 +622,9 @@ h3 {
 }
 
 .img_wrapper {
-    border-radius: 40px;
-    height: 310px;
-    width: 310px;
+    border-radius: 39px;
+    height: 308px;
+    width: 308px;
     overflow: hidden;
 }
 
@@ -636,6 +636,7 @@ h3 {
 .item_info {
     color: var(--text-dark);
 }
+
 .item_title {
     font-size: 24px;
     font-style: normal;
@@ -656,7 +657,7 @@ h3 {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    height: 46px;
+    height: 48px;
     border-radius: 100px;
     padding: 8px 16px 8px 8px;
     color: var(--text-dark);
