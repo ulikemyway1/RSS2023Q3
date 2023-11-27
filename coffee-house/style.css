@@ -406,6 +406,10 @@ footer h2 {
     transition: all 0.6s;
 }
 
+.footer_social a svg path{
+    transition: all 0.6s;
+}
+
 .footer_right {
     display: flex;
     align-items: center;
