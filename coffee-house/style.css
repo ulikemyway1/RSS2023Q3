@@ -112,6 +112,26 @@ img {
     display: block;
 }
 
+
+.menu_button_touch {
+    display: none;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border-dard);
+    border-radius: 100%;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.menu_button_touch div {
+    width: 16px;
+    height: 2px;
+    background: var(--text-dark);
+}
+
 .enjoy {
     margin-top: 20px;
     border-radius: 40px;

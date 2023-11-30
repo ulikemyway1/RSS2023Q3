@@ -1,0 +1,14 @@
+@media (max-width: 768px) {
+    .container {
+        width: 100vw;
+        padding: 0 40px;
+    }
+
+    .header_nav, .menu_button {
+        display: none;
+    }
+
+    .menu_button_touch {
+        display: flex;
+    }
+}
