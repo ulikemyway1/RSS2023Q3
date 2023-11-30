@@ -25,20 +25,29 @@
 
     .button_enjoy span {
         transform: translateX(0px);
-     }
+    }
 
-     .about_wrapper {
+    .about_wrapper {
         grid-template-columns: 1fr;
         grid-template-rows: 590px;
         grid-template-areas: unset;
-     }
+    }
 
-     #about2, #about3 {
+    #about2, #about3 {
         display: none;
-     }
+    }
 
-     #about1, #about4 {
+    #about1, #about4 {
         grid-area: unset;
-     }
+    }
+
+    .mobile_app .wrapper {
+        flex-direction: column;
+        gap: 100px;
+    }
+
+    .mobile_app_descr {
+        width: unset;
+    }
   
 }
