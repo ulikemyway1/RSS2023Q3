@@ -11,4 +11,20 @@
     .menu_button_touch {
         display: flex;
     }
+
+    .enjoy {
+        padding: 100px 60px;
+        background-size: 1245px auto;
+    }
+
+
+    .button_enjoy img {
+        margin-left: 8px;
+        opacity: 1;
+    }
+
+    .button_enjoy span {
+        transform: translateX(0px);
+     }
+
 }
