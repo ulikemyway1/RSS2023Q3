@@ -68,10 +68,6 @@ header {
     margin-top: 5px;
 }
 
-.header_nav ul li:hover > .hover_underline::after, .menu_button:hover.hover_underline::after, .active_menu.hover_underline::after {
-    width: 100%;
-    opacity: 1;
-}
 
 a {
     text-decoration: none;
@@ -178,10 +174,6 @@ h1 span {
     opacity: 0;
     transition: all 0.4s;
 }
-.button_enjoy:hover img {
-    margin-left: 8px;
-    opacity: 1;
-}
 
 .button_enjoy span {
     position: relative;
@@ -190,9 +182,6 @@ h1 span {
     transition: all 0.4s;
  }
 
-.button_enjoy:hover span {
-   transform: translateX(0px);
-}
 
 .about .container {
     margin-top: 100px;
@@ -260,10 +249,7 @@ h2 span {
     height: 590px;
 }
 
-.about img:hover {
-    transform: scale(0.91);
-    transition: all 0.4s;
-}
+
 
 .about img {
     height: 726px;
@@ -325,11 +311,7 @@ h2 span {
     height: 40px;
     gap: 2px;
 }
- .button_mobile_app:hover {
-    background: #665F55;
-    color: var(--borger-light);
-    transition: all 0.6s;
- }
+
 
  .button_mobile_app span {
     line-height: 140%;
@@ -351,14 +333,6 @@ span.strong {
     transition: all 0.6s;
 }
 
-.button_mobile_app:hover svg path {
-    fill: #E1D4C9;
-    transition: all 0.6s;
-}
-
-.button_mobile_app:hover svg rect, .button_mobile_app:hover svg path {
-    transition: all 0.6s;
-}
 
 .mobile_app_photo img {
     width: 630px;
@@ -396,15 +370,6 @@ footer h2 {
     transition: all 0.6s;
 }
 
-.footer_social a:hover {
-    background: var(--bg-body);
-    border: 1px solid var(--bg-body);
-    transition: all 0.6s;
-}
-.footer_social a:hover svg path{
-    stroke: #403F3D;
-    transition: all 0.6s;
-}
 
 .footer_social a svg path{
     transition: all 0.6s;
@@ -459,11 +424,6 @@ address li:last-child:after {
     content: none
 }
 
-address li:hover::after {
-    width: 100%;
-    opacity: 1;
-    transition: all 0.6s;
-}
 
 h3 {
     font-size: 24px;
@@ -498,15 +458,8 @@ h3 {
     transition: all 0.6s;
 }
 
-.arrow_left:hover, .arrow_right:hover {
-    background: var(--bg-container);
-    transition: all 0.6s;
-} 
 
-.arrow_left:hover svg path, .arrow_right:hover svg path {
-    stroke: var(--text-light);
-    transition: all 0.6s;
-}
+
 
 .arrow_left svg path, .arrow_right svg path {
     transition: all 0.6s;
@@ -628,10 +581,7 @@ h3 {
     overflow: hidden;
 }
 
-.menu_item:hover img {
-    transform: translateX(-50%) translateY(-50%) scale(0.91);
-    transition: all 0.6s;
-}
+
 
 .item_info {
     color: var(--text-dark);
@@ -668,14 +618,14 @@ h3 {
     transition: all 0.6s;
 }
 
-.menu_category input:checked + label, label:hover   {
+.menu_category input:checked + label {
     color: var(--text-light);
     background: var(--bg-container);
     border: 1px solid var(--bg-body);
     transition: all 0.6s;
 }
 
-.menu_category input:checked + label .icon_wrapper, .menu_category label:hover .icon_wrapper   {
+.menu_category input:checked + label .icon_wrapper {
     background: var(--bg-body);
     transition: all 0.6s;
 }
