@@ -49,5 +49,16 @@
     .mobile_app_descr {
         width: unset;
     }
-  
+    
+    footer .container {
+        flex-direction: column;
+        gap: 100px;
+        width: calc(100vw - 80px);
+        padding: 100px 60px;
+    }
+
+    .footer_right {
+        display: block;
+        margin-bottom: 4px;
+    }
 }
