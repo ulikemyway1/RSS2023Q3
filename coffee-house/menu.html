@@ -12,20 +12,25 @@
     <link rel="icon" type="image/png" href="img/favicon/fav-96.png" sizes="96x96">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="hover.css">
+    <link rel="stylesheet" href="media768.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo"> <a href="index.html"><img src="img/logo.svg" alt="MAIN PAGE"></a></div>
+            <div class="logo"><a href="index.html"><img src="img/logo.svg" alt="MAIN PAGE"></a></div>
             <nav class="header_nav">
                 <ul>
-                    <li><a href="https://rolling-scopes-school.github.io/ulikemyway1-JSFE2023Q4/coffee-house/index.html#favorites" class="hover_underline">Favorite coffee</a></li>
-                    <li><a href="https://rolling-scopes-school.github.io/ulikemyway1-JSFE2023Q4/coffee-house/index.html#about" class="hover_underline">About</a></li>
-                    <li><a href="https://rolling-scopes-school.github.io/ulikemyway1-JSFE2023Q4/coffee-house/index.html#mobile" class="hover_underline">Mobile app</a></li>
+                    <li><a href="#favorites" class="hover_underline">Favorite coffee</a></li>
+                    <li><a href="#about" class="hover_underline">About</a></li>
+                    <li><a href="#mobile" class="hover_underline">Mobile app</a></li>
                     <li><a href="#footer" class="hover_underline">Contact us</a></li>
                 </ul>
             </nav>
-            <div class="menu_button hover_underline active_menu"><p class="menu_link"><span>Menu</span><img src="img/coffee-cup.svg" alt="MENU"></p></div>
+            <div class="menu_button hover_underline"><a href="menu.html"><span>Menu</span><img src="img/coffee-cup.svg" alt="MENU"></a></div>
+            <div class="menu_button_touch">
+                <div></div>
+                <div></div>
+            </div>
     </header>
     </div>
     <section class="menu">
@@ -56,10 +61,17 @@
                 </div>
                 <div class="menu_content"></div>
             </div>
+            <button class="load_more_btn">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0.5" y="0.5" width="59" height="59" rx="29.5" stroke="#665F55"/>
+                    <path d="M39.8883 31.5C39.1645 36.3113 35.013 40 30 40C24.4772 40 20 35.5228 20 30C20 24.4772 24.4772 20 30 20C34.1006 20 37.6248 22.4682 39.1679 26" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M35 26H39.4C39.7314 26 40 25.7314 40 25.4V21" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </button>
         </div>
     </section>
     <footer>
-        <div class="container" id="footer">
+        <div class="container footer_on_menu" id="footer">
             <div class="footer_left">
                 <h2>Sip, Savor, Smile.<br><span>It’s coffee time!</span></h2>
                 <div class="footer_social">

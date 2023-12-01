@@ -61,4 +61,25 @@
         display: block;
         margin-bottom: 4px;
     }
+
+    .menu h1 {
+        width: auto;
+    }
+
+    .menu_content {
+        grid-template-columns: repeat(2, 310px);
+        justify-content: center;
+    }
+
+    .menu_item:not(:nth-of-type(-n+4)) {
+        display: none;
+    }
+
+    .load_more_btn {
+        display: block;
+    }
+    
+    footer .footer_on_menu {
+        margin-top: 97px;
+    }
 }
