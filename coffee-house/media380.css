@@ -85,4 +85,8 @@
    .item_title {
     margin-top: 1px;
    }
+
+   .line_breaker {
+    display: none;
+   }
 }

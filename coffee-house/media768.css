@@ -46,6 +46,9 @@
         gap: 100px;
     }
 
+    .mobile_app_photo {
+        width: 92%;
+    }
     .mobile_app_descr {
         width: unset;
     }
@@ -81,5 +84,9 @@
     
     footer .footer_on_menu {
         margin-top: 97px;
+    }
+
+    h2, h2 span {
+        font-size: 60px;
     }
 }
