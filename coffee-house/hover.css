@@ -1,0 +1,82 @@
+@media (hover: hover) {
+    .header_nav ul li:hover > .hover_underline::after, .menu_button:hover.hover_underline::after, .active_menu.hover_underline::after {
+        width: 100%;
+        opacity: 1;
+    }
+
+    .button_enjoy:hover img {
+        margin-left: 8px;
+        opacity: 1;
+    }
+
+    .button_enjoy:hover span {
+        transform: translateX(0px);
+     }
+
+     .about img:hover {
+        transform: scale(0.91);
+        transition: all 0.4s;
+    }
+
+    .button_mobile_app:hover {
+        background: #665F55;
+        color: var(--borger-light);
+        transition: all 0.6s;
+     }
+
+     .button_mobile_app:hover svg path {
+        fill: #E1D4C9;
+        transition: all 0.6s;
+    }
+
+    .button_mobile_app:hover svg rect, .button_mobile_app:hover svg path {
+        transition: all 0.6s;
+    }
+
+    .footer_social a:hover {
+        background: var(--bg-body);
+        border: 1px solid var(--bg-body);
+        transition: all 0.6s;
+    }
+
+    .footer_social a:hover svg path{
+        stroke: #403F3D;
+        transition: all 0.6s;
+    }
+
+    address li:hover::after {
+        width: 100%;
+        opacity: 1;
+        transition: all 0.6s;
+    }
+
+    .arrow_left:hover, .arrow_right:hover {
+        background: var(--bg-container);
+        transition: all 0.6s;
+    } 
+
+    .arrow_left:hover svg path, .arrow_right:hover svg path {
+        stroke: var(--text-light);
+        transition: all 0.6s;
+    }
+
+    .menu_item:hover img {
+        transform: translateX(-50%) translateY(-50%) scale(0.91);
+        transition: all 0.6s;
+    }
+
+    label:hover   {
+        color: var(--text-light);
+        background: var(--bg-container);
+        border: 1px solid var(--bg-body);
+        transition: all 0.6s;
+    }
+
+    .menu_category label:hover .icon_wrapper   {
+        background: var(--bg-body);
+        transition: all 0.6s;
+    }
+
+
+    
+}
