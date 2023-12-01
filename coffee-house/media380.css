@@ -70,4 +70,19 @@
         padding: 0;
     }
 
+    .menu h1, .menu h1 span {
+        font-size: 32px;
+    }
+
+    .menu_content {
+        grid-template-columns: 310px;
+    }
+
+    .menu_category {
+        gap: 6px;
+    }
+
+   .item_title {
+    margin-top: 1px;
+   }
 }
