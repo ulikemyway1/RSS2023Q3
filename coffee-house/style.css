@@ -28,7 +28,7 @@ body {
 .container {
     margin: 0 auto;
     width: calc(100vw - 80px);
-    max-width: 1440px;
+    max-width: 1360px;
 }
 
 header {
@@ -320,7 +320,7 @@ h2 span {
     border-radius: 100px;
     border: 1px solid var(--border-dard);
     padding: 12px 19px;
-    font-size: 10px;
+    font-size: clamp(8px, 1vw, 10px);
     font-style: normal;
     font-weight: 600;
     line-height: 140%;
@@ -340,7 +340,7 @@ h2 span {
  }
 
 span.strong {
-    font-size: 16px;
+    font-size: clamp(11px, 1.5vw, 16px);
     font-weight: 600;
     line-height: 150%;
 }
