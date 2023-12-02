@@ -64,7 +64,7 @@
         flex-direction: column;
         gap: 100px;
         width: calc(100vw - 80px);
-        padding: 100px 60px;
+        padding: clamp(3.75rem, -5.179rem + 23.81vw, 6.25rem) clamp(1rem, -8.821rem + 26.19vw, 3.75rem);
     }
 
     .footer_right {
@@ -94,6 +94,23 @@
     }
 
     h2, h2 span {
-        font-size: 60px;
+        font-size: clamp(2rem, -4.25rem + 16.67vw, 3.75rem);
+    }
+
+    h1, .enjoy_descr {
+        width: auto;
+    }
+
+    h1 {
+        font-size: clamp(2.625rem, -4.071rem + 17.86vw, 4.5rem);
+    }
+
+    .slider_content img {
+        width: clamp(21.75rem, -7.94rem + 79.04vw, 30rem);
+        height: clamp(21.75rem, -7.94rem + 79.04vw, 30rem);
+    }
+    
+    .slider_item_descr {
+        width: clamp(21.75rem, -7.94rem + 79.04vw, 30rem);
     }
 }
