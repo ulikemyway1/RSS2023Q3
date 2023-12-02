@@ -52,7 +52,14 @@
     .mobile_app_descr {
         width: unset;
     }
-    
+
+    .button_mobile_app {
+        font-size: clamp(8px, 2vw, 10px);
+    }
+    span.strong {
+        font-size: clamp(12px, 2.5vw, 16px);
+    }
+
     footer .container {
         flex-direction: column;
         gap: 100px;
