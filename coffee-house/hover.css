@@ -80,3 +80,14 @@
 
     
 }
+
+@media (hover: none) {
+    .button_enjoy img {
+        margin-left: 8px;
+        opacity: 1;
+    }
+    
+    .button_enjoy span {
+        transform: translateX(0px);
+    }
+}
