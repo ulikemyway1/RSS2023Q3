@@ -3,9 +3,9 @@
         padding: 0 16px;
     }
 
-    h1, .enjoy_descr {
+    /* h1, .enjoy_descr {
        width: clamp(16rem, -4rem + 100vw, 19.75rem)
-    }
+    } */
     
     h1 {
         font-size: clamp(2.188rem, -0.146rem + 11.67vw, 2.625rem);
