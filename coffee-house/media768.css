@@ -17,16 +17,6 @@
         background-size: 1245px auto;
     }
 
-
-    .button_enjoy img {
-        margin-left: 8px;
-        opacity: 1;
-    }
-
-    .button_enjoy span {
-        transform: translateX(0px);
-    }
-
     .about_wrapper {
         grid-template-columns: 1fr;
         grid-template-rows: 590px;
@@ -115,4 +105,11 @@
     footer .container {
         gap: clamp(1.25rem, -6.987rem + 17.14vw, 8.438rem);
     }
+
+    .about img {
+        width: clamp(36.875rem, 27.134rem + 20.27vw, 45.375rem);
+        height: clamp(36.875rem, 27.134rem + 20.27vw, 45.375rem);
+    }
+
 }
+
