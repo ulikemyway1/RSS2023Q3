@@ -46,10 +46,20 @@
         gap: 100px;
     }
 
+    .mobile_app_photo {
+        width: 92%;
+    }
     .mobile_app_descr {
         width: unset;
     }
-    
+
+    .button_mobile_app {
+        font-size: clamp(8px, 2vw, 10px);
+    }
+    span.strong {
+        font-size: clamp(12px, 2.5vw, 16px);
+    }
+
     footer .container {
         flex-direction: column;
         gap: 100px;
@@ -81,5 +91,9 @@
     
     footer .footer_on_menu {
         margin-top: 97px;
+    }
+
+    h2, h2 span {
+        font-size: 60px;
     }
 }

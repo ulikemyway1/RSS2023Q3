@@ -1,14 +1,14 @@
-@media (max-width: 380px) {
+@media (max-width: 600px) {
     .container {
         padding: 0 16px;
     }
 
     h1, .enjoy_descr {
-        width: 316px;
+       width: clamp(16rem, -4rem + 100vw, 19.75rem)
     }
     
     h1 {
-        font-size: 42px;
+        font-size: clamp(2.188rem, -0.146rem + 11.67vw, 2.625rem);
         line-height: 115%;
     }
 
@@ -19,7 +19,7 @@
     }
 
     h2, h2 span {
-        font-size: 32px;
+        font-size: clamp(1.875rem, 1.208rem + 3.33vw, 2rem);
     }
 
     .slider_left, .slider_right {
@@ -27,12 +27,12 @@
     }
 
     .slider_content img {
-        width: 348px;
-        height: 348px;
+        width: clamp(19rem, 4.333rem + 73.33vw, 21.75rem);
+        height: clamp(19rem, 4.333rem + 73.33vw, 21.75rem);
     }
 
     .slider_item_descr {
-        width: 348px;
+        width: clamp(19.063rem, 4.729rem + 71.67vw, 21.75rem)
     }
 
     .item_descr {
@@ -48,8 +48,11 @@
     }
 
     .mobile_app_photo img {
-        width: 348px;
-        height: 348px;
+        width: 100%;
+    }
+
+    .mobile_app_photo {
+        width: clamp(19.063rem, 4.729rem + 71.67vw, 21.75rem);
     }
 
     .mobile_app .wrapper {
@@ -68,6 +71,7 @@
 
     .slider {
         padding: 0;
+        justify-content: center;
     }
 
     .menu h1, .menu h1 span {
@@ -85,4 +89,16 @@
    .item_title {
     margin-top: 1px;
    }
+
+   .line_breaker {
+    display: none;
+   }
+
+   .button_mobile_app {
+    font-size: clamp(10px, 2vw, 12px);
+} 
+
+span.strong {
+    font-size: clamp(13px, 4.2vw, 17px);
+}
 }

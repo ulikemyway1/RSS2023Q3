@@ -1,4 +1,4 @@
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .header_nav ul li:hover > .hover_underline::after, .menu_button:hover.hover_underline::after, .active_menu.hover_underline::after {
         width: 100%;
         opacity: 1;
