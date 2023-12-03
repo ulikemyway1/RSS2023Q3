@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
         category()
       }
 
-
         function showCoffee() {
         let coffee = [];
         for (let i = 0; i < 8; i += 1) {
@@ -26,13 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const imgWrapper = document.createElement('div');
         imgWrapper.classList.add('img_wrapper');
 
-
         const img = document.createElement('img');
         img.src = `img/menu/coffee/coffee-${index + 1}.jpg`
+        img.alt = name;
 
         const itemInfo = document.createElement('div');
         itemInfo.classList.add('item_info');
-
 
         const itemTitle = document.createElement('div');
         itemTitle.classList.add('item_title');
@@ -53,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         menuItem.append(imgWrapper);
         menuItem.append(itemInfo);
         document.querySelector('.menu_content').append(menuItem);
-
     }
 })
 
