@@ -684,3 +684,8 @@ h3 {
     border: none;
     background: none;
 }
+
+.active_menu.hover_underline::after {
+    width: 100%;
+    opacity: 1;
+}
