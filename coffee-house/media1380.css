@@ -23,7 +23,7 @@
     }
 
     .load_more_btn {
-        display: block;
+        display: flex;
     }
 
     .menu h1 {
