@@ -1,0 +1,12 @@
+.menu_button_touch.open_burger_icon div:nth-child(1) {
+    transform:  translateY(5px) rotate(45deg);
+}
+
+.menu_button_touch.open_burger_icon div:nth-child(2) {
+    transform:  translateY(-5px) rotate(-45deg);
+}
+
+.menu_button_touch.open_burger_icon {
+    align-items: center;
+    justify-content: center;
+}

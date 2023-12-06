@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
     }
     
-    loadMenu(showCoffee);
+    if (document.querySelector('.menu_content')) {
+        loadMenu(showCoffee);
+    }
 
     function createMenuItem(name, descr, price, index) {
         const menuItem = document.createElement('div');
@@ -55,3 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 //week3
+//animation burger menu on click
+const burgerBtn = document.querySelector('.menu_button_touch');
+burgerBtn.addEventListener('click', () => burgerBtn.classList.toggle('open_burger_icon'));

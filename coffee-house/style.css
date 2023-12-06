@@ -131,6 +131,7 @@ img {
     width: 16px;
     height: 2px;
     background: var(--text-dark);
+    transition: all 0.6s;
 }
 
 .enjoy {
