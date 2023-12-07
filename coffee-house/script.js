@@ -114,7 +114,9 @@ function createMenuLink () {
     const menuButton = document.createElement('div');
     menuButton.classList.add('menu_button');
     const a = document.createElement('a');
-    a.href = 'menu.html';
+    if (!document.querySelector('.menu_wrapper')) {
+        a.href = 'menu.html';
+    }
     a.append(document.createElement('span').textContent = 'Menu');
     const coffeeCup = document.createElement('img');
     coffeeCup.src = 'img/coffee-cup.svg';
