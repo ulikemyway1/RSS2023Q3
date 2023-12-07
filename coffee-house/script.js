@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 const burgerBtn = document.querySelector('.menu_button_touch');
 burgerBtn.addEventListener('click', () => {
     toggleBurgerIcon();
-    toggleNav()
+    toggleNav();
+    toggleEventListenerToBurgerMenuitems()
 });
 
 function toggleBurgerIcon () {
@@ -73,11 +74,9 @@ function toggleBurgerIcon () {
 function toggleNav () {
     const nav = document.querySelector('.header_nav');
     if (getComputedStyle(nav).display == 'none') {
-        nav.style.display = 'block';
         toggleBurgerMenu();
         disableScroll();
     } else {
-        nav.style.display = 'none';
         toggleBurgerMenu();
         enableScroll();
     }
@@ -86,18 +85,24 @@ function toggleNav () {
 
 function toggleBurgerMenu () {
     const nav = document.querySelector('.header_nav');
-    nav.classList.toggle('open_burger_menu');
-    if (!document.querySelector('.open_burger_menu .menu_button')) {
-        nav.append(createMenuLink());
+    if (!nav.classList.contains('open_burger_menu')) {
+        nav.classList.toggle('open_burger_menu');
+        if (!document.querySelector('.open_burger_menu .menu_button')) {
+            nav.append(createMenuLink());
+        }
+        setTimeout(() => nav.classList.toggle('shown_burger_menu'), 100);
     } else {
-        document.querySelector('.open_burger_menu .menu_button').remove();
+        setTimeout(() => {
+            if (document.querySelector('.open_burger_menu .menu_button')) {
+                document.querySelector('.open_burger_menu .menu_button').remove();}
+            nav.classList.toggle('open_burger_menu');
+        }, 600);
+        nav.classList.toggle('shown_burger_menu');
     }
-    
 }
 
 function disableScroll () {
     document.body.style.overflow = "hidden";
-
 }
 
 function enableScroll () {
@@ -117,4 +122,27 @@ function createMenuLink () {
     a.append(coffeeCup);
     menuButton.append(a);
     return menuButton;
+}
+
+function toggleEventListenerToBurgerMenuitems () {
+    const nav = document.querySelector('nav');
+    if (nav.getAttribute('listener') !== 'true') {
+        nav.addEventListener('click', toggleNavWraper);
+        nav.setAttribute('listener', 'true');
+   } else {
+        nav.removeEventListener('click', toggleNavWraper);
+        nav.setAttribute('listener', 'false');
+   }
+}
+
+function toggleNavWraper (event) {
+    if (event.target.tagName === 'A') {
+        toggleNav();
+        toggleBurgerIcon();
+        const nav = document.querySelector('nav');
+        if (nav.getAttribute('listener') === 'true') {
+        nav.removeEventListener('click', toggleNavWraper);
+        nav.setAttribute('listener', 'false');
+        }
+    }
 }

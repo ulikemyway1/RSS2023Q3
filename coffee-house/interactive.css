@@ -15,22 +15,33 @@
     position: fixed;
     z-index: 10;
     top: 80px;
-    left: 0px;
+    left: 100%;
     background: var(--bg-body);
     height: calc(100dvh - 80px);
     width: 100%;
+    transition: left 0.6s;
 }
 
+nav.open_burger_menu {
+    display: block;
+}
+
+.open_burger_menu.shown_burger_menu {
+    left: 0;
+}
+.open_burger_menu .menu_button {
+    display: block;
+}
 .open_burger_menu ul {
     flex-direction: column;
-    gap: 77px;
+    gap: 54px;
     padding-top: 80px;
     height: auto;
 }
 .open_burger_menu .menu_button {
     display: flex;
     justify-content: center;
-    margin-top: 123px;
+    margin-top: 100px;
     font-size: 32px;
 }
 

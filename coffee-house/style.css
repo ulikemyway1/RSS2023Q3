@@ -47,9 +47,9 @@ header {
     list-style: none;
     align-items: center;
 }
-.header_nav ul li {
+/* .header_nav ul li {
     height: 23px;
-}
+} */
 
 .hover_underline {
     position: relative;
