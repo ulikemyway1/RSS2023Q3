@@ -59,4 +59,62 @@ document.addEventListener('DOMContentLoaded', () => {
 //week3
 //animation burger menu on click
 const burgerBtn = document.querySelector('.menu_button_touch');
-burgerBtn.addEventListener('click', () => burgerBtn.classList.toggle('open_burger_icon'));
+burgerBtn.addEventListener('click', () => {
+    toggleBurgerIcon();
+    toggleNav()
+});
+
+function toggleBurgerIcon () {
+    burgerBtn.classList.toggle('open_burger_icon');
+}
+
+//open nav
+
+function toggleNav () {
+    const nav = document.querySelector('.header_nav');
+    if (getComputedStyle(nav).display == 'none') {
+        nav.style.display = 'block';
+        toggleBurgerMenu();
+        disableScroll();
+    } else {
+        nav.style.display = 'none';
+        toggleBurgerMenu();
+        enableScroll();
+    }
+    
+}
+
+function toggleBurgerMenu () {
+    const nav = document.querySelector('.header_nav');
+    nav.classList.toggle('open_burger_menu');
+    if (!document.querySelector('.open_burger_menu .menu_button')) {
+        nav.append(createMenuLink());
+    } else {
+        document.querySelector('.open_burger_menu .menu_button').remove();
+    }
+    
+}
+
+function disableScroll () {
+    document.body.style.overflow = "hidden";
+
+}
+
+function enableScroll () {
+    document.body.style.overflow = "auto";
+    
+}
+
+function createMenuLink () {
+    const menuButton = document.createElement('div');
+    menuButton.classList.add('menu_button');
+    const a = document.createElement('a');
+    a.href = 'menu.html';
+    a.append(document.createElement('span').textContent = 'Menu');
+    const coffeeCup = document.createElement('img');
+    coffeeCup.src = 'img/coffee-cup.svg';
+    coffeeCup.alt = 'coffee';
+    a.append(coffeeCup);
+    menuButton.append(a);
+    return menuButton;
+}
