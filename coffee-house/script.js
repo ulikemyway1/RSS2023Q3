@@ -148,3 +148,16 @@ function toggleNavWraper (event) {
         }
     }
 }
+
+//close burger-menu when window size more than 768px
+window.addEventListener('resize', () => {
+    const nav = document.querySelector('.header_nav');
+    if (window.innerWidth > 768 && nav.classList.contains('open_burger_menu')) {
+        enableScroll();
+        burgerBtn.classList.remove('open_burger_icon');
+        nav.classList.remove('open_burger_menu');
+        nav.classList.remove('shown_burger_menu');
+        document.querySelector('.menu_button').remove();
+        toggleEventListenerToBurgerMenuitems();
+    }
+})
