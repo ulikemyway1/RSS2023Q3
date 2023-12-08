@@ -12,11 +12,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         coffee.forEach((item, index) => {
             createMenuItem(item.name, item.description, item.price, index)
-        })
-        
+        })        
+    }
+
+    function showTea () {
+        let tea = [];
+        for (let i = 8; i < 12; i +=1) {
+            tea.push(menu[i])
+        }
+        tea.forEach((item, index) => {
+            createMenuItem(item.name, item.description, item.price, index)
+        }) 
+    }
+
+
+    function showDesserts () {
+        let desserts = [];
+        for (let i = 12; i < 20; i +=1) {
+            desserts.push(menu[i])
+        }
+        desserts.forEach((item, index) => {
+            createMenuItem(item.name, item.description, item.price, index)
+        }) 
     }
     
-    loadMenu(showCoffee);
+    if (document.querySelector('.menu_content')) {
+        loadMenu(showDesserts);
+    }
 
     function createMenuItem(name, descr, price, index) {
         const menuItem = document.createElement('div');
@@ -52,6 +74,140 @@ document.addEventListener('DOMContentLoaded', () => {
         menuItem.append(itemInfo);
         document.querySelector('.menu_content').append(menuItem);
     }
+
+
+//week3
+//animation burger menu on click
+const burgerBtn = document.querySelector('.menu_button_touch');
+burgerBtn.addEventListener('click', () => {
+    toggleBurgerIcon();
+    toggleNav();
+    toggleEventListenerToBurgerMenuitems()
+});
+
+function toggleBurgerIcon () {
+    burgerBtn.classList.toggle('open_burger_icon');
+}
+
+//open nav
+
+function toggleNav () {
+    const nav = document.querySelector('.header_nav');
+    if (getComputedStyle(nav).display == 'none') {
+        toggleBurgerMenu();
+        disableScroll();
+    } else {
+        toggleBurgerMenu();
+        enableScroll();
+    }
+    
+}
+
+function toggleBurgerMenu () {
+    const nav = document.querySelector('.header_nav');
+    if (!nav.classList.contains('open_burger_menu')) {
+        nav.classList.toggle('open_burger_menu');
+        if (!document.querySelector('.open_burger_menu .menu_button')) {
+            nav.append(createMenuLink());
+        }
+        setTimeout(() => nav.classList.toggle('shown_burger_menu'), 100);
+    } else {
+        setTimeout(() => {
+            if (document.querySelector('.open_burger_menu .menu_button')) {
+                document.querySelector('.open_burger_menu .menu_button').remove();}
+            nav.classList.toggle('open_burger_menu');
+        }, 600);
+        nav.classList.toggle('shown_burger_menu');
+    }
+}
+
+function disableScroll () {
+    document.body.style.overflow = "hidden";
+}
+
+function enableScroll () {
+    document.body.style.overflow = "auto";
+    
+}
+
+function createMenuLink () {
+    const menuButton = document.createElement('div');
+    menuButton.classList.add('menu_button');
+    const a = document.createElement('a');
+    if (!document.querySelector('.menu_wrapper')) {
+        a.href = 'menu.html';
+    }
+    a.append(document.createElement('span').textContent = 'Menu');
+    const coffeeCup = document.createElement('img');
+    coffeeCup.src = 'img/coffee-cup.svg';
+    coffeeCup.alt = 'coffee';
+    a.append(coffeeCup);
+    menuButton.append(a);
+    return menuButton;
+}
+
+function toggleEventListenerToBurgerMenuitems () {
+    const nav = document.querySelector('nav');
+    if (nav.getAttribute('listener') !== 'true') {
+        nav.addEventListener('click', toggleNavWraper);
+        nav.setAttribute('listener', 'true');
+   } else {
+        nav.removeEventListener('click', toggleNavWraper);
+        nav.setAttribute('listener', 'false');
+   }
+}
+
+function toggleNavWraper (event) {
+    if (event.target.tagName === 'A') {
+        toggleNav();
+        toggleBurgerIcon();
+        const nav = document.querySelector('nav');
+        if (nav.getAttribute('listener') === 'true') {
+        nav.removeEventListener('click', toggleNavWraper);
+        nav.setAttribute('listener', 'false');
+        }
+    }
+}
+
+//close burger-menu when window size more than 768px
+window.addEventListener('resize', () => {
+    const nav = document.querySelector('.header_nav');
+    if (window.innerWidth > 768 && nav.classList.contains('open_burger_menu')) {
+        enableScroll();
+        burgerBtn.classList.remove('open_burger_icon');
+        nav.classList.remove('open_burger_menu');
+        nav.classList.remove('shown_burger_menu');
+        document.querySelector('.menu_button').remove();
+        toggleEventListenerToBurgerMenuitems();
+    }
 })
 
 
+//menu
+
+if(document.querySelector('.menu_category')) {
+    const categoryControls = document.querySelectorAll('.menu_category input');
+    categoryControls.forEach((item) => {
+        item.addEventListener('click', (e) => {
+            console.dir(e.target.checked)
+            deleteCurrentCategoryItems();
+            if (e.target.id === 'coffee') {
+                loadMenu(showCoffee);
+            }
+            if (e.target.id === 'tea') {
+                loadMenu(showTea);
+            }
+            if (e.target.id === 'dessert') {
+                loadMenu(showDesserts);
+            }
+        })
+    })
+   
+}
+
+
+function deleteCurrentCategoryItems () {
+    document.querySelector('.menu_content').innerHTML = '';
+}
+
+})
