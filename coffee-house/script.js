@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             coffee.push(menu[i])
         }
         coffee.forEach((item, index) => {
-            createMenuItem(item.name, item.description, item.price, index)
+            createMenuItem(item.name, item.description, item.price, index, 'coffee')
         })        
     }
 
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tea.push(menu[i])
         }
         tea.forEach((item, index) => {
-            createMenuItem(item.name, item.description, item.price, index)
+            createMenuItem(item.name, item.description, item.price, index, 'tea')
         }) 
     }
 
@@ -32,15 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
             desserts.push(menu[i])
         }
         desserts.forEach((item, index) => {
-            createMenuItem(item.name, item.description, item.price, index)
+            createMenuItem(item.name, item.description, item.price, index, 'dessert')
         }) 
     }
     
     if (document.querySelector('.menu_content')) {
-        loadMenu(showDesserts);
+        loadMenu(showCoffee);
     }
 
-    function createMenuItem(name, descr, price, index) {
+    function createMenuItem(name, descr, price, index, category) {
         const menuItem = document.createElement('div');
         menuItem.classList.add('menu_item');
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         imgWrapper.classList.add('img_wrapper');
 
         const img = document.createElement('img');
-        img.src = `img/menu/coffee/coffee-${index + 1}.jpg`
+        img.src = `img/menu/${category}/${category}-${index + 1}.png`
         img.alt = name;
 
         const itemInfo = document.createElement('div');
@@ -189,7 +189,6 @@ if(document.querySelector('.menu_category')) {
     const categoryControls = document.querySelectorAll('.menu_category input');
     categoryControls.forEach((item) => {
         item.addEventListener('click', (e) => {
-            console.dir(e.target.checked)
             deleteCurrentCategoryItems();
             if (e.target.id === 'coffee') {
                 loadMenu(showCoffee);
