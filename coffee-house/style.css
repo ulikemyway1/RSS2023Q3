@@ -574,6 +574,7 @@ h3 {
     grid-template-columns: repeat(4, 310px);
     gap: 40px;
     margin-top: 40px;
+    min-height: 1052px;
 }
 
 .menu_item {
