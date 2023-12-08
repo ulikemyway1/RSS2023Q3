@@ -12,12 +12,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         coffee.forEach((item, index) => {
             createMenuItem(item.name, item.description, item.price, index)
-        })
-        
+        })        
+    }
+
+    function showTea () {
+        let tea = [];
+        for (let i = 8; i < 12; i +=1) {
+            tea.push(menu[i])
+        }
+        tea.forEach((item, index) => {
+            createMenuItem(item.name, item.description, item.price, index)
+        }) 
+    }
+
+
+    function showDesserts () {
+        let desserts = [];
+        for (let i = 12; i < 20; i +=1) {
+            desserts.push(menu[i])
+        }
+        desserts.forEach((item, index) => {
+            createMenuItem(item.name, item.description, item.price, index)
+        }) 
     }
     
     if (document.querySelector('.menu_content')) {
-        loadMenu(showCoffee);
+        loadMenu(showDesserts);
     }
 
     function createMenuItem(name, descr, price, index) {
@@ -54,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         menuItem.append(itemInfo);
         document.querySelector('.menu_content').append(menuItem);
     }
-})
+
 
 //week3
 //animation burger menu on click
@@ -160,4 +180,34 @@ window.addEventListener('resize', () => {
         document.querySelector('.menu_button').remove();
         toggleEventListenerToBurgerMenuitems();
     }
+})
+
+
+//menu
+
+if(document.querySelector('.menu_category')) {
+    const categoryControls = document.querySelectorAll('.menu_category input');
+    categoryControls.forEach((item) => {
+        item.addEventListener('click', (e) => {
+            console.dir(e.target.checked)
+            deleteCurrentCategoryItems();
+            if (e.target.id === 'coffee') {
+                loadMenu(showCoffee);
+            }
+            if (e.target.id === 'tea') {
+                loadMenu(showTea);
+            }
+            if (e.target.id === 'dessert') {
+                loadMenu(showDesserts);
+            }
+        })
+    })
+   
+}
+
+
+function deleteCurrentCategoryItems () {
+    document.querySelector('.menu_content').innerHTML = '';
+}
+
 })
