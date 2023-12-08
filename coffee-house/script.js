@@ -223,13 +223,13 @@ function deleteCurrentCategoryItems () {
 
 
 //load more products
-
-const moreBtn = document.querySelector('.load_more_btn');
+if (document.querySelector('.load_more_btn')) {
+    const moreBtn = document.querySelector('.load_more_btn');
     moreBtn.addEventListener('click', () => {
         document.querySelector('.menu_content').classList.add('show_all');
         moreBtn.classList.add('hidden');
     })
-
+}
 
 
     async function loadItemInfo(itemID) {
@@ -335,12 +335,16 @@ const moreBtn = document.querySelector('.load_more_btn');
         showOverlay()
     }
     
-    document.querySelector('.menu_content').addEventListener('click', (e) => {
-        if (e.target.closest('.menu_item')) {
-          const itemID = e.target.closest('.menu_item').getAttribute('data-id');
-          loadItemInfo(itemID - 1)
-        }
-    })
+
+    if(document.querySelector('.menu_content')) {
+        document.querySelector('.menu_content').addEventListener('click', (e) => {
+            if (e.target.closest('.menu_item')) {
+              const itemID = e.target.closest('.menu_item').getAttribute('data-id');
+              loadItemInfo(itemID - 1)
+            }
+        })
+    }
+   
 
     function getPhotoNumber(category, itemID) {
         if (category == 'coffee') {
