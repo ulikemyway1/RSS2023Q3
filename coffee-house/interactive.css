@@ -61,3 +61,8 @@ nav.open_burger_menu {
 .open_burger_menu ul li a {
     font-size: 32px;
 }
+
+
+.menu_content.show_all .menu_item:not(:nth-of-type(-n+4)) {
+    display: flex;
+}

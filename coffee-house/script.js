@@ -180,9 +180,16 @@ window.addEventListener('resize', () => {
         document.querySelector('.menu_button').remove();
         toggleEventListenerToBurgerMenuitems();
     }
+    //load_more_btn
+    if (window.innerWidth > 1100 && document.querySelector('.load_more_btn').classList.contains('hidden')) {
+        collapseMenuBoard();
+    }
 })
 
-
+function collapseMenuBoard() {
+        document.querySelector('.load_more_btn').classList.remove('hidden');
+        document.querySelector('.menu_content').classList.remove('show_all');
+}
 //menu
 
 if(document.querySelector('.menu_category')) {
@@ -192,12 +199,16 @@ if(document.querySelector('.menu_category')) {
             deleteCurrentCategoryItems();
             if (e.target.id === 'coffee') {
                 loadMenu(showCoffee);
+                collapseMenuBoard();
             }
             if (e.target.id === 'tea') {
                 loadMenu(showTea);
+                document.querySelector('.load_more_btn').classList.add('hidden');
+                document.querySelector('.menu_content').classList.add('show_all');
             }
             if (e.target.id === 'dessert') {
                 loadMenu(showDesserts);
+                collapseMenuBoard();
             }
         })
     })
@@ -209,4 +220,12 @@ function deleteCurrentCategoryItems () {
     document.querySelector('.menu_content').innerHTML = '';
 }
 
+
+//load more products
+
+const moreBtn = document.querySelector('.load_more_btn');
+    moreBtn.addEventListener('click', () => {
+        document.querySelector('.menu_content').classList.add('show_all');
+        moreBtn.classList.add('hidden');
+    })
 })

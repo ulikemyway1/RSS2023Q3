@@ -699,3 +699,7 @@ h3 {
 .line_breaker {
     display: block;
 }
+
+.load_more_btn.hidden {
+    display: none;
+}
