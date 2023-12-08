@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             coffee.push(menu[i])
         }
         coffee.forEach((item, index) => {
-            createMenuItem(item.name, item.description, item.price, index, 'coffee')
+            createMenuItem(item.name, item.description, item.price, index, 'coffee',  itemID = index + 1)
         })        
     }
 
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tea.push(menu[i])
         }
         tea.forEach((item, index) => {
-            createMenuItem(item.name, item.description, item.price, index, 'tea')
+            createMenuItem(item.name, item.description, item.price, index, 'tea', itemID = index + 9)
         }) 
     }
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             desserts.push(menu[i])
         }
         desserts.forEach((item, index) => {
-            createMenuItem(item.name, item.description, item.price, index, 'dessert')
+            createMenuItem(item.name, item.description, item.price, index, 'dessert', itemID = index + 13)
         }) 
     }
     
@@ -40,9 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         loadMenu(showCoffee);
     }
 
-    function createMenuItem(name, descr, price, index, category) {
+    function createMenuItem(name, descr, price, index, category, itemID) {
         const menuItem = document.createElement('div');
         menuItem.classList.add('menu_item');
+        menuItem.setAttribute('data-ID', itemID)
 
         const imgWrapper = document.createElement('div');
         imgWrapper.classList.add('img_wrapper');
@@ -228,4 +229,138 @@ const moreBtn = document.querySelector('.load_more_btn');
         document.querySelector('.menu_content').classList.add('show_all');
         moreBtn.classList.add('hidden');
     })
+
+
+
+    async function loadItemInfo(itemID) {
+        const menuData = await fetch("products.json");
+        menu = await menuData.json();
+        const itemInfo = menu[itemID];
+        createModal(itemInfo, itemID);
+      }
+    
+    function createModal (itemInfo, itemID) {
+        const modal = document.createElement('div');
+        modal.classList.add('menu_item_modal');
+        const imgWrapper = document.createElement('div');
+        imgWrapper.classList.add('img_wrapper');
+        const img = document.createElement('img');
+            img.src = `img/menu/${itemInfo.category}/${itemInfo.category}-${getPhotoNumber(itemInfo.category, itemID) + 1}.png`
+            img.alt = itemInfo.name;
+        imgWrapper.append(img);
+        
+
+        const modalDescr = document.createElement('div');
+        modalDescr.classList.add('modal_descr');
+
+
+        const modalTitle = document.createElement('div');
+        modalTitle.classList.add('modal_title');
+        modalTitle.textContent = itemInfo.name;
+
+        const modalItemDescr = document.createElement('div');
+        modalItemDescr.classList.add('modal_item_descr');
+        modalItemDescr.textContent = itemInfo.description;
+
+        const modalWrapper = document.createElement('div');
+        modalWrapper.classList.add('modal_wrapper');
+        modalWrapper.append(modalTitle, modalItemDescr);
+
+        const modalSizes = document.createElement('div');
+        modalSizes.classList.add('modal_sizes');
+        modalSizes.textContent = 'Size';
+        modalSizes.innerHTML = `
+        <span>Size</span>
+        <div class="menu_category">
+                    <input type='radio' name="menu_category" id="size_S" checked>
+                    <label for="size_S">
+                        <span class="icon_wrapper">S</span>
+                        ${itemInfo.sizes.s.size}
+                        </label>
+
+                    <input type='radio' name="menu_category" id="size_M">
+                    <label for="size_M">
+                        <span class="icon_wrapper">
+                            M
+                        </span>
+                        ${itemInfo.sizes.m.size}</label>
+
+                    <input type='radio' name="menu_category" id="size_L">
+                    <label for="size_L">
+                        <span class="icon_wrapper">
+                            L
+                        </span>
+                        
+                        ${itemInfo.sizes.l.size}</label>
+                </div>
+        
+        `
+        const modalAdd = document.createElement('div');
+        modalAdd.classList.add('modal_add');
+        modalAdd.innerHTML = `
+        <span>Additeves</span>
+        <div class="menu_category">
+                    <input type='radio' name="menu_category" id="add_1">
+                    <label for="add_1">
+                        <span class="icon_wrapper">1</span>
+                        ${itemInfo.additives[0].name}
+                        </label>
+
+                    <input type='radio' name="menu_category" id="add_2">
+                    <label for="add_2">
+                        <span class="icon_wrapper">
+                            2
+                        </span>
+                        ${itemInfo.additives[1].name}</label>
+
+                    <input type='radio' name="menu_category" id="add_3">
+                    <label for="add_3">
+                        <span class="icon_wrapper">
+                            3
+                        </span>
+                        
+                        ${itemInfo.additives[2].name}</label>
+                </div>
+        
+        `
+        
+
+        const modalPrice = document.createElement('div');
+        modalPrice.classList.add('modal_price');
+
+        modalDescr.append(modalWrapper, modalSizes, modalAdd, modalPrice );
+        modal.append(imgWrapper, modalDescr);
+        document.body.append(modal);
+        disableScroll();
+        showOverlay()
+    }
+    
+    document.querySelector('.menu_content').addEventListener('click', (e) => {
+        if (e.target.closest('.menu_item')) {
+          const itemID = e.target.closest('.menu_item').getAttribute('data-id');
+          loadItemInfo(itemID - 1)
+        }
+    })
+
+    function getPhotoNumber(category, itemID) {
+        if (category == 'coffee') {
+            return itemID;
+        }
+
+        if (category == 'tea') {
+            return itemID - 8;
+        }
+
+        if (category == 'dessert') {
+            return itemID - 12;
+        }
+    }
+
+    function showOverlay() {
+        document.querySelector('.overlay').style.display = 'block';
+    }
 })
+
+
+//menu modals
+
