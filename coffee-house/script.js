@@ -1,4 +1,6 @@
+document.body.click();
 document.addEventListener('DOMContentLoaded', () => {
+
     async function loadMenu(category) {
         const menuData = await fetch("products.json");
         menu = await menuData.json();
@@ -182,9 +184,12 @@ window.addEventListener('resize', () => {
         toggleEventListenerToBurgerMenuitems();
     }
     //load_more_btn
-    if (window.innerWidth > 1100 && document.querySelector('.load_more_btn').classList.contains('hidden')) {
-        collapseMenuBoard();
+    if (document.querySelector('.load_more_btn')) {
+        if (window.innerWidth > 1100 && document.querySelector('.load_more_btn').classList.contains('hidden')) {
+            collapseMenuBoard();
+        }
     }
+
 })
 
 function collapseMenuBoard() {
@@ -472,8 +477,20 @@ if (document.querySelector('.load_more_btn')) {
         enableScroll();
         overlay.removeEventListener('click', hidePopUp)
      }
+
+
+     //video
+
+     const enjoy = document.querySelector('.enjoy')
+     const video = document.createElement('video');
+     video.classList.add('video');
+     video.src = 'video/video.mp4'
+     video.autoplay = true;
+     video.loop = true;
+     video.muted = true;
+     video.play()
+     enjoy.prepend(video)
 })
 
 
-//menu modals
 

@@ -143,9 +143,11 @@ img {
     background-position: center;
     background-size: 1360px auto;
     height: 644px;
+    position: relative;
 }
 
 h1 {
+    position: relative;
     width: 530px;
     font-size: clamp(2.625rem, -0.614rem + 13.64vw, 4.5rem);
     font-style: normal;
@@ -153,6 +155,7 @@ h1 {
     line-height: 106%;
     color: var(--text-light);
     cursor: default;
+    z-index: 1;
 }
 
 h1 span {
@@ -161,6 +164,8 @@ h1 span {
 }
 
 .enjoy_descr {
+    position: relative;
+    z-index: 1;
     width: 530px;
     margin: 40px 0;
     font-size: 16px;
@@ -171,6 +176,7 @@ h1 span {
 }
 
 .button {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -182,6 +188,7 @@ h1 span {
     font-weight: 600;
     line-height: 150%;
     color: var(--text-dark);
+    z-index: 1;
 }
 
 .button_enjoy {
@@ -232,6 +239,7 @@ h2 span {
     font-size: 60px;
     font-weight: 600;
     line-height: 125%;
+    
 }
 
 .menu h1 span {
