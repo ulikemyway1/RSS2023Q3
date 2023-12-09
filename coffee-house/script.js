@@ -490,7 +490,104 @@ if (document.querySelector('.load_more_btn')) {
      video.muted = true;
      video.play()
      enjoy.prepend(video)
+
+
+
+     //slider 
+     const sliderContentWrapper = document.querySelector('.slider_content_wrapper');
+
+     if(sliderContentWrapper) {
+        const leftBtn = document.querySelector('.arrow_left');
+        const rightBtn = document.querySelector('.arrow_right');
+        let number = 1;
+        leftBtn.addEventListener('click', () => {
+            number = moveLeft(number)
+            showSlide(number);
+            moveControlItem(number);
+            sliderAnimateControl.cancel();
+            sliderAnimateControl.play();
+        })
+
+        rightBtn.addEventListener('click', () => {
+            number = moveRight(number)
+            showSlide(number);
+            moveControlItem(number);
+            sliderAnimateControl.cancel();
+            sliderAnimateControl.play();
+        })
+        window.addEventListener('resize', () => showSlide(number))
+
+
+        const sliderStatus = [
+            { width: '0%' },
+            { width: '100%' },
+          ];
+
+
+
+        const status = document.querySelector('.control_item_fill');
+        const sliderAnimateControl = status.animate(sliderStatus, 5000)
+ 
+        sliderAnimateControl.addEventListener('finish', () => {
+            number = moveRight(number)
+            showSlide(number);
+            moveControlItem(number);
+            sliderAnimateControl.play()
+
+        } )
+
+        sliderContentWrapper.addEventListener('mouseover', ()=> {
+            sliderAnimateControl.pause()
+        })
+
+        sliderContentWrapper.addEventListener('mouseout', ()=> {
+            sliderAnimateControl.play()
+        })
+
+        sliderContentWrapper.addEventListener('pointerdown', ()=> {
+            sliderAnimateControl.pause()
+        })
+
+        sliderContentWrapper.addEventListener('mouseup', ()=> {
+            sliderAnimateControl.play()
+        })
+     }
+
+     function showSlide(number = 1) {
+            let i = number;
+            if (number > 3 || number < 1) {
+                i = 1;
+            }
+            const wrapperWidth = parseFloat(window.getComputedStyle(sliderContentWrapper).width);
+            sliderContentWrapper.style.transform = `translateX(${-wrapperWidth * (i - 1)}px)` 
+     }
+
+     function moveRight(number) {
+        number += 1;
+        if (number > 3) {
+            number = 1
+        }
+        return number;
+     }
+
+     function moveLeft(number) {
+        number -= 1;
+        if (number < 1) {
+            number = 3
+        }
+        return number;
+     }
+
+     function moveControlItem(number) {
+        const status = document.querySelector('.control_item_fill');
+        const controlItems = document.querySelectorAll('.control_item');
+        controlItems.forEach(item => item.innerHTML = '')
+        controlItems[number - 1].append(status) 
+
+     }
+
 })
+
 
 
 
