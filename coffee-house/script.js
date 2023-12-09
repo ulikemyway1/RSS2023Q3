@@ -548,6 +548,9 @@ if (document.querySelector('.load_more_btn')) {
             sliderAnimateControl.pause()
         })
 
+        sliderContentWrapper.addEventListener('mouseup', ()=> {
+            sliderAnimateControl.play()
+        })
      }
 
      function showSlide(number = 1) {
