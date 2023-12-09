@@ -544,13 +544,10 @@ if (document.querySelector('.load_more_btn')) {
             sliderAnimateControl.play()
         })
 
-        sliderContentWrapper.addEventListener('touchstart', ()=> {
+        sliderContentWrapper.addEventListener('pointerdown', ()=> {
             sliderAnimateControl.pause()
         })
 
-        sliderContentWrapper.addEventListener('touchendg', ()=> {
-            sliderAnimateControl.play()
-        })
      }
 
      function showSlide(number = 1) {
