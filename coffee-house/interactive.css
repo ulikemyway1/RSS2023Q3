@@ -222,3 +222,11 @@ nav.open_burger_menu {
     filter: brightness(0.7);
     border-radius: 40px;
 }
+
+
+.control_item_fill {
+    height: 100%;
+    border-radius: 100px;
+    background: var(--border-dard);
+    width: 0%;
+}

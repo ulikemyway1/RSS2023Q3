@@ -88,6 +88,10 @@
         height: clamp(21.75rem, -7.94rem + 79.04vw, 30rem);
     }
     
+    .slider_content {
+        width: clamp(21.75rem, -7.94rem + 79.04vw, 30rem);
+    }
+
     .slider_item_descr {
         width: clamp(21.75rem, -7.94rem + 79.04vw, 30rem);
     }
