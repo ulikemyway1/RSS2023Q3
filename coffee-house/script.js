@@ -490,7 +490,56 @@ if (document.querySelector('.load_more_btn')) {
      video.muted = true;
      video.play()
      enjoy.prepend(video)
+
+
+
+     //slider 
+     const sliderContentWrapper = document.querySelector('.slider_content_wrapper');
+
+     if(sliderContentWrapper) {
+        const leftBtn = document.querySelector('.arrow_left');
+        const rightBtn = document.querySelector('.arrow_right');
+        let number = 1;
+        leftBtn.addEventListener('click', () => {
+            number = moveLeft(number)
+            showSlide(number);
+        })
+
+        rightBtn.addEventListener('click', () => {
+            number = moveRight(number)
+            showSlide(number);
+        })
+        window.addEventListener('resize', () => showSlide(number))
+     }
+
+     function showSlide(number = 1) {
+            let i = number;
+            if (number > 3 || number < 1) {
+                i = 1;
+            }
+            const wrapperWidth = parseFloat(window.getComputedStyle(sliderContentWrapper).width);
+            sliderContentWrapper.style.transform = `translateX(${-wrapperWidth * (i - 1)}px)` 
+     }
+
+     function moveRight(number) {
+        number += 1;
+        if (number > 3) {
+            number = 1
+        }
+        return number;
+     }
+
+     function moveLeft(number) {
+        number -= 1;
+        if (number < 1) {
+            number = 3
+        }
+        return number;
+     }
+
+
 })
+
 
 
 
