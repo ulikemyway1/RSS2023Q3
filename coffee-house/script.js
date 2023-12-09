@@ -503,13 +503,54 @@ if (document.querySelector('.load_more_btn')) {
         leftBtn.addEventListener('click', () => {
             number = moveLeft(number)
             showSlide(number);
+            moveControlItem(number);
+            sliderAnimateControl.cancel();
+            sliderAnimateControl.play();
         })
 
         rightBtn.addEventListener('click', () => {
             number = moveRight(number)
             showSlide(number);
+            moveControlItem(number);
+            sliderAnimateControl.cancel();
+            sliderAnimateControl.play();
         })
         window.addEventListener('resize', () => showSlide(number))
+
+
+        const sliderStatus = [
+            { width: '0%' },
+            { width: '100%' },
+          ];
+
+
+
+        const status = document.querySelector('.control_item_fill');
+        const sliderAnimateControl = status.animate(sliderStatus, 5000)
+ 
+        sliderAnimateControl.addEventListener('finish', () => {
+            number = moveRight(number)
+            showSlide(number);
+            moveControlItem(number);
+            sliderAnimateControl.play()
+
+        } )
+
+        sliderContentWrapper.addEventListener('mouseover', ()=> {
+            sliderAnimateControl.pause()
+        })
+
+        sliderContentWrapper.addEventListener('mouseout', ()=> {
+            sliderAnimateControl.play()
+        })
+
+        sliderContentWrapper.addEventListener('touchstart', ()=> {
+            sliderAnimateControl.pause()
+        })
+
+        sliderContentWrapper.addEventListener('touchendg', ()=> {
+            sliderAnimateControl.play()
+        })
      }
 
      function showSlide(number = 1) {
@@ -537,6 +578,13 @@ if (document.querySelector('.load_more_btn')) {
         return number;
      }
 
+     function moveControlItem(number) {
+        const status = document.querySelector('.control_item_fill');
+        const controlItems = document.querySelectorAll('.control_item');
+        controlItems.forEach(item => item.innerHTML = '')
+        controlItems[number - 1].append(status) 
+
+     }
 
 })
 
