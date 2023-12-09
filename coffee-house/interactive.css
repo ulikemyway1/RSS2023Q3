@@ -151,6 +151,7 @@ nav.open_burger_menu {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 440px;
 }
 
 .modal_descr .menu_category {
@@ -161,4 +162,50 @@ nav.open_burger_menu {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.modal_price {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dark);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%
+}
+
+.modal_warning {
+    display: flex;
+    color: var(--text-dark);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 140%;
+    gap: 8px;
+    padding: 12px 0;
+}
+
+.modal_warning svg {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: -5px;
+}
+
+.modal_button {
+    display: flex;
+    padding: 10px 78px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    border-radius: 100px;
+    border: 1px solid var(--border-dard);
+
+    color: var(--text-dark);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    background: none;
+    cursor: pointer;
+    transition: all 0.6s;
 }

@@ -91,6 +91,10 @@
         stroke: var(--text-accent);
     }
     
+    .modal_button:hover {
+        background: var(--bg-container);
+        color: var(--text-light)
+    }
 }
 
 @media (hover: none) and (pointer: coarse) and (max-width: 768px) {
