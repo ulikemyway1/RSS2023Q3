@@ -88,6 +88,18 @@ burgerBtn.addEventListener('click', () => {
     toggleEventListenerToBurgerMenuitems()
 });
 
+const logo = document.querySelector('.logo');
+logo.addEventListener('click', () => {
+    if (document.querySelector('.shown_burger_menu')) {
+       toggleBurgerIcon();
+    toggleNav();
+    toggleEventListenerToBurgerMenuitems() 
+    }
+    
+});
+
+
+
 function toggleBurgerIcon () {
     burgerBtn.classList.toggle('open_burger_icon');
 }
@@ -380,12 +392,21 @@ if (document.querySelector('.load_more_btn')) {
     }
     
     function changePrice(itemInfo) {
+        let costOfAdd = 0;
         if (event.target.closest('input')) {
+          
             if (event.target.closest('input').id[0] === 'a') {
+
+                const input =  event.target.closest('input');
                 const addNum = event.target.closest('input').id[4]
                 if (event.target.closest('input').checked) {
+                    costOfAdd += parseFloat((itemInfo.additives[addNum - 1])['add-price']);
+                    console.log(costOfAdd)
+                    input.classList.add('check');
                     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) + parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
                 } else {
+                    costOfAdd -= parseFloat((itemInfo.additives[addNum - 1])['add-price']);
+                    input.classList.remove('check');
                     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) - parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
                 }
             }
@@ -415,13 +436,15 @@ if (document.querySelector('.load_more_btn')) {
                     })
                     event.target.closest('input').checked = true;
                     event.target.closest('input').disabled = true;
-                    document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) - parseFloat(itemInfo.price) + parseFloat(itemInfo.price) + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
+                    console.log(costOfAdd)
+                    document.querySelector('#price').textContent = (parseFloat(itemInfo.price) + costOfAdd + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
                 } 
                 // else {
                 //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent)  - parseFloat(itemInfo.price) + parseFloat(itemInfo.price) + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
                     
                 // }
-              
+            //    ssss document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) - parseFloat(itemInfo.price) + parseFloat(itemInfo.price) + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
+
     
                 // if (event.target.closest('input').checked) {
                 //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) + parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
@@ -480,16 +503,18 @@ if (document.querySelector('.load_more_btn')) {
 
 
      //video
-
-     const enjoy = document.querySelector('.enjoy')
-     const video = document.createElement('video');
-     video.classList.add('video');
-     video.src = 'video/video.mp4'
-     video.autoplay = true;
-     video.loop = true;
-     video.muted = true;
-     video.play()
-     enjoy.prepend(video)
+     if (document.querySelector('.enjoy')) {
+        const enjoy = document.querySelector('.enjoy')
+        const video = document.createElement('video');
+        video.classList.add('video');
+        video.src = 'video/video.mp4'
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.play()
+        enjoy.prepend(video)
+     }
+ 
 
 
 
