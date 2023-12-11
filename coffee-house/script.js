@@ -500,6 +500,74 @@ if (document.querySelector('.load_more_btn')) {
         const leftBtn = document.querySelector('.arrow_left');
         const rightBtn = document.querySelector('.arrow_right');
         let number = 1;
+
+        // let x1 = 0,
+        //     x2 = 0;
+
+        // sliderContentWrapper.addEventListener('pointerdown', (event) => {
+        //     event.preventDefault();
+        //     console.dir(event)
+        //         x1 = event.clientX;
+        // })
+
+        // sliderContentWrapper.addEventListener('pointerup', (event) => {
+        //     if (!x1) {
+        //         return;
+        //     }
+        //     console.dir(event)
+        //      x2 = event.clientX;
+
+        //      let dx = x2 - x1;
+        //      if (Math.abs(dx) >= 20) {
+        //         if(dx < 0) {
+        //             number = moveRight(number);
+        //          } else {
+        //             number = moveLeft(number);
+        //          }
+        //          showSlide(number);
+        //          moveControlItem(number);
+        //          sliderAnimateControl.cancel();
+        //         sliderAnimateControl.play();
+               
+        //      }
+        //      sliderAnimateControl.play();
+        //      x2 = 0;
+        //     })
+                      
+            let x1 = 0,
+            x2 = 0;
+
+        sliderContentWrapper.addEventListener('touchstart', (event) => {
+
+            event.preventDefault()
+                x1 = event.touches[0].clientX;
+        })
+
+        sliderContentWrapper.addEventListener('touchend', (event) => {
+            if (!x1) {
+                return;
+            }
+
+             x2 = event.changedTouches[0].clientX;
+
+             let dx = x2 - x1;
+             if (Math.abs(dx) >= 20) {
+                if(dx < 0) {
+                    number = moveRight(number);
+                 } else {
+                    number = moveLeft(number);
+                 }
+                 showSlide(number);
+                 moveControlItem(number);
+                 sliderAnimateControl.cancel();
+                sliderAnimateControl.play();
+               
+             }
+             sliderAnimateControl.play();
+             x2 = 0;
+            })
+        
+
         leftBtn.addEventListener('click', () => {
             number = moveLeft(number)
             showSlide(number);
@@ -583,8 +651,11 @@ if (document.querySelector('.load_more_btn')) {
         const controlItems = document.querySelectorAll('.control_item');
         controlItems.forEach(item => item.innerHTML = '')
         controlItems[number - 1].append(status) 
-
      }
+
+ 
+
+     
 
 })
 

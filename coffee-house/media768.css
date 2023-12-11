@@ -95,6 +95,10 @@
     .slider_item_descr {
         width: clamp(21.75rem, -7.94rem + 79.04vw, 30rem);
     }
+
+    .menu_item_modal {
+        width: calc(100% - 80px);
+    }
 }
 
 @media (min-width: 769px) {

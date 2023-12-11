@@ -506,6 +506,7 @@ h3 {
 .slider_content img {
     width: 480px;
     height: 480px;
+    pointer-events: none;
 }
 
 .slider_item_descr {
