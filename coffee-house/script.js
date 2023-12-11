@@ -539,7 +539,7 @@ if (document.querySelector('.load_more_btn')) {
 
         sliderContentWrapper.addEventListener('touchstart', (event) => {
 
-            event.preventDefault()
+            // event.preventDefault()
                 x1 = event.touches[0].clientX;
         })
 
