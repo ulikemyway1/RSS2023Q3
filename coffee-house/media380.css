@@ -107,3 +107,19 @@ span.strong {
     font-size: clamp(13px, 4.2vw, 17px);
 }
 }
+
+@media (max-width: 636px) {
+    .menu_item_modal .img_wrapper {
+        display: none;
+    }
+
+    .menu_item_modal {
+        width: 310px
+    }
+}
+
+@media (max-width: 860px) and (min-width: 769px) {
+    .menu_item_modal {
+        width: clamp(43rem, -15.435rem + 121.74vw, 50rem);
+    }
+}

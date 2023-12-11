@@ -99,6 +99,20 @@
     .menu_item_modal {
         width: calc(100% - 80px);
     }
+    .modal_descr {
+        width: 326px;
+    }
+    .menu_category {
+        flex-wrap: wrap;
+        height: auto;
+    }
+    .modal_item_descr {
+        width: auto;
+    }
+
+    .menu_item_modal .menu_category {
+        margin-top: 9px;
+    }
 }
 
 @media (min-width: 769px) {

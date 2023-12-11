@@ -305,7 +305,7 @@ if (document.querySelector('.load_more_btn')) {
         const modalAdd = document.createElement('div');
         modalAdd.classList.add('modal_add');
         modalAdd.innerHTML = `
-        <span>Additeves</span>
+        <span>Additives</span>
         <div class="menu_category">
                     <input type='checkbox'  id="add_1">
                     <label for="add_1">
