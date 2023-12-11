@@ -98,8 +98,6 @@ logo.addEventListener('click', () => {
     
 });
 
-
-
 function toggleBurgerIcon () {
     burgerBtn.classList.toggle('open_burger_icon');
 }
@@ -114,8 +112,7 @@ function toggleNav () {
     } else {
         toggleBurgerMenu();
         enableScroll();
-    }
-    
+    } 
 }
 
 function toggleBurgerMenu () {
@@ -357,8 +354,6 @@ if (document.querySelector('.load_more_btn')) {
         <div>$<span id='price'>${itemInfo.price}</span></div>
         `
 
-
-
         const modalWarning = document.createElement('div');
         modalWarning.classList.add('modal_warning');
         modalWarning.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -382,8 +377,6 @@ if (document.querySelector('.load_more_btn')) {
         modalButton.addEventListener('click', hidePopUp);
 
         modalDescr.append(modalWrapper, modalSizes, modalAdd, modalPrice, modalWarning, modalButton);
-
-       
 
         modal.append(imgWrapper, modalDescr);
         document.body.append(modal);
@@ -467,9 +460,7 @@ if (document.querySelector('.load_more_btn')) {
     function showOverlay() {
         const overlay = document.querySelector('.overlay');
         overlay.style.display = 'block';
-        overlay.addEventListener('click', hidePopUp)
-
- 
+        overlay.addEventListener('click', hidePopUp) 
      }
 
      function hidePopUp () {
@@ -596,8 +587,6 @@ if (document.querySelector('.load_more_btn')) {
             { width: '100%' },
           ];
 
-
-
         const status = document.querySelector('.control_item_fill');
         const sliderAnimateControl = status.animate(sliderStatus, 5000)
  
@@ -657,10 +646,6 @@ if (document.querySelector('.load_more_btn')) {
         controlItems.forEach(item => item.innerHTML = '')
         controlItems[number - 1].append(status) 
      }
-
- 
-
-     
 
 })
 
