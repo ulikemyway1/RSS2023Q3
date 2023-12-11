@@ -163,12 +163,12 @@ function createMenuLink () {
 
 function toggleEventListenerToBurgerMenuitems () {
     const nav = document.querySelector('nav');
-    if (nav.getAttribute('listener') !== 'true') {
+    if (nav.getAttribute('data-listener') !== 'true') {
         nav.addEventListener('click', toggleNavWraper);
-        nav.setAttribute('listener', 'true');
+        nav.setAttribute('data-listener', 'true');
    } else {
         nav.removeEventListener('click', toggleNavWraper);
-        nav.setAttribute('listener', 'false');
+        nav.setAttribute('data-listener', 'false');
    }
 }
 
@@ -177,9 +177,9 @@ function toggleNavWraper (event) {
         toggleNav();
         toggleBurgerIcon();
         const nav = document.querySelector('nav');
-        if (nav.getAttribute('listener') === 'true') {
+        if (nav.getAttribute('data-listener') === 'true') {
         nav.removeEventListener('click', toggleNavWraper);
-        nav.setAttribute('listener', 'false');
+        nav.setAttribute('data-listener', 'false');
         }
     }
 }
