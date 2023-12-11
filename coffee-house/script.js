@@ -248,7 +248,7 @@ if (document.querySelector('.load_more_btn')) {
     })
 }
 
-
+    let costOfAdd = 0;
     async function loadItemInfo(itemID) {
         const menuData = await fetch("products.json");
         menu = await menuData.json();
@@ -392,7 +392,7 @@ if (document.querySelector('.load_more_btn')) {
     }
     
     function changePrice(itemInfo) {
-        let costOfAdd = 0;
+
         if (event.target.closest('input')) {
           
             if (event.target.closest('input').id[0] === 'a') {
@@ -401,7 +401,6 @@ if (document.querySelector('.load_more_btn')) {
                 const addNum = event.target.closest('input').id[4]
                 if (event.target.closest('input').checked) {
                     costOfAdd += parseFloat((itemInfo.additives[addNum - 1])['add-price']);
-                    console.log(costOfAdd)
                     input.classList.add('check');
                     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) + parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
                 } else {
@@ -426,7 +425,6 @@ if (document.querySelector('.load_more_btn')) {
                 let current;
                 current = parseFloat(itemInfo.sizes[event.target.closest('input').id[5].toLowerCase()]['add-price']);
                 if (event.target.closest('input').checked) {
-
                     
                         document.querySelectorAll('.size').forEach((item) => {
                         item.checked = false
@@ -436,26 +434,11 @@ if (document.querySelector('.load_more_btn')) {
                     })
                     event.target.closest('input').checked = true;
                     event.target.closest('input').disabled = true;
-                    console.log(costOfAdd)
+   
                     document.querySelector('#price').textContent = (parseFloat(itemInfo.price) + costOfAdd + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
                 } 
-                // else {
-                //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent)  - parseFloat(itemInfo.price) + parseFloat(itemInfo.price) + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
-                    
-                // }
-            //    ssss document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) - parseFloat(itemInfo.price) + parseFloat(itemInfo.price) + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
-
-    
-                // if (event.target.closest('input').checked) {
-                //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) + parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
-                // } else {
-                //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) - parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
-                // }
             }
-            
         }
-     
-        // return itemInfo.price + priceSize + prizeAdd;
     }
 
     if(document.querySelector('.menu_content')) {
@@ -467,7 +450,6 @@ if (document.querySelector('.load_more_btn')) {
         })
     }
    
-
     function getPhotoNumber(category, itemID) {
         if (category == 'coffee') {
             return itemID;
@@ -494,6 +476,7 @@ if (document.querySelector('.load_more_btn')) {
         const overlay = document.querySelector('.overlay');
         const modal = document.querySelector('.menu_item_modal')
         overlay.style.display = 'none';
+        costOfAdd = 0;
         if (modal) {
             modal.remove()
         }
@@ -515,9 +498,6 @@ if (document.querySelector('.load_more_btn')) {
         enjoy.prepend(video)
      }
  
-
-
-
      //slider 
      const sliderContentWrapper = document.querySelector('.slider_content_wrapper');
 
