@@ -107,11 +107,6 @@ nav.open_burger_menu {
     z-index: 10;
 }
 
-.menu_item_modal:hover img {
-    transform: translateX(-50%) translateY(-50%) scale(0.91);
-    transition: all 0.6s;
-}
-
 
 .menu_item_modal img {
     width: 340px;
