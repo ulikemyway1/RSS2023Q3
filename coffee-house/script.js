@@ -98,8 +98,6 @@ logo.addEventListener('click', () => {
     
 });
 
-
-
 function toggleBurgerIcon () {
     burgerBtn.classList.toggle('open_burger_icon');
 }
@@ -114,8 +112,7 @@ function toggleNav () {
     } else {
         toggleBurgerMenu();
         enableScroll();
-    }
-    
+    } 
 }
 
 function toggleBurgerMenu () {
@@ -163,12 +160,12 @@ function createMenuLink () {
 
 function toggleEventListenerToBurgerMenuitems () {
     const nav = document.querySelector('nav');
-    if (nav.getAttribute('listener') !== 'true') {
+    if (nav.getAttribute('data-listener') !== 'true') {
         nav.addEventListener('click', toggleNavWraper);
-        nav.setAttribute('listener', 'true');
+        nav.setAttribute('data-listener', 'true');
    } else {
         nav.removeEventListener('click', toggleNavWraper);
-        nav.setAttribute('listener', 'false');
+        nav.setAttribute('data-listener', 'false');
    }
 }
 
@@ -177,9 +174,9 @@ function toggleNavWraper (event) {
         toggleNav();
         toggleBurgerIcon();
         const nav = document.querySelector('nav');
-        if (nav.getAttribute('listener') === 'true') {
+        if (nav.getAttribute('data-listener') === 'true') {
         nav.removeEventListener('click', toggleNavWraper);
-        nav.setAttribute('listener', 'false');
+        nav.setAttribute('data-listener', 'false');
         }
     }
 }
@@ -248,7 +245,7 @@ if (document.querySelector('.load_more_btn')) {
     })
 }
 
-
+    let costOfAdd = 0;
     async function loadItemInfo(itemID) {
         const menuData = await fetch("products.json");
         menu = await menuData.json();
@@ -357,8 +354,6 @@ if (document.querySelector('.load_more_btn')) {
         <div>$<span id='price'>${itemInfo.price}</span></div>
         `
 
-
-
         const modalWarning = document.createElement('div');
         modalWarning.classList.add('modal_warning');
         modalWarning.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -383,8 +378,6 @@ if (document.querySelector('.load_more_btn')) {
 
         modalDescr.append(modalWrapper, modalSizes, modalAdd, modalPrice, modalWarning, modalButton);
 
-       
-
         modal.append(imgWrapper, modalDescr);
         document.body.append(modal);
         disableScroll();
@@ -392,7 +385,7 @@ if (document.querySelector('.load_more_btn')) {
     }
     
     function changePrice(itemInfo) {
-        let costOfAdd = 0;
+
         if (event.target.closest('input')) {
           
             if (event.target.closest('input').id[0] === 'a') {
@@ -401,7 +394,6 @@ if (document.querySelector('.load_more_btn')) {
                 const addNum = event.target.closest('input').id[4]
                 if (event.target.closest('input').checked) {
                     costOfAdd += parseFloat((itemInfo.additives[addNum - 1])['add-price']);
-                    console.log(costOfAdd)
                     input.classList.add('check');
                     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) + parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
                 } else {
@@ -426,7 +418,6 @@ if (document.querySelector('.load_more_btn')) {
                 let current;
                 current = parseFloat(itemInfo.sizes[event.target.closest('input').id[5].toLowerCase()]['add-price']);
                 if (event.target.closest('input').checked) {
-
                     
                         document.querySelectorAll('.size').forEach((item) => {
                         item.checked = false
@@ -436,26 +427,11 @@ if (document.querySelector('.load_more_btn')) {
                     })
                     event.target.closest('input').checked = true;
                     event.target.closest('input').disabled = true;
-                    console.log(costOfAdd)
+   
                     document.querySelector('#price').textContent = (parseFloat(itemInfo.price) + costOfAdd + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
                 } 
-                // else {
-                //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent)  - parseFloat(itemInfo.price) + parseFloat(itemInfo.price) + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
-                    
-                // }
-            //    ssss document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) - parseFloat(itemInfo.price) + parseFloat(itemInfo.price) + parseFloat(itemInfo.sizes[sizeLetter.toLowerCase()]['add-price'])).toPrecision(3);
-
-    
-                // if (event.target.closest('input').checked) {
-                //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) + parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
-                // } else {
-                //     document.querySelector('#price').textContent = (parseFloat(document.querySelector('#price').textContent) - parseFloat((itemInfo.additives[addNum - 1])['add-price'])).toPrecision(3);
-                // }
             }
-            
         }
-     
-        // return itemInfo.price + priceSize + prizeAdd;
     }
 
     if(document.querySelector('.menu_content')) {
@@ -467,7 +443,6 @@ if (document.querySelector('.load_more_btn')) {
         })
     }
    
-
     function getPhotoNumber(category, itemID) {
         if (category == 'coffee') {
             return itemID;
@@ -485,15 +460,14 @@ if (document.querySelector('.load_more_btn')) {
     function showOverlay() {
         const overlay = document.querySelector('.overlay');
         overlay.style.display = 'block';
-        overlay.addEventListener('click', hidePopUp)
-
- 
+        overlay.addEventListener('click', hidePopUp) 
      }
 
      function hidePopUp () {
         const overlay = document.querySelector('.overlay');
         const modal = document.querySelector('.menu_item_modal')
         overlay.style.display = 'none';
+        costOfAdd = 0;
         if (modal) {
             modal.remove()
         }
@@ -515,9 +489,6 @@ if (document.querySelector('.load_more_btn')) {
         enjoy.prepend(video)
      }
  
-
-
-
      //slider 
      const sliderContentWrapper = document.querySelector('.slider_content_wrapper');
 
@@ -616,8 +587,6 @@ if (document.querySelector('.load_more_btn')) {
             { width: '100%' },
           ];
 
-
-
         const status = document.querySelector('.control_item_fill');
         const sliderAnimateControl = status.animate(sliderStatus, 5000)
  
@@ -626,7 +595,7 @@ if (document.querySelector('.load_more_btn')) {
             showSlide(number);
             moveControlItem(number);
             sliderAnimateControl.play()
-
+            
         } )
 
         sliderContentWrapper.addEventListener('mouseover', ()=> {
@@ -677,10 +646,6 @@ if (document.querySelector('.load_more_btn')) {
         controlItems.forEach(item => item.innerHTML = '')
         controlItems[number - 1].append(status) 
      }
-
- 
-
-     
 
 })
 
