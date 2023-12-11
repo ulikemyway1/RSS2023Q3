@@ -551,7 +551,7 @@ if (document.querySelector('.load_more_btn')) {
              x2 = event.changedTouches[0].clientX;
 
              let dx = x2 - x1;
-             if (Math.abs(dx) >= 20) {
+             if (Math.abs(dx) >= 40) {
                 if(dx < 0) {
                     number = moveRight(number);
                  } else {
