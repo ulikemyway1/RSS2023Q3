@@ -595,7 +595,7 @@ if (document.querySelector('.load_more_btn')) {
             showSlide(number);
             moveControlItem(number);
             sliderAnimateControl.play()
-
+            
         } )
 
         sliderContentWrapper.addEventListener('mouseover', ()=> {
