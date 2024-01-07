@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     ];
 
+    let currentLetters;
+
     function renderApp() {
         const app = document.createElement('main');
         app.className = 'main';
@@ -72,6 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionLine = document.createElement('p');
         questionLine.className = 'question-line';
         textArea.append(questionLine);
+
+        const gameStat = document.createElement('p');
+        gameStat.className = 'game-stat';
+        gameStat.innerHTML = 'Incorrect guesses <span id="incorrectAmmount">0</span>/6';
+        textArea.append(gameStat);
 
         const keyBoard = document.createElement('section');
         keyBoard.className = 'key-board';
@@ -96,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.textContent = letter;
         button.className = 'letter-button';
         button.setAttribute('data-letter', letter);
+        button.addEventListener('click', checkLetter)
         return button;
     }
 
@@ -109,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWordLine (wrapper, index) {
-        const letters = DB[index].answer.split('');
-        letters.forEach ((char) => {
+        currentLetters = DB[index].answer.toUpperCase().split('');
+        currentLetters.forEach ((char) => {
             wrapper.append(createUnderScore(char));
         })
         
@@ -122,6 +130,32 @@ document.addEventListener('DOMContentLoaded', () => {
         letter.textContent = '_';
         letter.className = 'letter';
         return letter
+    }
+
+    function checkLetter (e) {
+        if (currentLetters.indexOf(e.target.textContent) !== -1) {
+            showCorrectLetter(e)
+        } else {
+            increaseIncorrectCounter();
+        }
+        disableButton(e);
+    }
+
+    function showCorrectLetter(e) {
+        document.querySelectorAll(`[data-letter="${e.target.textContent}"]`).forEach ((place) => {
+            place.textContent = e.target.textContent;
+        })
+        
+    }
+
+    function disableButton (e) {
+        e.target.classList.add('letter-button_disabled');
+        e.target.disabled = true;
+    }
+
+    function increaseIncorrectCounter () {
+        const incorrectAmmount = document.getElementById('incorrectAmmount');
+        incorrectAmmount.textContent = +incorrectAmmount.textContent + 1;
     }
 
     renderApp();
