@@ -65,12 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
         textArea.className = 'text-area';
         app.append(textArea);
 
+        const wordLine = document.createElement('div');
+        wordLine.className = 'word-line';
+        textArea.append(wordLine);
+
+        const questionLine = document.createElement('p');
+        questionLine.className = 'question-line';
+        textArea.append(questionLine);
+
         const keyBoard = document.createElement('section');
         keyBoard.className = 'key-board';
         showLetterButtons(letters, keyBoard);
 
         app.append(keyBoard);
-        showQuestion(textArea);
+
+        showQuestion(questionLine);
         document.body.prepend(app);
     }
 
@@ -86,15 +95,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = document.createElement('button');
         button.textContent = letter;
         button.className = 'letter-button';
+        button.setAttribute('data-letter', letter);
         return button;
     }
 
     function showQuestion(parentNode) {
-        let index = Math.floor(Math.random() * (DB.length));
+        let index = Math.floor(Math.random() * DB.length);
         if (index > DB.length) {
             index = DB.length - 1;
         }
         parentNode.textContent = DB[index].question;
+        showWordLine(parentNode.previousSibling, index)
+    }
+
+    function showWordLine (wrapper, index) {
+        const letters = DB[index].answer.split('');
+        letters.forEach ((char) => {
+            wrapper.append(createUnderScore(char));
+        })
+        
+    }
+
+    function createUnderScore (char) {
+        const letter = document.createElement('div');
+        letter.setAttribute('data-letter', char.toUpperCase())
+        letter.textContent = '_';
+        letter.className = 'letter';
+        return letter
     }
 
     renderApp();
