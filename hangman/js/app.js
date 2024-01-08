@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keyup', (e) => {
-        if (letters.includes(e.key.toUpperCase())) {
+        if (letters.includes(e.key.toUpperCase()) && !document.querySelector(`button[data-letter="${e.key.toUpperCase()}"]`).disabled) {
             checkLetter(e.key.toUpperCase())
         }
 
