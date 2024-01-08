@@ -56,37 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLetters;
 
     function renderApp() {
-        const app = document.createElement('main');
-        app.className = 'main';
-
-        const gallowContainer = document.createElement('section');
-        gallowContainer.className = 'gallow-container';
+        const app = createElement('main', 'main', null, null);
+        const gallowContainer = createElement('section', 'gallow-container', null, null);
+      
         app.append(gallowContainer);
 
-        const textArea = document.createElement('section');
-        textArea.className = 'text-area';
+        const textArea = createElement('section', 'text-area', null, null);
         app.append(textArea);
 
-        const wordLine = document.createElement('div');
-        wordLine.className = 'word-line';
+        const wordLine = createElement('div', 'word-line', null, null);
         textArea.append(wordLine);
 
-        const questionLine = document.createElement('p');
-        questionLine.className = 'question-line';
+        const questionLine = createElement('p', 'question-line', null, null);
         textArea.append(questionLine);
 
-        const gameStat = document.createElement('p');
-        gameStat.className = 'game-stat';
-        gameStat.innerHTML = 'Incorrect guesses <span id="incorrectAmmount">0</span>/6';
+        const gameStat = createElement('p', 'game-stat', null, null);
+        gameStat.append('Incorrect guesses ', createElement('span', null,'incorrectAmmount', '0'), '/6');
+        
         textArea.append(gameStat);
 
-        const keyBoard = document.createElement('section');
-        keyBoard.className = 'key-board';
+        const keyBoard = createElement('section', 'key-board', null, null);
+        app.append(keyBoard);
+        
         showLetterButtons(letters, keyBoard);
 
-        app.append(keyBoard);
-
         showQuestion(questionLine);
+
         document.body.prepend(app);
     }
 
@@ -99,9 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createLetterButtons(letter) {
-        const button = document.createElement('button');
-        button.textContent = letter;
-        button.className = 'letter-button';
+       const button = createElement('button', 'letter-button', null, letter);
         button.setAttribute('data-letter', letter);
         button.addEventListener('click', checkLetter)
         return button;
@@ -125,10 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createUnderScore (char) {
-        const letter = document.createElement('div');
+        const letter = createElement('div', 'letter', null, '_');
         letter.setAttribute('data-letter', char.toUpperCase())
-        letter.textContent = '_';
-        letter.className = 'letter';
         return letter
     }
 
@@ -158,5 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
         incorrectAmmount.textContent = +incorrectAmmount.textContent + 1;
     }
 
+    function createElement (tag, className, id, textContent) {
+        const element = document.createElement(tag);
+        if (className) {
+            element.className = className;
+        }
+        if (textContent) {
+            element.textContent = textContent;
+        }
+        if (id) {
+            element.id = id;
+        }
+        return element;
+    }
     renderApp();
 });
