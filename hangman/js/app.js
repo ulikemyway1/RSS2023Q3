@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
             answer: 'warehouse',
         },
     ];
-
     let currentLetters;
 
     function renderApp() {
@@ -124,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkLetter(e) {
-        if (currentLetters.indexOf(e.target.textContent) !== -1) {
+        if (currentLetters.indexOf(e) !== -1 || currentLetters.indexOf(e.target ? e.target.textContent : null) !== -1) {
             showCorrectLetter(e)
         } else {
             increaseIncorrectCounter();
@@ -133,15 +132,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showCorrectLetter(e) {
-        document.querySelectorAll(`[data-letter="${e.target.textContent}"]`).forEach((place) => {
-            place.textContent = e.target.textContent;
-        })
+        if (typeof e === 'string') {
+            document.querySelectorAll(`[data-letter="${e}"]`).forEach((place) => {
+                place.textContent = e;
+            })
+        } else {
+            document.querySelectorAll(`[data-letter="${e.target.textContent}"]`).forEach((place) => {
+                place.textContent = e.target.textContent;
+            })
+        }
+
 
     }
 
     function disableButton(e) {
-        e.target.classList.add('letter-button_disabled');
-        e.target.disabled = true;
+        if (typeof e === 'string') {
+            const button = document.querySelector(`button[data-letter="${e}"]`);
+            if (button) {
+                button.classList.add('letter-button_disabled');
+                button.disabled = true;
+            }
+        } else {
+            e.target.classList.add('letter-button_disabled');
+            e.target.disabled = true;
+        }
     }
 
     function increaseIncorrectCounter() {
@@ -162,5 +176,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return element;
     }
+
+    document.addEventListener('keyup', (e) => {
+        if (letters.includes(e.key.toUpperCase())) {
+            checkLetter(e.key.toUpperCase())
+        }
+
+    })
+
     renderApp();
 });
