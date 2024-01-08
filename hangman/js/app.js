@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderApp() {
         const app = createElement('main', 'main', null, null);
         const gallowContainer = createElement('section', 'gallow-container', null, null);
-      
+
         app.append(gallowContainer);
 
         const textArea = createElement('section', 'text-area', null, null);
@@ -71,13 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
         textArea.append(questionLine);
 
         const gameStat = createElement('p', 'game-stat', null, null);
-        gameStat.append('Incorrect guesses ', createElement('span', null,'incorrectAmmount', '0'), '/6');
-        
+        gameStat.append('Incorrect guesses ', createElement('span', null, 'incorrectAmmount', '0'), '/6');
+
         textArea.append(gameStat);
 
         const keyBoard = createElement('section', 'key-board', null, null);
         app.append(keyBoard);
-        
+
         showLetterButtons(letters, keyBoard);
 
         showQuestion(questionLine);
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createLetterButtons(letter) {
-       const button = createElement('button', 'letter-button', null, letter);
+        const button = createElement('button', 'letter-button', null, letter);
         button.setAttribute('data-letter', letter);
         button.addEventListener('click', checkLetter)
         return button;
@@ -109,21 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
         showWordLine(parentNode.previousSibling, index)
     }
 
-    function showWordLine (wrapper, index) {
+    function showWordLine(wrapper, index) {
         currentLetters = DB[index].answer.toUpperCase().split('');
-        currentLetters.forEach ((char) => {
+        currentLetters.forEach((char) => {
             wrapper.append(createUnderScore(char));
         })
-        
+
     }
 
-    function createUnderScore (char) {
+    function createUnderScore(char) {
         const letter = createElement('div', 'letter', null, '_');
         letter.setAttribute('data-letter', char.toUpperCase())
         return letter
     }
 
-    function checkLetter (e) {
+    function checkLetter(e) {
         if (currentLetters.indexOf(e.target.textContent) !== -1) {
             showCorrectLetter(e)
         } else {
@@ -133,23 +133,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showCorrectLetter(e) {
-        document.querySelectorAll(`[data-letter="${e.target.textContent}"]`).forEach ((place) => {
+        document.querySelectorAll(`[data-letter="${e.target.textContent}"]`).forEach((place) => {
             place.textContent = e.target.textContent;
         })
-        
+
     }
 
-    function disableButton (e) {
+    function disableButton(e) {
         e.target.classList.add('letter-button_disabled');
         e.target.disabled = true;
     }
 
-    function increaseIncorrectCounter () {
+    function increaseIncorrectCounter() {
         const incorrectAmmount = document.getElementById('incorrectAmmount');
         incorrectAmmount.textContent = +incorrectAmmount.textContent + 1;
     }
 
-    function createElement (tag, className, id, textContent) {
+    function createElement(tag, className, id, textContent) {
         const element = document.createElement(tag);
         if (className) {
             element.className = className;
