@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             answer: 'warehouse',
         },
     ];
+
     let currentLetters;
 
     function renderApp() {
@@ -161,6 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function increaseIncorrectCounter() {
         const incorrectAmmount = document.getElementById('incorrectAmmount');
         incorrectAmmount.textContent = +incorrectAmmount.textContent + 1;
+        if (+incorrectAmmount.textContent === 6) {
+            showModal('lose')
+        }
     }
 
     function createElement(tag, className, id, textContent) {
@@ -184,5 +188,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })
 
+    function showModal (option) {
+        let modalText;
+        option === 'win' ? modalText = 'You win!' : modalText = "You've lost!";
+        const modal = createElement('section', 'modal', null, modalText);
+        const button = createElement('button', 'btn-play-again', null, 'Play again');
+        const answerBox = createElement('div', 'answer-box', null, 'The secret word is');
+        answerBox.append(createElement('span', 'answer-word', null, currentLetters.join('')));
+        modal.append(answerBox, button);
+
+        document.body.append (modal)
+    }
+
     renderApp();
+
 });
