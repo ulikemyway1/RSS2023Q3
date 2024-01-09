@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     //render page template
     const letters = [];
+    const virtualKeyBoard = [];
+    let inputEnabled = true;
     for (let s = 65; s <= 90; s++) {
         letters.push(String.fromCharCode(s));
     }
@@ -96,7 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function createLetterButtons(letter) {
         const button = createElement('button', 'letter-button', null, letter);
         button.setAttribute('data-letter', letter);
-        button.addEventListener('click', checkLetter)
+        button.addEventListener('click', (e) => {
+            if (inputEnabled) {
+                checkLetter(e)
+            }
+        })
+        virtualKeyBoard.push(button);
         return button;
     }
 
@@ -162,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function increaseIncorrectCounter() {
         const incorrectAmmount = document.getElementById('incorrectAmmount');
         incorrectAmmount.textContent = +incorrectAmmount.textContent + 1;
-        if (+incorrectAmmount.textContent === 6) {
+        if (+incorrectAmmount.textContent >= 6) {
             showModal('lose')
         }
     }
@@ -182,24 +189,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keyup', (e) => {
-        if (letters.includes(e.key.toUpperCase()) && !document.querySelector(`button[data-letter="${e.key.toUpperCase()}"]`).disabled) {
+        if (inputEnabled && letters.includes(e.key.toUpperCase()) && !document.querySelector(`button[data-letter="${e.key.toUpperCase()}"]`).disabled) {
             checkLetter(e.key.toUpperCase())
         }
 
     })
 
-    function showModal (option) {
+    function showModal(option) {
+        inputEnabled = false;
         let modalText;
         option === 'win' ? modalText = 'You win!' : modalText = "You've lost!";
         const modal = createElement('section', 'modal', null, modalText);
         const button = createElement('button', 'btn-play-again', null, 'Play again');
+        button.addEventListener('click', startNewGame);
         const answerBox = createElement('div', 'answer-box', null, 'The secret word is');
         answerBox.append(createElement('span', 'answer-word', null, currentLetters.join('')));
         modal.append(answerBox, button);
 
-        document.body.append (modal)
+        document.body.append(modal)
     }
 
     renderApp();
 
+    function startNewGame() {
+        inputEnabled = true;
+        const questionLine = document.querySelector('.question-line');
+        questionLine.previousSibling.textContent = '';
+        showQuestion(questionLine);
+        document.getElementById('incorrectAmmount').textContent = '0';
+        document.querySelector('.modal').remove();
+        enableAllButtons();
+    }
+
+    function enableAllButtons() {
+        virtualKeyBoard.forEach((button) => {
+            button.disabled = false;
+            button.classList.remove('letter-button_disabled')
+        })
+    }
 });
