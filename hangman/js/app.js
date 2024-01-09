@@ -205,8 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const answerBox = createElement('div', 'answer-box', null, 'The secret word is');
         answerBox.append(createElement('span', 'answer-word', null, currentLetters.join('')));
         modal.append(answerBox, button);
-
-        document.body.append(modal)
+        const overlay = createElement('div', 'overlay', null, null);
+        document.body.prepend(overlay);
+        document.body.prepend(modal);
     }
 
     renderApp();
@@ -218,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showQuestion(questionLine);
         document.getElementById('incorrectAmmount').textContent = '0';
         document.querySelector('.modal').remove();
+        document.querySelector('.overlay').remove();
         enableAllButtons();
     }
 
