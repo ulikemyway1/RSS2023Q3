@@ -98,3 +98,22 @@ body {
     width: 100vw;
     height: 100vh;
 }
+
+
+@media (max-width: 900px) {
+    .main, .modal {
+        width: 90vw;
+    }
+
+    .text-area {
+        width: 100%;
+    }
+
+    .key-board {
+        width: 100%;
+    }
+
+    .word-line {
+        width: 100%;
+    }
+}
