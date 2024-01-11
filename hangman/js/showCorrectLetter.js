@@ -8,6 +8,4 @@ export function showCorrectLetter(e) {
             place.textContent = e.target.textContent;
         })
     }
-
-
 }

@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const app = createElement('main', 'main', null, null);
         const gallowContainer = createElement('section', 'gallow-container', null, null);
 
+        const gallow = createElement('img', 'gallow', null, null)
+        gallow.src = 'img/gallow.svg';
+        gallowContainer.append(gallow);
+        gallowContainer.append(createElement('div', null, 'the-man-container', null))        
         app.append(gallowContainer);
 
         const textArea = createElement('section', 'text-area', null, null);
@@ -50,6 +54,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     })
-
-
 });

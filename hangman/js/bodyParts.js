@@ -1,0 +1,1 @@
+export const bodyParts = ['head.svg', 'body.svg', 'left_arm.svg', 'right_arm.svg', 'left_leg.svg', 'right_leg.svg'];
