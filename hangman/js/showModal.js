@@ -14,4 +14,7 @@ export function showModal(option) {
     const overlay = createElement('div', 'overlay', null, null);
     document.body.prepend(overlay);
     document.body.prepend(modal);
+    setTimeout(() => modal.classList.add('modal_visible'), 500)
+    setTimeout(() => overlay.classList.add('overlay_visible'), 500)
+
 }

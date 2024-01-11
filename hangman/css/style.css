@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 .main {
     margin: 0 auto;
     padding: 40px 0;
@@ -65,6 +66,8 @@
     line-height: 36px;
     z-index: 10;
     border-radius: 25px;
+    opacity: 0;
+    transition: all 0.5s;
 }
 
 .answer-box {
@@ -92,6 +95,13 @@
     position: absolute;
     background: rgba(0, 0, 0, 0.8);
     z-index: 1;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.modal_visible,
+.overlay_visible {
+    opacity: 1;
 }
 
 body {
@@ -106,14 +116,57 @@ body {
     justify-content: center;
     margin: 0 auto;
     height: 400px;
+    width: 400px;
 }
 
 .gallow {
     height: 100%;
 }
 
+.the-man {
+    height: 25%;
+    position: absolute;
+}
+
+#body-part-1 {
+    top: 17.75%;
+    left: 44.5%;
+}
+
+#body-part-2 {
+    top: 34%;
+    left: 43%;
+}
+
+#body-part-3 {
+    top: 34%;
+    left: 35.25%;
+    height: 17.5%;
+}
+
+#body-part-4 {
+    top: 35.25%;
+    left: 56.5%;
+    height: 17.5%;
+}
+
+#body-part-5 {
+    top: 57.5%;
+    left: 40.5%;
+    height: 19%;
+}
+
+#body-part-6 {
+    top: 58%;
+    left: 51%;
+    height: 19%;
+}
+
+
 @media (max-width: 900px) {
-    .main, .modal {
+
+    .main,
+    .modal {
         width: 90vw;
     }
 
