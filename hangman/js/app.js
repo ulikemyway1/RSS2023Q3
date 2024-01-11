@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const gallow = createElement('img', 'gallow', null, null)
         gallow.src = 'img/gallow.svg';
         gallowContainer.append(gallow);
-
+        gallowContainer.append(createElement('div', null, 'the-man-container', null))        
         app.append(gallowContainer);
 
         const textArea = createElement('section', 'text-area', null, null);

@@ -91,7 +91,7 @@
 
 .overlay {
     width: 100%;
-    height: 100%;
+    height: 100dvh;
     position: absolute;
     background: rgba(0, 0, 0, 0.8);
     z-index: 1;
@@ -116,7 +116,13 @@ body {
     justify-content: center;
     margin: 0 auto;
     height: 400px;
-    width: 400px;
+    width: 100%
+}
+
+#the-man-container {
+    position: absolute;
+    width: 320px;
+    height: 320px;
 }
 
 .gallow {
@@ -129,37 +135,37 @@ body {
 }
 
 #body-part-1 {
-    top: 17.75%;
-    left: 44.5%;
+    top: 9.75%;
+    left: 45%;
 }
 
 #body-part-2 {
-    top: 34%;
-    left: 43%;
+    top: 27%;
+    left: 44%;
 }
 
 #body-part-3 {
-    top: 34%;
-    left: 35.25%;
-    height: 17.5%;
+    top: 29%;
+    left: 38%;
+    height: 14.5%;
 }
 
 #body-part-4 {
-    top: 35.25%;
-    left: 56.5%;
-    height: 17.5%;
+    top: 30.25%;
+    left: 57.7%;
+    height: 12.5%;
 }
 
 #body-part-5 {
-    top: 57.5%;
-    left: 40.5%;
-    height: 19%;
+    top: 50.4%;
+    left: 41.1%;
+    height: 21%;
 }
 
 #body-part-6 {
-    top: 58%;
-    left: 51%;
-    height: 19%;
+    top: 51%;
+    left: 52%;
+    height: 20%;
 }
 
 

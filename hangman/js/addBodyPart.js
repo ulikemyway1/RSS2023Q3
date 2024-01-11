@@ -5,5 +5,5 @@ export function addBodyPart(index) {
     const bodyPart = createElement('img', null, `body-part-${index + 1}`, null);
     bodyPart.classList.add('the-man')
     bodyPart.src = `img/${bodyParts[index]}`;
-    document.querySelector('.gallow-container').append(bodyPart);
+    document.querySelector('#the-man-container').append(bodyPart);
 }
