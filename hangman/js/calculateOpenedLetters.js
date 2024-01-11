@@ -5,6 +5,5 @@ export function calculateOpenedLetters() {
             openedLetters += 1;
         }
     })
-    console.log(openedLetters);
     return openedLetters;
 }
