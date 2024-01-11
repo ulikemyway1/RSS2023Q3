@@ -99,6 +99,18 @@ body {
     height: 100vh;
 }
 
+.gallow-container {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    height: 400px;
+}
+
+.gallow {
+    height: 100%;
+}
 
 @media (max-width: 900px) {
     .main, .modal {
