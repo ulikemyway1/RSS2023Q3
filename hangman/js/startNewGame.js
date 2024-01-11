@@ -3,6 +3,7 @@ import { showQuestion } from "./showQuestion.js";
 import { enableAllButtons } from "./enableAllButtons.js";
 export function startNewGame() {
     settings.inputEnabled = true;
+    settings.openedLetters = 0;
     const questionLine = document.querySelector('.question-line');
     questionLine.previousSibling.textContent = '';
     showQuestion(questionLine);

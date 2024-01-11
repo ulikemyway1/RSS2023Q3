@@ -1,4 +1,5 @@
 export let settings = {
     inputEnabled: true,
-    currentLetters: undefined
+    currentLetters: undefined,
+    openedLetters: 0
 }
