@@ -50,6 +50,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     })
-
-
 });

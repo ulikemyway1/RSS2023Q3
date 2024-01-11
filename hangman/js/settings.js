@@ -1,5 +1,6 @@
 export let settings = {
     inputEnabled: true,
     currentLetters: undefined,
-    openedLetters: 0
+    openedLetters: 0,
+    currentWordID: undefined
 }
