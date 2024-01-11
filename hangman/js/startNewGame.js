@@ -11,5 +11,6 @@ export function startNewGame() {
     document.querySelectorAll('.the-man').forEach((bodyPart) => bodyPart.remove());
     document.querySelector('.modal').remove();
     document.querySelector('.overlay').remove();
+    settings.modalIsDisabled = true;
     enableAllButtons();
 }
