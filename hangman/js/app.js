@@ -54,4 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     })
+
+    console.log('A response is expected in English. Only letters of the English alphabet are accepted, all other characters are simply ignored. Please switch your keyboard to English or use the virtual keyboard on the playing field.');
+    console.log(`The answer is ----> ${settings.currentLetters.join('')} <----`);
 });
