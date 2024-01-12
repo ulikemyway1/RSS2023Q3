@@ -6,6 +6,7 @@ export function showModal(option) {
     let modalText;
     option === 'win' ? modalText = 'You win!' : modalText = "You've lost!";
     const modal = createElement('section', 'modal', null, modalText);
+    modal.classList.add(`modal_${option}`)
     const button = createElement('button', 'btn-play-again', null, 'Play again');
     button.addEventListener('click', () => {
         if (!settings.modalIsDisabled) {
