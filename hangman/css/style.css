@@ -71,12 +71,20 @@
     transform: translateX(-50%) translateY(-50%);
     background: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: 40px;
     line-height: 36px;
     z-index: 10;
     border-radius: 25px;
     opacity: 0;
     transition: all 0.5s;
+}
+
+.modal_lose {
+    color: #850707;
+}
+
+.modal_win {
+    color: #057722;
 }
 
 .answer-box {
@@ -87,6 +95,7 @@
 .answer-box span {
     display: block;
     font-weight: 800;
+    text-decoration: underline;
 }
 
 .btn-play-again {
