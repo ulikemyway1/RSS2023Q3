@@ -16,7 +16,9 @@
     width: 40px;
     font-size: 24px;
     cursor: pointer;
-    background-color: rgb(255, 198, 152);
+    background-color: rgb(164, 76, 30);
+    color: #ffffff;
+    border-radius: 7px;
 }
 .letter-button:disabled {
     background-color: rgb(158, 158, 158);
@@ -200,6 +202,7 @@ body {
 
     .key-board {
         width: 100%;
+        max-width: 432px;
     }
 
     .word-line {
