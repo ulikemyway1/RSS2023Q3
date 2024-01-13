@@ -128,7 +128,7 @@
 
 body {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background: url('../img/bg.jpg') center center/cover no-repeat;
     display: flex;
     justify-content: center;
