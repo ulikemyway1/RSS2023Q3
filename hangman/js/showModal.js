@@ -4,7 +4,7 @@ import { startNewGame } from "./startNewGame.js";
 export function showModal(option) {
     settings.inputEnabled = false;
     let modalText;
-    option === 'win' ? modalText = 'You win!' : modalText = "You've lost!";
+    option === 'win' ? modalText = 'You win!' : modalText = "You lost!";
     const modal = createElement('section', 'modal', null, modalText);
     modal.classList.add(`modal_${option}`)
     const button = createElement('button', 'btn-play-again', null, 'Play again');
