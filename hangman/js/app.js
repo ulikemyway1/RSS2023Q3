@@ -1,3 +1,4 @@
+import "../css/style.css";
 import { createElement } from "./createElement.js";
 import { settings } from "./settings.js";
 import { showQuestion } from "./showQuestion.js";
