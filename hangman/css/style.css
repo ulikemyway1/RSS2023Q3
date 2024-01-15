@@ -23,7 +23,7 @@
     background: rgb(164, 76, 30);
     color: #ffffff;
     border-radius: 7px;
-    transition: all 0.3s;
+    transition: background 0.3s;
 }
 
 .letter-button:disabled {
@@ -136,9 +136,14 @@
     color: #ffffff;
     border: none;
     border-radius: 7px;
-    transition: all 0.3s;
+    transition: background 0.3s;
 }
 
+.btn-play-again:focus,
+.letter-button:focus {
+    border: solid 3px rgb(233, 107, 40);
+    outline: none;
+}
 
 .overlay {
     width: 100%;
@@ -147,7 +152,7 @@
     background: rgba(0, 0, 0, 0.8);
     z-index: 1;
     opacity: 0;
-    transition: all 0.5s;
+    transition: opacity 0.5s;
 }
 
 .modal_visible,
