@@ -18,13 +18,18 @@
     width: 40px;
     font-size: 24px;
     cursor: pointer;
-    background-color: rgb(164, 76, 30);
+    border: none;
+    box-shadow: 0px 3px 5px #000000;
+    background: rgb(164, 76, 30);
     color: #ffffff;
     border-radius: 7px;
+    transition: all 0.3s;
 }
 
 .letter-button:disabled {
-    background-color: rgb(158, 158, 158);
+    background: rgb(158, 158, 158);
+    cursor: default;
+    box-shadow: none;
 }
 
 .key-board {
@@ -126,7 +131,14 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     cursor: pointer;
+    box-shadow: 0px 3px 5px #000000;
+    background: rgb(164, 76, 30);
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    transition: all 0.3s;
 }
+
 
 .overlay {
     width: 100%;
@@ -242,7 +254,7 @@ body {
 @media (max-width: 600px) {
     .main {
         width: 98vw;
-        padding: 5px;
+        padding: 15px 5px;
     }
 
     .gallow-container {
@@ -256,7 +268,7 @@ body {
     }
 
     .key-board {
-        gap: 3px;
+        gap: 10px;
     }
 
     #the-man-container {
@@ -276,5 +288,16 @@ body {
 @media (max-width: 400px) {
     .answer-word {
         font-size: 20px;
+    }
+}
+
+@media (hover: hover) {
+    .letter-button:hover,
+    .btn-play-again:hover {
+        background: rgb(233, 107, 40);
+    }
+
+    .letter-button:disabled:hover {
+        background: rgb(158, 158, 158);
     }
 }
