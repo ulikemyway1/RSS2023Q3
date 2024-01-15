@@ -36,8 +36,8 @@ export const DB = [
         answer: 'idiot',
     },
     {
-        question: 'a young person or a child',
-        answer: 'youngster',
+        question: 'the activities that are done in order to plan, organize and run a business, school or other institution',
+        answer: 'administration',
     },
     {
         question:
@@ -71,7 +71,7 @@ export const DB = [
     },
     {
         question:
-            'an African wild animal that looks like a horse, with black or brown and white lines on its body',
+            'a drug used to reduce pain, high temperature and inflammation',
         answer: 'aspirin',
     },
 
