@@ -13,5 +13,6 @@ export function startNewGame() {
     document.querySelector('.overlay').remove();
     settings.modalIsDisabled = true;
     enableAllButtons();
+    document.querySelector('main').classList.remove('hidden');
     console.log(`The answer is ----> ${settings.currentLetters.join('')} <----`);
 }

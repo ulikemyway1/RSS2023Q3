@@ -23,7 +23,11 @@ export function showModal(option) {
     setTimeout(() => {
         modal.classList.add('modal_visible');
         settings.modalIsDisabled = false;
-    }, 500)
-    setTimeout(() => overlay.classList.add('overlay_visible'), 500)
+    }, 500);
+    setTimeout(() => {
+        overlay.classList.add('overlay_visible');
+        document.querySelector('main').classList.add('hidden');
+    }, 500);
+
 
 }

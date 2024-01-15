@@ -57,8 +57,9 @@
     margin: 0 auto;
     width: 100%;
     justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
     font-weight: 800;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
@@ -72,10 +73,11 @@
     position: absolute;
     display: flex;
     padding: 40px;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     width: 500px;
+    max-width: 500px;
     height: 500px;
     outline: 1px solid #000000;
     top: 50%;
@@ -88,7 +90,7 @@
     z-index: 10;
     border-radius: 25px;
     opacity: 0;
-    transition: all 0.5s;
+    transition: opacity 0.5s;
 }
 
 .modal_lose {
@@ -97,6 +99,10 @@
 
 .modal_win {
     color: #057722;
+}
+
+.hidden {
+    opacity: 0;
 }
 
 .answer-box {
@@ -256,5 +262,19 @@ body {
     #the-man-container {
         width: 200px;
         height: 200px;
+    }
+
+    .modal {
+        padding: 10px;
+    }
+
+    .answer-word {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 400px) {
+    .answer-word {
+        font-size: 20px;
     }
 }
