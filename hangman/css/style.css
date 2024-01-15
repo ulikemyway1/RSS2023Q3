@@ -22,9 +22,11 @@
     color: #ffffff;
     border-radius: 7px;
 }
+
 .letter-button:disabled {
     background-color: rgb(158, 158, 158);
 }
+
 .key-board {
     display: flex;
     margin: 0 auto;
@@ -36,7 +38,7 @@
 
 .text-area {
     margin: 0 auto;
-    width: calc(8px*9 + 9*40px);
+    width: 90%;
     text-align: center;
     margin-bottom: 25px;
     text-transform: uppercase;
@@ -45,13 +47,19 @@
     line-height: 36px;
 }
 
+.question-line {
+    margin: 0 auto;
+    width: 90%;
+}
+
 .word-line {
     display: flex;
     margin: 0 auto;
-    width: calc(8px*9 + 9*40px);
+    width: 100%;
     justify-content: center;
     font-weight: 800;
-    gap: 15px
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .game-stat {
@@ -94,6 +102,9 @@
 .answer-box {
     font-size: 30px;
     text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .answer-box span {
@@ -161,9 +172,11 @@ body {
     opacity: 0;
     transition: all 0.8s;
 }
+
 .the-man_shown {
     opacity: 1;
 }
+
 #body-part-1 {
     top: 9.75%;
     left: 45%;
@@ -225,7 +238,7 @@ body {
         width: 98vw;
         padding: 5px;
     }
-    
+
     .gallow-container {
         height: 250px;
     }
