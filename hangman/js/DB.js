@@ -44,4 +44,14 @@ export const DB = [
             'a building where large quantities of goods are stored, especially before they are sent to shops to be sold',
         answer: 'warehouse',
     },
+    {
+        question:
+            'a statement in which you say that something is less extreme than it really is',
+        answer: 'understatement',
+    },
+    {
+        question:
+            'a condition in which the blood contains too many proteins, resulting in anemia',
+        answer: 'macroglobulinemia',
+    },
 ];
