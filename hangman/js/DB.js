@@ -54,4 +54,25 @@ export const DB = [
             'a condition in which the blood contains too many proteins, resulting in anemia',
         answer: 'macroglobulinemia',
     },
+    {
+        question:
+            'a woman or girl who someone is having a romantic relationship with',
+        answer: 'girlfriend',
+    },
+    {
+        question:
+            'a criminal organization that began in Sicily and is active in Italy and the US',
+        answer: 'mafia',
+    },
+    {
+        question:
+            'an African wild animal that looks like a horse, with black or brown and white lines on its body',
+        answer: 'zebra',
+    },
+    {
+        question:
+            'an African wild animal that looks like a horse, with black or brown and white lines on its body',
+        answer: 'aspirin',
+    },
+
 ];
