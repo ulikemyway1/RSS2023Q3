@@ -4,6 +4,7 @@
     "css-loader": "^6.9.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.6.0",
     "prettier": "3.1.1",
     "style-loader": "^3.3.4",
@@ -109,7 +110,8 @@
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
     "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "deploy": "npm run build && npx gh-pages -d build -e nonograms"
   },
   "author": "",
   "license": "ISC",
