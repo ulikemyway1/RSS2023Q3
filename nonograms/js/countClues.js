@@ -1,10 +1,3 @@
-export const arr = [
-    [1, 0, 0, 1, 1],
-    [1, 0, 1, 0, 0],
-    [1, 0, 1, 1, 1],
-    [1, 0, 1, 0, 1],
-    [1, 0, 1, 1, 1]
-]
 export function countClues (arr) {
     const clues = {
         row: countRowClues(arr),

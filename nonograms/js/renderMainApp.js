@@ -1,6 +1,6 @@
 import { createElement } from './createElement.js';
-
-export function renderMainApp() {
+export const gameField = createElement('section', null, ['app__game-field']);
+export function renderMainApp(arr) {
     const body = document.body;
 
     const main = createElement('main', null, ['app']);
@@ -46,13 +46,49 @@ export function renderMainApp() {
         'Show Solution',
     );
 
-    const gameField = createElement('section', null, ['app__game-field']);
+    const horizontalCluesRow = createElement('div', 'horizontal-clues', [
+        'clues-row',
+        'clues-row_horizontal',
+    ]);
+
+    const verticalCluesRow = createElement('div', 'vertical-clues', [
+        'clues-row',
+        'clues-row_vertical',
+    ]);
+
+    arr.forEach((item, index) =>
+        horizontalCluesRow.append(
+            createElement('div', `horClue-${index + 1}`, [
+                'cell',
+                'clues-row-hor',
+            ]),
+        ),
+    );
+    verticalCluesRow.append(
+        createElement('div', 'free-space-between-row-clues', ['cell']),
+    );
+    arr.forEach((item, index) =>
+        verticalCluesRow.append(
+            createElement('div', `vertClue-${index + 1}`, [
+                'cell',
+                'clues-row-vert',
+            ]),
+        ),
+    );
+
+    const innerWapper = createElement('div', 'inner-wrapper');
+
+    const gameFieldWrapper = createElement('div', 'game-field-wapper');
+
+    gameFieldWrapper.append(verticalCluesRow, innerWapper);
 
     appHeader.append(changeThemeBtn, timeInfo, optionsBtn);
 
     appFooter.append(saveGameBtn, restartGameBtn, showSolutionBtn);
 
-    main.append(appHeader, gameField, appFooter);
+    innerWapper.append(horizontalCluesRow, gameField);
+
+    main.append(appHeader, gameFieldWrapper, appFooter);
 
     body.append(main);
 }
