@@ -12,7 +12,7 @@ export function renderMainApp() {
     const changeThemeBtn = createElement(
         'button',
         'change-theme-btn',
-        null,
+        ['button'],
         'Change Theme',
     );
 
@@ -21,32 +21,32 @@ export function renderMainApp() {
     const optionsBtn = createElement(
         'button',
         'options-btn',
-        null,
+        ['button'],
         'Game Options',
     );
 
     const saveGameBtn = createElement(
         'button',
         'save-game-btn',
-        null,
+        ['button'],
         'Save Game',
     );
 
     const restartGameBtn = createElement(
         'button',
         'restart-game-btn',
-        null,
+        ['button'],
         'Restart Game',
     );
 
     const showSolutionBtn = createElement(
         'button',
         'show-solution-btn',
-        null,
+        ['button'],
         'Show Solution',
     );
 
-    const gameField = createElement('section', null, ['app__gameField']);
+    const gameField = createElement('section', null, ['app__game-field']);
 
     appHeader.append(changeThemeBtn, timeInfo, optionsBtn);
 
