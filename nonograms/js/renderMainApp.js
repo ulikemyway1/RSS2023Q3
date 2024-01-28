@@ -78,14 +78,14 @@ export function renderMainApp(arr) {
     });
 
     const verticalCluesRowWrapper = createElement('div', 'vertical-clues-wrapper');
-
+    verticalCluesRow.append(createElement('div', 'space-fill'))
     arr.forEach((item, index) => {
         let clueCell;
-        if (index === 4 || index === 9) {
+        if (index === 4 || index === 9 || index === 14) {
             clueCell = createElement('div', `vertClue-${index + 1}`, [
                 'cell',
                 'clues-row-vert',
-                'border-right'
+                'border-right-clue'
             ]);
         } else {
             clueCell = createElement('div', `vertClue-${index + 1}`, [

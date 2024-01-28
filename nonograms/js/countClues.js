@@ -1,4 +1,4 @@
-export function countClues (arr) {
+export function countClues(arr) {
     const clues = {
         row: countRowClues(arr),
         col: countColClues(arr)
@@ -6,7 +6,7 @@ export function countClues (arr) {
     return clues;
 }
 
-function countRowClues (arr) {
+function countRowClues(arr) {
     let rowClues = [];
     for (let i = 0; i < arr.length; i += 1) {
         const rowClue = [];
@@ -25,7 +25,7 @@ function countRowClues (arr) {
     return rowClues;
 }
 
-function countColClues (arr) {
+function countColClues(arr) {
     let colClues = [];
     for (let i = 0; i < arr.length; i += 1) {
         const colClue = [];
