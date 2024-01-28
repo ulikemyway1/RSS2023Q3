@@ -111,7 +111,8 @@
     "format": "npm run prettier:fix && npm run lint:fix",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "deploy": "npm run build && npx gh-pages -d build -e nonograms"
+    "deploy": "npm run build && npx gh-pages -d build -e nonograms",
+    "start": "webpack serve --open"
   },
   "author": "",
   "license": "ISC",
