@@ -25,14 +25,27 @@
 
 .app__game-field {
     display: grid;
+}
+
+.app__game-field_5x5 {
     grid-template-columns: repeat(5, auto);
     grid-template-rows: repeat(5, auto);
+}
+
+.app__game-field_10x10 {
+    grid-template-columns: repeat(10, auto);
+    grid-template-rows: repeat(10, auto);
+}
+
+.app__game-field_15x15 {
+    grid-template-columns: repeat(15, auto);
+    grid-template-rows: repeat(15, auto);
 }
 
 .cell {
     width: 30px;
     height: 30px;
-    outline: 1px solid black;
+    border: 1px solid rgb(170, 170, 170);
     background: #ffffff;
 }
 
