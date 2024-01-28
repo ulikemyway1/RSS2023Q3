@@ -59,24 +59,46 @@ export function renderMainApp(arr) {
     ]);
 
     arr.forEach((item, index) => {
-        const clueCell = createElement('div', `horClue-${index + 1}`, [
-            'cell',
-            'clues-row-hor',
-        ])
+        let clueCell;
+        if (index === 4 || index === 9) {
+            clueCell = createElement('div', `horClue-${index + 1}`, [
+                'cell',
+                'clues-row-hor',
+                'border-bottom'
+            ])
+        } else {
+            clueCell = createElement('div', `horClue-${index + 1}`, [
+                'cell',
+                'clues-row-hor',
+            ])
+        }
+
         horizontalCluesRow.append(clueCell);
         horClueCells.push(clueCell);
     });
 
+    const verticalCluesRowWrapper = createElement('div', 'vertical-clues-wrapper');
 
     arr.forEach((item, index) => {
-        const clueCell = createElement('div', `vertClue-${index + 1}`, [
-            'cell',
-            'clues-row-vert',
-        ]);
-        verticalCluesRow.append(clueCell);
+        let clueCell;
+        if (index === 4 || index === 9) {
+            clueCell = createElement('div', `vertClue-${index + 1}`, [
+                'cell',
+                'clues-row-vert',
+                'border-right'
+            ]);
+        } else {
+            clueCell = createElement('div', `vertClue-${index + 1}`, [
+                'cell',
+                'clues-row-vert',
+            ]);
+        }
+
+        verticalCluesRowWrapper.append(clueCell);
         vertClueCells.push(clueCell);
     });
 
+    verticalCluesRow.append(verticalCluesRowWrapper);
 
     const innerWapper = createElement('div', 'inner-wrapper');
 
