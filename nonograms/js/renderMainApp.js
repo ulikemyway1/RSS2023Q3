@@ -1,5 +1,7 @@
 import { createElement } from './createElement.js';
 export const gameField = createElement('section', null, ['app__game-field']);
+export const vertClueCells = [];
+export const horClueCells = [];
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -56,25 +58,25 @@ export function renderMainApp(arr) {
         'clues-row_vertical',
     ]);
 
-    arr.forEach((item, index) =>
-        horizontalCluesRow.append(
-            createElement('div', `horClue-${index + 1}`, [
-                'cell',
-                'clues-row-hor',
-            ]),
-        ),
-    );
-    verticalCluesRow.append(
-        createElement('div', 'free-space-between-row-clues', ['cell']),
-    );
-    arr.forEach((item, index) =>
-        verticalCluesRow.append(
-            createElement('div', `vertClue-${index + 1}`, [
-                'cell',
-                'clues-row-vert',
-            ]),
-        ),
-    );
+    arr.forEach((item, index) => {
+        const clueCell = createElement('div', `horClue-${index + 1}`, [
+            'cell',
+            'clues-row-hor',
+        ])
+        horizontalCluesRow.append(clueCell);
+        horClueCells.push(clueCell);
+    });
+
+
+    arr.forEach((item, index) => {
+        const clueCell = createElement('div', `vertClue-${index + 1}`, [
+            'cell',
+            'clues-row-vert',
+        ]);
+        verticalCluesRow.append(clueCell);
+        vertClueCells.push(clueCell);
+    });
+
 
     const innerWapper = createElement('div', 'inner-wrapper');
 
@@ -91,4 +93,5 @@ export function renderMainApp(arr) {
     main.append(appHeader, gameFieldWrapper, appFooter);
 
     body.append(main);
+    console.log(vertClueCells)
 }

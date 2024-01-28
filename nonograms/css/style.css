@@ -57,6 +57,10 @@
     outline: 1px solid black;
 }
 
+#vertical-clues {
+    justify-content: flex-end;
+}
+
 #horizontal-clues {
     flex-direction: column;
 }
@@ -72,6 +76,29 @@
     margin: 0 50%;
     transform: translateX(-50%);
     padding: 20px 0;
+}
+
+.clue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+}
+
+.clues-row-vert {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+}
+
+.clues-row-hor {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: auto;
 }
 
 @media (hover: hover) {
