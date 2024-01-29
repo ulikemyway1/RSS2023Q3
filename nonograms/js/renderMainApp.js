@@ -1,5 +1,7 @@
 import { createElement } from './createElement.js';
 import { isRightCell } from './isRightCell.js';
+import { pickCell } from './pickCell.js';
+import { crossCell } from './crossCell.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -117,8 +119,18 @@ export function renderMainApp(arr) {
 
     body.append(main);
     gameField.addEventListener('click', (e) => {
+        e.preventDefault();
         if (e.target.classList.contains('cell')) {
             isRightCell(e.target);
+            pickCell(e.target);
         }
     })
+
+    gameField.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        if (e.target.classList.contains('cell')) {
+            crossCell(e.target);
+        }
+    })
+    
 }

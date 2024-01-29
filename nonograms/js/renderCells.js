@@ -8,7 +8,7 @@ export function renderCells(arr) {
 
     for (let i = 0; i < arr.length; i += 1) {
         for (let j = 0; j < arr.length; j += 1) {
-            let cell = createElement('button', `cell-${i}`, ['cell']);
+            let cell = createElement('div', `cell-${i}`, ['cell']);
             if (i === 4 || i === 9 || i === 14 || i === 19) {
                 cell.classList.add('border-bottom');
             }
@@ -22,5 +22,4 @@ export function renderCells(arr) {
             }
         }
     }
-    console.log(blackCells);
 }

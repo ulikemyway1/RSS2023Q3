@@ -50,10 +50,6 @@
     background: #ffffff;
 }
 
-.cell:active {
-    background-color: #ffffff;
-}
-
 .button {
     cursor: pointer;
     background: #ffffff;
@@ -143,6 +139,35 @@
     width: 100%;
     border-left: 1px solid #ffffff;
 }
+
+.picked {
+    background: #000000;
+}
+
+.crossed {
+    position: relative;
+}
+.crossed::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #000000;
+    top: 50%;
+    transform: rotate(45deg);
+}
+.crossed::before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #000000;
+    top: 50%;
+    transform: rotate(-45deg);
+}
+
 
 @media (hover: hover) {
     .button:hover {
