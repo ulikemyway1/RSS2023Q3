@@ -175,6 +175,11 @@
     font-size: 17px;
 }
 
+.info-box {
+    text-align: center;
+    font-weight: 700;
+}
+
 @media (hover: hover) {
     .button:hover {
         background: rgb(194, 194, 194);

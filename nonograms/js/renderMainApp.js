@@ -5,12 +5,13 @@ import { resetGame } from './resetGame.js';
 import { saveGame } from './saveGame.js';
 import { continueGame } from './continueGame.js';
 import { showSolution } from './showSolution.js';
-import { arr } from './levels.js';
+import { gameName } from './appState.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
 export let saveGameBtn;
 export let continueGameBtn;
+export let infoBox;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -150,7 +151,9 @@ export function renderMainApp(arr) {
 
     innerWapper.append(horizontalCluesRow, gameField);
 
-    main.append(appHeader, gameFieldWrapper, appFooter);
+    infoBox = createElement('p', null, ['info-box'], gameName);
+
+    main.append(appHeader, infoBox, gameFieldWrapper, appFooter);
 
     body.append(main);
     gameField.addEventListener('click', (e) => {

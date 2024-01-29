@@ -22,7 +22,7 @@ export const DB = [
         ],
     },
     {
-        name: 'Cross',
+        name: 'Space',
         level: 'Easy',
         arr: [
             [0, 0, 0, 0, 0],
@@ -33,7 +33,7 @@ export const DB = [
         ],
     },
     {
-        name: 'Space',
+        name: 'Cross',
         level: 'Easy',
         arr: [
             [1, 0, 0, 0, 1],
