@@ -4,10 +4,12 @@ import { crossCell } from './crossCell.js';
 import { resetGame } from './resetGame.js';
 import { saveGame } from './saveGame.js';
 import { continueGame } from './continueGame.js';
+import { showSolution } from './showSolution.js';
 import { arr } from './levels.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
+export let saveGameBtn;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -33,7 +35,7 @@ export function renderMainApp(arr) {
         'Game Options',
     );
 
-    const saveGameBtn = createElement(
+    saveGameBtn = createElement(
         'button',
         'save-game-btn',
         ['button'],
@@ -68,6 +70,8 @@ export function renderMainApp(arr) {
         ['button'],
         'Show Solution',
     );
+
+    showSolutionBtn.addEventListener('click', showSolution);
 
     const horizontalCluesRow = createElement('div', 'horizontal-clues', [
         'clues-row',
