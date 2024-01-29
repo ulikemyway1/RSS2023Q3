@@ -1,4 +1,5 @@
 import { createElement } from './createElement.js';
+import { isRightCell } from './isRightCell.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -115,5 +116,9 @@ export function renderMainApp(arr) {
     main.append(appHeader, gameFieldWrapper, appFooter);
 
     body.append(main);
-    console.log(vertClueCells)
+    gameField.addEventListener('click', (e) => {
+        if (e.target.classList.contains('cell')) {
+            isRightCell(e.target);
+        }
+    })
 }

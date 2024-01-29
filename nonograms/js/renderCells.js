@@ -1,6 +1,7 @@
 import { createElement } from './createElement.js';
 import { changeGameFieldSize } from './changeGameFieldSize.js';
 import { gameField } from './renderMainApp.js';
+export const blackCells = new Set();
 
 export function renderCells(arr) {
     changeGameFieldSize();
@@ -15,6 +16,11 @@ export function renderCells(arr) {
                 cell.classList.add('border-right');
             }
             gameField.append(cell);
+
+            if (arr[i][j]) {
+                blackCells.add(cell);
+            }
         }
     }
+    console.log(blackCells);
 }
