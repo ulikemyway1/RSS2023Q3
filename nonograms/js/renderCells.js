@@ -1,6 +1,7 @@
 import { createElement } from './createElement.js';
 import { changeGameFieldSize } from './changeGameFieldSize.js';
 import { gameField } from './renderMainApp.js';
+export const allCells = [];
 export const blackCells = new Set();
 
 export function renderCells(arr) {
@@ -20,6 +21,7 @@ export function renderCells(arr) {
             if (arr[i][j]) {
                 blackCells.add(cell);
             }
+            allCells.push(cell);
         }
     }
 }

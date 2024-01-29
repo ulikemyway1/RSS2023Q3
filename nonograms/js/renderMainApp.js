@@ -1,6 +1,7 @@
 import { createElement } from './createElement.js';
 import { pickCell } from './pickCell.js';
 import { crossCell } from './crossCell.js';
+import { resetGame } from './resetGame.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -36,13 +37,15 @@ export function renderMainApp(arr) {
         'Save Game',
     );
 
-    const restartGameBtn = createElement(
+    const resetGameBtn = createElement(
         'button',
-        'restart-game-btn',
+        'reset-game-btn',
         ['button'],
-        'Restart Game',
+        'Reset Game',
     );
 
+    resetGameBtn.addEventListener('click', resetGame)
+        
     const showSolutionBtn = createElement(
         'button',
         'show-solution-btn',
@@ -113,7 +116,7 @@ export function renderMainApp(arr) {
 
     appHeader.append(changeThemeBtn, timeInfo, optionsBtn);
 
-    appFooter.append(saveGameBtn, restartGameBtn, showSolutionBtn);
+    appFooter.append(saveGameBtn, resetGameBtn, showSolutionBtn);
 
     innerWapper.append(horizontalCluesRow, gameField);
 
