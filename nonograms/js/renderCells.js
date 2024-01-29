@@ -1,24 +1,20 @@
 import { createElement } from './createElement.js';
 import { changeGameFieldSize } from './changeGameFieldSize.js';
 import { gameField } from './renderMainApp.js';
+
 export function renderCells(arr) {
-    for (let i = 1; i <= arr.length ** 2; i += 1) {
+    changeGameFieldSize();
 
-        let cell;
-
-        if (i % 5 === 0) {
-            cell = createElement('button', `cell-${i}`, ['cell', 'border-right']);
-            if ((arr.length === 10 && i >= 41 && i <= 50) || (arr.length === 15 && ((i >= 61 && i <= 75) || (i >= 136 && i <= 150) || (i >= 211 && i <= 225)))) {
+    for (let i = 0; i < arr.length; i += 1) {
+        for (let j = 0; j < arr.length; j += 1) {
+            let cell = createElement('button', `cell-${i}`, ['cell']);
+            if (i === 4 || i === 9 || i === 14 || i === 19) {
                 cell.classList.add('border-bottom');
             }
+            if (j === 4 || j === 9 || j === 14 || j === 19) {
+                cell.classList.add('border-right');
+            }
+            gameField.append(cell);
         }
-        else if ((arr.length === 5 && i >= 21 && i <= 25) || (arr.length === 10 && ((i >= 41 && i <= 50) || (i >= 91 && i <= 100))) || (arr.length === 15 && ((i >= 61 && i <= 75) || (i >= 136 && i <= 150) || (i >= 211 && i <= 225)))) {
-            cell = createElement('button', `cell-${i}`, ['cell', 'border-bottom']);
-        }
-        else {
-            cell = createElement('button', `cell-${i}`, ['cell']);
-        }
-        gameField.append(cell);
     }
-    changeGameFieldSize();
 }
