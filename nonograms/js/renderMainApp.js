@@ -1,5 +1,4 @@
 import { createElement } from './createElement.js';
-import { isRightCell } from './isRightCell.js';
 import { pickCell } from './pickCell.js';
 import { crossCell } from './crossCell.js';
 export const gameField = createElement('section', null, ['app__game-field']);
@@ -67,28 +66,31 @@ export function renderMainApp(arr) {
             clueCell = createElement('div', `horClue-${index + 1}`, [
                 'cell',
                 'clues-row-hor',
-                'border-bottom'
-            ])
+                'border-bottom',
+            ]);
         } else {
             clueCell = createElement('div', `horClue-${index + 1}`, [
                 'cell',
                 'clues-row-hor',
-            ])
+            ]);
         }
 
         horizontalCluesRow.append(clueCell);
         horClueCells.push(clueCell);
     });
 
-    const verticalCluesRowWrapper = createElement('div', 'vertical-clues-wrapper');
-    verticalCluesRow.append(createElement('div', 'space-fill'))
-    arr.forEach((item, index) => {
+    const verticalCluesRowWrapper = createElement(
+        'div',
+        'vertical-clues-wrapper',
+    );
+    verticalCluesRow.append(createElement('div', 'space-fill'));
+    arr.forEach((_, index) => {
         let clueCell;
         if (index === 4 || index === 9 || index === 14) {
             clueCell = createElement('div', `vertClue-${index + 1}`, [
                 'cell',
                 'clues-row-vert',
-                'border-right-clue'
+                'border-right-clue',
             ]);
         } else {
             clueCell = createElement('div', `vertClue-${index + 1}`, [
@@ -121,16 +123,14 @@ export function renderMainApp(arr) {
     gameField.addEventListener('click', (e) => {
         e.preventDefault();
         if (e.target.classList.contains('cell')) {
-            isRightCell(e.target);
             pickCell(e.target);
         }
-    })
+    });
 
     gameField.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         if (e.target.classList.contains('cell')) {
             crossCell(e.target);
         }
-    })
-    
+    });
 }
