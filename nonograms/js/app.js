@@ -1,4 +1,4 @@
-import { arr } from './levels.js';
+import { arr } from './appState.js';
 import { renderMainApp } from './renderMainApp.js';
 import '../css/style.css';
 import { renderCells } from './renderCells.js';

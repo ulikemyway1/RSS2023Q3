@@ -1,5 +1,5 @@
 import { gameField } from './renderMainApp.js';
-import { arr } from './levels.js';
+import { arr } from './appState.js';
 
 export function changeGameFieldSize() {
     const sizes = ['app__game-field_5x5', 'app__game-field_10x10', 'app__game-field_15x15'];
