@@ -1,6 +1,6 @@
 import { checkWin } from './checkWin.js';
-import { blackCells } from './renderCells.js';
-export const pickedCells = new Set();
+import { blackCells } from './appState.js';
+import { pickedCells } from './appState.js'; 
 export function pickCell(cell) {
     cell.classList.remove('crossed');
     cell.classList.toggle('picked');

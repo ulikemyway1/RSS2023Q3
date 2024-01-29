@@ -1,15 +1,15 @@
 import { createElement } from './createElement.js';
 import { changeGameFieldSize } from './changeGameFieldSize.js';
 import { gameField } from './renderMainApp.js';
-export const allCells = [];
-export const blackCells = new Set();
+import { allCells } from './appState.js';
+import { blackCells } from './appState.js';
 
 export function renderCells(arr) {
     changeGameFieldSize();
 
     for (let i = 0; i < arr.length; i += 1) {
         for (let j = 0; j < arr.length; j += 1) {
-            let cell = createElement('div', `cell-${i}`, ['cell']);
+            let cell = createElement('div', `cell-${i}${j}`, ['cell']);
             if (i === 4 || i === 9 || i === 14 || i === 19) {
                 cell.classList.add('border-bottom');
             }

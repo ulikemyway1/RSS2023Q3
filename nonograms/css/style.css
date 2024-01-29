@@ -25,7 +25,7 @@
 
 .app__game-field {
     display: grid;
-    background: black
+    background: black;
 }
 
 .app__game-field_5x5 {
@@ -70,7 +70,6 @@
 #vertical-clues {
     justify-content: flex-end;
     background: #ffffff;
-
 }
 
 #vertical-clues-wrapper {
@@ -168,6 +167,9 @@
     transform: rotate(-45deg);
 }
 
+#continue-game-btn {
+    font-size: 17px;
+}
 
 @media (hover: hover) {
     .button:hover {
