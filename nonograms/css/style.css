@@ -61,6 +61,10 @@
     font-size: 18px;
 }
 
+.button:disabled {
+    cursor: default;
+}
+
 #vertical-clues,
 #horizontal-clues {
     display: flex;
@@ -175,4 +179,9 @@
     .button:hover {
         background: rgb(194, 194, 194);
     }
+
+    .button:disabled:hover {
+        background-color: #ffffff;
+    }
+    
 }

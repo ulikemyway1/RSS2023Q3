@@ -1,4 +1,5 @@
 import { allCells } from "./appState.js"
+import { continueGameBtn } from "./renderMainApp.js";
 export function saveGame() {
     const savedPickedCells = [];
     const savedCrossedCells = [];
@@ -12,4 +13,5 @@ export function saveGame() {
     })
     localStorage.setItem('savedPickedCells_ULIKE', JSON.stringify(savedPickedCells));
     localStorage.setItem('savedCrossedCells_ULIKE', JSON.stringify(savedCrossedCells));
+    continueGameBtn.disabled = false;
 }

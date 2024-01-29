@@ -10,6 +10,7 @@ export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
 export let saveGameBtn;
+export let continueGameBtn;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -44,7 +45,7 @@ export function renderMainApp(arr) {
 
     saveGameBtn.addEventListener('click', saveGame);
 
-    const continueGameBtn = createElement(
+    continueGameBtn = createElement(
         'button',
         'continue-game-btn',
         ['button'],
@@ -54,6 +55,10 @@ export function renderMainApp(arr) {
     continueGameBtn.addEventListener('click', () => {
         continueGame(arr);
     });
+
+    if (!localStorage.getItem('savedPickedCells_ULIKE'), !localStorage.getItem('savedCrossedCells_ULIKE')) {
+        continueGameBtn.disabled = true;
+    }
 
     const resetGameBtn = createElement(
         'button',
