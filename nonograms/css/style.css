@@ -92,11 +92,8 @@
 }
 
 #game-field-wapper {
-    display: inline-flex;
-    flex-direction: column;
     width: min-content;
-    margin: 0 50%;
-    transform: translateX(-50%);
+    margin: 0 auto;
     padding: 20px 0;
 }
 
