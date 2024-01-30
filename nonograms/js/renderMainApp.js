@@ -80,7 +80,10 @@ export function renderMainApp(arr) {
         'Show Solution',
     );
 
-    showSolutionBtn.addEventListener('click', showSolution);
+    showSolutionBtn.addEventListener('click', () => {
+        showSolution();
+        timer.stop();
+    });
 
     const horizontalCluesRow = createElement('div', 'horizontal-clues', [
         'clues-row',
@@ -163,6 +166,9 @@ export function renderMainApp(arr) {
         e.preventDefault();
         if (e.target.classList.contains('cell')) {
             pickCell(e.target);
+            if (!timer.getStatus()) {
+                timer.start();
+            }
         }
     });
 

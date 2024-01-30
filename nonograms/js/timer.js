@@ -4,6 +4,7 @@ export class Timer {
     constructor(time, parent) {
         this.time = time;
         this.parent = parent;
+        this.isStarted = false;
     }
 
     render() {
@@ -16,15 +17,20 @@ export class Timer {
     }
 
     start() {
-        this.counter = setInterval(() => {
-            this.increment();
-            this.table.remove();
-            this.render();
-        }, 1000);
+        if (!this.isStarted) {
+            this.counter = setInterval(() => {
+                this.increment();
+                this.table.remove();
+                this.render();
+            }, 1000);
+            this.isStarted = true;
+        }
+
     }
 
     stop() {
         clearInterval(this.counter);
+        this.isStarted = false;
     }
 
     getTime() {
@@ -52,5 +58,8 @@ export class Timer {
             seconds = `0${seconds}`
         }
         return `${minutes}:${seconds}`
+    }
+    getStatus() {
+        return this.isStarted;
     }
 }
