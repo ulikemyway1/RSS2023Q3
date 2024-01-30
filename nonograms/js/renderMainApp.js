@@ -13,6 +13,7 @@ export const horClueCells = [];
 export let saveGameBtn;
 export let continueGameBtn;
 export let infoBox;
+export let timer;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -30,7 +31,7 @@ export function renderMainApp(arr) {
     );
 
     const timeInfo = createElement('div', 'time-info', null, 'Time passed: ');
-    const timer = new Timer(0, timeInfo);
+    timer = new Timer(0, timeInfo);
     timer.render()
 
     const optionsBtn = createElement(

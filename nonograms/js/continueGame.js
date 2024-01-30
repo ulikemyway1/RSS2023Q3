@@ -2,6 +2,7 @@ import { renderCells } from './renderCells.js';
 import { pickedCells } from './appState.js';
 import { blackCells } from './appState.js';
 import { allCells } from './appState.js';
+import { timer } from './renderMainApp.js';
 export function continueGame(arr) {
     blackCells.clear();
     pickedCells.clear();
@@ -25,4 +26,13 @@ export function continueGame(arr) {
             pickedCells.add(cell);
         }
     });
+    timer.stop();
+    const passedTime = JSON.parse(localStorage.getItem('passedTime_ULIKE'));
+    if (passedTime) {
+        timer.setTime(passedTime);
+    } else {
+        timer.setTime(0);
+    }
+
+    timer.render();
 }

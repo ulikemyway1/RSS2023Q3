@@ -5,9 +5,11 @@ export class Timer {
         this.time = time;
         this.parent = parent;
         this.isStarted = false;
+        this.table = createElement('span', 'timer', null, this.convertTime());
     }
 
     render() {
+        this.table.remove();
         this.table = createElement('span', 'timer', null, this.convertTime());
         this.parent.append(this.table);
     }
@@ -61,5 +63,9 @@ export class Timer {
     }
     getStatus() {
         return this.isStarted;
+    }
+
+    setTime(newTime) {
+        this.time = newTime;
     }
 }
