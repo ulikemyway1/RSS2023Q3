@@ -6,6 +6,7 @@ import { saveGame } from './saveGame.js';
 import { continueGame } from './continueGame.js';
 import { showSolution } from './showSolution.js';
 import { gameName } from './appState.js';
+import { Timer } from './timer.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -28,7 +29,9 @@ export function renderMainApp(arr) {
         'Change Theme',
     );
 
-    const timeInfo = createElement('div', 'time-info', null, 'Time:');
+    const timeInfo = createElement('div', 'time-info', null, 'Time passed: ');
+    const timer = new Timer(0, timeInfo);
+    timer.render()
 
     const optionsBtn = createElement(
         'button',
