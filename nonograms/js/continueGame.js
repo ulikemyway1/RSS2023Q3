@@ -4,6 +4,7 @@ import { blackCells } from './appState.js';
 import { allCells } from './appState.js';
 import { infoBox, timer } from './renderMainApp.js';
 import { DB } from './levels.js';
+import { modal } from './showWinModal.js';
 export function continueGame() {
     const prevGameIndex = localStorage.getItem('prevGameIndex_ULIKE');
     if (prevGameIndex) {
@@ -39,5 +40,9 @@ export function continueGame() {
         }
 
         timer.render();
+
+        if (modal) {
+            modal.remove();
+        }
     }
 }

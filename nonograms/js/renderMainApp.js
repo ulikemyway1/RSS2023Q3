@@ -1,17 +1,19 @@
 import { createElement } from './createElement.js';
-import { pickCell } from './pickCell.js';
 import { crossCell } from './crossCell.js';
 import { resetGame } from './resetGame.js';
 import { saveGame } from './saveGame.js';
 import { continueGame } from './continueGame.js';
 import { showSolution } from './showSolution.js';
-import { gameName, isSolve } from './appState.js';
+import { gameName } from './appState.js';
 import { Timer } from './timer.js';
+import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
 export let saveGameBtn;
+export let showSolutionBtn;
 export let continueGameBtn;
+export let resetGameBtn;
 export let infoBox;
 export let timer;
 export let timeInfo;
@@ -77,7 +79,7 @@ export function renderMainApp(arr) {
         continueGameBtn.disabled = true;
     }
 
-    const resetGameBtn = createElement(
+    resetGameBtn = createElement(
         'button',
         'reset-game-btn',
         ['button'],
@@ -86,7 +88,7 @@ export function renderMainApp(arr) {
 
     resetGameBtn.addEventListener('click', resetGame);
 
-    const showSolutionBtn = createElement(
+    showSolutionBtn = createElement(
         'button',
         'show-solution-btn',
         ['button'],
@@ -175,15 +177,7 @@ export function renderMainApp(arr) {
     main.append(appHeader, infoBox, timeInfo, gameFieldWrapper, appFooter);
 
     body.append(main);
-    gameField.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (e.target.classList.contains('cell')) {
-            pickCell(e.target);
-            if (!timer.getStatus() && !isSolve[0]) {
-                timer.start();
-            }
-        }
-    });
+    gameField.addEventListener('click', gameFieldClickHandler);
 
     gameField.addEventListener('contextmenu', (e) => {
         e.preventDefault();

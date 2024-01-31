@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,100;1,300&display=swap');
-
+:root {
+    --win-text: #106d10;
+}
 * {
     margin: 0;
     padding: 0;
@@ -183,12 +185,22 @@
     margin: 10px 0 0 0;
 }
 
-
 #win-modal {
+    display: block;
+    height: max-content;
     width: 100%;
     padding: 25px 0 0 0;
     text-align: center;
+    color: var(--win-text);
 }
+
+#random-game-btn {
+    font-size: 16px;
+    height: 40px;
+    width: 160px;
+    margin-top: 5px;
+}
+
 @media (hover: hover) {
     .button:hover {
         background: rgb(194, 194, 194);
@@ -197,5 +209,4 @@
     .button:disabled:hover {
         background-color: #ffffff;
     }
-    
 }

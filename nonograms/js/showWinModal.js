@@ -1,9 +1,32 @@
 import { createElement } from './createElement.js';
-import { gameFieldWrapper } from './renderMainApp.js';
+import {
+    gameFieldWrapper,
+    resetGameBtn,
+    saveGameBtn,
+    showSolutionBtn,
+} from './renderMainApp.js';
 import { timer } from './renderMainApp.js';
+export const modal = createElement('div', 'win-modal');
+
 export function showWinModal() {
-    const modal = createElement('div', 'win-modal', null, `Great! You have solved the nonogram in ${timer.getTime()} seconds!`);
+    const modalText = createElement(
+        'p',
+        null,
+        'modal__text',
+        `Great! You have solved the nonogram in ${timer.getTime()} seconds!`,
+    );
+
+    const randomGameBtn = createElement(
+        'button',
+        'random-game-btn',
+        ['button'],
+        'Play Random Game',
+    );
+    modal.append(modalText, randomGameBtn);
     gameFieldWrapper.before(modal, gameFieldWrapper);
     timer.stop();
+    showSolutionBtn.disabled = true;
+    saveGameBtn.disabled = true;
+    resetGameBtn.disabled = true;
     return modal;
 }
