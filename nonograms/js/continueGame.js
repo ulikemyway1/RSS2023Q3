@@ -2,11 +2,12 @@ import { renderCells } from './renderCells.js';
 import { isSolve, pickedCells } from './appState.js';
 import { blackCells } from './appState.js';
 import { allCells } from './appState.js';
-import { infoBox, timer } from './renderMainApp.js';
+import { infoBox, showSolutionBtn, resetGameBtn, saveGameBtn, timer } from './renderMainApp.js';
 import { DB } from './levels.js';
 import { modal } from './showWinModal.js';
 import { gameField } from './renderMainApp.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
+
 export function continueGame() {
     const prevGameIndex = localStorage.getItem('prevGameIndex_ULIKE');
     if (prevGameIndex) {
@@ -47,6 +48,9 @@ export function continueGame() {
             modal.remove();
             gameField.addEventListener('click', gameFieldClickHandler);
             isSolve[0] = false;
+            showSolutionBtn.disabled = false;
+            saveGameBtn.disabled = false;
+            resetGameBtn.disabled = false;
         }
         
     }

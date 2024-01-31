@@ -1,4 +1,5 @@
 import { createElement } from './createElement.js';
+import { playRandomGame } from './playRandomGame.js';
 import {
     gameFieldWrapper,
     resetGameBtn,
@@ -23,6 +24,7 @@ export function showWinModal() {
         ['button'],
         'Play Random Game',
     );
+    randomGameBtn.addEventListener('click', playRandomGame)
     modal.append(modalText, randomGameBtn);
     gameFieldWrapper.before(modal, gameFieldWrapper);
     timer.stop();
