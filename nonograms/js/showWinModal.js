@@ -6,9 +6,10 @@ import {
     showSolutionBtn,
 } from './renderMainApp.js';
 import { timer } from './renderMainApp.js';
-export const modal = createElement('div', 'win-modal');
+export let modal;
 
 export function showWinModal() {
+    modal = createElement('div', 'win-modal');
     const modalText = createElement(
         'p',
         null,
