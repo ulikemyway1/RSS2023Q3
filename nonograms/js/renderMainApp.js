@@ -58,7 +58,7 @@ export function renderMainApp(arr) {
     );
 
     continueGameBtn.addEventListener('click', () => {
-        continueGame(arr);
+        continueGame();
     });
 
     if (!localStorage.getItem('savedPickedCells_ULIKE'), !localStorage.getItem('savedCrossedCells_ULIKE')) {
