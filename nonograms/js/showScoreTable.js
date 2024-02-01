@@ -11,8 +11,11 @@ export function showScoreTable () {
 
     const scoreTableHeader = createElement('h2', null, ['score-table__header'], 'Hight Score Table')
 
-    const scoreTableContent = createElement('p', null, ['score-table__header'], 'Nothing to show yet...')
-
+    let scoreTableContent = createElement('p', null, ['score-table__header'], 'Nothing to show yet...')
+    const arr = JSON.parse(localStorage.getItem('savedRecords_ULIKE'));
+    if (arr) {
+        scoreTableContent = createList(arr);
+    }
     scoreTable.append(scoreTableHeader, scoreTableContent, closeBtn);
     main.append(scoreTable);
 }
@@ -24,4 +27,15 @@ function closeScoreTable(table, timerStatus) {
         timer.start();
     }
     table.remove();
+}
+
+function createList(arr) {
+    const list = createElement('ol', null, ['score-table__item-wrapper']);
+ 
+        arr.forEach((record) => {
+            const listItem = createElement('li', null, ['score-table__item'], `The nonogram ${record.level} was completed in ${record.time} s`);
+            list.append(listItem)
+        })
+
+    return list;
 }

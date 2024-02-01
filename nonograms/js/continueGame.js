@@ -1,5 +1,5 @@
 import { renderCells } from './renderCells.js';
-import { isSolve, pickedCells } from './appState.js';
+import { gameLevel, gameName, isSolve, pickedCells } from './appState.js';
 import { blackCells } from './appState.js';
 import { allCells } from './appState.js';
 import {
@@ -36,6 +36,8 @@ export function continueGame() {
             allCells.pop();
         }
         renderCells(DB[prevGameIndex].arr);
+        gameName[0] = DB[prevGameIndex].name;
+        gameLevel[0] = DB[prevGameIndex].level;
         allCells.forEach((cell) => {
             if (savedCrossedCells.indexOf(cell.id) !== -1) {
                 cell.classList.add('crossed');
@@ -63,7 +65,7 @@ export function continueGame() {
             saveGameBtn.disabled = false;
             resetGameBtn.disabled = false;
         }
-        
+
         gameField.classList.remove(
             'app__game-field_5x5',
             'app__game-field_10x10',

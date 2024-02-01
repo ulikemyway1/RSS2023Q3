@@ -7,7 +7,7 @@ import {
 } from './renderMainApp.js';
 import { modal } from './showWinModal.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
-import { allCells, isSolve } from './appState.js';
+import { allCells, gameLevel, gameName, isSolve } from './appState.js';
 import { DB } from './levels.js';
 import { renderCells } from './renderCells.js';
 import { renderClueCells } from './renderClueCells.js';
@@ -58,7 +58,8 @@ export function playRandomGame() {
     while (vertClueCells.length > 0) {
         vertClueCells.pop();
     }
-
+    gameName[0] = DB[index].name;
+    gameLevel[0] = DB[index].level;
     renderClueCells(DB[index].arr);
     renderClues(DB[index].arr);
 }

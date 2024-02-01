@@ -140,7 +140,7 @@ export function renderMainApp(arr) {
 
     innerWapper.append(horizontalCluesRow, gameField);
 
-    infoBox = createElement('p', null, ['info-box'], gameName);
+    infoBox = createElement('p', null, ['info-box'], gameName[0]);
 
     main.append(appHeader, infoBox, timeInfo, gameFieldWrapper, appFooter);
 
