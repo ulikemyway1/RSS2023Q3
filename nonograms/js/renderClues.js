@@ -5,8 +5,6 @@ import { createElement } from './createElement.js';
 
 export function renderClues(arr) {
     const clues = countClues(arr);
-    console.log(vertClueCells);
-    console.log(clues);
     vertClueCells.forEach((cell, index) => {
         clues.col[index].forEach((clue) =>
             cell.append(createElement('div', null, ['clue'], clue)),

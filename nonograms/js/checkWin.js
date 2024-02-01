@@ -1,6 +1,7 @@
 import { isSolve, pickedCells } from './appState.js';
 import { blackCells } from './appState.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
+import { makeRecord } from './makeRecord.js';
 import { gameField } from './renderMainApp.js';
 import { showWinModal } from './showWinModal.js';
 export function checkWin() {
@@ -8,5 +9,6 @@ export function checkWin() {
         showWinModal();
         isSolve[0] = true;
         gameField.removeEventListener('click', gameFieldClickHandler);
+        makeRecord()
     }
 }

@@ -8,6 +8,7 @@ import { gameName } from './appState.js';
 import { Timer } from './timer.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 import { renderClueCells } from './renderClueCells.js';
+import { showScoreTable } from './showScoreTable.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -21,10 +22,12 @@ export let timeInfo;
 export let gameFieldWrapper;
 export let verticalCluesRowWrapper;
 export let horizontalCluesRow;
+export let main;
+export let highScoreTableBtn;
 export function renderMainApp(arr) {
     const body = document.body;
 
-    const main = createElement('main', null, ['app']);
+    main = createElement('main', null, ['app']);
 
     const appHeader = createElement('section', null, ['app__header']);
 
@@ -37,13 +40,13 @@ export function renderMainApp(arr) {
         'Change Theme',
     );
 
-    const highScoreTableBtn = createElement(
+    highScoreTableBtn = createElement(
         'button',
         'high-scrore-btn',
         ['button'],
         'High Score Table',
     );
-
+    highScoreTableBtn.addEventListener('click', showScoreTable);
     timeInfo = createElement('div', 'time-info', null, 'Time passed: ');
     timer = new Timer(0, timeInfo);
     timer.render();

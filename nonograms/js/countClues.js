@@ -7,8 +7,6 @@ export function countClues(arr) {
 }
 
 function countRowClues(arr) {
-    console.log(arr);
-
     let rowClues = [];
     for (let i = 0; i < arr.length; i += 1) {
         const rowClue = [];
