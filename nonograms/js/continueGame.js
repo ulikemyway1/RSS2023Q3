@@ -20,7 +20,6 @@ import { renderClueCells } from './renderClueCells.js';
 
 export function continueGame() {
     const prevGameIndex = +localStorage.getItem('prevGameIndex_ULIKE');
-    console.log(typeof prevGameIndex);
     if (prevGameIndex) {
         infoBox.textContent = DB[prevGameIndex].name;
         blackCells.clear();
