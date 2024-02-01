@@ -7,6 +7,7 @@ import { showSolution } from './showSolution.js';
 import { gameName } from './appState.js';
 import { Timer } from './timer.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
+import { renderClueCells } from './renderClueCells.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -18,6 +19,8 @@ export let infoBox;
 export let timer;
 export let timeInfo;
 export let gameFieldWrapper;
+export let verticalCluesRowWrapper;
+export let horizontalCluesRow;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -100,7 +103,7 @@ export function renderMainApp(arr) {
         timer.stop();
     });
 
-    const horizontalCluesRow = createElement('div', 'horizontal-clues', [
+    horizontalCluesRow = createElement('div', 'horizontal-clues', [
         'clues-row',
         'clues-row_horizontal',
     ]);
@@ -110,48 +113,10 @@ export function renderMainApp(arr) {
         'clues-row_vertical',
     ]);
 
-    arr.forEach((item, index) => {
-        let clueCell;
-        if (index === 4 || index === 9) {
-            clueCell = createElement('div', `horClue-${index + 1}`, [
-                'cell',
-                'clues-row-hor',
-                'border-bottom',
-            ]);
-        } else {
-            clueCell = createElement('div', `horClue-${index + 1}`, [
-                'cell',
-                'clues-row-hor',
-            ]);
-        }
-
-        horizontalCluesRow.append(clueCell);
-        horClueCells.push(clueCell);
-    });
-
-    const verticalCluesRowWrapper = createElement(
-        'div',
-        'vertical-clues-wrapper',
-    );
+    verticalCluesRowWrapper = createElement('div', 'vertical-clues-wrapper');
     verticalCluesRow.append(createElement('div', 'space-fill'));
-    arr.forEach((_, index) => {
-        let clueCell;
-        if (index === 4 || index === 9 || index === 14) {
-            clueCell = createElement('div', `vertClue-${index + 1}`, [
-                'cell',
-                'clues-row-vert',
-                'border-right-clue',
-            ]);
-        } else {
-            clueCell = createElement('div', `vertClue-${index + 1}`, [
-                'cell',
-                'clues-row-vert',
-            ]);
-        }
 
-        verticalCluesRowWrapper.append(clueCell);
-        vertClueCells.push(clueCell);
-    });
+    renderClueCells(arr);
 
     verticalCluesRow.append(verticalCluesRowWrapper);
 

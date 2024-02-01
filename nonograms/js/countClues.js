@@ -1,12 +1,14 @@
 export function countClues(arr) {
     const clues = {
         row: countRowClues(arr),
-        col: countColClues(arr)
-    }
+        col: countColClues(arr),
+    };
     return clues;
 }
 
 function countRowClues(arr) {
+    console.log(arr);
+
     let rowClues = [];
     for (let i = 0; i < arr.length; i += 1) {
         const rowClue = [];
@@ -15,7 +17,10 @@ function countRowClues(arr) {
             if (arr[i][j]) {
                 groupLength += 1;
             }
-            if (groupLength !== 0 && arr[i][j] === 0 || (groupLength !== 0 && j === arr.length - 1)) {
+            if (
+                (groupLength !== 0 && arr[i][j] === 0) ||
+                (groupLength !== 0 && j === arr.length - 1)
+            ) {
                 rowClue.push(groupLength);
                 groupLength = 0;
             }
@@ -34,7 +39,10 @@ function countColClues(arr) {
             if (arr[j][i]) {
                 groupLength += 1;
             }
-            if (groupLength !== 0 && arr[j][i] === 0 || (groupLength !== 0 && j === arr.length - 1)) {
+            if (
+                (groupLength !== 0 && arr[j][i] === 0) ||
+                (groupLength !== 0 && j === arr.length - 1)
+            ) {
                 colClue.push(groupLength);
                 groupLength = 0;
             }
