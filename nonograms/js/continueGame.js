@@ -63,6 +63,7 @@ export function continueGame() {
             saveGameBtn.disabled = false;
             resetGameBtn.disabled = false;
         }
+        
         gameField.classList.remove(
             'app__game-field_5x5',
             'app__game-field_10x10',
@@ -92,6 +93,5 @@ export function continueGame() {
 
         renderClueCells(DB[prevGameIndex].arr);
         renderClues(DB[prevGameIndex].arr);
-        console.log(DB[prevGameIndex].arr);
     }
 }
