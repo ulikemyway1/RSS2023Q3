@@ -1,0 +1,24 @@
+@media (max-width: 900px) {
+    body .app {
+        margin: 5px auto;
+        width: 90vw;
+    }
+
+    #game-field-wapper .cell,
+    #game-field-wapper .clue {
+        width: clamp(0.938rem, 0.42rem + 2.59vw, 1.875rem);
+        height: clamp(0.938rem, 0.42rem + 2.59vw, 1.875rem);
+        font-size: clamp(0.5rem, 0.293rem + 1.03vw, 0.875rem);
+    }
+
+    #game-field-wapper .clues-row-vert {
+        height: auto;
+    }
+    #game-field-wapper .clues-row-hor {
+        width: auto;
+    }
+    #game-field-wapper .clues-row-hor .clue {
+        width: clamp(0.5rem, 0.224rem + 1.38vw, 1rem);
+    }
+}
+
