@@ -8,3 +8,4 @@ export const arr = DB[index].arr;
 export const gameName = [DB[index].name];
 export const gameLevel = [DB[index].level];
 export const isSolve = [false];
+export const boardIsBlocked = [false];

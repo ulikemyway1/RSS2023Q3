@@ -1,5 +1,5 @@
 import { renderCells } from './renderCells.js';
-import { gameLevel, gameName, isSolve, pickedCells } from './appState.js';
+import { boardIsBlocked, gameLevel, gameName, isSolve, pickedCells } from './appState.js';
 import { blackCells } from './appState.js';
 import { allCells } from './appState.js';
 import {
@@ -58,13 +58,14 @@ export function continueGame() {
 
         if (modal) {
             modal.remove();
-            gameField.addEventListener('click', gameFieldClickHandler);
-            isSolve[0] = false;
-            showSolutionBtn.disabled = false;
-            saveGameBtn.disabled = false;
-            resetGameBtn.disabled = false;
         }
-
+        isSolve[0] = false;
+        showSolutionBtn.disabled = false;
+        saveGameBtn.disabled = false;
+        resetGameBtn.disabled = false;
+        if (boardIsBlocked) {
+            gameField.addEventListener('click', gameFieldClickHandler);
+        }
         gameField.classList.remove(
             'app__game-field_5x5',
             'app__game-field_10x10',

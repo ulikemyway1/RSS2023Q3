@@ -7,19 +7,22 @@ import {
 } from './renderMainApp.js';
 import { modal } from './showWinModal.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
-import { allCells, gameLevel, gameName, isSolve } from './appState.js';
+import { allCells, boardIsBlocked, gameLevel, gameName, isSolve } from './appState.js';
 import { DB } from './levels.js';
 import { renderCells } from './renderCells.js';
 import { renderClueCells } from './renderClueCells.js';
 import { renderClues } from './renderClues.js';
+
 export function playRandomGame() {
     if (modal) {
         modal.remove();
-        gameField.addEventListener('click', gameFieldClickHandler);
         isSolve[0] = false;
         showSolutionBtn.disabled = false;
         saveGameBtn.disabled = false;
         resetGameBtn.disabled = false;
+    }
+    if (boardIsBlocked) {
+        gameField.addEventListener('click', gameFieldClickHandler);
     }
     timer.reset();
     timer.render();
