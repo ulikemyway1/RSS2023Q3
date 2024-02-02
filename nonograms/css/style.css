@@ -2,6 +2,8 @@
 
 :root {
     --win-text: #106d10;
+    --black-cell: #2b2b2b;
+    --button-background: #d4d4d4;
 }
 * {
     margin: 0;
@@ -11,7 +13,7 @@
 
 .app {
     position: relative;
-    margin: 40px auto;
+    margin: 5px auto;
     width: 80vw;
     outline: 1px solid black;
     font-family: Roboto;
@@ -62,8 +64,41 @@
     width: 100px;
     border-radius: 6px;
     font-family: Roboto;
-    transition: all 0.5s;
+    transition: all 0.5s ease-out;
     font-size: 18px;
+}
+
+.button-switcher {
+    position: relative;
+    height: 20px;
+    width: 40px;
+    overflow: hidden;
+}
+
+#change-theme-btn:has(.switched) {
+    background: var(--button-background);
+}
+
+.app__header .button-switcher:active,
+.app__header .button-switcher:hover {
+    background: none;
+    outline: none;
+}
+
+.button__slider {
+    height: 100%;
+    width: 60%;
+    background: var(--black-cell);
+    position: relative;
+    top: 0;
+    left: -5px;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.button__slider.switched {
+    left: 100%;
+    transform: translateX(-95%);
 }
 
 .button:disabled {
@@ -146,7 +181,7 @@
 }
 
 .picked {
-    background: #000000;
+    background: var(--black-cell);
 }
 
 .crossed {

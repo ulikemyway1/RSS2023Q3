@@ -9,6 +9,7 @@ import { Timer } from './timer.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 import { renderClueCells } from './renderClueCells.js';
 import { showScoreTable } from './showScoreTable.js';
+import { changeTheme } from './changeTheme.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -24,6 +25,7 @@ export let verticalCluesRowWrapper;
 export let horizontalCluesRow;
 export let main;
 export let highScoreTableBtn;
+export let changeThemeBtnSlider;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -33,13 +35,13 @@ export function renderMainApp(arr) {
 
     const appFooter = createElement('section', null, ['app__footer']);
 
-    const changeThemeBtn = createElement(
+    const changeThemeBtn = createElement('button', 'change-theme-btn', [
         'button',
-        'change-theme-btn',
-        ['button'],
-        'Change Theme',
-    );
-
+        'button-switcher',
+    ]);
+    changeThemeBtnSlider = createElement('div', null, ['button__slider']);
+    changeThemeBtn.append(changeThemeBtnSlider);
+    changeThemeBtn.addEventListener('click', changeTheme);
     highScoreTableBtn = createElement(
         'button',
         'high-scrore-btn',
