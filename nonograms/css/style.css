@@ -12,22 +12,24 @@
 }
 
 .app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
     margin: 5px auto;
     width: 80vw;
-    outline: 1px solid black;
     font-family: Roboto;
     font-size: 18px;
     min-width: 300px;
-    max-width: 800px;
+    max-width: 590px;
     overflow: hidden;
+    gap: 5px;
 }
 
 .app__header,
 .app__footer {
     display: flex;
-    justify-content: space-between;
-    padding: 5px;
+    justify-content: space-around;
 }
 
 .app__game-field {
@@ -51,8 +53,8 @@
 }
 
 .cell {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border: 1px solid #d4d4d4;
     background: #ffffff;
 }
@@ -60,12 +62,12 @@
 .button {
     cursor: pointer;
     background: #ffffff;
-    height: 60px;
-    width: 100px;
+    min-height: 30px;
+    width: clamp(3.125rem, 1.307rem + 9.09vw, 8.125rem);
     border-radius: 6px;
     font-family: Roboto;
     transition: all 0.5s ease-out;
-    font-size: 18px;
+    font-size: clamp(0.625rem, 0.443rem + 0.91vw, 1.125rem);
 }
 
 .button-switcher {
@@ -73,6 +75,7 @@
     height: 20px;
     width: 40px;
     overflow: hidden;
+    min-height: auto;
 }
 
 #change-theme-btn:has(.switched) {
@@ -134,15 +137,14 @@
 #game-field-wapper {
     width: min-content;
     margin: 0 auto;
-    padding: 20px 0;
 }
 
 .clue {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
 }
 
 .clues-row-vert {
@@ -179,7 +181,6 @@
     width: 100%;
     border-left: 1px solid #ffffff;
 }
-
 .picked {
     background: var(--black-cell);
 }
@@ -208,10 +209,6 @@
     transform: rotate(-45deg);
 }
 
-#continue-game-btn {
-    font-size: 17px;
-}
-
 .info-box {
     text-align: center;
     font-weight: 700;
@@ -219,7 +216,6 @@
 
 #time-info {
     text-align: center;
-    margin: 10px 0 0 0;
 }
 
 #win-modal {
@@ -243,8 +239,8 @@
     position: absolute;
     width: 100%;
     background-color: #ffffff;
-    min-height: 90%;
-    top: 70px;
+    min-height: 95%;
+    top: 40px;
     padding: 20px;
     flex-direction: column;
     align-items: center;
@@ -263,6 +259,53 @@
     margin-top: 15px;
 }
 
+.levels-window {
+    text-align: center;
+}
+
+.levels-window__header {
+    font-weight: 800;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.levels-window__card {
+    border: 1px solid black;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
+
+.levels-window__wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    gap: 10px;
+    justify-content: center;
+}
+
+.levels-window__card-descr {
+    text-align: center;
+    font-size: 20px;
+}
+
+.levels-window__card-level.Easy {
+    color: #106d10;
+}
+
+.levels-window__card-level.Medium {
+    color: #9c8e12;
+}
+
+.levels-window__card-level.Hard {
+    color: #8f1d09;
+}
+
 @media (hover: hover) {
     .button:hover {
         background: rgb(194, 194, 194);
@@ -270,6 +313,18 @@
 
     .button:disabled:hover {
         background-color: #ffffff;
+    }
+
+    .levels-window__card:has(.Easy):hover {
+        background-color: #106d103d;
+    }
+
+    .levels-window__card:has(.Medium):hover {
+        background-color: #9c8e1263;
+    }
+
+    .levels-window__card:has(.Hard):hover {
+        background-color: #8f1d0952;
     }
 }
 

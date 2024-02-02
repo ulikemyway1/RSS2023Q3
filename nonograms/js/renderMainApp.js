@@ -10,6 +10,7 @@ import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 import { renderClueCells } from './renderClueCells.js';
 import { showScoreTable } from './showScoreTable.js';
 import { changeTheme } from './changeTheme.js';
+import { showGameLevels } from './showGameLevels.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -26,6 +27,7 @@ export let horizontalCluesRow;
 export let main;
 export let highScoreTableBtn;
 export let changeThemeBtnSlider;
+export let optionsBtn;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -42,23 +44,28 @@ export function renderMainApp(arr) {
     changeThemeBtnSlider = createElement('div', null, ['button__slider']);
     changeThemeBtn.append(changeThemeBtnSlider);
     changeThemeBtn.addEventListener('click', changeTheme);
+
     highScoreTableBtn = createElement(
         'button',
-        'high-scrore-btn',
+        'high-score-btn',
         ['button'],
-        'High Score Table',
+        'Score Table',
     );
+
     highScoreTableBtn.addEventListener('click', showScoreTable);
+
     timeInfo = createElement('div', 'time-info', null, 'Time passed: ');
     timer = new Timer(0, timeInfo);
     timer.render();
 
-    const optionsBtn = createElement(
+    optionsBtn = createElement(
         'button',
         'options-btn',
         ['button'],
-        'Game Options',
+        'Choose Level',
     );
+
+    optionsBtn.addEventListener('click', showGameLevels);
 
     saveGameBtn = createElement(
         'button',
@@ -73,7 +80,7 @@ export function renderMainApp(arr) {
         'button',
         'continue-game-btn',
         ['button'],
-        'Continue Saved Game',
+        'Continue Game',
     );
 
     continueGameBtn.addEventListener('click', () => {

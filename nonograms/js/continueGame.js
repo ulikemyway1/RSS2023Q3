@@ -1,5 +1,11 @@
 import { renderCells } from './renderCells.js';
-import { boardIsBlocked, gameLevel, gameName, isSolve, pickedCells } from './appState.js';
+import {
+    boardIsBlocked,
+    gameLevel,
+    gameName,
+    isSolve,
+    pickedCells,
+} from './appState.js';
 import { blackCells } from './appState.js';
 import { allCells } from './appState.js';
 import {
