@@ -1,5 +1,6 @@
 import { createElement } from "./createElement";
 import { highScoreTableBtn, main, timer } from "./renderMainApp";
+import { Timer } from "./timer";
 
 export function showScoreTable () {
     highScoreTableBtn.disabled = true;
@@ -33,7 +34,9 @@ function createList(arr) {
     const list = createElement('ol', null, ['score-table__item-wrapper']);
  
         arr.forEach((record) => {
-            const listItem = createElement('li', null, ['score-table__item'], `The nonogram ${record.level} was completed in ${record.time} s`);
+            const convertingTimer = new Timer(record.time)
+            const convertedTime = convertingTimer.convertTime()
+            const listItem = createElement('li', null, ['score-table__item'], `The nonogram ${record.level} was completed in ${convertedTime}`);
             list.append(listItem)
         })
 
