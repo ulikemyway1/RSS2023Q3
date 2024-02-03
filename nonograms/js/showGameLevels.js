@@ -1,11 +1,9 @@
 import { createElement } from './createElement';
 import { DB } from './levels';
-import { main, optionsBtn } from './renderMainApp';
-
-export function showGameLevels() {
-    optionsBtn.disabled = true;
-
-    const window = createElement('section', null, ['levels-window']);
+import { main } from './renderMainApp';
+let window;
+export function renderWindowLevels() {
+    window = createElement('section', null, ['levels-window']);
 
     const levelsHeader = createElement(
         'p',
@@ -17,9 +15,26 @@ export function showGameLevels() {
     const levelsWrapper = createElement('div', null, [
         'levels-window__wrapper',
     ]);
+
+    const closeWindowLevelsBtn = createElement(
+        'button',
+        null,
+        ['button', 'levels-window__button'],
+        'Close',
+    );
+    closeWindowLevelsBtn.addEventListener('click', () => {
+        window.classList.add('hidden');
+        main.classList.remove('hidden');
+    });
     createList(levelsWrapper, DB);
-    window.append(levelsHeader, levelsWrapper);
-    main.append(window);
+    window.append(levelsHeader, levelsWrapper, closeWindowLevelsBtn);
+    document.body.append(window);
+    window.classList.add('hidden');
+}
+
+export function showGameLevels() {
+    main.classList.add('hidden');
+    window.classList.remove('hidden');
 }
 
 function createList(parent, src) {
