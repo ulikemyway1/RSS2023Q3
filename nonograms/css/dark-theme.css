@@ -1,0 +1,88 @@
+body.dark-theme,
+.dark-theme .button,
+.dark-theme .score-table,
+.dark-theme .levels-window {
+    background: #363636;
+    color: #cccccc;
+}
+
+.dark-theme .levels-window__card {
+    border-color: #a1a1a1;
+}
+.dark-theme .levels-window__card-level.Easy {
+    color: #18a518;
+}
+.dark-theme .levels-window__card-level.Medium {
+    color: #dfcc25;
+}
+.dark-theme .levels-window__card-level.Hard {
+    color: #c75d4a;
+}
+
+.dark-theme .cell,
+.dark-theme #space-fill {
+    background: #cccccc;
+    border: 1px solid #a1a1a1;
+}
+.dark-theme .button__slider {
+    background: #b1b1b1;
+}
+
+.dark-theme #change-theme-btn:has(.switched) {
+    background: #0f0f0f;
+}
+
+.dark-theme .cell.picked {
+    background: #000000;
+}
+.dark-theme .crossed::before,
+.dark-theme .crossed::after {
+    background: #3b3b3b;
+}
+.dark-theme .clue {
+    color: #3b3b3b;
+}
+
+.dark-theme #horizontal-clues {
+    border-right: 3px solid rgb(54, 54, 54);
+}
+
+.dark-theme .app__game-field,
+.dark-theme #vertical-clues-wrapper,
+.dark-theme #horizontal-clues {
+    background: rgb(54, 54, 54);
+}
+
+.dark-theme #vertical-clues-wrapper {
+    border-bottom: 3px solid rgb(54, 54, 54);
+}
+.dark-theme .app__game-field,
+.dark-theme #vertical-clues-wrapper,
+.dark-theme #horizontal-clues {
+    background: rgb(91 91 91);
+}
+
+@media (hover: hover) {
+    .dark-theme .button:hover {
+        background: rgb(97, 97, 97);
+    }
+    .dark-theme .button:disabled {
+        background-color: #373737;
+        color: #838181;
+    }
+    .dark-theme .button:disabled:hover {
+        background-color: #373737;
+    }
+
+    .dark-theme .levels-window__card:has(.Easy):hover {
+        background-color: #106d1050;
+    }
+
+    .dark-theme.levels-window__card:has(.Medium):hover {
+        background-color: #9c8e1277;
+    }
+
+    .dark-theme .levels-window__card:has(.Hard):hover {
+        background-color: #8f1d096c;
+    }
+}

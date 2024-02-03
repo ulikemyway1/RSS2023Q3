@@ -16,6 +16,7 @@ body {
     justify-content: center;
     font-family: Roboto;
     font-size: 18px;
+    transition: background 0.3s;
 }
 
 .app {
@@ -183,7 +184,7 @@ body {
 #space-fill {
     background: #ffffff;
     width: 100%;
-    border-left: 1px solid #ffffff;
+    border: 1px solid #d4d4d4;
 }
 .picked {
     background: var(--black-cell);
@@ -241,7 +242,7 @@ body {
 .score-table {
     display: flex;
     width: 100%;
-    background-color: #ffffff;
+    background: #ffffff;
     padding: 20px;
     flex-direction: column;
     align-items: center;
@@ -352,3 +353,4 @@ body {
 }
 
 @import url('media.css');
+@import url('dark-theme.css');
