@@ -1,9 +1,10 @@
 import { createElement } from './createElement';
 import { DB } from './levels';
+import { playChoosenGame } from './playChoosenGame';
 import { main } from './renderMainApp';
-let window;
+export let levelsWindow;
 export function renderWindowLevels() {
-    window = createElement('section', null, ['levels-window']);
+    levelsWindow = createElement('section', null, ['levels-window']);
 
     const levelsHeader = createElement(
         'p',
@@ -15,6 +16,16 @@ export function renderWindowLevels() {
     const levelsWrapper = createElement('div', null, [
         'levels-window__wrapper',
     ]);
+    levelsWrapper.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('levels-window__wrapper')) {
+            if (e.target.classList.contains('levels-window__card')) {
+                playChoosenGame(e.target.getAttribute('data-index'));
+            } else {
+                console.log(e.target.classList[0])
+                playChoosenGame(+e.target.closest('.levels-window__card').getAttribute('data-index'));
+            }
+        }
+    });
 
     const closeWindowLevelsBtn = createElement(
         'button',
@@ -23,22 +34,22 @@ export function renderWindowLevels() {
         'Close',
     );
     closeWindowLevelsBtn.addEventListener('click', () => {
-        window.classList.add('hidden');
+        levelsWindow.classList.add('hidden');
         main.classList.remove('hidden');
     });
     createList(levelsWrapper, DB);
-    window.append(levelsHeader, levelsWrapper, closeWindowLevelsBtn);
-    document.body.append(window);
-    window.classList.add('hidden');
+    levelsWindow.append(levelsHeader, levelsWrapper, closeWindowLevelsBtn);
+    document.body.append(levelsWindow);
+    levelsWindow.classList.add('hidden');
 }
 
 export function showGameLevels() {
     main.classList.add('hidden');
-    window.classList.remove('hidden');
+    levelsWindow.classList.remove('hidden');
 }
 
 function createList(parent, src) {
-    src.forEach((nonogram) => {
+    src.forEach((nonogram, index) => {
         const card = createElement('article', null, ['levels-window__card']);
         const cardDescr = createElement(
             'h2',
@@ -52,6 +63,7 @@ function createList(parent, src) {
             ['levels-window__card-level', nonogram.level],
             nonogram.level,
         );
+        card.setAttribute('data-index', index);
         card.append(cardDescr, cardLevel);
         parent.append(card);
     });

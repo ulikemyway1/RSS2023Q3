@@ -1,4 +1,9 @@
-import { horClueCells, infoBox, timer, vertClueCells } from './renderMainApp.js';
+import {
+    horClueCells,
+    infoBox,
+    timer,
+    vertClueCells,
+} from './renderMainApp.js';
 import {
     showSolutionBtn,
     saveGameBtn,
@@ -7,13 +12,19 @@ import {
 } from './renderMainApp.js';
 import { modal } from './showWinModal.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
-import { allCells, boardIsBlocked, gameLevel, gameName, isSolve } from './appState.js';
+import {
+    allCells,
+    boardIsBlocked,
+    gameLevel,
+    gameName,
+    isSolve,
+} from './appState.js';
 import { DB } from './levels.js';
 import { renderCells } from './renderCells.js';
 import { renderClueCells } from './renderClueCells.js';
 import { renderClues } from './renderClues.js';
 
-export function playRandomGame() {
+export function playRandomGame(index) {
     if (modal) {
         modal.remove();
         isSolve[0] = false;
@@ -32,7 +43,9 @@ export function playRandomGame() {
         allCells.pop();
     }
 
-    const index = Math.floor(Math.random() * DB.length);
+    if (!index) {
+        index = Math.floor(Math.random() * DB.length);
+    }
     renderCells(DB[index].arr);
     infoBox.textContent = DB[index].name;
     gameField.classList.remove(
@@ -52,7 +65,7 @@ export function playRandomGame() {
             gameField.classList.add('app__game-field_15x15');
             break;
     }
-    
+
     horClueCells.forEach((clue) => clue.remove());
     vertClueCells.forEach((clue) => clue.remove());
     while (horClueCells.length > 0) {

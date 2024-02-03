@@ -24,7 +24,9 @@ export function showWinModal() {
         ['button'],
         'Play Random Game',
     );
-    randomGameBtn.addEventListener('click', playRandomGame)
+    randomGameBtn.addEventListener('click', () => {
+        playRandomGame()
+    })
     modal.append(modalText, randomGameBtn);
     gameFieldWrapper.before(modal, gameFieldWrapper);
     timer.stop();

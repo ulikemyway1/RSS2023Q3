@@ -283,6 +283,7 @@ body {
 
 .levels-window__button {
     margin: 0 auto;
+    margin-bottom: 25px;
     min-width: 150px;
     font-size: 22px;
 }
