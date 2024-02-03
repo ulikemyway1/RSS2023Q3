@@ -8,6 +8,7 @@ export function showScoreTable () {
     timer.stop();
     const scoreTable = createElement('div', null, ['score-table']);
     const closeBtn = createElement('button', null, ['score-table__btn', 'button'], 'Close Score Table');
+    main.classList.add('hidden');
     closeBtn.addEventListener('click', () => closeScoreTable(scoreTable, timerStarted));
 
     const scoreTableHeader = createElement('h2', null, ['score-table__header'], 'Hight Score Table')
@@ -18,12 +19,12 @@ export function showScoreTable () {
         scoreTableContent = createList(arr);
     }
     scoreTable.append(scoreTableHeader, scoreTableContent, closeBtn);
-    main.append(scoreTable);
+    document.body.append(scoreTable);
 }
 
 function closeScoreTable(table, timerStatus) {
     highScoreTableBtn.disabled = false;
-
+    main.classList.remove('hidden')
     if (timerStatus) {
         timer.start();
     }
