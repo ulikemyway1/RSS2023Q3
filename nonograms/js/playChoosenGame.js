@@ -1,4 +1,4 @@
-import { allCells, blackCells, boardIsBlocked, gameLevel, gameName, isSolve, pickedCells } from "./appState";
+import { allCells, blackCells, boardIsBlocked, currentIndex, gameLevel, gameName, isSolve, pickedCells } from "./appState";
 import { gameFieldClickHandler } from "./gameFieldClickHandler";
 import { DB } from "./levels";
 import { renderCells } from "./renderCells";
@@ -8,6 +8,7 @@ import { gameField, horClueCells, infoBox, main, resetGameBtn, saveGameBtn, show
 import { levelsWindow } from "./showGameLevels";
 
 export function playChoosenGame(index) {
+    currentIndex[0] = index;
     levelsWindow.classList.add('hidden');
     main.classList.remove('hidden');
 

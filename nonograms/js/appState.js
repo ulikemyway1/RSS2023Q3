@@ -1,11 +1,11 @@
 import { DB } from './levels.js';
-export let index;
+export let currentIndex;
 export const allCells = [];
 export const blackCells = new Set();
 export const pickedCells = new Set();
-index = Math.floor(Math.random() * DB.length);
-export const arr = DB[index].arr;
-export const gameName = [DB[index].name];
-export const gameLevel = [DB[index].level];
+currentIndex = [Math.floor(Math.random() * DB.length)];
+export const arr = DB[currentIndex].arr;
+export const gameName = [DB[currentIndex].name];
+export const gameLevel = [DB[currentIndex].level];
 export const isSolve = [false];
 export const boardIsBlocked = [false];

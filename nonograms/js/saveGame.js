@@ -1,4 +1,4 @@
-import { allCells, index } from './appState.js';
+import { allCells, currentIndex } from './appState.js';
 import { continueGameBtn } from './renderMainApp.js';
 import { timer } from './renderMainApp.js';
 export function saveGame() {
@@ -21,6 +21,6 @@ export function saveGame() {
         JSON.stringify(savedCrossedCells),
     );
     localStorage.setItem('passedTime_ULIKE', timer.getTime());
-    localStorage.setItem('prevGameIndex_ULIKE', index);
+    localStorage.setItem('prevGameIndex_ULIKE', currentIndex[0]);
     continueGameBtn.disabled = false;
 }

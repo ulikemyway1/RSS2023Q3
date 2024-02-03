@@ -15,6 +15,7 @@ import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 import {
     allCells,
     boardIsBlocked,
+    currentIndex,
     gameLevel,
     gameName,
     isSolve,
@@ -25,6 +26,7 @@ import { renderClueCells } from './renderClueCells.js';
 import { renderClues } from './renderClues.js';
 
 export function playRandomGame(index) {
+   
     if (modal) {
         modal.remove();
         isSolve[0] = false;
@@ -45,6 +47,7 @@ export function playRandomGame(index) {
 
     if (!index) {
         index = Math.floor(Math.random() * DB.length);
+        currentIndex[0] = index;
     }
     renderCells(DB[index].arr);
     infoBox.textContent = DB[index].name;

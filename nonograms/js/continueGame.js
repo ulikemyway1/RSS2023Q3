@@ -1,6 +1,7 @@
 import { renderCells } from './renderCells.js';
 import {
     boardIsBlocked,
+    currentIndex,
     gameLevel,
     gameName,
     isSolve,
@@ -26,7 +27,8 @@ import { renderClueCells } from './renderClueCells.js';
 
 export function continueGame() {
     const prevGameIndex = +localStorage.getItem('prevGameIndex_ULIKE');
-    if (prevGameIndex) {
+    currentIndex[0] = prevGameIndex;
+    if (prevGameIndex || prevGameIndex === 0) {
         infoBox.textContent = DB[prevGameIndex].name;
         blackCells.clear();
         pickedCells.clear();
