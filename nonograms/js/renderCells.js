@@ -6,7 +6,7 @@ import { blackCells } from './appState.js';
 
 export function renderCells(arr) {
     changeGameFieldSize();
-
+    blackCells.clear();
     for (let i = 0; i < arr.length; i += 1) {
         for (let j = 0; j < arr.length; j += 1) {
             let cell = createElement('div', `cell-${i}${j}`, ['cell']);

@@ -30,7 +30,6 @@ export function continueGame() {
     currentIndex[0] = prevGameIndex;
     if (prevGameIndex || prevGameIndex === 0) {
         infoBox.textContent = DB[prevGameIndex].name;
-        blackCells.clear();
         pickedCells.clear();
         const savedPickedCells = JSON.parse(
             localStorage.getItem('savedPickedCells_ULIKE'),

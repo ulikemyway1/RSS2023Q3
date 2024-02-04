@@ -21,7 +21,6 @@ export function renderWindowLevels() {
             if (e.target.classList.contains('levels-window__card')) {
                 playChoosenGame(e.target.getAttribute('data-index'));
             } else {
-                console.log(e.target.classList[0])
                 playChoosenGame(+e.target.closest('.levels-window__card').getAttribute('data-index'));
             }
         }

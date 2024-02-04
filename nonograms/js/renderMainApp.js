@@ -11,6 +11,7 @@ import { renderClueCells } from './renderClueCells.js';
 import { showScoreTable } from './showScoreTable.js';
 import { changeTheme } from './changeTheme.js';
 import { showGameLevels } from './showGameLevels.js';
+import { playRandomGame } from './playRandomGame.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -137,8 +138,11 @@ export function renderMainApp(arr) {
     gameFieldWrapper = createElement('div', 'game-field-wapper');
 
     gameFieldWrapper.append(verticalCluesRow, innerWapper);
-
-    appHeader.append(changeThemeBtn, highScoreTableBtn, optionsBtn);
+    const rnd = createElement('button', null, ['button'], 'Random Game');
+    rnd.addEventListener('click', () => {
+        playRandomGame()
+    })
+    appHeader.append(changeThemeBtn, highScoreTableBtn, rnd, optionsBtn);
 
     appFooter.append(
         saveGameBtn,

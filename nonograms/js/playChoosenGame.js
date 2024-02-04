@@ -16,7 +16,6 @@ export function playChoosenGame(index) {
         modal.remove();
     }
     infoBox.textContent = DB[index].name;
-    blackCells.clear();
     pickedCells.clear();
     allCells.forEach((cell) => cell.remove());
     while (allCells.length !== 0) {

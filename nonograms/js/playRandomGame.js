@@ -14,11 +14,13 @@ import { modal } from './showWinModal.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 import {
     allCells,
+    blackCells,
     boardIsBlocked,
     currentIndex,
     gameLevel,
     gameName,
     isSolve,
+    pickedCells,
 } from './appState.js';
 import { DB } from './levels.js';
 import { renderCells } from './renderCells.js';
@@ -26,14 +28,14 @@ import { renderClueCells } from './renderClueCells.js';
 import { renderClues } from './renderClues.js';
 
 export function playRandomGame(index) {
-   
+
     if (modal) {
         modal.remove();
-        isSolve[0] = false;
-        showSolutionBtn.disabled = false;
-        saveGameBtn.disabled = false;
-        resetGameBtn.disabled = false;
     }
+    isSolve[0] = false;
+    showSolutionBtn.disabled = false;
+    saveGameBtn.disabled = false;
+    resetGameBtn.disabled = false;
     if (boardIsBlocked) {
         gameField.addEventListener('click', gameFieldClickHandler);
     }
@@ -79,6 +81,7 @@ export function playRandomGame(index) {
     }
     gameName[0] = DB[index].name;
     gameLevel[0] = DB[index].level;
+    pickedCells.clear();
     renderClueCells(DB[index].arr);
     renderClues(DB[index].arr);
 }
