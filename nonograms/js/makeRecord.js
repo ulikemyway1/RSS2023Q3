@@ -10,11 +10,8 @@ export function makeRecord() {
         level: `"${gameName[0]}" (${gameLevel[0]})`,
     };
     savedRecods.push(newRecord);
-    if (savedRecods.length > 1) {
-        savedRecods.sort((r1, r2) => r1.time - r2.time);
-    }
-    if (savedRecods.length > 5) {
-        savedRecods.pop();
+     if (savedRecods.length > 5) {
+        savedRecods.shift();
     }
 
     localStorage.setItem('savedRecords_ULIKE', JSON.stringify(savedRecods));
