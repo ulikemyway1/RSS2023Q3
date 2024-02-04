@@ -5,6 +5,7 @@
     --black-cell: #2b2b2b;
     --button-background: #d4d4d4;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -187,6 +188,7 @@ body {
     width: 100%;
     border: 1px solid #d4d4d4;
 }
+
 .picked {
     background: var(--black-cell);
 }
@@ -194,6 +196,7 @@ body {
 .crossed {
     position: relative;
 }
+
 .crossed::after {
     content: '';
     display: block;
@@ -204,6 +207,7 @@ body {
     top: 50%;
     transform: rotate(45deg);
 }
+
 .crossed::before {
     content: '';
     display: block;
@@ -250,6 +254,7 @@ body {
     justify-content: space-around;
     gap: 25px;
 }
+
 .score-table__btn {
     width: 180px;
     height: 40px;
@@ -268,6 +273,7 @@ body {
 .app.hidden {
     display: none;
 }
+
 .levels-window {
     display: flex;
     flex-direction: column;
@@ -383,9 +389,31 @@ body {
     height: 40px;
 }
 
+#choose-game-btn:disabled,
+#random-game-btn:disabled,
+#high-score-btn:disabled,
+#sound-control-btn:disabled,
+#sound-control-btn.sound-off:disabled,
+#save-game-btn:disabled,
+#continue-game-btn:disabled,
+#reset-game-btn:disabled,
+#show-solution-btn:disabled {
+    filter: opacity(0.5)
+}
+
+
 @media (hover: hover) {
-    .button:hover {
-        background: rgb(194, 194, 194);
+
+    #choose-game-btn:hover,
+    #random-game-btn:hover,
+    #high-score-btn:hover,
+    #sound-control-btn:hover,
+    #sound-control-btn.sound-off:hover,
+    #save-game-btn:hover,
+    #continue-game-btn:hover,
+    #reset-game-btn:hover,
+    #show-solution-btn:hover {
+        filter: drop-shadow(0px 0px 5px #c2c2c2)
     }
 
     .button:disabled:hover {
