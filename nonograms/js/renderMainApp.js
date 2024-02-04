@@ -53,8 +53,7 @@ export function renderMainApp(arr) {
     highScoreTableBtn = createElement(
         'button',
         'high-score-btn',
-        ['button'],
-        'Score Table',
+        ['button']
     );
 
     highScoreTableBtn.addEventListener('click', () => {
@@ -68,9 +67,8 @@ export function renderMainApp(arr) {
 
     optionsBtn = createElement(
         'button',
-        'options-btn',
-        ['button'],
-        'Choose Level',
+        'choose-game-btn',
+        ['button']
     );
 
     optionsBtn.addEventListener('click', () => {
@@ -81,8 +79,7 @@ export function renderMainApp(arr) {
     saveGameBtn = createElement(
         'button',
         'save-game-btn',
-        ['button'],
-        'Save Game',
+        ['button']
     );
 
     saveGameBtn.addEventListener('click', () => {
@@ -93,8 +90,7 @@ export function renderMainApp(arr) {
     continueGameBtn = createElement(
         'button',
         'continue-game-btn',
-        ['button'],
-        'Continue Game',
+        ['button']
     );
 
     continueGameBtn.addEventListener('click', () => {
@@ -112,8 +108,7 @@ export function renderMainApp(arr) {
     resetGameBtn = createElement(
         'button',
         'reset-game-btn',
-        ['button'],
-        'Reset Game',
+        ['button']
     );
 
     resetGameBtn.addEventListener('click', () => {
@@ -124,8 +119,7 @@ export function renderMainApp(arr) {
     showSolutionBtn = createElement(
         'button',
         'show-solution-btn',
-        ['button'],
-        'Show Solution',
+        ['button']
     );
 
     showSolutionBtn.addEventListener('click', () => {
@@ -156,7 +150,7 @@ export function renderMainApp(arr) {
     gameFieldWrapper = createElement('div', 'game-field-wapper');
 
     gameFieldWrapper.append(verticalCluesRow, innerWapper);
-    const rnd = createElement('button', null, ['button'], 'Random Game');
+    const rnd = createElement('button', 'random-game-btn', ['button']);
     rnd.addEventListener('click', () => {
         playRandomGame();
         buttonClickSoundPlay();

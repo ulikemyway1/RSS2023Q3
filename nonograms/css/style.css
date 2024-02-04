@@ -333,14 +333,56 @@ body {
 
 #sound-control-btn {
     background: url('../img/speaker.png') center center/contain no-repeat;
-    width: 30px;
+    width: 40px;
     height: 40px;
 }
+
 #sound-control-btn.sound-off {
     background: url('../img/speaker-off.png') center center/contain no-repeat;
-    width: 30px;
+}
+
+#high-score-btn {
+    background: url('../img/score-table.png') center center/contain no-repeat;
+    width: 40px;
     height: 40px;
 }
+
+#random-game-btn {
+    background: url('../img/random-game.png') center center/contain no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+#choose-game-btn {
+    background: url('../img/choose-game.png') center center/contain no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+#save-game-btn {
+    background: url('../img/save.png') center center/contain no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+#continue-game-btn {
+    background: url('../img/continue.png') center center/contain no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+#reset-game-btn {
+    background: url('../img/reset.png') center center/contain no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+#show-solution-btn {
+    background: url('../img/solution.png') center center/contain no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
 @media (hover: hover) {
     .button:hover {
         background: rgb(194, 194, 194);
