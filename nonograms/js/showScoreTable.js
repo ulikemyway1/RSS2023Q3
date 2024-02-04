@@ -1,4 +1,5 @@
 import { createElement } from "./createElement";
+import { buttonClickSoundPlay } from "./prepareSounds";
 import { highScoreTableBtn, main, timer } from "./renderMainApp";
 import { Timer } from "./timer";
 
@@ -23,6 +24,7 @@ export function showScoreTable () {
 }
 
 function closeScoreTable(table, timerStatus) {
+    buttonClickSoundPlay();
     highScoreTableBtn.disabled = false;
     main.classList.remove('hidden')
     if (timerStatus) {

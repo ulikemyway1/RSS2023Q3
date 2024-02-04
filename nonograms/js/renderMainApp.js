@@ -12,6 +12,7 @@ import { showScoreTable } from './showScoreTable.js';
 import { changeTheme } from './changeTheme.js';
 import { showGameLevels } from './showGameLevels.js';
 import { playRandomGame } from './playRandomGame.js';
+import { buttonClickSoundPlay } from './prepareSounds.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -44,7 +45,10 @@ export function renderMainApp(arr) {
     ]);
     changeThemeBtnSlider = createElement('div', null, ['button__slider']);
     changeThemeBtn.append(changeThemeBtnSlider);
-    changeThemeBtn.addEventListener('click', changeTheme);
+    changeThemeBtn.addEventListener('click', () => {
+        changeTheme();
+        buttonClickSoundPlay();
+    });
 
     highScoreTableBtn = createElement(
         'button',
@@ -53,7 +57,10 @@ export function renderMainApp(arr) {
         'Score Table',
     );
 
-    highScoreTableBtn.addEventListener('click', showScoreTable);
+    highScoreTableBtn.addEventListener('click', () => {
+        showScoreTable();
+        buttonClickSoundPlay();
+    });
 
     timeInfo = createElement('div', 'time-info', null, 'Time passed: ');
     timer = new Timer(0, timeInfo);
@@ -66,7 +73,10 @@ export function renderMainApp(arr) {
         'Choose Level',
     );
 
-    optionsBtn.addEventListener('click', showGameLevels);
+    optionsBtn.addEventListener('click', () => {
+        showGameLevels();
+        buttonClickSoundPlay();
+    });
 
     saveGameBtn = createElement(
         'button',
@@ -75,7 +85,10 @@ export function renderMainApp(arr) {
         'Save Game',
     );
 
-    saveGameBtn.addEventListener('click', saveGame);
+    saveGameBtn.addEventListener('click', () => {
+        saveGame();
+        buttonClickSoundPlay();
+    });
 
     continueGameBtn = createElement(
         'button',
@@ -86,6 +99,7 @@ export function renderMainApp(arr) {
 
     continueGameBtn.addEventListener('click', () => {
         continueGame();
+        buttonClickSoundPlay();
     });
 
     if (
@@ -102,7 +116,10 @@ export function renderMainApp(arr) {
         'Reset Game',
     );
 
-    resetGameBtn.addEventListener('click', resetGame);
+    resetGameBtn.addEventListener('click', () => {
+        resetGame();
+        buttonClickSoundPlay();
+    });
 
     showSolutionBtn = createElement(
         'button',
@@ -113,6 +130,7 @@ export function renderMainApp(arr) {
 
     showSolutionBtn.addEventListener('click', () => {
         showSolution();
+        buttonClickSoundPlay();
         timer.stop();
     });
 
@@ -140,7 +158,8 @@ export function renderMainApp(arr) {
     gameFieldWrapper.append(verticalCluesRow, innerWapper);
     const rnd = createElement('button', null, ['button'], 'Random Game');
     rnd.addEventListener('click', () => {
-        playRandomGame()
+        playRandomGame();
+        buttonClickSoundPlay();
     })
     appHeader.append(changeThemeBtn, highScoreTableBtn, rnd, optionsBtn);
 

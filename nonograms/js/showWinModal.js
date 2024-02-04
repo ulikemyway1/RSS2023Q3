@@ -1,5 +1,6 @@
 import { createElement } from './createElement.js';
 import { playRandomGame } from './playRandomGame.js';
+import { winSoundPlay } from './prepareSounds.js';
 import {
     gameFieldWrapper,
     resetGameBtn,
@@ -10,6 +11,7 @@ import { timer } from './renderMainApp.js';
 export let modal;
 
 export function showWinModal() {
+    winSoundPlay();
     modal = createElement('div', 'win-modal');
     const modalText = createElement(
         'p',

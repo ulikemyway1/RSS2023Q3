@@ -1,6 +1,7 @@
 import { createElement } from './createElement';
 import { DB } from './levels';
 import { playChoosenGame } from './playChoosenGame';
+import { buttonClickSoundPlay } from './prepareSounds';
 import { main } from './renderMainApp';
 export let levelsWindow;
 export function renderWindowLevels() {
@@ -20,8 +21,10 @@ export function renderWindowLevels() {
         if (!e.target.classList.contains('levels-window__wrapper')) {
             if (e.target.classList.contains('levels-window__card')) {
                 playChoosenGame(e.target.getAttribute('data-index'));
+                buttonClickSoundPlay();
             } else {
                 playChoosenGame(+e.target.closest('.levels-window__card').getAttribute('data-index'));
+                buttonClickSoundPlay();
             }
         }
     });
@@ -35,6 +38,7 @@ export function renderWindowLevels() {
     closeWindowLevelsBtn.addEventListener('click', () => {
         levelsWindow.classList.add('hidden');
         main.classList.remove('hidden');
+        buttonClickSoundPlay();
     });
     createList(levelsWrapper, DB);
     levelsWindow.append(levelsHeader, levelsWrapper, closeWindowLevelsBtn);
