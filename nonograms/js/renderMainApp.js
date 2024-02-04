@@ -12,7 +12,7 @@ import { showScoreTable } from './showScoreTable.js';
 import { changeTheme } from './changeTheme.js';
 import { showGameLevels } from './showGameLevels.js';
 import { playRandomGame } from './playRandomGame.js';
-import { buttonClickSoundPlay } from './prepareSounds.js';
+import { buttonClickSoundPlay, turnOffSounds, turnOnSounds } from './prepareSounds.js';
 export const gameField = createElement('section', null, ['app__game-field']);
 export const vertClueCells = [];
 export const horClueCells = [];
@@ -161,7 +161,18 @@ export function renderMainApp(arr) {
         playRandomGame();
         buttonClickSoundPlay();
     })
-    appHeader.append(changeThemeBtn, highScoreTableBtn, rnd, optionsBtn);
+
+    const soundControl = createElement('button', 'sound-control-btn', ['button']);
+    soundControl.addEventListener('click', () => {
+        buttonClickSoundPlay();
+        if (!soundControl.classList.contains('sound-off')) {
+            turnOffSounds();
+        } else {
+            turnOnSounds();
+        }
+        soundControl.classList.toggle('sound-off');
+    })
+    appHeader.append(changeThemeBtn, soundControl, highScoreTableBtn, rnd, optionsBtn);
 
     appFooter.append(
         saveGameBtn,

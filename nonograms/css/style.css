@@ -37,6 +37,7 @@ body {
 .app__footer {
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .app__game-field {
@@ -330,6 +331,16 @@ body {
     color: #8f1d09;
 }
 
+#sound-control-btn {
+    background: url('../img/speaker.png') center center/contain no-repeat;
+    width: 30px;
+    height: 40px;
+}
+#sound-control-btn.sound-off {
+    background: url('../img/speaker-off.png') center center/contain no-repeat;
+    width: 30px;
+    height: 40px;
+}
 @media (hover: hover) {
     .button:hover {
         background: rgb(194, 194, 194);
