@@ -10,6 +10,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: 1px solid green;
 }
 
 body {
@@ -84,8 +85,8 @@ body {
 }
 
 .cell {
-    width: 36px;
-    height: 36px;
+    width: 23px;
+    height: 23px;
     border: 1px solid #d4d4d4;
     background: #ffffff;
 }
@@ -186,6 +187,7 @@ body {
     justify-content: flex-end;
     align-items: center;
     width: auto;
+    padding-right: 3px;
 }
 
 .border-bottom {

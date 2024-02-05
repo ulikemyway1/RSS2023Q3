@@ -51,11 +51,7 @@
 }
 
 @media (max-width: 1023px) {
-    body .app {
-        width: 100vw;
-    }
-
-    #game-field-wapper .app__game-field_5x5 .cell,
+     #game-field-wapper .app__game-field_5x5 .cell,
     #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clue,
     #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .cell {
         height: clamp(4.375rem, 3.205rem + 3.75vw, 5rem);
