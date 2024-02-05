@@ -1,53 +1,192 @@
-@media (max-width: 900px) {
+@media (max-width: 1023px) {
     body .app {
         margin: 5px auto;
-        width: 90vw;
+        width: 100vw;
     }
-
-    #game-field-wapper .cell,
-    #game-field-wapper .clue {
-        width: clamp(0.938rem, 0.42rem + 2.59vw, 1.875rem);
-        height: clamp(0.938rem, 0.42rem + 2.59vw, 1.875rem);
-        font-size: clamp(0.5rem, 0.293rem + 1.03vw, 0.875rem);
-    }
-
-    #game-field-wapper .clues-row-vert {
-        height: auto;
-    }
-    #game-field-wapper .clues-row-hor {
-        width: auto;
-    }
-    #game-field-wapper .clues-row-hor .clue {
-        width: clamp(0.5rem, 0.224rem + 1.38vw, 1rem);
-    }
-}
-
-@media (max-width: 1440px) {
 
     #game-field-wapper .app__game-field_5x5 .cell,
     #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clue,
     #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .cell {
-        height: clamp(1.875rem, 1.42rem + 2.27vw, 3.125rem);
-        width: clamp(1.875rem, 1.42rem + 2.27vw, 3.125rem);
-        font-size: 18px;
+        height: clamp(4.375rem, 3.205rem + 3.75vw, 5rem);
+        width: clamp(4.375rem, 3.205rem + 3.75vw, 5rem);
+        font-size: 28px;
     }
 
-    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5)
-        .clues-row-vert {
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-vert {
         height: auto;
     }
+
     #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-hor {
         width: auto;
     }
 
-    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5)
-        .clues-row-vert
-        .clue {
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-vert .clue {
+        height: 40px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-hor .clue {
+        width: 35px;
+    }
+
+
+    #game-field-wapper .app__game-field_10x10 .cell,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clue,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .cell {
+        height: clamp(2.25rem, 0.846rem + 4.49vw, 3rem);
+        width: clamp(2.25rem, 0.846rem + 4.49vw, 3rem);
+        font-size: 22px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-vert {
+        height: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-hor {
+        width: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-vert .clue {
+        height: 30px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-hor .clue {
+        width: 25px;
+    }
+
+    #game-field-wapper .app__game-field_10x10 .cell,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clue,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .cell {
+        height: clamp(1.25rem, 0.314rem + 3vw, 1.75rem);
+        width: clamp(1.25rem, 0.314rem + 3vw, 1.75rem);
+        font-size: clamp(0.875rem, 0.407rem + 1.5vw, 1.125rem);
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-vert {
+        height: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-hor {
+        width: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-vert .clue {
+        height: 25px
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-hor .clue {
+        width: 20px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    body .app {
+        margin: 5px auto;
+        width: 100vw;
+    }
+
+    #game-field-wapper .app__game-field_5x5 .cell,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clue,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .cell {
+        height: clamp(4.375rem, 3.205rem + 3.75vw, 5rem);
+        width: clamp(4.375rem, 3.205rem + 3.75vw, 5rem);
+        font-size: 28px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-vert {
+        height: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-hor {
+        width: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-vert .clue {
+        height: 40px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-hor .clue {
+        width: 35px;
+    }
+
+
+    #game-field-wapper .app__game-field_10x10 .cell,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clue,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .cell {
+        height: clamp(2.25rem, 0.846rem + 4.49vw, 3rem);
+        width: clamp(2.25rem, 0.846rem + 4.49vw, 3rem);
+        font-size: 22px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-vert {
+        height: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-hor {
+        width: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-vert .clue {
+        height: 30px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-hor .clue {
+        width: 25px;
+    }
+
+    #game-field-wapper .app__game-field_10x10 .cell,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clue,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .cell {
+        height: clamp(1.25rem, 0.314rem + 3vw, 1.75rem);
+        width: clamp(1.25rem, 0.314rem + 3vw, 1.75rem);
+        font-size: clamp(0.875rem, 0.407rem + 1.5vw, 1.125rem);
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-vert {
+        height: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-hor {
+        width: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-vert .clue {
+        height: 25px
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-hor .clue {
+        width: 20px;
+    }
+}
+
+
+@media (max-width: 499px) {
+    body .app {
+        margin: 5px auto;
+        width: 100vw;
+    }
+
+    #game-field-wapper .app__game-field_5x5 .cell,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clue,
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .cell {
+        height: clamp(2.75rem, 0.962rem + 8.94vw, 3.75rem);
+        width: clamp(2.75rem, 0.962rem + 8.94vw, 3.75rem);
+        font-size: 24px;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-vert {
+        height: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-hor {
+        width: auto;
+    }
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-vert .clue {
         height: 25px;
     }
-    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5)
-        .clues-row-hor
-        .clue {
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clues-row-hor .clue {
         width: 20px;
     }
 
@@ -55,54 +194,48 @@
     #game-field-wapper .app__game-field_10x10 .cell,
     #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clue,
     #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .cell {
-        height: clamp(1.125rem, 0.554rem + 2.86vw, 3.125rem);
-        width: clamp(1.125rem, 0.554rem + 2.86vw, 3.125rem);
+        height: clamp(1.313rem, -0.475rem + 8.94vw, 2.313rem);
+        width: clamp(1.313rem, -0.475rem + 8.94vw, 2.313rem);
         font-size: clamp(0.875rem, 0.804rem + 0.36vw, 1.125rem);
     }
 
-    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10)
-        .clues-row-vert {
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-vert {
         height: auto;
     }
+
     #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-hor {
         width: auto;
     }
 
-    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10)
-        .clues-row-vert
-        .clue {
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-vert .clue {
         height: 25px;
     }
-    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10)
-        .clues-row-hor
-        .clue {
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_10x10) .clues-row-hor .clue {
         width: 20px;
     }
 
     #game-field-wapper .app__game-field_10x10 .cell,
     #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clue,
     #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .cell {
-        height: clamp(0.75rem, 0.429rem + 1.61vw, 1.875rem);
-        width: clamp(0.75rem, 0.429rem + 1.61vw, 1.875rem);
+        height: clamp(0.938rem, -0.18rem + 5.59vw, 1.563rem);
+        width: clamp(0.938rem, -0.18rem + 5.59vw, 1.563rem);
         font-size: clamp(0.688rem, 0.563rem + 0.63vw, 1.125rem);
     }
 
-    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15)
-        .clues-row-vert {
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-vert {
         height: auto;
     }
+
     #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-hor {
         width: auto;
     }
 
-    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15)
-        .clues-row-vert
-        .clue {
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-vert .clue {
         height: clamp(0.625rem, 0.357rem + 1.34vw, 1.563rem)
     }
-    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15)
-        .clues-row-hor
-        .clue {
+
+    #game-field-wapper:has(#inner-wrapper .app__game-field_15x15) .clues-row-hor .clue {
         width: clamp(0.625rem, 0.446rem + 0.89vw, 1.25rem)
     }
 }
