@@ -31,8 +31,7 @@ body {
     gap: 35px;
 }
 
-.app__header,
-.app__footer {
+.app__header {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -423,6 +422,25 @@ body {
     width: min-content;
     margin: 5px auto;
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0000005d;
+    margin-bottom: 10px;
+}
+
+.header__wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1440px;
+    padding: 5px 25px;
+    align-items: center;
+    justify-content: space-between;
+    color:#ffffff;
+}
+
 
 @media (hover: hover) {
 

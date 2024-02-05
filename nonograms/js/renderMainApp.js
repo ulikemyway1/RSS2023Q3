@@ -170,7 +170,7 @@ export function renderMainApp(arr) {
     })
     const headerBtnsWrapper = createElement('div', 'header-btns-wrapper');
 
-    headerBtnsWrapper.append(changeThemeBtn, soundControl, highScoreTableBtn, rnd, optionsBtn);
+    headerBtnsWrapper.append(soundControl, highScoreTableBtn, rnd, optionsBtn);
 
     appFooter.append(
         saveGameBtn,
@@ -188,8 +188,12 @@ export function renderMainApp(arr) {
     appHeader.append(headerBtnsWrapper, gameInfoWrapper);
     gameFieldWrapper.prepend(gameInfoWrapper);
     main.append(appHeader, gameFieldWrapper, appFooter);
-
-    body.append(main);
+    const header = createElement('header', null, ['header']);
+    const headerText = createElement('h1', null, ['header__text'], 'Nonograms');
+    const headerWrapper = createElement('div', null, ['header__wrapper']);
+    headerWrapper.append(changeThemeBtn, headerText);
+    header.append(headerWrapper);
+    body.append(header, main);
     gameField.addEventListener('click', gameFieldClickHandler);
 
     gameField.addEventListener('contextmenu', crossCell);

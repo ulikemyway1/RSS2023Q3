@@ -106,4 +106,12 @@ body.dark-theme,
     .dark-theme #show-solution-btn {
         filter: invert();
     }
+
+    .dark-theme .header {
+        background: #666666
+    }
+    
+    .dark-theme .header__wrapper {
+        color:#0f0f0f;
+    }
 }
