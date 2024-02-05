@@ -31,7 +31,8 @@ body {
     gap: 35px;
 }
 
-.app__header {
+.app__header,
+.app__footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
