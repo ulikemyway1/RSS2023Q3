@@ -36,8 +36,6 @@ export function winSoundPlay() {
 }
 
 export function buttonClickSoundPlay() {
-    buttonClickSound.pause();
-    buttonClickSound.currentTime = 0;
     buttonClickSound.play();
 }
 
