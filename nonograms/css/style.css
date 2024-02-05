@@ -242,9 +242,7 @@ body {
 
 #win-modal {
     display: block;
-    height: max-content;
-    width: 100%;
-    padding: 25px 0 0 0;
+    height: min-content;
     text-align: center;
     color: var(--win-text);
 }
@@ -414,8 +412,16 @@ body {
 }
 
 #modal-win-random-btn {
+    margin-top: 5px;
     width: auto;
     padding: 0 10px;
+    font-size: 16px;
+    height: 40px;
+}
+
+#play-ground {
+    width: min-content;
+    margin: 5px auto;
 }
 
 @media (hover: hover) {
@@ -448,6 +454,7 @@ body {
         background-color: #8f1d0952;
     }
 }
+
 
 @import url('media.css');
 @import url('dark-theme.css');

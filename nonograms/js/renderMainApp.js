@@ -30,6 +30,7 @@ export let main;
 export let highScoreTableBtn;
 export let changeThemeBtnSlider;
 export let optionsBtn;
+export let gameInfoWrapper;
 export function renderMainApp(arr) {
     const body = document.body;
 
@@ -148,8 +149,9 @@ export function renderMainApp(arr) {
     const innerWapper = createElement('div', 'inner-wrapper');
 
     gameFieldWrapper = createElement('div', 'game-field-wapper');
-
-    gameFieldWrapper.append(verticalCluesRow, innerWapper);
+    const playGround = createElement('div', 'play-ground');
+    playGround.append(verticalCluesRow, innerWapper);
+    gameFieldWrapper.append(playGround);
     const rnd = createElement('button', 'random-game-btn', ['button']);
     rnd.addEventListener('click', () => {
         playRandomGame();
@@ -180,7 +182,7 @@ export function renderMainApp(arr) {
     innerWapper.append(horizontalCluesRow, gameField);
 
     infoBox = createElement('p', null, ['info-box'], gameName[0]);
-    const gameInfoWrapper = createElement('div', 'game-info-wrapper')
+    gameInfoWrapper = createElement('div', 'game-info-wrapper')
     
     gameInfoWrapper.append(infoBox, timeInfo);
     appHeader.append(headerBtnsWrapper, gameInfoWrapper);

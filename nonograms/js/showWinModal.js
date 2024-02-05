@@ -3,6 +3,7 @@ import { playRandomGame } from './playRandomGame.js';
 import { winSoundPlay } from './prepareSounds.js';
 import {
     gameFieldWrapper,
+    gameInfoWrapper,
     resetGameBtn,
     saveGameBtn,
     showSolutionBtn,
@@ -30,7 +31,7 @@ export function showWinModal() {
         playRandomGame()
     })
     modal.append(modalText, randomGameBtn);
-    gameFieldWrapper.before(modal, gameFieldWrapper);
+    gameInfoWrapper.append(modal);
     timer.stop();
     showSolutionBtn.disabled = true;
     saveGameBtn.disabled = true;
