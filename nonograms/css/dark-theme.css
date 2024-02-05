@@ -69,6 +69,29 @@ body.dark-theme,
     background: rgb(91 91 91);
 }
 
+
+.dark-theme #choose-game-btn,
+.dark-theme #random-game-btn,
+.dark-theme #high-score-btn,
+.dark-theme #sound-control-btn,
+.dark-theme #sound-control-btn.sound-off,
+.dark-theme #save-game-btn,
+.dark-theme #save-game-btn:disabled,
+.dark-theme #continue-game-btn,
+.dark-theme #continue-game-btn:disabled,
+.dark-theme #reset-game-btn,
+.dark-theme #show-solution-btn {
+    filter: invert();
+}
+
+.dark-theme .header {
+    background: #666666
+}
+
+body.dark-theme .header__wrapper {
+    color:#0f0f0f;
+}
+
 @media (hover: hover) {
     .dark-theme .button:hover {
         background: rgb(97, 97, 97);
@@ -95,24 +118,4 @@ body.dark-theme,
         background-color: #8f1d096c;
     }
 
-    .dark-theme #choose-game-btn,
-    .dark-theme #random-game-btn,
-    .dark-theme #high-score-btn,
-    .dark-theme #sound-control-btn,
-    .dark-theme #sound-control-btn.sound-off,
-    .dark-theme #save-game-btn,
-    .dark-theme #save-game-btn:disabled,
-    .dark-theme #continue-game-btn,
-    .dark-theme #reset-game-btn,
-    .dark-theme #show-solution-btn {
-        filter: invert();
-    }
-
-    .dark-theme .header {
-        background: #666666
-    }
-    
-    .dark-theme .header__wrapper {
-        color:#0f0f0f;
-    }
 }
