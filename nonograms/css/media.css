@@ -16,6 +16,36 @@
     body #header-btns-wrapper {
         flex-direction: column;
         gap: 25px;
+        text-align-last: left;
+    }
+
+    body #choose-game-btn::after,
+    body #random-game-btn::after,
+    body #high-score-btn::after,
+    body #sound-control-btn::after {
+        bottom: 9px;
+        left: -100px;
+    }
+
+    body #random-game-btn::after {
+        left: -106px;
+    }
+
+    body #save-game-btn::after,
+    body #continue-game-btn::after,
+    body #reset-game-btn::after,
+    body #show-solution-btn::after {
+        bottom: 9px;
+        right: -160px;
+        left: 0;
+    }
+
+    body #save-game-btn::after {
+        right: -137px;
+    }
+
+    body #reset-game-btn::after {
+        right: -143px;
     }
 
 }

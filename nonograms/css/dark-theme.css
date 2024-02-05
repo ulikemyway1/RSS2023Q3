@@ -84,15 +84,39 @@ body.dark-theme,
     filter: invert();
 }
 
+.dark-theme #choose-game-btn:disabled,
+.dark-theme #random-game-btn:disabled,
+.dark-theme #high-score-btn:disabled,
+.dark-theme #sound-control-btn:disabled,
+.dark-theme #sound-control-btn.sound-off:disabled,
+.dark-theme #save-game-btn:disabled,
+.dark-theme #continue-game-btn:disabled,
+.dark-theme #reset-game-btn:disabled,
+.dark-theme #show-solution-btn:disabled {
+    filter: invert() opacity(0.5)
+}
+
+
+.dark-theme #choose-game-btn::after,
+.dark-theme #random-game-btn::after,
+.dark-theme #high-score-btn::after,
+.dark-theme #sound-control-btn::after,
+.dark-theme #save-game-btn::after,
+.dark-theme #continue-game-btn::after,
+.dark-theme #reset-game-btn::after,
+.dark-theme #show-solution-btn::after {
+    color: #0f0f0f;
+}
+
 .dark-theme .header {
     background: #666666
 }
 
 body.dark-theme .header__wrapper {
-    color:#0f0f0f;
+    color: #0f0f0f;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .dark-theme .button:hover {
         background: rgb(97, 97, 97);
     }
