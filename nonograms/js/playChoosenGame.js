@@ -71,7 +71,7 @@ export function playChoosenGame(index) {
 
     renderClueCells(DB[index].arr);
     renderClues(DB[index].arr);
-
+    console.table(DB[index].arr);
 
 }
 

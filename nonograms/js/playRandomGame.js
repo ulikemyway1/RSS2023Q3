@@ -93,4 +93,6 @@ export function playRandomGame(index) {
     pickedCells.clear();
     renderClueCells(DB[index].arr);
     renderClues(DB[index].arr);
+    console.table(DB[index].arr);
 }
+

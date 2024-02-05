@@ -111,4 +111,5 @@ export function continueGame() {
         renderClueCells(DB[prevGameIndex].arr);
         renderClues(DB[prevGameIndex].arr);
     }
+    console.table(DB[prevGameIndex].arr);
 }

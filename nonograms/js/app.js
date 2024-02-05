@@ -8,3 +8,4 @@ renderMainApp(arr);
 renderCells(arr);
 renderClues(arr);
 renderWindowLevels();
+console.table(arr);
