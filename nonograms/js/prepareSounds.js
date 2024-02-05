@@ -14,14 +14,20 @@ const buttonClickSound = new Audio('./sounds/buttonClick.mp3');
 buttonClickSound.controls = false;
 buttonClickSound.volume = 1;
 export function pickSoundPlay() {
+    pickSound.pause();
+    pickSound.currentTime = 0;
     pickSound.play();
 }
 
 export function crossedSoundPlay() {
+    crossedSound.pause();
+    crossedSound.currentTime = 0;
     crossedSound.play();
 }
 
 export function emptyCellPlay() {
+    emptyCellSound.pause();
+    emptyCellSound.currentTime = 0;
     emptyCellSound.play();
 }
 
@@ -30,6 +36,8 @@ export function winSoundPlay() {
 }
 
 export function buttonClickSoundPlay() {
+    buttonClickSound.pause();
+    buttonClickSound.currentTime = 0;
     buttonClickSound.play();
 }
 
