@@ -1,6 +1,27 @@
+@media (min-width: 1024px) {
+    body .app {
+        flex-direction: row;
+    }
+
+    body .app__footer,
+    body .app__header {
+        margin-top: 50px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 25px;
+        width: auto;
+
+    }
+
+    body #header-btns-wrapper {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+}
+
 @media (max-width: 1023px) {
     body .app {
-        margin: 5px auto;
         width: 100vw;
     }
 
@@ -80,10 +101,6 @@
 
 
 @media (max-width: 767px) {
-    body .app {
-        margin: 5px auto;
-        width: 100vw;
-    }
 
     #game-field-wapper .app__game-field_5x5 .cell,
     #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clue,
@@ -161,10 +178,6 @@
 
 
 @media (max-width: 499px) {
-    body .app {
-        margin: 5px auto;
-        width: 100vw;
-    }
 
     #game-field-wapper .app__game-field_5x5 .cell,
     #game-field-wapper:has(#inner-wrapper .app__game-field_5x5) .clue,

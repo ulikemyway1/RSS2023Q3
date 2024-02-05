@@ -166,7 +166,9 @@ export function renderMainApp(arr) {
         }
         soundControl.classList.toggle('sound-off');
     })
-    appHeader.append(changeThemeBtn, soundControl, highScoreTableBtn, rnd, optionsBtn);
+    const headerBtnsWrapper = createElement('div', 'header-btns-wrapper');
+
+    headerBtnsWrapper.append(changeThemeBtn, soundControl, highScoreTableBtn, rnd, optionsBtn);
 
     appFooter.append(
         saveGameBtn,
@@ -178,8 +180,12 @@ export function renderMainApp(arr) {
     innerWapper.append(horizontalCluesRow, gameField);
 
     infoBox = createElement('p', null, ['info-box'], gameName[0]);
-
-    main.append(appHeader, infoBox, timeInfo, gameFieldWrapper, appFooter);
+    const gameInfoWrapper = createElement('div', 'game-info-wrapper')
+    
+    gameInfoWrapper.append(infoBox, timeInfo);
+    appHeader.append(headerBtnsWrapper, gameInfoWrapper);
+    gameFieldWrapper.prepend(gameInfoWrapper);
+    main.append(appHeader, gameFieldWrapper, appFooter);
 
     body.append(main);
     gameField.addEventListener('click', gameFieldClickHandler);
