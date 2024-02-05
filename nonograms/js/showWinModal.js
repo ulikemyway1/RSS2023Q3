@@ -22,7 +22,7 @@ export function showWinModal() {
 
     const randomGameBtn = createElement(
         'button',
-        'random-game-btn',
+        'modal-win-random-btn',
         ['button'],
         'Play Random Game',
     );

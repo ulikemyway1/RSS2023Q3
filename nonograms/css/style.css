@@ -401,6 +401,10 @@ body {
     filter: opacity(0.5)
 }
 
+#modal-win-random-btn {
+    width: auto;
+    padding: 0 10px;
+}
 
 @media (hover: hover) {
 
