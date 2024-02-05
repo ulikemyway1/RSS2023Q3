@@ -8,7 +8,6 @@ import {
     isSolve,
     pickedCells,
 } from './appState.js';
-import { blackCells } from './appState.js';
 import { allCells } from './appState.js';
 import {
     infoBox,

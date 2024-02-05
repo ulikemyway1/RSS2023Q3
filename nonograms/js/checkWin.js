@@ -1,7 +1,9 @@
 import { boardIsBlocked, contextMenuIsBlocked, isSolve, pickedCells } from './appState.js';
 import { blackCells } from './appState.js';
+import { crossCell } from './crossCell.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 import { makeRecord } from './makeRecord.js';
+import { prevDef } from './prevDef.js';
 import { gameField } from './renderMainApp.js';
 import { showWinModal } from './showWinModal.js';
 export function checkWin() {
