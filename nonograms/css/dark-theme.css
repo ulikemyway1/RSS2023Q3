@@ -101,6 +101,7 @@ body.dark-theme,
     .dark-theme #sound-control-btn,
     .dark-theme #sound-control-btn.sound-off,
     .dark-theme #save-game-btn,
+    .dark-theme #save-game-btn:disabled,
     .dark-theme #continue-game-btn,
     .dark-theme #reset-game-btn,
     .dark-theme #show-solution-btn {
