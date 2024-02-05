@@ -9,3 +9,4 @@ export const gameName = [DB[currentIndex].name];
 export const gameLevel = [DB[currentIndex].level];
 export const isSolve = [false];
 export const boardIsBlocked = [false];
+export const contextMenuIsBlocked = [false];

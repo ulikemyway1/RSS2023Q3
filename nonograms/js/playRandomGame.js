@@ -16,6 +16,7 @@ import {
     allCells,
     blackCells,
     boardIsBlocked,
+    contextMenuIsBlocked,
     currentIndex,
     gameLevel,
     gameName,
@@ -26,6 +27,8 @@ import { DB } from './levels.js';
 import { renderCells } from './renderCells.js';
 import { renderClueCells } from './renderClueCells.js';
 import { renderClues } from './renderClues.js';
+import { crossCell } from './crossCell.js';
+import { prevDef } from './prevDef.js';
 
 export function playRandomGame(index) {
 
@@ -36,8 +39,14 @@ export function playRandomGame(index) {
     showSolutionBtn.disabled = false;
     saveGameBtn.disabled = false;
     resetGameBtn.disabled = false;
-    if (boardIsBlocked) {
+    if (boardIsBlocked[0]) {
         gameField.addEventListener('click', gameFieldClickHandler);
+        boardIsBlocked[0] = false;
+    }
+    if (contextMenuIsBlocked[0]) {
+        gameField.addEventListener('contextmenu', crossCell);
+        gameField.removeEventListener('contextmenu', prevDef);
+        contextMenuIsBlocked[0] = false;
     }
     timer.reset();
     timer.render();

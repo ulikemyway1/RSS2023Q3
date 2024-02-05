@@ -1,6 +1,7 @@
 import { renderCells } from './renderCells.js';
 import {
     boardIsBlocked,
+    contextMenuIsBlocked,
     currentIndex,
     gameLevel,
     gameName,
@@ -24,6 +25,8 @@ import { gameField } from './renderMainApp.js';
 import { gameFieldClickHandler } from './gameFieldClickHandler.js';
 import { renderClues } from './renderClues.js';
 import { renderClueCells } from './renderClueCells.js';
+import { prevDef } from './prevDef.js';
+import { crossCell } from './crossCell.js';
 
 export function continueGame() {
     const prevGameIndex = +localStorage.getItem('prevGameIndex_ULIKE');
@@ -70,8 +73,14 @@ export function continueGame() {
         showSolutionBtn.disabled = false;
         saveGameBtn.disabled = false;
         resetGameBtn.disabled = false;
-        if (boardIsBlocked) {
+        if (boardIsBlocked[0]) {
             gameField.addEventListener('click', gameFieldClickHandler);
+            boardIsBlocked[0] = false;
+        }
+        if (contextMenuIsBlocked[0]) {
+            gameField.addEventListener('contextmenu', crossCell);
+            gameField.removeEventListener('contextmenu', prevDef);
+            contextMenuIsBlocked[0] = false;
         }
         gameField.classList.remove(
             'app__game-field_5x5',

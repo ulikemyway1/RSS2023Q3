@@ -190,10 +190,5 @@ export function renderMainApp(arr) {
     body.append(main);
     gameField.addEventListener('click', gameFieldClickHandler);
 
-    gameField.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        if (e.target.classList.contains('cell')) {
-            crossCell(e.target);
-        }
-    });
+    gameField.addEventListener('contextmenu', crossCell);
 }

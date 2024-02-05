@@ -1,6 +1,8 @@
-import { allCells, blackCells, boardIsBlocked, currentIndex, gameLevel, gameName, isSolve, pickedCells } from "./appState";
+import { allCells, blackCells, boardIsBlocked, contextMenuIsBlocked, currentIndex, gameLevel, gameName, isSolve, pickedCells } from "./appState";
+import { crossCell } from "./crossCell";
 import { gameFieldClickHandler } from "./gameFieldClickHandler";
 import { DB } from "./levels";
+import { prevDef } from "./prevDef";
 import { renderCells } from "./renderCells";
 import { renderClueCells } from "./renderClueCells";
 import { renderClues } from "./renderClues";
@@ -31,8 +33,14 @@ export function playChoosenGame(index) {
     showSolutionBtn.disabled = false;
     saveGameBtn.disabled = false;
     resetGameBtn.disabled = false;
-    if (boardIsBlocked) {
+    if (boardIsBlocked[0]) {
         gameField.addEventListener('click', gameFieldClickHandler);
+        boardIsBlocked[0] = false;
+    }
+    if (contextMenuIsBlocked[0]) {
+        gameField.addEventListener('contextmenu', crossCell);
+        gameField.removeEventListener('contextmenu', prevDef);
+        contextMenuIsBlocked[0] = false;
     }
     gameField.classList.remove(
         'app__game-field_5x5',

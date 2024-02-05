@@ -1,6 +1,9 @@
 import { pickedCells } from "./appState";
 import { crossedSoundPlay, emptyCellPlay } from "./prepareSounds";
-export function crossCell(cell) {
+export function crossCell(e) {
+    const cell = e.target;
+    e.preventDefault();
+    if (e.target.classList.contains('cell')) {
     cell.classList.remove('picked');
     cell.classList.toggle('crossed');
     
@@ -12,4 +15,5 @@ export function crossCell(cell) {
     } else {
         crossedSoundPlay();
     }
+ }
 }
