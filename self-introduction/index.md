@@ -21,3 +21,5 @@ Image Gallery. This application displays images as requested by the user. This i
 Nonograms. This picture logic puzzle is also known as Pic-a-Pix. The player's task is to restore the hidden picture. In this project, I used modular archeitecture and Webpack for bundling.
 
 I really love what I do here at Rolling Scopes School. Programming and related problem-solving inspire me. I have strong motivation to complete this course and continue to gain even more knowledge to become a front-end developer.
+
+Thank you for your attention!
