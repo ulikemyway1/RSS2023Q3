@@ -18,3 +18,5 @@ During completing Microsoft Learn's TypeScript modules I have earned these badge
 
 1. **Get started with TypeScript**:
 > The ‘Get Started with TypeScript’ module provides information about what TypeScript is and why this programming language is widely used for JavaScript development. From a practical perspective, this module provides information on how to install TypeScript and how to compile .ts files into .js files. I believe that this module is a good choice for starting to learn TypeScript.
+2. **Declare variable types in TypeScript**:
+> In this module, I learned about basic TypeScript types such as number, string, Boolean, object, union, enums, any, and unknown. This module provides information on how to declare these types and their possible use cases. In my opinion, this module gives information which can be sufficient to add types into a JS application at a basic level.
