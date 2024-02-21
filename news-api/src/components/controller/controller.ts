@@ -1,16 +1,43 @@
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    getSources(callback: () => void) {
+    getSources(
+        callback: (data: {
+            sources: {
+                id: string;
+                name: string;
+                desciption: string;
+                url: string;
+                category: string;
+                language: string;
+                country: string;
+            }[];
+        }) => void
+    ) {
         super.getResp(
             {
                 endpoint: 'sources',
             },
-            callback
+            callback as () => void
         );
     }
 
-    getNews(e: Event, callback: () => void) {
+    getNews(
+        e: Event,
+        callback: (data: {
+            articles: {
+                id: string;
+                name: string;
+                title: string;
+                description: string;
+                url: string;
+                urlToImage: string;
+                author: string;
+                publishedAt: string;
+                source: { name: string };
+            }[];
+        }) => void
+    ) {
         let target = e.target! as Element;
         const newsContainer = e.currentTarget as Element;
 
@@ -26,7 +53,7 @@ class AppController extends AppLoader {
                                 sources: sourceId,
                             },
                         },
-                        callback
+                        callback as () => void
                     );
                 }
                 return;
