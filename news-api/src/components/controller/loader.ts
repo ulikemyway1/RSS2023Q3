@@ -1,11 +1,16 @@
+interface Options {
+    [index: string]: string | undefined;
+}
 class Loader {
-    constructor(baseLink, options) {
+    baseLink: string | undefined;
+    options: Options;
+    constructor(baseLink: string | undefined, options: Options) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
     getResp(
-        { endpoint, options = {} },
+        { endpoint = '', options = {} },
         callback = () => {
             console.error('No callback for GET response');
         }
@@ -13,7 +18,7 @@ class Loader {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res) {
+    errorHandler(res: { ok: boolean; status: number; statusText: string; json(): object }) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -23,7 +28,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options, endpoint) {
+    makeUrl(options: Options, endpoint: string | undefined) {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -34,7 +39,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method, endpoint, callback, options = {}) {
+    load(method: 'GET' | 'POST', endpoint: string | undefined, callback: (data: object) => void, options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
