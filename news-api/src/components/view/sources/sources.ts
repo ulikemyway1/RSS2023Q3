@@ -1,20 +1,20 @@
 import './sources.css';
 
 class Sources {
-    draw(data) {
+    draw(data: { id: string; name: string }[]) {
         const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector('#sourceItemTemp');
+        const sourceItemTemp: HTMLTemplateElement = document.querySelector('#sourceItemTemp')!;
 
         data.forEach((item) => {
-            const sourceClone = sourceItemTemp.content.cloneNode(true);
+            const sourceClone = sourceItemTemp.content.cloneNode(true) as Element;
 
-            sourceClone.querySelector('.source__item-name').textContent = item.name;
-            sourceClone.querySelector('.source__item').setAttribute('data-source-id', item.id);
+            sourceClone.querySelector('.source__item-name')!.textContent = item.name;
+            sourceClone.querySelector('.source__item')!.setAttribute('data-source-id', item.id);
 
             fragment.append(sourceClone);
         });
 
-        document.querySelector('.sources').append(fragment);
+        document.querySelector('.sources')?.append(fragment);
     }
 }
 
