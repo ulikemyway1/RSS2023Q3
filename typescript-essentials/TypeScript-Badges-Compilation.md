@@ -10,6 +10,8 @@ During completing Microsoft Learn's TypeScript modules I have earned these badge
 4. **Develop typed functions by using TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/ulikemyway1/FZUZ2SQX?sharingId=503A1A297221F5DA)
 5. **Declare and instantiate classes in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/ulikemyway1/PTZAS624?sharingId=503A1A297221F5DA)
 6. **Define generics in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/ulikemyway1/24XAFXGV?sharingId=503A1A297221F5DA)
+7. **Access external libraries from TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/ulikemyway1/24YMQSYV?sharingId=503A1A297221F5DA)
+8. **Organize code using TypeScript namespaces**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/ulikemyway1/N7UXRTSF?sharingId=503A1A297221F5DA)
 
 
 ## My personal Reflections on what I have learned during my TypeScript Journey
