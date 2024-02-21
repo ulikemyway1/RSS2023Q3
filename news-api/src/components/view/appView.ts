@@ -9,7 +9,7 @@ export class AppView {
         this.sources = new Sources();
     }
 
-    drawNews(data: {
+    public drawNews(data: {
         articles: {
             id: string;
             name: string;
@@ -26,7 +26,7 @@ export class AppView {
         this.news.draw(values);
     }
 
-    drawSources(data: {
+    public drawSources(data: {
         sources: {
             id: string;
             name: string;

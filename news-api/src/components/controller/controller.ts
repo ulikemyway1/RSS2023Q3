@@ -1,7 +1,7 @@
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    getSources(
+    public getSources(
         callback: (data: {
             sources: {
                 id: string;
@@ -22,7 +22,7 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(
+    public getNews(
         e: Event,
         callback: (data: {
             articles: {

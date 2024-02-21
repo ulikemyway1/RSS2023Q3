@@ -1,7 +1,7 @@
 import './news.css';
 
 class News {
-    draw(
+    public draw(
         data: {
             id: string;
             name: string;
