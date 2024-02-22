@@ -38,27 +38,29 @@ class AppController extends AppLoader {
             }[];
         }) => void
     ) {
-        let target = e.target! as Element;
-        const newsContainer = e.currentTarget as Element;
-
-        while (target !== newsContainer) {
-            if (target.classList.contains('source__item')) {
-                const sourceId = target.getAttribute('data-source-id')!;
-                if (newsContainer.getAttribute('data-source') !== sourceId) {
-                    newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
-                        {
-                            endpoint: 'everything',
-                            options: {
-                                sources: sourceId,
+        let target: HTMLElement | null;
+        if (e.target instanceof HTMLElement && e.currentTarget instanceof HTMLElement) {
+            target = e.target;
+            const newsContainer: HTMLElement | null = e.currentTarget;
+            while (target && target !== newsContainer) {
+                if (target.classList.contains('source__item')) {
+                    const sourceId = target.getAttribute('data-source-id')!;
+                    if (newsContainer.getAttribute('data-source') !== sourceId) {
+                        newsContainer.setAttribute('data-source', sourceId);
+                        super.getResp(
+                            {
+                                endpoint: 'everything',
+                                options: {
+                                    sources: sourceId,
+                                },
                             },
-                        },
-                        callback as () => void
-                    );
+                            callback as () => void
+                        );
+                    }
+                    return;
                 }
-                return;
+                if (target.parentNode instanceof HTMLElement) target = target.parentNode;
             }
-            target = target.parentNode as Element;
         }
     }
 }
