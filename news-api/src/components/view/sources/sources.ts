@@ -1,3 +1,4 @@
+import { assertIsElement } from '../../utils/assertIsElement';
 import './sources.css';
 
 class Sources {
@@ -8,15 +9,14 @@ class Sources {
         data.forEach((item) => {
             if (sourceItemTemp) {
                 const sourceItemTempContent = sourceItemTemp.content.cloneNode(true);
-                if (sourceItemTempContent instanceof DocumentFragment) {
-                    const sourceClone = sourceItemTempContent;
-                    if (sourceClone) {
-                        const sourceCloneItemName = sourceClone.querySelector('.source__item-name');
-                        if (sourceCloneItemName) sourceCloneItemName.textContent = item.name;
-                        const sourceCloneItem = sourceClone.querySelector('.source__item');
-                        if (sourceCloneItem) sourceCloneItem.setAttribute('data-source-id', item.id);
-                        fragment.append(sourceClone);
-                    }
+                assertIsElement(sourceItemTempContent);
+                const sourceClone = sourceItemTempContent;
+                if (sourceClone) {
+                    const sourceCloneItemName = sourceClone.querySelector('.source__item-name');
+                    if (sourceCloneItemName) sourceCloneItemName.textContent = item.name;
+                    const sourceCloneItem = sourceClone.querySelector('.source__item');
+                    if (sourceCloneItem) sourceCloneItem.setAttribute('data-source-id', item.id);
+                    fragment.append(sourceClone);
                 }
             }
         });
