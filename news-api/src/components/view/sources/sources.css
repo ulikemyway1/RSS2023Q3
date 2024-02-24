@@ -1,23 +1,34 @@
 .sources {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-    grid-auto-rows: min-content;
-    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 90vw;
     overflow: auto;
-    justify-content: center;
-    font: 300 1em 'Fira Sans', sans-serif;
+    font-size: 24px;
+    overflow-x: hidden;
+    font: 300 100% 'Fira Sans', sans-serif;
+    max-height: 50vh;
+    padding-right: 1vw;
+    margin-bottom: 35px;
+}
+
+@media (max-width: 600px) {
+    .sources {
+        max-height: 70vh;
+    }
 }
 
 .source__item {
+    display: block;
     background: none;
     border: 2px solid #30c5ff;
-    font: inherit;
     line-height: 1;
-    margin: 0.5em;
     padding: 1em 2em;
     color: #70d6ff;
     transition: 0.25s;
     cursor: pointer;
+    flex-grow: 1;
 }
 
 .source__item:hover,
@@ -29,6 +40,7 @@
 }
 
 .source__item-name {
-    font-weight: 400;
+    display: block;
+    width: 100%;
     white-space: nowrap;
 }
