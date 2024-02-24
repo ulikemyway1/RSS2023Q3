@@ -24,20 +24,22 @@ export class AppView {
 
     public showFilter(data: sourcesInfo) {
         const filter = document.querySelector('.filter');
+        assertIsElement<HTMLElement>(filter);
         const category: {
-            [letter: string]: string[];
+            [letter: string]: HTMLElement[];
         } = {
-            init: [''],
+            init: [filter],
         };
         delete category['init'];
-        assertIsElement<HTMLElement>(filter);
         data.forEach((source) => {
             const letter = source.name[0];
+            const pageSourcePlate = document.querySelector(`[data-source-id="${source.id}"]`);
+            assertIsElement(pageSourcePlate);
             if (!category[letter]) {
                 category[letter] = [];
-                category[letter].push(source.id);
+                category[letter].push(pageSourcePlate);
             } else {
-                category[letter].push(source.id);
+                category[letter].push(pageSourcePlate);
             }
         });
         console.log(category);
@@ -65,7 +67,36 @@ export class AppView {
         const applyFilterBtn = document.createElement('button');
         applyFilterBtn.classList.add('filter__btn', 'apply-filter');
         applyFilterBtn.textContent = 'Apply';
+        applyFilterBtn.addEventListener('click', applyFilter);
         filter.append(applyFilterBtn);
+
+        let pickedLetters: string[] = [];
+
+        function applyFilter(): void {
+            getAllPickedLetters();
+            for (const letter in category) {
+                category[letter].forEach((plate) => plate.classList.add('hidden'));
+            }
+            pickedLetters.forEach((letter) => {
+                category[letter].forEach((plate) => plate.classList.remove('hidden'));
+            });
+        }
+
+        function getAllPickedLetters(): void {
+            pickedLetters = [];
+            checkBoxes.forEach((checkBox) => {
+                if (checkBox.checked) {
+                    pickedLetters.push(checkBox.id);
+                }
+                // checkBox.disabled = true;
+            });
+        }
+        for (let i = 0; i < 3; i += 1) {
+            if (checkBoxes[i]) {
+                checkBoxes[i].checked = true;
+            }
+        }
+        applyFilter();
     }
 
     private createCheckBox(key: string): HTMLElement {

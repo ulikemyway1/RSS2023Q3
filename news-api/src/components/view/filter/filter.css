@@ -26,3 +26,7 @@
 .filter__btn {
     width: 85px;
 }
+
+.hidden {
+    display: none;
+}
