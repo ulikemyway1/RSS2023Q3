@@ -16,6 +16,7 @@ header h1 {
 footer {
     height: 100px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -32,4 +33,22 @@ footer .copyright a:hover {
 }
 footer .copyright:before {
     content: '©';
+}
+
+footer .rss-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 25px;
+}
+
+footer .rss-footer a img {
+    height: 35px;
+    width: auto;
+}
+
+footer .rss-footer a {
+    text-decoration: none;
+    color:#fff;
 }
