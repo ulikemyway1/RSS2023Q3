@@ -3,6 +3,7 @@ import { ArticlesInfo, NewsSources, sourcesInfo } from '../utils/types';
 import News from './news/news';
 import Sources from './sources/sources';
 import './filter/filter.css';
+export let filter: HTMLElement;
 export class AppView {
     news;
     sources;
@@ -23,8 +24,9 @@ export class AppView {
     }
 
     public showFilter(data: sourcesInfo) {
-        const filter = document.querySelector('.filter');
-        assertIsElement<HTMLElement>(filter);
+        const filterTemp = document.querySelector('.filter');
+        assertIsElement<HTMLElement>(filterTemp);
+        filter = filterTemp;
         const category: {
             [letter: string]: HTMLElement[];
         } = {
@@ -97,6 +99,19 @@ export class AppView {
             }
         }
         applyFilter();
+
+        const openFilterBtn = document.querySelector('.toggle-filter');
+        assertIsElement(openFilterBtn);
+        openFilterBtn.addEventListener('click', showFilter);
+        function showFilter() {
+            filter.classList.toggle('hidden');
+            assertIsElement(openFilterBtn);
+            if (filter.classList.contains('hidden')) {
+                openFilterBtn.textContent = 'Open the sources filter';
+            } else {
+                openFilterBtn.textContent = 'Hide the sources filter';
+            }
+        }
     }
 
     private createCheckBox(key: string): HTMLElement {
