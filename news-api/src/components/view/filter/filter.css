@@ -55,6 +55,22 @@
 }
 
 
+@media (max-width: 800px) {
+    .filter {
+        max-width: 100%;
+    }
+
+    .filter__item {
+        font-size: clamp(1.125rem, 0.125rem + 5vw, 2rem);
+    }
+
+    .filter__item input {
+        height: clamp(0.938rem, 0.58rem + 1.79vw, 1.25rem);
+        width: clamp(0.938rem, 0.58rem + 1.79vw, 1.25rem);
+    }
+}
+
+
 @media (max-width: 500px) {
     .select-all, .deselect-all {
         width: 100%;
@@ -62,6 +78,7 @@
 
     .filter {
         gap: 15px;
+        max-width: 100%;
     }
 }
 

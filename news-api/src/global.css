@@ -12,12 +12,13 @@ header {
 header h1 {
     font-size: 40px;
     font-weight: 800;
+    margin: 0;
+    line-height: 40px;
 }
 
 @media (max-width: 600px) {
     header h1 {
         font-size: 30px;
-        margin: 5px;
     }
 }
 
