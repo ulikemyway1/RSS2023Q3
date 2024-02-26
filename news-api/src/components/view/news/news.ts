@@ -1,19 +1,11 @@
 import './news.css';
 import { assertIsElement } from '../../utils/assertIsElement';
-class News {
-    public draw(
-        data: {
-            id: string;
-            name: string;
-            title: string;
-            description: string;
-            url: string;
-            urlToImage: string;
-            author: string;
-            publishedAt: string;
-            source: { name: string };
-        }[]
-    ) {
+import { ArticlesInfo } from '../../utils/types';
+interface INews {
+    draw(data: ArticlesInfo['articles']): void;
+}
+class News implements INews {
+    public draw(data: ArticlesInfo['articles']) {
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
         const fragment = document.createDocumentFragment();
