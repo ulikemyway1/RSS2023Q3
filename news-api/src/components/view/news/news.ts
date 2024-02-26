@@ -22,7 +22,7 @@ class News implements INews {
             }
             const newsClonePhoto = newsClone.querySelector('.news__meta-photo');
             assertIsElement(newsClonePhoto);
-            newsClonePhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
+            newsClonePhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.svg'})`;
             const metaAuthor = newsClone.querySelector('.news__meta-author');
             assertIsElement(metaAuthor);
             metaAuthor.textContent = item.author || item.source.name;
