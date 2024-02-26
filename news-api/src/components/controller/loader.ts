@@ -2,15 +2,15 @@ interface Options {
     [index: string]: string | undefined;
 }
 class Loader {
-    baseLink: string | undefined;
+    baseLink: string;
     options: Options;
-    constructor(baseLink: string | undefined, options: Options) {
+    constructor(baseLink: string, options: Options) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
     protected getResp(
-        { endpoint = '', options = {} },
+        { endpoint, options }: { endpoint: string; options?: Options },
         callback = () => {
             console.error('No callback for GET response');
         }

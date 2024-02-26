@@ -1,4 +1,5 @@
 import { assertIsElement } from '../utils/assertIsElement';
+import { Endpoints } from '../utils/endpoints';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
@@ -51,7 +52,7 @@ class AppController extends AppLoader {
                     newsContainer.setAttribute('data-source', sourceId);
                     super.getResp(
                         {
-                            endpoint: 'everything',
+                            endpoint: Endpoints.everything,
                             options: {
                                 sources: sourceId,
                             },
