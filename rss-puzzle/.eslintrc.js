@@ -5,9 +5,9 @@ module.exports = {
     },
     extends: [
         'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
         'airbnb',
         'prettier',
+        'plugin:@typescript-eslint/recommended',
     ],
     overrides: [
         {
@@ -28,5 +28,25 @@ module.exports = {
     plugins: ['@typescript-eslint'],
     rules: {
         '@typescript-eslint/no-var-requires': 'off',
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+         ]
     },
+    "settings": {
+        "import/resolver": {
+          "node": {
+            "extensions": [".js", ".jsx", ".ts", ".tsx"],
+          },
+          "import/extensions": {
+            "import/extensions": "never"
+          }
+        }
+      }
 }
