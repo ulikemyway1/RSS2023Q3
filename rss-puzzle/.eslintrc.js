@@ -28,25 +28,26 @@ module.exports = {
     plugins: ['@typescript-eslint'],
     rules: {
         '@typescript-eslint/no-var-requires': 'off',
-        "import/extensions": [
-            "error",
-            "ignorePackages",
+        'import/extensions': [
+            'error',
+            'ignorePackages',
             {
-              "js": "never",
-              "jsx": "never",
-              "ts": "never",
-              "tsx": "never"
-            }
-         ]
+                js: 'never',
+                jsx: 'never',
+                ts: 'never',
+                tsx: 'never',
+            },
+        ],
+        'import/no-unresolved': [2, { caseSensitive: false }],
     },
-    "settings": {
-        "import/resolver": {
-          "node": {
-            "extensions": [".js", ".jsx", ".ts", ".tsx"],
-          },
-          "import/extensions": {
-            "import/extensions": "never"
-          }
-        }
-      }
+    settings: {
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+            'import/extensions': {
+                'import/extensions': 'never',
+            },
+        },
+    },
 }
