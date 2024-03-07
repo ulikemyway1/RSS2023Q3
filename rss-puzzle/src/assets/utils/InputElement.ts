@@ -7,7 +7,7 @@ export default class InputElement extends BaseElement {
 
     private value: string | undefined;
 
-    element: HTMLElement;
+    element: HTMLInputElement;
 
     constructor(
         type: string,

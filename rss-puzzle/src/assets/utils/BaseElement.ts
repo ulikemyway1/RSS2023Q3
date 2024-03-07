@@ -1,4 +1,3 @@
-
 export default class BaseElement {
     private tag;
 
@@ -10,7 +9,12 @@ export default class BaseElement {
 
     element: HTMLElement;
 
-    constructor(tag: string, id?: string, classNames?: string[], textContent?: string)  {
+    constructor(
+        tag: string,
+        id?: string,
+        classNames?: string[],
+        textContent?: string
+    ) {
         this.tag = tag;
         this.id = id;
         this.classNames = classNames;
@@ -21,7 +25,8 @@ export default class BaseElement {
     create() {
         const element = document.createElement(this.tag);
         if (this.id) element.id = this.id;
-        if (this.classNames && this.classNames.length > 0) element.classList.add(...this.classNames);
+        if (this.classNames && this.classNames.length > 0)
+            element.classList.add(...this.classNames);
         if (this.textContent) element.textContent = this.textContent;
         return element;
     }
