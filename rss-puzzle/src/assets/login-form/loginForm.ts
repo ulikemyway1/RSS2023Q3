@@ -161,6 +161,7 @@ class LoginForm implements ILoginForm {
             this.errorIcon2.classList.add('hidden');
         }
     }
+
     private validate(e: Event) {
         e.preventDefault();
         if (this.firstNameInput && this.lastNameInput && this.submitBtn) {
