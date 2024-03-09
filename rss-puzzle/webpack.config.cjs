@@ -29,14 +29,6 @@ module.exports = {
                     },
                 ],
             },
-            {
-                test: /\.(png|jpe?g|gif)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                    },
-                ],
-            },
         ],
     },
     resolve: {
@@ -54,6 +46,11 @@ module.exports = {
             ],
         }),
     ],
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
+    },
 
     devtool: 'source-map',
 };
