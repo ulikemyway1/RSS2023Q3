@@ -6,6 +6,7 @@ import createElement from '../utils/createElement';
 import InputValidation from './validationRules';
 import ParagraphElement from '../utils/ParagraphElement';
 import ValidationMsg from './validationMsg';
+import UserHandler from './UserHandler';
 
 interface ILoginForm {
     render(): void;
@@ -248,6 +249,10 @@ class LoginForm implements ILoginForm {
             if (lastNameIsValid) {
                 this.lastNameInput.classList.remove('input-error');
                 this.lastNameInput.classList.add('input-accepted');
+            }
+
+            if (firstNameIsValid && lastNameIsValid) {
+                new UserHandler(firstName, lastName).saveUser();
             }
         }
     }
