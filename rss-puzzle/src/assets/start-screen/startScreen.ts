@@ -2,7 +2,7 @@ import BaseElement from '../utils/BaseElement';
 import ParagraphElement from '../utils/ParagraphElement';
 import './startScreen.scss';
 
-type UserInfo = {
+export type UserInfo = {
     firstName: string;
     lastName: string;
 };

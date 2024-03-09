@@ -1,5 +1,5 @@
-import LoginForm from "../login-form/loginForm";
-import StartScreen, { UserInfo } from "../start-screen/startScreen";
+import LoginForm from '../login-form/loginForm';
+import StartScreen, { UserInfo } from '../start-screen/startScreen';
 
 export default class AppLoader {
     private userIsLogged: boolean = false;
@@ -21,7 +21,7 @@ export default class AppLoader {
             while (document.body.lastChild) {
                 document.body.lastChild.remove();
             }
-            document.body.append(this.content)
+            document.body.append(this.content);
         }
     }
 }
