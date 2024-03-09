@@ -1,4 +1,6 @@
-import loginForm from './assets/login-form/loginForm';
+import AppLoader from './assets/app-loader/appLoader';
 import './assets/sass/style.scss';
 
-loginForm.render();
+const appLoader = new AppLoader();
+appLoader.load();
+export default appLoader;
