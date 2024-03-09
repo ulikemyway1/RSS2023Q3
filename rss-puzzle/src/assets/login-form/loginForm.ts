@@ -7,13 +7,9 @@ import InputValidation from './validationRules';
 import ParagraphElement from '../utils/ParagraphElement';
 import ValidationMsg from './validationMsg';
 import UserHandler from './UserHandler';
+import appLoader from '../..';
 
-interface ILoginForm {
-    render(): void;
-    set setStatus(userIsLogged: boolean);
-}
-
-class LoginForm implements ILoginForm {
+export default class LoginForm {
     private haveToShow;
 
     private form;
@@ -253,19 +249,16 @@ class LoginForm implements ILoginForm {
 
             if (firstNameIsValid && lastNameIsValid) {
                 new UserHandler(firstName, lastName).saveUser();
+                appLoader.load();
             }
         }
     }
 
-    render() {
-        if (this.haveToShow) document.body.append(this.initForm());
+    getContent() {
+        return this.initForm();
     }
 
     set setStatus(userIsLogged: boolean) {
         if (userIsLogged) this.haveToShow = true;
     }
 }
-
-const loginForm = new LoginForm();
-
-export default loginForm;
