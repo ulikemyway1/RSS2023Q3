@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Expletus+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+.start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10vh 0;
+    gap: 5vh;
+    background: url('../img/start-screen.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    font-family: 'Expletus Sans', sans-serif;
+
+    &__game-title {
+        font-size: 64px;
+        color: #011a3b;
+    }
+
+    &__greeting {
+        font-size: 36px;
+        color: #4c7ba1;
+        font-weight: 600;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 6vh 3vw;
+        gap: 8vh;
+        width: 100%;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(5px);
+    }
+
+    &__game-descr {
+        font-size: 28px;
+        color: #011a3b;
+    }
+}
