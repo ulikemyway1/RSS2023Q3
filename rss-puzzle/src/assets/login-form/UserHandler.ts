@@ -4,8 +4,8 @@ export default class UserHandler {
     constructor(firstName: string, lastName: string) {
         this.user = {
             firstName,
-            lastName
-        }
+            lastName,
+        };
     }
 
     saveUser() {
