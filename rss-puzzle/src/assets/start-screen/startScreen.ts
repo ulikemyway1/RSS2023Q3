@@ -1,5 +1,7 @@
+import gameBoard from '../game-board/gameBoard';
 import Header from '../header/header';
 import BaseElement from '../utils/BaseElement';
+import InputElement from '../utils/InputElement';
 import ParagraphElement from '../utils/ParagraphElement';
 import './startScreen.scss';
 
@@ -43,7 +45,21 @@ export default class StartScreen {
 
         const header = new Header().getElement();
         if (header) document.body.append(header);
-        wrapper.append(gameTitle, userGreeting, gameDescr);
+
+        const startBtn = new InputElement(
+            'button',
+            'Start',
+            undefined,
+            undefined,
+            ['start-btn', 'button']
+        ).getElement();
+
+        startBtn.addEventListener(
+            'click',
+            gameBoard.loadGameBoard.bind(gameBoard)
+        );
+
+        wrapper.append(gameTitle, userGreeting, gameDescr, startBtn);
         startScreen.append(wrapper);
         return startScreen;
     }
