@@ -6,11 +6,8 @@
     align-items: center;
     padding: 10vh 0;
     gap: 5vh;
-    background: url('../img/start-screen.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
+    height: 93vh;
+    min-height: 400px;
     font-family: 'Expletus Sans', sans-serif;
 
     &__game-title {

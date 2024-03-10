@@ -18,8 +18,14 @@ export default class AppLoader {
     load() {
         this.loadContent();
         if (this.content) {
-            while (document.body.lastChild) {
-                document.body.lastChild.remove();
+            const { childElementCount } = document.body;
+            for (let i = 0; i <= childElementCount; i += 1) {
+                if (
+                    document.body.firstChild &&
+                    document.body.firstChild.nodeName !== 'HEADER'
+                ) {
+                    document.body.firstChild.remove();
+                }
             }
             document.body.append(this.content);
         }

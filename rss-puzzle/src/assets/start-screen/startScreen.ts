@@ -1,3 +1,4 @@
+import Header from '../header/header';
 import BaseElement from '../utils/BaseElement';
 import ParagraphElement from '../utils/ParagraphElement';
 import './startScreen.scss';
@@ -39,6 +40,9 @@ export default class StartScreen {
             undefined,
             ['start-screen__greeting']
         ).getElement();
+
+        const header = new Header().getElement();
+        if (header) document.body.append(header);
         wrapper.append(gameTitle, userGreeting, gameDescr);
         startScreen.append(wrapper);
         return startScreen;
