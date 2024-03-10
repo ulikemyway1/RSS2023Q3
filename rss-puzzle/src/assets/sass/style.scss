@@ -5,6 +5,9 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100vh;
     background: url('../img/start-screen.jpg');
     background-position: center;
