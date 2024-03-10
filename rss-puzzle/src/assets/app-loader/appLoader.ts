@@ -1,5 +1,6 @@
 import LoginForm from '../login-form/loginForm';
 import StartScreen, { UserInfo } from '../start-screen/startScreen';
+import clearBody from '../utils/clearBody';
 
 export default class AppLoader {
     private userIsLogged: boolean = false;
@@ -18,15 +19,7 @@ export default class AppLoader {
     load() {
         this.loadContent();
         if (this.content) {
-            const { childElementCount } = document.body;
-            for (let i = 0; i <= childElementCount; i += 1) {
-                if (
-                    document.body.firstChild &&
-                    document.body.firstChild.nodeName !== 'HEADER'
-                ) {
-                    document.body.firstChild.remove();
-                }
-            }
+            clearBody();
             document.body.append(this.content);
         }
     }
