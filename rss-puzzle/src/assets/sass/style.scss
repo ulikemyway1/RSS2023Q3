@@ -3,3 +3,25 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    height: 100vh;
+    background: url('../img/start-screen.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.logout-btn {
+    height: 80%;
+    width: 80px;
+    background: rgb(23, 60, 100);
+}
+
+.button {
+    color: #ffffff;
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+}

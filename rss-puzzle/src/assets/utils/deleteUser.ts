@@ -1,3 +1,3 @@
-export default function deleteUser () {
+export default function deleteUser() {
     localStorage.removeItem('user_ULIKE');
 }
