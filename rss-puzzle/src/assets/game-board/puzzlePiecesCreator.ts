@@ -23,6 +23,9 @@ export default class PuzzlePiecesCreator {
                 if (piece.parentElement === gameBoard.getSourceBlock()) {
                     const dist = gameBoard.getResultBlock();
                     if (dist) movePiece(piece, dist);
+                } else if (piece.parentElement === gameBoard.getResultBlock()) {
+                    const dist = gameBoard.getSourceBlock();
+                    if (dist) movePiece(piece, dist);
                 }
             });
             puzzles.push(piece);
