@@ -1,3 +1,33 @@
 .game-board {
     height: 93vh;
+    &__result-block,
+    &__source-block {
+        height: 250px;
+        border: 1px solid black;
+    }
+    &__result-block,
+    &__source-block {
+        display: flex;
+        width: 100%;
+    }
+}
+
+.puzzle-piece {
+    display: inline-block;
+    padding: 0 5px;
+    border: 1px solid rgb(87, 62, 232);
+    background: #ffffff;
+    height: 40px;
+    width: min-content;
+    text-align: center;
+    font-size: 24px;
+    line-height: 40px;
+    margin-right: 3px;
+    cursor: pointer;
+    transition: all 0.6s;
+    flex-grow: 1;
+}
+
+.puzzle-piece:hover {
+    background: #e2e2e2;
 }
