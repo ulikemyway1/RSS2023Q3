@@ -22,9 +22,9 @@ export default class PuzzlePiecesCreator {
             piece.addEventListener('click', () => {
                 if (piece.parentElement === gameBoard.getSourceBlock()) {
                     const dist = gameBoard.getResultBlock();
-                    if (dist) movePiece(piece, dist )
-                } 
-            })
+                    if (dist) movePiece(piece, dist);
+                }
+            });
             puzzles.push(piece);
         });
         const tempArr: (null | HTMLElement | undefined)[] = Array(
