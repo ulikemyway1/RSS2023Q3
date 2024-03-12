@@ -47,10 +47,16 @@ export default class PuzzlePiecesCreator {
         const puzzlePieces: HTMLElement[] = [];
         randomPieceArray.forEach((item) => {
             if (item instanceof HTMLElement) {
-                item.addEventListener(
-                    'click',
-                    gameBoard.checkSentence.bind(gameBoard)
-                );
+                item.addEventListener('click', () => {
+                    gameBoard.checkSentence.bind(gameBoard)();
+                    if (gameBoard.currentPieces)
+                        gameBoard.currentPieces.forEach((piece) =>
+                            piece.classList.remove(
+                                'correct-position',
+                                'wrong-position'
+                            )
+                        );
+                });
                 puzzlePieces.push(item);
             }
         });
