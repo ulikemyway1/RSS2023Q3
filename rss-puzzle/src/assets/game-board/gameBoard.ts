@@ -91,7 +91,14 @@ class GameBoard {
 
             this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
         });
-        gameBoard.append(this.resultBlock, this.sourceBlock, nextBtn);
+        const checkBtn = new InputElement(
+            'button',
+            'Check',
+            undefined,
+            undefined
+        ).getElement();
+        checkBtn.addEventListener('click', this.checkSentence.bind(this));
+        gameBoard.append(this.resultBlock, this.sourceBlock, nextBtn, checkBtn);
         document.body.append(gameBoard);
     }
 
@@ -132,8 +139,28 @@ class GameBoard {
             this.sourceBlock.append(...puzzlePieces);
         }
     }
+
+    private checkSentence() {
+        const userSentence: string[] = [];
+        if (this.sourceBlock && this.sourceBlock.firstChild) {
+            console.log('Incorrect');
+        } else if (this.resultBlock && this.resultBlock.firstChild) {
+            let currentPiece: ChildNode | null = this.resultBlock.firstChild;
+            while (currentPiece && currentPiece.textContent) {
+                userSentence.push(currentPiece.textContent);
+                currentPiece = currentPiece.nextSibling;
+            }
+            if (
+                userSentence.join(' ') ===
+                this.levelData?.rounds[this.roundNumber].words[this.wordNumber]
+                    .textExample
+            ) {
+                console.log('Correct');
+            } else console.log('Incorrect');
+        }
+    }
 }
 
-const gameBoard = new GameBoard('3', 1);
+const gameBoard = new GameBoard('1', 0);
 
 export default gameBoard;
