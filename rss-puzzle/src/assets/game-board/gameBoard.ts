@@ -4,7 +4,7 @@ import clearBody from '../utils/clearBody';
 import './gameBoard.scss';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
 
-type gameLevels = '1' | '2' | '3' | '4' | '5' | '6';
+type gameLevels = number;
 
 interface IWord {
     audioExample: string;
@@ -47,9 +47,18 @@ class GameBoard {
 
     wordNumber: number = 0;
 
+    nextBtn: HTMLInputElement = new InputElement(
+        'button',
+        'Continue',
+        undefined,
+        undefined,
+        ['game-board__next-btn', 'button']
+    ).getElement();
+
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
         this.roundNumber = roundNumber;
+        this.nextBtn.disabled = true;
     }
 
     private async init() {
@@ -63,28 +72,35 @@ class GameBoard {
         this.resultBlock = new BaseElement('div', undefined, [
             'game-board__result-block',
         ]).getElement();
+        this.createNewLine();
 
-        const nextBtn = new InputElement(
-            'button',
-            'Continue',
-            undefined,
-            undefined,
-            ['game-board__next-btn', 'button']
-        ).getElement();
-
-        nextBtn.addEventListener('click', () => {
+        this.nextBtn.addEventListener('click', () => {
             if (this.levelData) {
                 this.wordNumber += 1;
+                this.nextBtn.disabled = true;
+                this.createNewLine();
                 if (this.wordNumber > 9) {
                     this.wordNumber = 0;
                     this.roundNumber += 1;
-                    if (this.roundNumber > this.levelData.roundsCount) {
-                        this.levelNumber += 1;
-                        this.roundNumber = 0;
-                        if (Number(this.levelNumber) > 6) {
-                            this.levelNumber = '1';
-                            this.loadLevel(this.levelNumber);
+                    if (this.resultBlock) {
+                        while (this.resultBlock.lastChild) {
+                            this.resultBlock.lastChild.remove();
                         }
+                        this.createNewLine();
+                    }
+                }
+                if (this.roundNumber > this.levelData.roundsCount) {
+                    this.levelNumber += 1;
+                    this.roundNumber = 0;
+                    if (Number(this.levelNumber) > 6) {
+                        this.levelNumber = 1;
+                    }
+                    this.loadLevel(this.levelNumber);
+                    if (this.resultBlock) {
+                        while (this.resultBlock.lastChild) {
+                            this.resultBlock.lastChild.remove();
+                        }
+                        this.createNewLine();
                     }
                 }
             }
@@ -95,10 +111,16 @@ class GameBoard {
             'button',
             'Check',
             undefined,
-            undefined
+            undefined,
+            ['check-btn', 'button']
         ).getElement();
         checkBtn.addEventListener('click', this.checkSentence.bind(this));
-        gameBoard.append(this.resultBlock, this.sourceBlock, nextBtn, checkBtn);
+        gameBoard.append(
+            this.resultBlock,
+            this.sourceBlock,
+            this.nextBtn,
+            checkBtn
+        );
         document.body.append(gameBoard);
     }
 
@@ -131,21 +153,21 @@ class GameBoard {
                 this.levelData.rounds[roundNumber].words[wordNumber]
                     .textExample;
             const puzzlePieces = new PuzzlePiecesCreator(sentence).getPieces();
-
             while (this.sourceBlock.firstChild) {
                 this.sourceBlock.firstChild.remove();
             }
-
             this.sourceBlock.append(...puzzlePieces);
         }
     }
 
-    private checkSentence() {
+    public checkSentence() {
         const userSentence: string[] = [];
         if (this.sourceBlock && this.sourceBlock.firstChild) {
             console.log('Incorrect');
-        } else if (this.resultBlock && this.resultBlock.firstChild) {
-            let currentPiece: ChildNode | null = this.resultBlock.firstChild;
+            this.nextBtn.disabled = true;
+        } else if (this.resultBlock && this.resultBlock.lastChild) {
+            let currentPiece: ChildNode | null =
+                this.resultBlock.lastChild.firstChild;
             while (currentPiece && currentPiece.textContent) {
                 userSentence.push(currentPiece.textContent);
                 currentPiece = currentPiece.nextSibling;
@@ -156,11 +178,22 @@ class GameBoard {
                     .textExample
             ) {
                 console.log('Correct');
-            } else console.log('Incorrect');
+                this.nextBtn.disabled = false;
+            } else {
+                this.nextBtn.disabled = true;
+                console.log('Incorrect');
+            }
         }
+    }
+
+    private createNewLine() {
+        const newLine = new BaseElement('div', undefined, [
+            'game-board__puzzle-line',
+        ]).getElement();
+        if (this.resultBlock) this.resultBlock.append(newLine);
     }
 }
 
-const gameBoard = new GameBoard('1', 0);
+const gameBoard = new GameBoard(1, 0);
 
 export default gameBoard;

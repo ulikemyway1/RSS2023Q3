@@ -20,11 +20,17 @@ export default class PuzzlePiecesCreator {
                 word
             ).getElement();
             piece.addEventListener('click', () => {
-                if (piece.parentElement === gameBoard.getSourceBlock()) {
-                    const dist = gameBoard.getResultBlock();
+                const resultBlock = gameBoard.getResultBlock();
+                const sourceBlock = gameBoard.getSourceBlock();
+                if (
+                    sourceBlock &&
+                    piece.parentElement &&
+                    piece.parentElement.parentElement === resultBlock
+                ) {
+                    const dist = sourceBlock;
                     if (dist) movePiece(piece, dist);
-                } else if (piece.parentElement === gameBoard.getResultBlock()) {
-                    const dist = gameBoard.getSourceBlock();
+                } else if (resultBlock && piece.parentElement === sourceBlock) {
+                    const dist = resultBlock.lastElementChild;
                     if (dist) movePiece(piece, dist);
                 }
             });
@@ -41,6 +47,10 @@ export default class PuzzlePiecesCreator {
         const puzzlePieces: HTMLElement[] = [];
         randomPieceArray.forEach((item) => {
             if (item instanceof HTMLElement) {
+                item.addEventListener(
+                    'click',
+                    gameBoard.checkSentence.bind(gameBoard)
+                );
                 puzzlePieces.push(item);
             }
         });
