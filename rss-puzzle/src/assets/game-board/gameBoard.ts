@@ -47,6 +47,10 @@ class GameBoard {
 
     wordNumber: number = 0;
 
+    currentSentence: string[] = [];
+
+    currentPieces: HTMLElement[] | null = null;
+
     nextBtn: HTMLInputElement = new InputElement(
         'button',
         'Continue',
@@ -54,6 +58,11 @@ class GameBoard {
         undefined,
         ['game-board__next-btn', 'button']
     ).getElement();
+
+    checkBtn = new InputElement('button', 'Check', undefined, undefined, [
+        'game-board__check-btn',
+        'button',
+    ]).getElement();
 
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
@@ -107,19 +116,17 @@ class GameBoard {
 
             this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
         });
-        const checkBtn = new InputElement(
-            'button',
-            'Check',
-            undefined,
-            undefined,
-            ['check-btn', 'button']
-        ).getElement();
-        checkBtn.addEventListener('click', this.checkSentence.bind(this));
+
+        this.checkBtn.disabled = true;
+        this.checkBtn.addEventListener(
+            'click',
+            this.checkWordsOrder.bind(this)
+        );
         gameBoard.append(
             this.resultBlock,
             this.sourceBlock,
             this.nextBtn,
-            checkBtn
+            this.checkBtn
         );
         document.body.append(gameBoard);
     }
@@ -152,18 +159,29 @@ class GameBoard {
             const sentence =
                 this.levelData.rounds[roundNumber].words[wordNumber]
                     .textExample;
+            this.currentSentence = sentence.split(' ');
             const puzzlePieces = new PuzzlePiecesCreator(sentence).getPieces();
             while (this.sourceBlock.firstChild) {
                 this.sourceBlock.firstChild.remove();
             }
             this.sourceBlock.append(...puzzlePieces);
+            this.currentPieces = [...puzzlePieces];
         }
     }
 
     public checkSentence() {
+        if (
+            this.currentPieces &&
+            this.resultBlock &&
+            this.currentPieces.length ===
+                this.resultBlock?.lastElementChild?.childElementCount
+        ) {
+            this.checkBtn.disabled = false;
+        } else {
+            this.checkBtn.disabled = true;
+        }
         const userSentence: string[] = [];
         if (this.sourceBlock && this.sourceBlock.firstChild) {
-            console.log('Incorrect');
             this.nextBtn.disabled = true;
         } else if (this.resultBlock && this.resultBlock.lastChild) {
             let currentPiece: ChildNode | null =
@@ -177,11 +195,36 @@ class GameBoard {
                 this.levelData?.rounds[this.roundNumber].words[this.wordNumber]
                     .textExample
             ) {
-                console.log('Correct');
                 this.nextBtn.disabled = false;
             } else {
                 this.nextBtn.disabled = true;
-                console.log('Incorrect');
+            }
+        }
+    }
+
+    private checkWordsOrder() {
+        if (
+            this.resultBlock &&
+            this.resultBlock.lastElementChild &&
+            this.resultBlock.lastElementChild.childElementCount ===
+                this.currentSentence.length
+        ) {
+            let currentWord =
+                this.resultBlock.lastElementChild.firstElementChild;
+            for (
+                let i = 0;
+                i < this.resultBlock.lastElementChild.childElementCount;
+                i += 1
+            ) {
+                if (
+                    currentWord &&
+                    currentWord.textContent === this.currentSentence[i]
+                ) {
+                    currentWord.classList.add('correct-position');
+                } else if (currentWord) {
+                    currentWord.classList.add('wrong-position');
+                }
+                if (currentWord) currentWord = currentWord.nextElementSibling;
             }
         }
     }
