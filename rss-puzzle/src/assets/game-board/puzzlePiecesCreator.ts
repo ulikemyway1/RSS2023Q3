@@ -5,6 +5,8 @@ import movePiece from './movePiece';
 export default class PuzzlePiecesCreator {
     private sentence;
 
+    private totalLettersAmount: number = 0;
+
     constructor(sentence: string) {
         this.sentence = sentence;
     }
@@ -19,6 +21,9 @@ export default class PuzzlePiecesCreator {
                 ['puzzle-piece'],
                 word
             ).getElement();
+
+            this.totalLettersAmount += word.length;
+
             piece.addEventListener('click', () => {
                 const resultBlock = gameBoard.getResultBlock();
                 const sourceBlock = gameBoard.getSourceBlock();
@@ -57,10 +62,25 @@ export default class PuzzlePiecesCreator {
                             )
                         );
                 });
+
                 puzzlePieces.push(item);
             }
         });
-
+        this.determineWidth(puzzlePieces);
         return puzzlePieces;
+    }
+
+    private determineWidth(arr: HTMLElement[]): void {
+        const parent = gameBoard.getResultBlock();
+        if (parent) {
+            const parentWidth = parseFloat(getComputedStyle(parent).width);
+            const letterWidth =
+                (parentWidth / this.totalLettersAmount / parentWidth) * 100;
+            arr.forEach((item) => {
+                const piece = item;
+                if (piece.textContent)
+                    piece.style.width = `${piece.textContent.length * letterWidth}%`;
+            });
+        }
     }
 }
