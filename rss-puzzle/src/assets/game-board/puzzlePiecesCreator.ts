@@ -54,11 +54,14 @@ export default class PuzzlePiecesCreator {
                 parseFloat(parentStyles.paddingLeft) +
                 parseFloat(parentStyles.paddingRight);
             const letterWidth =
-                (parentWidth - parentPaddings) / this.totalLettersAmount;
+                ((parentWidth - parentPaddings) /
+                    this.totalLettersAmount /
+                    (parentWidth - parentPaddings)) *
+                100;
             arr.forEach((item) => {
                 const piece = item;
                 if (piece.textContent)
-                    piece.style.width = `${piece.textContent.length * letterWidth}px`;
+                    piece.dataset.parentWidth = `${piece.textContent.length * letterWidth}%`;
             });
         }
     }

@@ -176,9 +176,22 @@ class GameBoard {
             while (this.sourceBlock.firstChild) {
                 this.sourceBlock.firstChild.remove();
             }
-            this.sourceBlock.append(...puzzlePieces);
+            this.createNewLine(puzzlePieces.length, this.sourceBlock);
+            if (this.sourceBlock.firstElementChild) {
+                let currentElement =
+                    this.sourceBlock.firstElementChild.firstElementChild;
+                for (let i = 0; i < puzzlePieces.length; i += 1) {
+                    const length = puzzlePieces[i].dataset.parentWidth;
+                    if (length && currentElement instanceof HTMLElement) {
+                        currentElement.style.width = length;
+                        currentElement.append(puzzlePieces[i]);
+                        currentElement = currentElement.nextElementSibling;
+                    }
+                }
+            }
             this.currentPieces = [...puzzlePieces];
-            this.createNewLine(puzzlePieces.length);
+            if (this.resultBlock)
+                this.createNewLine(puzzlePieces.length, this.resultBlock);
         }
     }
 
@@ -254,20 +267,22 @@ class GameBoard {
         }
     }
 
-    private createNewLine(childernAmont: number) {
+    private createNewLine(childernAmont: number, parent: HTMLElement) {
         const newLine = new BaseElement('div', undefined, [
             'game-board__puzzle-line',
         ]).getElement();
-        newLine.addEventListener('click', (event) => {
-            if (
-                event.target instanceof HTMLElement &&
-                event.target.classList.contains('puzzle-piece') &&
-                this.sourceBlock &&
-                !newLine.classList.contains('completed')
-            ) {
-                movePiece(event.target, this.sourceBlock);
-            }
-        });
+        if (parent.classList.contains('game-board__result-block')) {
+            newLine.addEventListener('click', (event) => {
+                if (
+                    event.target instanceof HTMLElement &&
+                    event.target.classList.contains('puzzle-piece') &&
+                    this.sourceBlock &&
+                    !newLine.classList.contains('completed')
+                ) {
+                    movePiece(event.target, this.sourceBlock);
+                }
+            });
+        }
         for (let i = 1; i <= childernAmont; i += 1) {
             newLine.append(
                 new BaseElement('div', undefined, [
@@ -275,7 +290,7 @@ class GameBoard {
                 ]).getElement()
             );
         }
-        if (this.resultBlock) this.resultBlock.append(newLine);
+        if (parent) parent.append(newLine);
     }
 }
 
