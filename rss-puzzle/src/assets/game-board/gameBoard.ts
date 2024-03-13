@@ -85,7 +85,6 @@ class GameBoard {
         ]).getElement();
 
         this.sourceBlock.addEventListener('click', (event) => {
-            console.log('ss')
             if (
                 event.target instanceof HTMLElement &&
                 event.target.classList.contains('puzzle-piece') &&
@@ -96,6 +95,7 @@ class GameBoard {
         });
 
         this.nextBtn.addEventListener('click', () => {
+            this.checkBtn.disabled = true;
             if (this.levelData) {
                 this.wordNumber += 1;
                 this.nextBtn.disabled = true;
@@ -122,7 +122,8 @@ class GameBoard {
                     }
                 }
             }
-
+            if (this.resultBlock && this.resultBlock.lastElementChild)
+                this.resultBlock.lastElementChild.classList.add('completed');
             this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
         });
 
@@ -180,26 +181,29 @@ class GameBoard {
     }
 
     public checkSentence() {
-        if (
-            this.currentPieces &&
-            this.sourceBlock &&
-            this.sourceBlock.childElementCount === 0
-        ) {
-            this.checkBtn.disabled = false;
-        } else {
-            this.checkBtn.disabled = true;
-        }
         const userSentence: string[] = [];
-            if (this.resultBlock && this.resultBlock.lastElementChild && this.resultBlock.lastElementChild.firstChild) {
+        if (
+            this.resultBlock &&
+            this.resultBlock.lastElementChild &&
+            this.resultBlock.lastElementChild.firstChild
+        ) {
             let currentPiece: ChildNode | null =
                 this.resultBlock.lastElementChild.firstElementChild;
 
-                for (let i = 0; i <= this.resultBlock.lastElementChild.childElementCount; i += 1) {
-                    if (currentPiece && currentPiece.firstChild && currentPiece.firstChild.textContent ) {
-                        userSentence.push(currentPiece.firstChild.textContent);
-                        currentPiece = currentPiece.nextSibling
-                    }
+            for (
+                let i = 0;
+                i <= this.resultBlock.lastElementChild.childElementCount;
+                i += 1
+            ) {
+                if (
+                    currentPiece &&
+                    currentPiece.firstChild &&
+                    currentPiece.firstChild.textContent
+                ) {
+                    userSentence.push(currentPiece.firstChild.textContent);
+                    currentPiece = currentPiece.nextSibling;
                 }
+            }
             if (
                 userSentence.join(' ') ===
                 this.levelData?.rounds[this.roundNumber].words[this.wordNumber]
@@ -216,25 +220,34 @@ class GameBoard {
         if (
             this.resultBlock &&
             this.resultBlock.lastElementChild &&
+            this.resultBlock.lastElementChild.firstElementChild &&
             this.resultBlock.lastElementChild.childElementCount ===
                 this.currentSentence.length
         ) {
-            let currentWord =
-                this.resultBlock.lastElementChild.firstElementChild;
+            let currentElement =
+                this.resultBlock.lastElementChild.firstElementChild
+                    .firstElementChild;
             for (
                 let i = 0;
                 i < this.resultBlock.lastElementChild.childElementCount;
                 i += 1
             ) {
                 if (
-                    currentWord &&
-                    currentWord.textContent === this.currentSentence[i]
+                    currentElement &&
+                    currentElement.textContent === this.currentSentence[i]
                 ) {
-                    currentWord.classList.add('correct-position');
-                } else if (currentWord) {
-                    currentWord.classList.add('wrong-position');
+                    currentElement.classList.add('correct-position');
+                } else if (currentElement) {
+                    currentElement.classList.add('wrong-position');
                 }
-                if (currentWord) currentWord = currentWord.nextElementSibling;
+                if (
+                    currentElement &&
+                    currentElement.parentElement &&
+                    currentElement.parentElement.nextElementSibling
+                )
+                    currentElement =
+                        currentElement.parentElement.nextElementSibling
+                            .firstElementChild;
             }
         }
     }
@@ -247,7 +260,8 @@ class GameBoard {
             if (
                 event.target instanceof HTMLElement &&
                 event.target.classList.contains('puzzle-piece') &&
-                this.sourceBlock
+                this.sourceBlock &&
+                !newLine.classList.contains('completed')
             ) {
                 movePiece(event.target, this.sourceBlock);
             }

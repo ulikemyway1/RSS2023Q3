@@ -1,14 +1,11 @@
-import gameBoard from "./gameBoard";
+import gameBoard from './gameBoard';
 
 export default function movePiece(elem: HTMLElement, dist: Element): void {
     if (dist.classList.contains('game-board__source-block')) {
         dist.append(elem);
     } else {
         let firstFreeSpace: Element | null = null;
-        if (
-            dist.lastElementChild &&
-            dist.lastElementChild.firstElementChild
-        ) {
+        if (dist.lastElementChild && dist.lastElementChild.firstElementChild) {
             let currentElementChild: ChildNode | Element =
                 dist.lastElementChild.firstElementChild;
             for (
@@ -27,7 +24,16 @@ export default function movePiece(elem: HTMLElement, dist: Element): void {
                     currentElementChild = currentElementChild.nextSibling;
             }
         }
+
         if (firstFreeSpace) firstFreeSpace.append(elem);
         gameBoard.checkSentence.bind(gameBoard)();
+    }
+    if (
+        gameBoard.sourceBlock &&
+        gameBoard.sourceBlock.childElementCount === 0
+    ) {
+        gameBoard.checkBtn.disabled = false;
+    } else {
+        gameBoard.checkBtn.disabled = true;
     }
 }
