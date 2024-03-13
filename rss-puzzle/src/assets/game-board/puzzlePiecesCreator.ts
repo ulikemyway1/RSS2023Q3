@@ -1,5 +1,6 @@
 import BaseElement from '../utils/BaseElement';
 import gameBoard from './gameBoard';
+import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 
 export default class PuzzlePiecesCreator {
     private sentence;
@@ -35,15 +36,7 @@ export default class PuzzlePiecesCreator {
         const puzzlePieces: HTMLElement[] = [];
         randomPieceArray.forEach((item) => {
             if (item instanceof HTMLElement) {
-                item.addEventListener('click', () => {
-                    if (gameBoard.currentPieces)
-                        gameBoard.currentPieces.forEach((piece) =>
-                            piece.classList.remove(
-                                'correct-position',
-                                'wrong-position'
-                            )
-                        );
-                });
+                item.addEventListener('click', removeOrderCorectnessresults);
 
                 puzzlePieces.push(item);
             }

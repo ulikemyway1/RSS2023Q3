@@ -4,6 +4,7 @@ import clearBody from '../utils/clearBody';
 import './gameBoard.scss';
 import movePiece from './movePiece';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
+import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 
 type gameLevels = number;
 
@@ -96,6 +97,7 @@ class GameBoard {
 
         this.nextBtn.addEventListener('click', () => {
             this.checkBtn.disabled = true;
+            removeOrderCorectnessresults();
             if (this.levelData) {
                 this.wordNumber += 1;
                 this.nextBtn.disabled = true;
