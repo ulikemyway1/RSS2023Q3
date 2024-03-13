@@ -72,13 +72,9 @@
 
 @keyframes forward {
     0% {
-        top: 500px;
+        top: 210px;
         scale: 0;
-        opacity: 0;
-    }
-
-    25% {
-        opacity: 0;
+        opacity: 0.5;
     }
 
     100% {
@@ -90,13 +86,9 @@
 
 @keyframes backward {
     0% {
-        top: -500px;
+        top: -210px;
         scale: 0;
-        opacity: 0;
-    }
-
-    15% {
-        opacity: 0;
+        opacity: 0.5;
     }
 
     100% {
