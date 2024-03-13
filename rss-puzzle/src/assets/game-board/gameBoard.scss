@@ -28,17 +28,23 @@
 
     &__puzzle-line {
         display: flex;
+
+        &-child {
+            width: fit-content;
+            height: 40px;
+            &:hover > .puzzle-piece {
+                background: #e2e2e2;
+            }
+        }
     }
 }
 .puzzle-piece {
     position: relative;
     display: inline-block;
+    padding: 0 2px;
     border: 1px solid rgb(87, 62, 232);
     background: #ffffff;
-    height: 40px;
-    padding: 0 2px;
     font-family: 'Space Mono', monospace;
-    text-align: center;
     font-size: clamp(8px, 3vw, 22px);
     line-height: 40px;
     cursor: pointer;
@@ -96,10 +102,6 @@
         opacity: 1;
         scale: 1;
     }
-}
-
-.puzzle-piece:hover {
-    background: #e2e2e2;
 }
 
 .game-board__check-btn {

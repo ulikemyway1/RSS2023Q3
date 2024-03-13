@@ -2,6 +2,7 @@ import BaseElement from '../utils/BaseElement';
 import InputElement from '../utils/InputElement';
 import clearBody from '../utils/clearBody';
 import './gameBoard.scss';
+import movePiece from './movePiece';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
 
 type gameLevels = number;
@@ -78,16 +79,26 @@ class GameBoard {
         this.sourceBlock = new BaseElement('div', undefined, [
             'game-board__source-block',
         ]).getElement();
+
         this.resultBlock = new BaseElement('div', undefined, [
             'game-board__result-block',
         ]).getElement();
-        this.createNewLine();
+
+        this.sourceBlock.addEventListener('click', (event) => {
+            console.log('ss')
+            if (
+                event.target instanceof HTMLElement &&
+                event.target.classList.contains('puzzle-piece') &&
+                this.resultBlock
+            ) {
+                movePiece(event.target, this.resultBlock);
+            }
+        });
 
         this.nextBtn.addEventListener('click', () => {
             if (this.levelData) {
                 this.wordNumber += 1;
                 this.nextBtn.disabled = true;
-                this.createNewLine();
                 if (this.wordNumber > 9) {
                     this.wordNumber = 0;
                     this.roundNumber += 1;
@@ -95,7 +106,6 @@ class GameBoard {
                         while (this.resultBlock.lastChild) {
                             this.resultBlock.lastChild.remove();
                         }
-                        this.createNewLine();
                     }
                 }
                 if (this.roundNumber > this.levelData.roundsCount) {
@@ -109,7 +119,6 @@ class GameBoard {
                         while (this.resultBlock.lastChild) {
                             this.resultBlock.lastChild.remove();
                         }
-                        this.createNewLine();
                     }
                 }
             }
@@ -166,30 +175,31 @@ class GameBoard {
             }
             this.sourceBlock.append(...puzzlePieces);
             this.currentPieces = [...puzzlePieces];
+            this.createNewLine(puzzlePieces.length);
         }
     }
 
     public checkSentence() {
         if (
             this.currentPieces &&
-            this.resultBlock &&
-            this.currentPieces.length ===
-                this.resultBlock?.lastElementChild?.childElementCount
+            this.sourceBlock &&
+            this.sourceBlock.childElementCount === 0
         ) {
             this.checkBtn.disabled = false;
         } else {
             this.checkBtn.disabled = true;
         }
         const userSentence: string[] = [];
-        if (this.sourceBlock && this.sourceBlock.firstChild) {
-            this.nextBtn.disabled = true;
-        } else if (this.resultBlock && this.resultBlock.lastChild) {
+            if (this.resultBlock && this.resultBlock.lastElementChild && this.resultBlock.lastElementChild.firstChild) {
             let currentPiece: ChildNode | null =
-                this.resultBlock.lastChild.firstChild;
-            while (currentPiece && currentPiece.textContent) {
-                userSentence.push(currentPiece.textContent);
-                currentPiece = currentPiece.nextSibling;
-            }
+                this.resultBlock.lastElementChild.firstElementChild;
+
+                for (let i = 0; i <= this.resultBlock.lastElementChild.childElementCount; i += 1) {
+                    if (currentPiece && currentPiece.firstChild && currentPiece.firstChild.textContent ) {
+                        userSentence.push(currentPiece.firstChild.textContent);
+                        currentPiece = currentPiece.nextSibling
+                    }
+                }
             if (
                 userSentence.join(' ') ===
                 this.levelData?.rounds[this.roundNumber].words[this.wordNumber]
@@ -229,10 +239,26 @@ class GameBoard {
         }
     }
 
-    private createNewLine() {
+    private createNewLine(childernAmont: number) {
         const newLine = new BaseElement('div', undefined, [
             'game-board__puzzle-line',
         ]).getElement();
+        newLine.addEventListener('click', (event) => {
+            if (
+                event.target instanceof HTMLElement &&
+                event.target.classList.contains('puzzle-piece') &&
+                this.sourceBlock
+            ) {
+                movePiece(event.target, this.sourceBlock);
+            }
+        });
+        for (let i = 1; i <= childernAmont; i += 1) {
+            newLine.append(
+                new BaseElement('div', undefined, [
+                    'game-board__puzzle-line-child',
+                ]).getElement()
+            );
+        }
         if (this.resultBlock) this.resultBlock.append(newLine);
     }
 }
