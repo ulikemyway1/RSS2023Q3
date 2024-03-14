@@ -1,12 +1,14 @@
 import BaseElement from '../utils/BaseElement';
 
+import './gameFeatures.scss';
+
 export default class TranslateBox extends BaseElement {
     wrapper: HTMLElement = new BaseElement('div', undefined, [
-        'game-board__translate-box',
+        'translate-box',
     ]).getElement();
 
     constructor() {
-        super('p', undefined, ['game-board__translate-text']);
+        super('p', undefined, ['translate-box__text']);
     }
 
     getView() {

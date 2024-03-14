@@ -1,3 +1,4 @@
+import gameBoard from '../game-board/gameBoard';
 import BaseElement from '../utils/BaseElement';
 import ImageElement from '../utils/ImageElement';
 import './controlPanel.scss';
@@ -21,17 +22,25 @@ export default class ControlPanel {
     }
 
     private createTranslationOption() {
-        const translation = new BaseElement('div', undefined, [
+        const translationOptionBtn = new BaseElement('div', undefined, [
             'control-panel__item',
             'control-panel__translation',
         ]).getElement();
+
         const icon = new ImageElement(
             'assets/img/translation-icon.svg',
             ['control-panel__translation-icon'],
             'Translation'
         ).getElement();
-        translation.append(icon);
 
-        return translation;
+        translationOptionBtn.append(icon);
+
+        const translateBoxView = gameBoard.translateBox.getView();
+
+        translationOptionBtn.addEventListener('click', () => {
+            translateBoxView.classList.toggle('active');
+        });
+
+        return translationOptionBtn;
     }
 }

@@ -1,0 +1,41 @@
+.control-panel {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 5px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border-top: 1px solid #000000;
+
+    &__item {
+        height: 100%;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 3px dotted #000000;
+    }
+
+    &__translation-icon {
+        height: 100%;
+        transition: all 0.6s;
+        position: relative;
+        &:hover {
+            filter: brightness(0.5);
+        }
+    }
+}
+
+@media (hover: hover) {
+    .control-panel__item:has(.control-panel__translation-icon):hover::before {
+        content: 'Show Translation';
+        display: block;
+        position: absolute;
+        width: max-content;
+        top: -20px;
+        padding: 2px;
+        left: -250%;
+        font-size: 12px;
+        color: #000000;
+        background: #f0f0f0f0;
+        z-index: 100;
+    }
+}

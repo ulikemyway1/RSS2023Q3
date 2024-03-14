@@ -7,6 +7,7 @@ import movePiece from './movePiece';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
 import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 import TranslateBox from '../game-features/translateBox';
+import ControlPanel from '../control-panel/controlPanels';
 
 type gameLevels = number;
 
@@ -160,7 +161,7 @@ class GameBoard {
             this.sourceBlock,
             btnWrapper
         );
-        document.body.append(gameBoard);
+        document.body.append(new ControlPanel().getElement(), gameBoard);
     }
 
     public async loadGameBoard() {
