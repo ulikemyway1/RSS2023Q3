@@ -53,6 +53,8 @@ class GameBoard {
 
     currentPieces: HTMLElement[] | null = null;
 
+    userSentence: string[] = [];
+
     nextBtn: HTMLInputElement = new InputElement(
         'button',
         'Continue',
@@ -196,7 +198,8 @@ class GameBoard {
     }
 
     public checkSentence() {
-        const userSentence: string[] = [];
+        this.userSentence = [];
+
         if (
             this.resultBlock &&
             this.resultBlock.lastElementChild &&
@@ -215,12 +218,12 @@ class GameBoard {
                     currentPiece.firstChild &&
                     currentPiece.firstChild.textContent
                 ) {
-                    userSentence.push(currentPiece.firstChild.textContent);
+                    this.userSentence.push(currentPiece.firstChild.textContent);
                     currentPiece = currentPiece.nextSibling;
                 }
             }
             if (
-                userSentence.join(' ') ===
+                this.userSentence.join(' ') ===
                 this.levelData?.rounds[this.roundNumber].words[this.wordNumber]
                     .textExample
             ) {

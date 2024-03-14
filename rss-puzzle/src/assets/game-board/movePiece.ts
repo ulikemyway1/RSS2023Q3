@@ -23,10 +23,7 @@ export default function movePiece(elem: HTMLElement, dist: Element): void {
         firstFreeSpace.append(elem);
     }
     gameBoard.checkSentence.bind(gameBoard)();
-    if (
-        gameBoard.sourceBlock &&
-        gameBoard.sourceBlock.childElementCount === 0
-    ) {
+    if (gameBoard.currentSentence.length === gameBoard.userSentence.length) {
         gameBoard.checkBtn.disabled = false;
     } else {
         gameBoard.checkBtn.disabled = true;
