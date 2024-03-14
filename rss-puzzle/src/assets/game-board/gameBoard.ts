@@ -55,23 +55,16 @@ class GameBoard {
 
     userSentence: string[] = [];
 
-    nextBtn: HTMLInputElement = new InputElement(
-        'button',
-        'Continue',
-        undefined,
-        undefined,
-        ['game-board__next-btn', 'button']
-    ).getElement();
-
     checkBtn = new InputElement('button', 'Check', undefined, undefined, [
         'game-board__check-btn',
         'button',
     ]).getElement();
 
+    private currentSentenceCompletedCorrectly: boolean = false;
+
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
         this.roundNumber = roundNumber;
-        this.nextBtn.disabled = true;
     }
 
     private async init() {
@@ -97,51 +90,50 @@ class GameBoard {
             }
         });
 
-        this.nextBtn.addEventListener('click', () => {
-            this.checkBtn.disabled = true;
-            removeOrderCorectnessresults();
-            if (this.levelData) {
-                this.wordNumber += 1;
-                this.nextBtn.disabled = true;
-                if (this.wordNumber > 9) {
-                    this.wordNumber = 0;
-                    this.roundNumber += 1;
-                    if (this.resultBlock) {
-                        while (this.resultBlock.lastChild) {
-                            this.resultBlock.lastChild.remove();
-                        }
-                    }
-                }
-                if (this.roundNumber > this.levelData.roundsCount) {
-                    this.levelNumber += 1;
-                    this.roundNumber = 0;
-                    if (Number(this.levelNumber) > 6) {
-                        this.levelNumber = 1;
-                    }
-                    this.loadLevel(this.levelNumber);
-                    if (this.resultBlock) {
-                        while (this.resultBlock.lastChild) {
-                            this.resultBlock.lastChild.remove();
-                        }
-                    }
-                }
-            }
-            if (this.resultBlock && this.resultBlock.lastElementChild)
-                this.resultBlock.lastElementChild.classList.add('completed');
-            this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
-        });
-
         this.checkBtn.disabled = true;
-        this.checkBtn.addEventListener(
-            'click',
-            this.checkWordsOrder.bind(this)
-        );
-        gameBoard.append(
-            this.resultBlock,
-            this.sourceBlock,
-            this.nextBtn,
-            this.checkBtn
-        );
+        this.checkBtn.addEventListener('click', () => {
+            if (!this.currentSentenceCompletedCorrectly) {
+                this.checkWordsOrder.bind(this)();
+            } else {
+                this.checkBtn.value = 'Check';
+                this.checkBtn.disabled = true;
+                removeOrderCorectnessresults();
+                if (this.levelData) {
+                    this.wordNumber += 1;
+                    if (this.wordNumber > 9) {
+                        this.wordNumber = 0;
+                        this.roundNumber += 1;
+                        if (this.resultBlock) {
+                            while (this.resultBlock.lastChild) {
+                                this.resultBlock.lastChild.remove();
+                            }
+                        }
+                    }
+                    if (this.roundNumber > this.levelData.roundsCount) {
+                        this.levelNumber += 1;
+                        this.roundNumber = 0;
+                        if (Number(this.levelNumber) > 6) {
+                            this.levelNumber = 1;
+                        }
+                        this.loadLevel(this.levelNumber);
+                        if (this.resultBlock) {
+                            while (this.resultBlock.lastChild) {
+                                this.resultBlock.lastChild.remove();
+                            }
+                        }
+                    }
+                }
+                if (this.resultBlock && this.resultBlock.lastElementChild)
+                    this.resultBlock.lastElementChild.classList.add(
+                        'completed'
+                    );
+                this.putSentenceInSourceBlock(
+                    this.roundNumber,
+                    this.wordNumber
+                );
+            }
+        });
+        gameBoard.append(this.resultBlock, this.sourceBlock, this.checkBtn);
         document.body.append(gameBoard);
     }
 
@@ -227,9 +219,11 @@ class GameBoard {
                 this.levelData?.rounds[this.roundNumber].words[this.wordNumber]
                     .textExample
             ) {
-                this.nextBtn.disabled = false;
+                this.checkBtn.value = 'Continue';
+                this.currentSentenceCompletedCorrectly = true;
             } else {
-                this.nextBtn.disabled = true;
+                this.currentSentenceCompletedCorrectly = false;
+                this.checkBtn.value = 'Check';
             }
         }
     }
