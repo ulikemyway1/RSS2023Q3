@@ -21,10 +21,10 @@
         height: 50px;
     }
 
-    &__next-btn {
-        padding: 5px;
-        background: #173c64;
-        transition: all 0.6s;
+    &__button-wrapper {
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
     }
 
     &__puzzle-line {
@@ -37,11 +37,16 @@
             min-width: 39px;
             border: 1px dashed #969696;
             transition: width 0.4s;
-            &:hover > .puzzle-piece {
+            &:hover .puzzle-piece {
                 background: #e2e2e2;
             }
         }
     }
+}
+
+.game-board__puzzle-line.completed:hover .puzzle-piece {
+    cursor: auto;
+    background: #ffffff;
 }
 .puzzle-piece {
     width: 100%;
@@ -62,10 +67,6 @@
     animation-duration: 0.6s;
     user-select: none;
 }
-
-// .game-board__source-block .puzzle-piece {
-//     width: auto;
-// }
 
 .puzzle-piece:after {
     content: '';
@@ -114,13 +115,27 @@
     }
 }
 
-.game-board__check-btn {
-    padding: 5px;
-    background: #173c64;
-    margin-left: 5px;
+.game-board__check-btn,
+.game-board__autocomplete-btn {
+    min-width: 100px;
+    padding: 0 10px;
+    min-height: 40px;
+    background: rgb(227, 126, 25);
 }
 
-.game-board__next-btn:disabled,
+.game-board__autocomplete-btn {
+    background: rgb(170, 25, 227);
+
+    &:disabled {
+        background: #000000;
+        cursor: auto;
+    }
+}
+
+.game-board__check-btn[value='Continue'] {
+    background-color: #198115;
+}
+
 .game-board__check-btn:disabled {
     background: #000;
     cursor: auto;

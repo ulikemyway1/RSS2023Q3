@@ -1,10 +1,14 @@
 import BaseElement from '../utils/BaseElement';
 import InputElement from '../utils/InputElement';
 import clearBody from '../utils/clearBody';
+import PuzzlePiece from './PuzzlePiece';
 import './gameBoard.scss';
 import movePiece from './movePiece';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
 import removeOrderCorectnessresults from './removeOrderCorectnessResults';
+import TranslateBox from '../game-features/translateBox';
+import ControlPanel from '../control-panel/controlPanels';
+import SentencePronunciation from '../game-features/sentencePronunciation';
 
 type gameLevels = number;
 
@@ -51,27 +55,32 @@ class GameBoard {
 
     currentSentence: string[] = [];
 
-    currentPieces: HTMLElement[] | null = null;
+    currentPieces: PuzzlePiece[] | null = null;
 
     userSentence: string[] = [];
-
-    nextBtn: HTMLInputElement = new InputElement(
-        'button',
-        'Continue',
-        undefined,
-        undefined,
-        ['game-board__next-btn', 'button']
-    ).getElement();
 
     checkBtn = new InputElement('button', 'Check', undefined, undefined, [
         'game-board__check-btn',
         'button',
     ]).getElement();
 
+    autoCompleteBtn = new InputElement(
+        'button',
+        'Auto-Complete',
+        undefined,
+        undefined,
+        ['game-board__autocomplete-btn', 'button']
+    ).getElement();
+
+    audioHint = new SentencePronunciation();
+
+    private currentSentenceCompletedCorrectly: boolean = false;
+
+    translateBox = new TranslateBox();
+
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
         this.roundNumber = roundNumber;
-        this.nextBtn.disabled = true;
     }
 
     private async init() {
@@ -97,52 +106,85 @@ class GameBoard {
             }
         });
 
-        this.nextBtn.addEventListener('click', () => {
-            this.checkBtn.disabled = true;
-            removeOrderCorectnessresults();
-            if (this.levelData) {
-                this.wordNumber += 1;
-                this.nextBtn.disabled = true;
-                if (this.wordNumber > 9) {
-                    this.wordNumber = 0;
-                    this.roundNumber += 1;
-                    if (this.resultBlock) {
-                        while (this.resultBlock.lastChild) {
-                            this.resultBlock.lastChild.remove();
-                        }
-                    }
-                }
-                if (this.roundNumber > this.levelData.roundsCount) {
-                    this.levelNumber += 1;
-                    this.roundNumber = 0;
-                    if (Number(this.levelNumber) > 6) {
-                        this.levelNumber = 1;
-                    }
-                    this.loadLevel(this.levelNumber);
-                    if (this.resultBlock) {
-                        while (this.resultBlock.lastChild) {
-                            this.resultBlock.lastChild.remove();
-                        }
-                    }
-                }
+        this.checkBtn.disabled = true;
+        this.checkBtn.addEventListener('click', () => {
+            if (!this.translateBox.getStatus()) {
+                this.translateBox.isVisible(false);
+            } else {
+                this.translateBox.isVisible(true);
             }
-            if (this.resultBlock && this.resultBlock.lastElementChild)
-                this.resultBlock.lastElementChild.classList.add('completed');
-            this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+            this.autoCompleteBtn.disabled = false;
+            if (!this.currentSentenceCompletedCorrectly) {
+                this.checkWordsOrder.bind(this)();
+            } else {
+                this.checkBtn.value = 'Check';
+                this.checkBtn.disabled = true;
+                removeOrderCorectnessresults();
+                if (this.levelData) {
+                    this.wordNumber += 1;
+                    if (this.wordNumber > 9) {
+                        this.wordNumber = 0;
+                        this.roundNumber += 1;
+                        if (this.resultBlock) {
+                            while (this.resultBlock.lastChild) {
+                                this.resultBlock.lastChild.remove();
+                            }
+                        }
+                    }
+                    if (this.roundNumber > this.levelData.roundsCount) {
+                        this.levelNumber += 1;
+                        this.roundNumber = 0;
+                        if (Number(this.levelNumber) > 6) {
+                            this.levelNumber = 1;
+                        }
+                        this.loadLevel(this.levelNumber);
+                        if (this.resultBlock) {
+                            while (this.resultBlock.lastChild) {
+                                this.resultBlock.lastChild.remove();
+                            }
+                        }
+                    }
+                }
+                if (this.resultBlock && this.resultBlock.lastElementChild)
+                    this.resultBlock.lastElementChild.classList.add(
+                        'completed'
+                    );
+                this.putSentenceInSourceBlock(
+                    this.roundNumber,
+                    this.wordNumber
+                );
+            }
+        });
+        this.autoCompleteBtn.addEventListener(
+            'click',
+            this.autoComplete.bind(this)
+        );
+        const btnWrapper = new BaseElement('div', undefined, [
+            'game-board__button-wrapper',
+        ]).getElement();
+
+        const audioHintBtn = new InputElement(
+            'button',
+            'Pronunciation'
+        ).getElement();
+        audioHintBtn.addEventListener('click', () => {
+            this.audioHint.playAudio();
         });
 
-        this.checkBtn.disabled = true;
-        this.checkBtn.addEventListener(
-            'click',
-            this.checkWordsOrder.bind(this)
-        );
+        btnWrapper.append(this.checkBtn, audioHintBtn, this.autoCompleteBtn);
+
         gameBoard.append(
+            this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
-            this.nextBtn,
-            this.checkBtn
+            btnWrapper
         );
-        document.body.append(gameBoard);
+
+        document.body.append(
+            new ControlPanel().getElement(),
+            this.audioHint.getElement(),
+            gameBoard
+        );
     }
 
     public async loadGameBoard() {
@@ -173,6 +215,14 @@ class GameBoard {
             const sentence =
                 this.levelData.rounds[roundNumber].words[wordNumber]
                     .textExample;
+            this.translateBox.setText(
+                this.levelData.rounds[roundNumber].words[wordNumber]
+                    .textExampleTranslate
+            );
+            this.audioHint.setSource(
+                `https://github.com/rolling-scopes-school/rss-puzzle-data/raw/main/${this.levelData.rounds[roundNumber].words[wordNumber].audioExample}`
+            );
+            this.audioHint.getElement().load();
             this.currentSentence = sentence.split(' ');
             const puzzlePieces = new PuzzlePiecesCreator(sentence).getPieces();
             while (this.sourceBlock.firstChild) {
@@ -183,10 +233,11 @@ class GameBoard {
                 let currentElement =
                     this.sourceBlock.firstElementChild.firstElementChild;
                 for (let i = 0; i < puzzlePieces.length; i += 1) {
-                    const length = puzzlePieces[i].dataset.parentWidth;
+                    const length =
+                        puzzlePieces[i].getElement().dataset.parentWidth;
                     if (length && currentElement instanceof HTMLElement) {
                         currentElement.style.width = length;
-                        currentElement.append(puzzlePieces[i]);
+                        currentElement.append(puzzlePieces[i].getElement());
                         currentElement = currentElement.nextElementSibling;
                     }
                 }
@@ -227,10 +278,39 @@ class GameBoard {
                 this.levelData?.rounds[this.roundNumber].words[this.wordNumber]
                     .textExample
             ) {
-                this.nextBtn.disabled = false;
+                this.checkBtn.value = 'Continue';
+                this.currentSentenceCompletedCorrectly = true;
+                if (!this.translateBox.getStatus())
+                    this.translateBox.isVisible(true);
             } else {
-                this.nextBtn.disabled = true;
+                this.currentSentenceCompletedCorrectly = false;
+                this.checkBtn.value = 'Check';
+                if (!this.translateBox.getStatus()) {
+                    this.translateBox.isVisible(false);
+                } else {
+                    this.translateBox.isVisible(true);
+                }
             }
+        }
+    }
+
+    public autoComplete() {
+        removeOrderCorectnessresults();
+        if (this.resultBlock && this.resultBlock.lastElementChild)
+            this.resultBlock.lastElementChild.classList.add('completed');
+        if (this.currentPieces && this.sourceBlock) {
+            const correctOrderArray = this.currentPieces.sort(
+                (a, b) => a.getOrder() - b.getOrder()
+            );
+            this.currentPieces.forEach((item) => {
+                if (this.sourceBlock)
+                    movePiece(item.getElement(), this.sourceBlock);
+            });
+            correctOrderArray.forEach((puzzle) => {
+                if (this.resultBlock)
+                    movePiece(puzzle.getElement(), this.resultBlock);
+            });
+            this.autoCompleteBtn.disabled = true;
         }
     }
 
