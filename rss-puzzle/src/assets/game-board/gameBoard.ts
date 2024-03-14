@@ -6,6 +6,7 @@ import './gameBoard.scss';
 import movePiece from './movePiece';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
 import removeOrderCorectnessresults from './removeOrderCorectnessResults';
+import TranslateBox from './translateBox';
 
 type gameLevels = number;
 
@@ -70,6 +71,8 @@ class GameBoard {
     ).getElement();
 
     private currentSentenceCompletedCorrectly: boolean = false;
+
+    translateBox = new TranslateBox();
 
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
@@ -151,7 +154,12 @@ class GameBoard {
             'game-board__button-wrapper',
         ]).getElement();
         btnWrapper.append(this.checkBtn, this.autoCompleteBtn);
-        gameBoard.append(this.resultBlock, this.sourceBlock, btnWrapper);
+        gameBoard.append(
+            this.translateBox.getView(),
+            this.resultBlock,
+            this.sourceBlock,
+            btnWrapper
+        );
         document.body.append(gameBoard);
     }
 
@@ -183,6 +191,10 @@ class GameBoard {
             const sentence =
                 this.levelData.rounds[roundNumber].words[wordNumber]
                     .textExample;
+            this.translateBox.setText(
+                this.levelData.rounds[roundNumber].words[wordNumber]
+                    .textExampleTranslate
+            );
             this.currentSentence = sentence.split(' ');
             const puzzlePieces = new PuzzlePiecesCreator(sentence).getPieces();
             while (this.sourceBlock.firstChild) {
