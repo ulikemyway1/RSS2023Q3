@@ -2,6 +2,7 @@
 
 .game-board {
     height: 93vh;
+    width: 100%;
     &__result-block,
     &__source-block {
         display: flex;
@@ -28,17 +29,28 @@
 
     &__puzzle-line {
         display: flex;
+        width: 100%;
+
+        &-child {
+            width: fit-content;
+            height: 42px;
+            min-width: 39px;
+            border: 1px dashed #969696;
+            transition: width 0.4s;
+            &:hover > .puzzle-piece {
+                background: #e2e2e2;
+            }
+        }
     }
 }
 .puzzle-piece {
+    width: 100%;
     position: relative;
     display: inline-block;
+    padding: 0 2px;
     border: 1px solid rgb(87, 62, 232);
     background: #ffffff;
-    height: 40px;
-    padding: 0 2px;
     font-family: 'Space Mono', monospace;
-    text-align: center;
     font-size: clamp(8px, 3vw, 22px);
     line-height: 40px;
     cursor: pointer;
@@ -50,6 +62,10 @@
     animation-duration: 0.6s;
     user-select: none;
 }
+
+// .game-board__source-block .puzzle-piece {
+//     width: auto;
+// }
 
 .puzzle-piece:after {
     content: '';
@@ -96,10 +112,6 @@
         opacity: 1;
         scale: 1;
     }
-}
-
-.puzzle-piece:hover {
-    background: #e2e2e2;
 }
 
 .game-board__check-btn {
