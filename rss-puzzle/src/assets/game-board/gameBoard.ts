@@ -1,6 +1,7 @@
 import BaseElement from '../utils/BaseElement';
 import InputElement from '../utils/InputElement';
 import clearBody from '../utils/clearBody';
+import PuzzlePiece from './PuzzlePiece';
 import './gameBoard.scss';
 import movePiece from './movePiece';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
@@ -51,7 +52,7 @@ class GameBoard {
 
     currentSentence: string[] = [];
 
-    currentPieces: HTMLElement[] | null = null;
+    currentPieces: PuzzlePiece[] | null = null;
 
     userSentence: string[] = [];
 
@@ -175,10 +176,11 @@ class GameBoard {
                 let currentElement =
                     this.sourceBlock.firstElementChild.firstElementChild;
                 for (let i = 0; i < puzzlePieces.length; i += 1) {
-                    const length = puzzlePieces[i].dataset.parentWidth;
+                    const length =
+                        puzzlePieces[i].getElement().dataset.parentWidth;
                     if (length && currentElement instanceof HTMLElement) {
                         currentElement.style.width = length;
-                        currentElement.append(puzzlePieces[i]);
+                        currentElement.append(puzzlePieces[i].getElement());
                         currentElement = currentElement.nextElementSibling;
                     }
                 }
