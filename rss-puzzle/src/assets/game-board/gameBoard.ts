@@ -61,6 +61,14 @@ class GameBoard {
         'button',
     ]).getElement();
 
+    autoCompleteBtn = new InputElement(
+        'button',
+        'Auto-Complete',
+        undefined,
+        undefined,
+        ['game-board__autocomplete-btn', 'button']
+    ).getElement();
+
     private currentSentenceCompletedCorrectly: boolean = false;
 
     constructor(levelNumber: gameLevels, roundNumber: number) {
@@ -93,6 +101,7 @@ class GameBoard {
 
         this.checkBtn.disabled = true;
         this.checkBtn.addEventListener('click', () => {
+            this.autoCompleteBtn.disabled = false;
             if (!this.currentSentenceCompletedCorrectly) {
                 this.checkWordsOrder.bind(this)();
             } else {
@@ -134,7 +143,15 @@ class GameBoard {
                 );
             }
         });
-        gameBoard.append(this.resultBlock, this.sourceBlock, this.checkBtn);
+        this.autoCompleteBtn.addEventListener(
+            'click',
+            this.autoComplete.bind(this)
+        );
+        const btnWrapper = new BaseElement('div', undefined, [
+            'game-board__button-wrapper',
+        ]).getElement();
+        btnWrapper.append(this.checkBtn, this.autoCompleteBtn);
+        gameBoard.append(this.resultBlock, this.sourceBlock, btnWrapper);
         document.body.append(gameBoard);
     }
 
@@ -227,6 +244,26 @@ class GameBoard {
                 this.currentSentenceCompletedCorrectly = false;
                 this.checkBtn.value = 'Check';
             }
+        }
+    }
+
+    public autoComplete() {
+        removeOrderCorectnessresults();
+        if (this.resultBlock && this.resultBlock.lastElementChild)
+            this.resultBlock.lastElementChild.classList.add('completed');
+        if (this.currentPieces && this.sourceBlock) {
+            const correctOrderArray = this.currentPieces.sort(
+                (a, b) => a.getOrder() - b.getOrder()
+            );
+            this.currentPieces.forEach((item) => {
+                if (this.sourceBlock)
+                    movePiece(item.getElement(), this.sourceBlock);
+            });
+            correctOrderArray.forEach((puzzle) => {
+                if (this.resultBlock)
+                    movePiece(puzzle.getElement(), this.resultBlock);
+            });
+            this.autoCompleteBtn.disabled = true;
         }
     }
 
