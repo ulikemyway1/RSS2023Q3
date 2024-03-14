@@ -105,6 +105,11 @@ class GameBoard {
 
         this.checkBtn.disabled = true;
         this.checkBtn.addEventListener('click', () => {
+            if (!this.translateBox.getStatus()) {
+                this.translateBox.isVisible(false);
+            } else {
+                this.translateBox.isVisible(true);
+            }
             this.autoCompleteBtn.disabled = false;
             if (!this.currentSentenceCompletedCorrectly) {
                 this.checkWordsOrder.bind(this)();
@@ -253,9 +258,16 @@ class GameBoard {
             ) {
                 this.checkBtn.value = 'Continue';
                 this.currentSentenceCompletedCorrectly = true;
+                if (!this.translateBox.getStatus())
+                    this.translateBox.isVisible(true);
             } else {
                 this.currentSentenceCompletedCorrectly = false;
                 this.checkBtn.value = 'Check';
+                if (!this.translateBox.getStatus()) {
+                    this.translateBox.isVisible(false);
+                } else {
+                    this.translateBox.isVisible(true);
+                }
             }
         }
     }

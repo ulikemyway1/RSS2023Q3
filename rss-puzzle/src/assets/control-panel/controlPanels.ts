@@ -35,11 +35,20 @@ export default class ControlPanel {
 
         translationOptionBtn.append(icon);
 
-        const translateBoxView = gameBoard.translateBox.getView();
+        const { translateBox } = gameBoard;
+
+        const translateBoxView = translateBox.getView();
 
         translationOptionBtn.addEventListener('click', () => {
-            translateBoxView.classList.toggle('active');
-            translationOptionBtn.classList.toggle('on');
+            if (translateBox.getStatus()) {
+                translateBoxView.classList.remove('active');
+                translationOptionBtn.classList.remove('on');
+            } else {
+                translateBoxView.classList.add('active');
+                translationOptionBtn.classList.add('on');
+            }
+
+            translateBox.toggleStatus();
         });
 
         return translationOptionBtn;
