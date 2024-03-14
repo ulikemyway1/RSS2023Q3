@@ -12,6 +12,9 @@
         cursor: pointer;
         position: relative;
         border-bottom: 3px dotted #000000;
+        &.on {
+            border-bottom: 3px solid rgb(208, 110, 44);
+        }
     }
 
     &__translation-icon {

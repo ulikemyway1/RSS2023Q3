@@ -39,6 +39,7 @@ export default class ControlPanel {
 
         translationOptionBtn.addEventListener('click', () => {
             translateBoxView.classList.toggle('active');
+            translationOptionBtn.classList.toggle('on');
         });
 
         return translationOptionBtn;
