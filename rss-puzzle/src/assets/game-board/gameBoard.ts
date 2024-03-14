@@ -6,7 +6,7 @@ import './gameBoard.scss';
 import movePiece from './movePiece';
 import PuzzlePiecesCreator from './puzzlePiecesCreator';
 import removeOrderCorectnessresults from './removeOrderCorectnessResults';
-import TranslateBox from './translateBox';
+import TranslateBox from '../game-features/translateBox';
 
 type gameLevels = number;
 
