@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    background: url('../img/start-screen.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 640px;
+}
+
+.logout-btn {
+    height: 80%;
+    width: 80px;
+    background: rgb(23, 60, 100);
+    transition: all 0.6s;
+
+    &:hover {
+        background: #011a3b;
+    }
+}
+
+.button {
+    color: #ffffff;
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+}

@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.game-board {
+    height: 93vh;
+    width: 100%;
+    &__result-block,
+    &__source-block {
+        display: flex;
+        width: 100%;
+        padding: 0 10px;
+        height: 250px;
+        border: 1px solid black;
+    }
+
+    &__result-block {
+        flex-direction: column;
+        height: 500px;
+    }
+
+    &__source-block {
+        height: 50px;
+    }
+
+    &__next-btn {
+        padding: 5px;
+        background: #173c64;
+        transition: all 0.6s;
+    }
+
+    &__puzzle-line {
+        display: flex;
+        width: 100%;
+
+        &-child {
+            width: fit-content;
+            height: 42px;
+            min-width: 39px;
+            border: 1px dashed #969696;
+            transition: width 0.4s;
+            &:hover > .puzzle-piece {
+                background: #e2e2e2;
+            }
+        }
+    }
+}
+.puzzle-piece {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    padding: 0 2px;
+    border: 1px solid rgb(87, 62, 232);
+    background: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(8px, 3vw, 22px);
+    line-height: 40px;
+    cursor: pointer;
+    transition:
+        top 0.6s,
+        scale 0.6s,
+        opacity 0.6s;
+    animation-name: show;
+    animation-duration: 0.6s;
+    user-select: none;
+}
+
+// .game-board__source-block .puzzle-piece {
+//     width: auto;
+// }
+
+.puzzle-piece:after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 5px;
+    width: 0%;
+    left: 0px;
+    bottom: 0px;
+    transition: all 0.4s;
+}
+
+.game-board__result-block .puzzle-piece {
+    animation-name: forward;
+}
+
+.game-board__source-block .puzzle-piece {
+    animation-name: backward;
+}
+
+@keyframes forward {
+    0% {
+        top: 210px;
+        scale: 0;
+        opacity: 0.5;
+    }
+
+    100% {
+        top: 0px;
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes backward {
+    0% {
+        top: -210px;
+        scale: 0;
+        opacity: 0.5;
+    }
+
+    100% {
+        top: 0px;
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+.game-board__check-btn {
+    padding: 5px;
+    background: #173c64;
+    margin-left: 5px;
+}
+
+.game-board__next-btn:disabled,
+.game-board__check-btn:disabled {
+    background: #000;
+    cursor: auto;
+}
+
+.wrong-position:after {
+    width: 100%;
+    background: red;
+}
+
+.correct-position:after {
+    width: 100%;
+    background: green;
+}
