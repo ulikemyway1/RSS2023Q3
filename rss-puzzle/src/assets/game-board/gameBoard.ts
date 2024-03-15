@@ -118,6 +118,13 @@ class GameBoard {
             } else {
                 this.translateBox.isVisible(true);
             }
+
+            if (!this.audioHint.getStatus()) {
+                this.audioHintBtn.classList.remove('active');
+            } else {
+                this.audioHintBtn.classList.add('active');
+            }
+
             this.autoCompleteBtn.disabled = false;
             if (!this.currentSentenceCompletedCorrectly) {
                 this.checkWordsOrder.bind(this)();
@@ -291,6 +298,7 @@ class GameBoard {
             ) {
                 this.checkBtn.value = 'Continue';
                 this.currentSentenceCompletedCorrectly = true;
+                this.audioHintBtn.classList.add('active');
                 if (!this.translateBox.getStatus())
                     this.translateBox.isVisible(true);
             } else {
@@ -323,6 +331,7 @@ class GameBoard {
             });
             this.autoCompleteBtn.disabled = true;
         }
+        this.audioHintBtn.classList.add('active');
     }
 
     private checkWordsOrder() {
