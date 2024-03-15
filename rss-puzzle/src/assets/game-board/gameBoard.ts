@@ -163,12 +163,18 @@ class GameBoard {
             'game-board__button-wrapper',
         ]).getElement();
 
-        const audioHintBtn = new InputElement(
+        const audioHintBtn = new BaseElement('button', undefined, [
             'button',
-            'Pronunciation'
-        ).getElement();
+            'pronunciation-btn',
+        ]).getElement();
         audioHintBtn.addEventListener('click', () => {
             this.audioHint.playAudio();
+            this.audioHint
+                .getElement()
+                .addEventListener('ended', () =>
+                    audioHintBtn.classList.remove('speaking')
+                );
+            audioHintBtn.classList.add('speaking');
         });
 
         btnWrapper.append(this.checkBtn, audioHintBtn, this.autoCompleteBtn);
