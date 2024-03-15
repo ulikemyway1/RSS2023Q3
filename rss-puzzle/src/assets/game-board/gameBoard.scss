@@ -7,7 +7,7 @@
     &__source-block {
         display: flex;
         width: 100%;
-        padding: 0 10px;
+        padding: 0 30px;
         height: 250px;
         border: 1px solid black;
     }
@@ -53,12 +53,12 @@
     width: 100%;
     position: relative;
     display: inline-block;
-    padding: 0 2px;
+    padding: 0 5px;
     padding-left: 20px;
     border: 1px solid rgb(87, 62, 232);
     background: #ffffff;
     font-family: 'Space Mono', monospace;
-    font-size: clamp(8px, 3vw, 22px);
+    font-size: clamp(8px, 3vw, 19px);
     line-height: 40px;
     cursor: pointer;
     transition:
@@ -111,11 +111,11 @@
     z-index: 100;
 }
 
-.puzzle-piece-bg.last::after {
+.puzzle-piece.last .puzzle-piece-bg::after {
     display: none;
 }
 
-.puzzle-piece-bg.first::before {
+.puzzle-piece.first .puzzle-piece-bg::before {
     display: none;
 }
 

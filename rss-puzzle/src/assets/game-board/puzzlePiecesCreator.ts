@@ -22,6 +22,8 @@ export default class PuzzlePiecesCreator {
                 puzzles.push(piece);
             }
         });
+        puzzles[0].getElement().classList.add('first');
+        puzzles[puzzles.length - 1].getElement().classList.add('last');
         const tempArr: (null | undefined | PuzzlePiece)[] = Array(
             puzzles.length * 50
         ).fill(null);
