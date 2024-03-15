@@ -1,6 +1,8 @@
 export default class SentencePronunciation {
     private audio = new Audio();
 
+    isActivated = false;
+
     constructor() {
         this.audio.controls = false;
     }
@@ -15,5 +17,17 @@ export default class SentencePronunciation {
 
     getElement() {
         return this.audio;
+    }
+
+    toggleStatus() {
+        if (this.isActivated) {
+            this.isActivated = false;
+        } else {
+            this.isActivated = true;
+        }
+    }
+
+    getStatus() {
+        return this.isActivated;
     }
 }
