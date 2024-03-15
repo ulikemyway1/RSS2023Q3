@@ -77,8 +77,10 @@ export default class ControlPanel {
         pronuncuationOptionBtn.addEventListener('click', () => {
             if (pronunciationHint.getStatus()) {
                 pronuncuationHintBtn.classList.remove('active');
+                pronuncuationOptionBtn.classList.remove('on');
             } else {
                 pronuncuationHintBtn.classList.add('active');
+                pronuncuationOptionBtn.classList.add('on');
             }
 
             pronunciationHint.toggleStatus();
