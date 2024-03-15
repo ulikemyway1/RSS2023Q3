@@ -1,3 +1,4 @@
+import BaseElement from '../utils/BaseElement';
 import PuzzlePiece from './PuzzlePiece';
 import gameBoard from './gameBoard';
 import removeOrderCorectnessresults from './removeOrderCorectnessResults';
@@ -16,10 +17,13 @@ export default class PuzzlePiecesCreator {
         const puzzles: PuzzlePiece[] = [];
         words.forEach((word, index) => {
             const piece = new PuzzlePiece(word, index);
-
             this.totalLettersAmount += word.length;
-            if (piece) puzzles.push(piece);
+            if (piece) {
+                puzzles.push(piece);
+            }
         });
+        puzzles[0].getElement().classList.add('first');
+        puzzles[puzzles.length - 1].getElement().classList.add('last');
         const tempArr: (null | undefined | PuzzlePiece)[] = Array(
             puzzles.length * 50
         ).fill(null);
@@ -37,7 +41,11 @@ export default class PuzzlePiecesCreator {
                         'click',
                         removeOrderCorectnessresults
                     );
-
+                    item.getElement().append(
+                        new BaseElement('div', undefined, [
+                            'puzzle-piece-bg',
+                        ]).getElement()
+                    );
                     puzzlePieces.push(item);
                 }
             }

@@ -7,7 +7,7 @@
     &__source-block {
         display: flex;
         width: 100%;
-        padding: 0 10px;
+        padding: 0 30px;
         height: 250px;
         border: 1px solid black;
     }
@@ -32,6 +32,7 @@
         width: 100%;
 
         &-child {
+            position: relative;
             width: fit-content;
             height: 42px;
             min-width: 39px;
@@ -52,11 +53,12 @@
     width: 100%;
     position: relative;
     display: inline-block;
-    padding: 0 2px;
+    padding: 0 5px;
+    padding-left: 20px;
     border: 1px solid rgb(87, 62, 232);
     background: #ffffff;
     font-family: 'Space Mono', monospace;
-    font-size: clamp(8px, 3vw, 22px);
+    font-size: clamp(8px, 3vw, 19px);
     line-height: 40px;
     cursor: pointer;
     transition:
@@ -79,12 +81,61 @@
     transition: all 0.4s;
 }
 
+.puzzle-piece-bg::before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
+    width: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
+    left: -1px;
+    border-radius: 100%;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    background: #e2e2e2;
+    bottom: 50%;
+    transform: translateY(50%) rotate(270deg);
+    border: 1px dotted #5d5d5d;
+    border-top: none;
+}
+.puzzle-piece-bg::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
+    width: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
+    border-radius: 100%;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    background: #ffffff;
+    bottom: 50%;
+    right: calc(-1 * clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem));
+    transform: translateY(50%) rotate(270deg);
+    z-index: 100;
+    border: 1px dotted #5d5d5d;
+    border-top: none;
+}
+
+.puzzle-piece.last .puzzle-piece-bg::after {
+    display: none;
+}
+
+.puzzle-piece.first .puzzle-piece-bg::before {
+    display: none;
+}
+
 .game-board__result-block .puzzle-piece {
     animation-name: forward;
 }
 
 .game-board__source-block .puzzle-piece {
     animation-name: backward;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .puzzle-piece-bg:hover::after,
+    .game-board__puzzle-line-child:hover .puzzle-piece-bg:after {
+        background: #e2e2e2;
+    }
 }
 
 @keyframes forward {
