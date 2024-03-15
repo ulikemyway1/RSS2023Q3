@@ -127,6 +127,13 @@
     animation-name: backward;
 }
 
+@media (hover: hover) and (pointer: fine) {
+    .puzzle-piece-bg:hover::after,
+    .game-board__puzzle-line-child:hover .puzzle-piece-bg:after {
+        background: #e2e2e2;
+    }
+}
+
 @keyframes forward {
     0% {
         top: 210px;
