@@ -4,7 +4,7 @@ export default class PuzzlePiece extends BaseElement {
     #order: number;
 
     constructor(innerText: string, order: number) {
-        super('span', undefined, ['puzzle-piece'], innerText);
+        super('div', undefined, ['puzzle-piece'], innerText);
         this.#order = order;
     }
 
