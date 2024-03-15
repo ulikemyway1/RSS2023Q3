@@ -74,6 +74,11 @@ class GameBoard {
 
     audioHint = new SentencePronunciation();
 
+    audioHintBtn = new BaseElement('button', undefined, [
+        'button',
+        'pronunciation-btn',
+    ]).getElement();
+
     private currentSentenceCompletedCorrectly: boolean = false;
 
     translateBox = new TranslateBox();
@@ -113,6 +118,13 @@ class GameBoard {
             } else {
                 this.translateBox.isVisible(true);
             }
+
+            if (!this.audioHint.getStatus()) {
+                this.audioHintBtn.classList.remove('active');
+            } else {
+                this.audioHintBtn.classList.add('active');
+            }
+
             this.autoCompleteBtn.disabled = false;
             if (!this.currentSentenceCompletedCorrectly) {
                 this.checkWordsOrder.bind(this)();
@@ -163,21 +175,21 @@ class GameBoard {
             'game-board__button-wrapper',
         ]).getElement();
 
-        const audioHintBtn = new BaseElement('button', undefined, [
-            'button',
-            'pronunciation-btn',
-        ]).getElement();
-        audioHintBtn.addEventListener('click', () => {
+        this.audioHintBtn.addEventListener('click', () => {
             this.audioHint.playAudio();
             this.audioHint
                 .getElement()
                 .addEventListener('ended', () =>
-                    audioHintBtn.classList.remove('speaking')
+                    this.audioHintBtn.classList.remove('speaking')
                 );
-            audioHintBtn.classList.add('speaking');
+            this.audioHintBtn.classList.add('speaking');
         });
 
-        btnWrapper.append(this.checkBtn, audioHintBtn, this.autoCompleteBtn);
+        btnWrapper.append(
+            this.checkBtn,
+            this.audioHintBtn,
+            this.autoCompleteBtn
+        );
 
         gameBoard.append(
             this.translateBox.getView(),
@@ -286,6 +298,7 @@ class GameBoard {
             ) {
                 this.checkBtn.value = 'Continue';
                 this.currentSentenceCompletedCorrectly = true;
+                this.audioHintBtn.classList.add('active');
                 if (!this.translateBox.getStatus())
                     this.translateBox.isVisible(true);
             } else {
@@ -318,6 +331,7 @@ class GameBoard {
             });
             this.autoCompleteBtn.disabled = true;
         }
+        this.audioHintBtn.classList.add('active');
     }
 
     private checkWordsOrder() {

@@ -12,7 +12,10 @@ export default class ControlPanel {
         this.controlPanel = new BaseElement('div', undefined, [
             'control-panel',
         ]).getElement();
-        this.options.push(this.createTranslationOption());
+        this.options.push(
+            this.createTranslationOption(),
+            this.createPronuncuationOption()
+        );
 
         this.controlPanel.append(...this.options);
     }
@@ -52,5 +55,37 @@ export default class ControlPanel {
         });
 
         return translationOptionBtn;
+    }
+
+    private createPronuncuationOption() {
+        const pronuncuationOptionBtn = new BaseElement('div', undefined, [
+            'control-panel__item',
+            'control-panel__pronuncuation',
+        ]).getElement();
+
+        const icon = new ImageElement(
+            'assets/img/pronunciation-option.svg',
+            ['control-panel__pronuncuation-icon'],
+            'Pronuncuation'
+        ).getElement();
+
+        pronuncuationOptionBtn.append(icon);
+
+        const pronuncuationHintBtn = gameBoard.audioHintBtn;
+        const pronunciationHint = gameBoard.audioHint;
+
+        pronuncuationOptionBtn.addEventListener('click', () => {
+            if (pronunciationHint.getStatus()) {
+                pronuncuationHintBtn.classList.remove('active');
+                pronuncuationOptionBtn.classList.remove('on');
+            } else {
+                pronuncuationHintBtn.classList.add('active');
+                pronuncuationOptionBtn.classList.add('on');
+            }
+
+            pronunciationHint.toggleStatus();
+        });
+
+        return pronuncuationOptionBtn;
     }
 }
