@@ -85,8 +85,8 @@
     content: '';
     display: block;
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
+    width: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
     left: -1px;
     border-radius: 100%;
     border-top-left-radius: 0px;
@@ -99,14 +99,14 @@
     content: '';
     display: block;
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
+    width: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
     border-radius: 100%;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
     background: #ffffff;
     bottom: 50%;
-    right: -20px;
+    right: calc(-1 * clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem));
     transform: translateY(50%) rotate(270deg);
     z-index: 100;
 }
