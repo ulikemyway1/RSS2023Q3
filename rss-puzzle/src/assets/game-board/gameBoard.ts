@@ -8,6 +8,7 @@ import PuzzlePiecesCreator from './puzzlePiecesCreator';
 import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
+import SentencePronunciation from '../game-features/sentencePronunciation';
 
 type gameLevels = number;
 
@@ -70,6 +71,8 @@ class GameBoard {
         undefined,
         ['game-board__autocomplete-btn', 'button']
     ).getElement();
+
+    audioHint = new SentencePronunciation();
 
     private currentSentenceCompletedCorrectly: boolean = false;
 
@@ -159,14 +162,35 @@ class GameBoard {
         const btnWrapper = new BaseElement('div', undefined, [
             'game-board__button-wrapper',
         ]).getElement();
-        btnWrapper.append(this.checkBtn, this.autoCompleteBtn);
+
+        const audioHintBtn = new BaseElement('button', undefined, [
+            'button',
+            'pronunciation-btn',
+        ]).getElement();
+        audioHintBtn.addEventListener('click', () => {
+            this.audioHint.playAudio();
+            this.audioHint
+                .getElement()
+                .addEventListener('ended', () =>
+                    audioHintBtn.classList.remove('speaking')
+                );
+            audioHintBtn.classList.add('speaking');
+        });
+
+        btnWrapper.append(this.checkBtn, audioHintBtn, this.autoCompleteBtn);
+
         gameBoard.append(
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
             btnWrapper
         );
-        document.body.append(new ControlPanel().getElement(), gameBoard);
+
+        document.body.append(
+            new ControlPanel().getElement(),
+            this.audioHint.getElement(),
+            gameBoard
+        );
     }
 
     public async loadGameBoard() {
@@ -201,6 +225,10 @@ class GameBoard {
                 this.levelData.rounds[roundNumber].words[wordNumber]
                     .textExampleTranslate
             );
+            this.audioHint.setSource(
+                `https://github.com/rolling-scopes-school/rss-puzzle-data/raw/main/${this.levelData.rounds[roundNumber].words[wordNumber].audioExample}`
+            );
+            this.audioHint.getElement().load();
             this.currentSentence = sentence.split(' ');
             const puzzlePieces = new PuzzlePiecesCreator(sentence).getPieces();
             while (this.sourceBlock.firstChild) {
