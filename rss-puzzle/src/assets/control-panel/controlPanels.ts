@@ -3,12 +3,21 @@ import BaseElement from '../utils/BaseElement';
 import ImageElement from '../utils/ImageElement';
 import './controlPanel.scss';
 
+type UserSettings = {
+    translation: boolean;
+    audioHint: boolean;
+    bgHint: boolean;
+};
+
 export default class ControlPanel {
     private controlPanel: HTMLElement;
 
     private options: HTMLElement[] = [];
 
+    private userSettings: UserSettings;
+
     constructor() {
+        this.userSettings = this.loadUserSettings();
         this.controlPanel = new BaseElement('div', undefined, [
             'control-panel',
         ]).getElement();
@@ -16,7 +25,6 @@ export default class ControlPanel {
             this.createTranslationOption(),
             this.createPronuncuationOption()
         );
-
         this.controlPanel.append(...this.options);
     }
 
@@ -28,7 +36,7 @@ export default class ControlPanel {
         const translationOptionBtn = new BaseElement('div', undefined, [
             'control-panel__item',
             'control-panel__translation',
-            'on',
+            this.userSettings.translation ? 'on' : undefined,
         ]).getElement();
 
         const icon = new ImageElement(
@@ -53,6 +61,7 @@ export default class ControlPanel {
             }
 
             translateBox.toggleStatus();
+            this.saveUserSettings();
         });
 
         return translationOptionBtn;
@@ -62,7 +71,7 @@ export default class ControlPanel {
         const pronuncuationOptionBtn = new BaseElement('div', undefined, [
             'control-panel__item',
             'control-panel__pronuncuation',
-            'on',
+            this.userSettings.audioHint ? 'on' : undefined,
         ]).getElement();
 
         const icon = new ImageElement(
@@ -86,8 +95,48 @@ export default class ControlPanel {
             }
 
             pronunciationHint.toggleStatus();
+            this.saveUserSettings();
         });
 
         return pronuncuationOptionBtn;
+    }
+
+    private loadUserSettings() {
+        const savedUserSettings = localStorage.getItem('settings__ULIKE');
+        let userSettings: UserSettings;
+        if (savedUserSettings) {
+            userSettings = JSON.parse(savedUserSettings);
+        } else {
+            userSettings = {
+                translation: true,
+                audioHint: true,
+                bgHint: true,
+            };
+        }
+        return userSettings;
+    }
+
+    private saveUserSettings() {
+        const userSettings: UserSettings = {
+            translation: gameBoard.translateBox.getStatus(),
+            audioHint: gameBoard.audioHint.getStatus(),
+            bgHint: true,
+        };
+
+        localStorage.setItem('settings__ULIKE', JSON.stringify(userSettings));
+    }
+
+    static getSavedSettings(
+        prop: 'translation' | 'audioHint' | 'bgHint'
+    ): boolean {
+        const savedUserSettings = localStorage.getItem('settings__ULIKE');
+        let value: boolean;
+        if (savedUserSettings) {
+            const settingsObj: UserSettings = JSON.parse(savedUserSettings);
+            value = settingsObj[prop];
+        } else {
+            value = true;
+        }
+        return value;
     }
 }

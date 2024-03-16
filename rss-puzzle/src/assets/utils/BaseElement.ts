@@ -12,7 +12,7 @@ export default class BaseElement {
     constructor(
         tag: string,
         id?: string,
-        classNames?: string[],
+        classNames?: (string | undefined)[],
         textContent?: string
     ) {
         this.tag = tag;
@@ -26,7 +26,10 @@ export default class BaseElement {
         const element = document.createElement(this.tag);
         if (this.id) element.id = this.id;
         if (this.classNames && this.classNames.length > 0)
-            element.classList.add(...this.classNames);
+            this.classNames.forEach((item) => {
+                if (item) element.classList.add(item);
+            });
+
         if (this.textContent) element.textContent = this.textContent;
         return element;
     }

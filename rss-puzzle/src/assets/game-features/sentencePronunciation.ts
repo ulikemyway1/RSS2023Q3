@@ -1,9 +1,10 @@
+import ControlPanel from '../control-panel/controlPanels';
 import BaseElement from '../utils/BaseElement';
 
 export default class SentencePronunciation {
     private audio = new Audio();
 
-    isActivated = true;
+    isActivated = ControlPanel.getSavedSettings('audioHint');
 
     constructor() {
         this.audio.controls = false;
