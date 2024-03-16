@@ -1,0 +1,77 @@
+.levels-board {
+    min-height: 100dvh;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    &__title {
+        text-align: center;
+    }
+
+    &__btn-wrapper {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    &__list-wrapper {
+        min-height: 70dvh;
+        border: 1px solid black;
+        overflow: auto;
+    }
+
+    &__level-list {
+        padding: 15px;
+        display: grid;
+        width: 80vw;
+        max-width: 1024px;
+        grid-template-columns: repeat(auto-fit, 200px);
+        justify-content: center;
+        gap: 10px;
+        padding: 5px 30px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+}
+
+.levels-list {
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+        padding: 5px 5px;
+        border: 1px solid #6a6a6a;
+        border-radius: 4px;
+        font-size: 14px;
+        font-style: italic;
+        user-select: none;
+        text-align: center;
+        cursor: pointer;
+
+        &-img {
+            height: auto;
+            width: 170px;
+            filter: blur(2px);
+            transition: all 0.6s;
+        }
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .levels-list__item:hover .levels-list__item-img {
+        transform: scale(1.03);
+    }
+}
+
+.list-item__img-wrapper {
+    height: 96px;
+    width: 170px;
+    background: url('../img/loading.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}

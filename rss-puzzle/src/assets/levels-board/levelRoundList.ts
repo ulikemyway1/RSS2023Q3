@@ -16,7 +16,11 @@ export default class LevelRoundList {
         const list = new ListElement('ol', ['levels-board__level-list']);
 
         levelData.rounds.forEach((round) => {
-            list.addListItem(round.levelData.name, ['level-list__item']);
+            list.addListItem(
+                round.levelData.name,
+                ['levels-list__item'],
+                round.levelData.cutSrc
+            );
         });
         return list;
     }
