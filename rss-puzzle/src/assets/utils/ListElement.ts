@@ -1,3 +1,6 @@
+import BaseElement from './BaseElement';
+import ImageElement from './ImageElement';
+
 export default class ListElement {
     type: 'ol' | 'ul';
 
@@ -13,9 +16,15 @@ export default class ListElement {
         this.parent.classList.add(...parentClassList);
     }
 
-    public addListItem(content: string | number, liClassList: string[]) {
+    public addListItem(
+        content: string | number,
+        liClassList: string[],
+        imgSrc: string
+    ) {
         if (this.parent) {
-            this.parent.append(this.createListItem(content, liClassList));
+            this.parent.append(
+                this.createListItem(content, liClassList, imgSrc)
+            );
         }
     }
 
@@ -23,15 +32,31 @@ export default class ListElement {
         return this.parent;
     }
 
-    private createListItem(content: string | number, liClassList: string[]) {
-        if (typeof content === 'string') {
-            const li = document.createElement('li');
-            li.textContent = content;
-            li.classList.add(...liClassList);
-            return li;
-        }
+    private createListItem(
+        content: string | number,
+        liClassList: string[],
+        imgSrc: string
+    ) {
         const li = document.createElement('li');
-        li.textContent = String(content);
+        const imgWrapper = new BaseElement('div', undefined, [
+            'list-item__img-wrapper',
+        ]).getElement();
+        const img = new ImageElement(
+            `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${imgSrc}`,
+            ['levels-list__item-img'],
+            typeof content === 'string' ? content : String(content)
+        ).getElement();
+        img.draggable = false;
+        imgWrapper.append(img);
+        li.append(imgWrapper);
+        li.append(
+            new BaseElement(
+                'span',
+                undefined,
+                ['levels-list__item-descr'],
+                String(content)
+            ).getElement()
+        );
         li.classList.add(...liClassList);
         return li;
     }
