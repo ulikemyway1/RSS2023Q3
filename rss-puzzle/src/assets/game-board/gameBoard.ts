@@ -74,11 +74,7 @@ class GameBoard {
 
     audioHint = new SentencePronunciation();
 
-    audioHintBtn = new BaseElement('button', undefined, [
-        'button',
-        'pronunciation-btn',
-        'active',
-    ]).getElement();
+    audioHintBtn = new SentencePronunciation().getElementView();
 
     private currentSentenceCompletedCorrectly: boolean = false;
 

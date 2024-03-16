@@ -1,3 +1,5 @@
+import BaseElement from '../utils/BaseElement';
+
 export default class SentencePronunciation {
     private audio = new Audio();
 
@@ -17,6 +19,20 @@ export default class SentencePronunciation {
 
     getElement() {
         return this.audio;
+    }
+
+    getElementView() {
+        if (this.isActivated) {
+            return new BaseElement('button', undefined, [
+                'button',
+                'pronunciation-btn',
+                'active',
+            ]).getElement();
+        }
+        return new BaseElement('button', undefined, [
+            'button',
+            'pronunciation-btn',
+        ]).getElement();
     }
 
     toggleStatus() {
