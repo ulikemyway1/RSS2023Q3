@@ -1,12 +1,14 @@
+import ControlPanel from '../control-panel/controlPanels';
 import BaseElement from '../utils/BaseElement';
 
 import './gameFeatures.scss';
 
 export default class TranslateBox extends BaseElement {
-    private isActivated: boolean = false;
+    private isActivated: boolean = ControlPanel.getSavedSettings('translation');
 
     wrapper: HTMLElement = new BaseElement('div', undefined, [
         'translate-box',
+        this.isActivated ? 'active' : undefined,
     ]).getElement();
 
     constructor() {

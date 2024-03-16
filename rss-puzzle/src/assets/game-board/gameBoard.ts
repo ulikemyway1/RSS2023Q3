@@ -74,10 +74,7 @@ class GameBoard {
 
     audioHint = new SentencePronunciation();
 
-    audioHintBtn = new BaseElement('button', undefined, [
-        'button',
-        'pronunciation-btn',
-    ]).getElement();
+    audioHintBtn = new SentencePronunciation().getElementView();
 
     private currentSentenceCompletedCorrectly: boolean = false;
 
@@ -89,6 +86,14 @@ class GameBoard {
     }
 
     private async init() {
+        this.audioHint = new SentencePronunciation();
+
+        this.audioHintBtn = new SentencePronunciation().getElementView();
+
+        this.currentSentenceCompletedCorrectly = false;
+
+        this.translateBox = new TranslateBox();
+
         const gameBoard = new BaseElement('section', undefined, [
             'game-board',
         ]).getElement();

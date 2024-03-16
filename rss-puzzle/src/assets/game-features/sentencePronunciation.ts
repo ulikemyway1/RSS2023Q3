@@ -1,7 +1,10 @@
+import ControlPanel from '../control-panel/controlPanels';
+import BaseElement from '../utils/BaseElement';
+
 export default class SentencePronunciation {
     private audio = new Audio();
 
-    isActivated = false;
+    isActivated = ControlPanel.getSavedSettings('audioHint');
 
     constructor() {
         this.audio.controls = false;
@@ -17,6 +20,20 @@ export default class SentencePronunciation {
 
     getElement() {
         return this.audio;
+    }
+
+    getElementView() {
+        if (this.isActivated) {
+            return new BaseElement('button', undefined, [
+                'button',
+                'pronunciation-btn',
+                'active',
+            ]).getElement();
+        }
+        return new BaseElement('button', undefined, [
+            'button',
+            'pronunciation-btn',
+        ]).getElement();
     }
 
     toggleStatus() {

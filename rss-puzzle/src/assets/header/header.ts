@@ -1,4 +1,5 @@
 import appLoader from '../..';
+import ControlPanel from '../control-panel/controlPanels';
 import BaseElement from '../utils/BaseElement';
 import InputElement from '../utils/InputElement';
 import deleteUser from '../utils/deleteUser';
@@ -22,6 +23,7 @@ export default class Header {
             ['button', 'logout-btn']
         ).getElement();
         logOutBtn.addEventListener('click', () => {
+            ControlPanel.saveUserSettings('default');
             deleteUser();
             while (document.body.lastChild) document.body.lastChild.remove();
             appLoader.load();
