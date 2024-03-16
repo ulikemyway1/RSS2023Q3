@@ -28,6 +28,7 @@ export default class ControlPanel {
         const translationOptionBtn = new BaseElement('div', undefined, [
             'control-panel__item',
             'control-panel__translation',
+            'on',
         ]).getElement();
 
         const icon = new ImageElement(
@@ -61,6 +62,7 @@ export default class ControlPanel {
         const pronuncuationOptionBtn = new BaseElement('div', undefined, [
             'control-panel__item',
             'control-panel__pronuncuation',
+            'on',
         ]).getElement();
 
         const icon = new ImageElement(

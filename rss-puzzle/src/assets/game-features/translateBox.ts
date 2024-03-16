@@ -3,10 +3,11 @@ import BaseElement from '../utils/BaseElement';
 import './gameFeatures.scss';
 
 export default class TranslateBox extends BaseElement {
-    private isActivated: boolean = false;
+    private isActivated: boolean = true;
 
     wrapper: HTMLElement = new BaseElement('div', undefined, [
         'translate-box',
+        'active',
     ]).getElement();
 
     constructor() {

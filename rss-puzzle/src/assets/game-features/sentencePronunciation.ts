@@ -1,7 +1,7 @@
 export default class SentencePronunciation {
     private audio = new Audio();
 
-    isActivated = false;
+    isActivated = true;
 
     constructor() {
         this.audio.controls = false;
