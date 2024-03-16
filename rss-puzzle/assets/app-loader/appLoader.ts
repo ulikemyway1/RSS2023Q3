@@ -7,6 +7,8 @@ export default class AppLoader {
 
     private content: HTMLElement | null = null;
 
+    private instances: HTMLElement[] = [];
+
     loadContent() {
         const user = localStorage.getItem('user_ULIKE');
         if (user) {
@@ -22,5 +24,13 @@ export default class AppLoader {
             clearBody();
             document.body.append(this.content);
         }
+    }
+
+    setInstance(instance: HTMLElement) {
+        this.instances.push(instance);
+    }
+
+    getInstance() {
+        return this.instances[0];
     }
 }
