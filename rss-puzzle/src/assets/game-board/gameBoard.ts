@@ -27,12 +27,12 @@ interface IlevelData {
     id: string;
     name: string;
     imageSrc: string;
-    custSrc: string;
+    cutSrc: string;
     author: string;
     year: string;
 }
 
-interface IwordCollectionData {
+export interface IwordCollectionData {
     rounds: {
         levelData: IlevelData;
         words: IWords;
