@@ -86,6 +86,14 @@ class GameBoard {
     }
 
     private async init() {
+        this.audioHint = new SentencePronunciation();
+
+        this.audioHintBtn = new SentencePronunciation().getElementView();
+
+        this.currentSentenceCompletedCorrectly = false;
+
+        this.translateBox = new TranslateBox();
+
         const gameBoard = new BaseElement('section', undefined, [
             'game-board',
         ]).getElement();

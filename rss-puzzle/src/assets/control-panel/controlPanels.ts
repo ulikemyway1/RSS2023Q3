@@ -61,7 +61,7 @@ export default class ControlPanel {
             }
 
             translateBox.toggleStatus();
-            this.saveUserSettings();
+            ControlPanel.saveUserSettings();
         });
 
         return translationOptionBtn;
@@ -95,7 +95,7 @@ export default class ControlPanel {
             }
 
             pronunciationHint.toggleStatus();
-            this.saveUserSettings();
+            ControlPanel.saveUserSettings();
         });
 
         return pronuncuationOptionBtn;
@@ -116,13 +116,21 @@ export default class ControlPanel {
         return userSettings;
     }
 
-    private saveUserSettings() {
-        const userSettings: UserSettings = {
-            translation: gameBoard.translateBox.getStatus(),
-            audioHint: gameBoard.audioHint.getStatus(),
-            bgHint: true,
-        };
-
+    static saveUserSettings(option?: 'default') {
+        let userSettings: UserSettings;
+        if (!option) {
+            userSettings = {
+                translation: gameBoard.translateBox.getStatus(),
+                audioHint: gameBoard.audioHint.getStatus(),
+                bgHint: true,
+            };
+        } else {
+            userSettings = {
+                translation: true,
+                audioHint: true,
+                bgHint: true,
+            };
+        }
         localStorage.setItem('settings__ULIKE', JSON.stringify(userSettings));
     }
 
@@ -134,6 +142,7 @@ export default class ControlPanel {
         if (savedUserSettings) {
             const settingsObj: UserSettings = JSON.parse(savedUserSettings);
             value = settingsObj[prop];
+            console.log(settingsObj);
         } else {
             value = true;
         }
