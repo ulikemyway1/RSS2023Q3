@@ -142,7 +142,6 @@ export default class ControlPanel {
         if (savedUserSettings) {
             const settingsObj: UserSettings = JSON.parse(savedUserSettings);
             value = settingsObj[prop];
-            console.log(settingsObj);
         } else {
             value = true;
         }
