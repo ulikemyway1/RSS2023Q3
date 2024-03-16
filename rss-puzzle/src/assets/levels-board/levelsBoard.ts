@@ -57,7 +57,23 @@ export default class LevelsBoard {
             levelSelectButtonsWrapper.append(levelButton);
         });
 
-        content.push(title, levelSelectButtonsWrapper, roundListWrapper);
+        const closeBtn = new InputElement(
+            'button',
+            undefined,
+            undefined,
+            undefined,
+            ['levels-board__close-btn']
+        ).getElement();
+        closeBtn.addEventListener('click', () =>
+            this.content.classList.add('hidden')
+        );
+
+        content.push(
+            closeBtn,
+            title,
+            levelSelectButtonsWrapper,
+            roundListWrapper
+        );
         this.content.append(...content);
     }
 
