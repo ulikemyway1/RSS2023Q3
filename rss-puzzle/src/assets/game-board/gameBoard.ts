@@ -349,6 +349,7 @@ class GameBoard {
                 this.resultBlock.lastChild.remove();
             }
         }
+        this.autoCompleteBtn.disabled = false;
         this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
     }
 
