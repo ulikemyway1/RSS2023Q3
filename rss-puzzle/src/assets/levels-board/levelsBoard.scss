@@ -56,13 +56,17 @@
     }
 
     &__level-btn {
+        position: relative;
         font-size: 16px;
         padding: 5px;
         cursor: pointer;
         transition: all 0.6s;
+        filter: drop-shadow(2px 2px 2px rgb(137, 137, 137));
 
-        &.active {
-            outline: 2px solid rgb(83, 7, 121);
+        &.selected {
+            filter: none;
+            transform: translateY(-10px);
+            filter: drop-shadow(0px 3px 3px rgb(0, 0, 0));
         }
     }
 }

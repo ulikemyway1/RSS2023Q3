@@ -30,13 +30,23 @@ export default class LevelsBoard {
         ]).getElement();
 
         levelSelectButtonsWrapper.addEventListener('click', async (event) => {
+            const btn = event.target;
             if (
-                event.target &&
-                event.target instanceof HTMLElement &&
-                event.target.classList.contains('levels-board__level-btn')
+                btn &&
+                btn instanceof HTMLElement &&
+                btn.classList.contains('levels-board__level-btn')
             ) {
+                levelSelectButtonsWrapper.childNodes.forEach((btn) => {
+                    if (
+                        btn instanceof HTMLElement &&
+                        btn.classList.contains('levels-board__level-btn')
+                    ) {
+                        btn.classList.remove('selected');
+                    }
+                });
+                btn.classList.add('selected');
                 const list = await new LevelRoundList(
-                    LevelsBoard.getLevelByButtonID(event.target.id)
+                    LevelsBoard.getLevelByButtonID(btn.id)
                 ).getList();
                 if (list) {
                     if (
