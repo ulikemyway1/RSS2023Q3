@@ -18,12 +18,11 @@
         width: 100%;
         align-items: center;
         justify-content: center;
-        gap: 15px;
+        gap: 25px;
     }
 
     &__list-wrapper {
         min-height: 70dvh;
-        border: 1px solid black;
         overflow: auto;
     }
 
@@ -31,7 +30,7 @@
         padding: 15px;
         display: grid;
         width: 80vw;
-        max-width: 1024px;
+        max-width: 1200px;
         grid-template-columns: repeat(auto-fit, 200px);
         justify-content: center;
         gap: 10px;
@@ -53,6 +52,17 @@
 
         &:hover {
             transform: scale(1.1);
+        }
+    }
+
+    &__level-btn {
+        font-size: 16px;
+        padding: 5px;
+        cursor: pointer;
+        transition: all 0.6s;
+
+        &.active {
+            outline: 2px solid rgb(83, 7, 121);
         }
     }
 }

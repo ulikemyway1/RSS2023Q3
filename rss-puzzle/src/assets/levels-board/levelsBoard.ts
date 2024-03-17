@@ -3,6 +3,7 @@ import InputElement from '../utils/InputElement';
 import levelDescr from './levelDescr';
 import LevelRoundList from './levelRoundList';
 import './levelsBoard.scss';
+import Levels from './levelsSrc';
 
 export default class LevelsBoard {
     content: HTMLElement = new BaseElement('section', undefined, [
@@ -28,19 +29,15 @@ export default class LevelsBoard {
             'levels-board__list-wrapper',
         ]).getElement();
 
-        const levelDescrKeys = Object.keys(levelDescr);
-        levelDescrKeys.forEach((key) => {
-            const level = levelDescr[key];
-            const levelButton = new InputElement(
-                'button',
-                `${level.name} \n (${level.difficulty})`,
-                undefined,
-                undefined,
-                ['levels-board-level-btn', level.classDescr]
-            ).getElement();
-
-            levelButton.addEventListener('click', async () => {
-                const list = await new LevelRoundList(level.dataURL).getList();
+        levelSelectButtonsWrapper.addEventListener('click', async (event) => {
+            if (
+                event.target &&
+                event.target instanceof HTMLElement &&
+                event.target.classList.contains('levels-board__level-btn')
+            ) {
+                const list = await new LevelRoundList(
+                    LevelsBoard.getLevelByButtonID(event.target.id)
+                ).getList();
                 if (list) {
                     if (
                         roundListWrapper.lastElementChild &&
@@ -52,8 +49,19 @@ export default class LevelsBoard {
                     }
                     roundListWrapper.append(list);
                 }
-            });
+            }
+        });
 
+        const levelDescrKeys = Object.keys(levelDescr);
+        levelDescrKeys.forEach((key) => {
+            const level = levelDescr[key];
+            const levelButton = new InputElement(
+                'button',
+                `${level.name} \n (${level.difficulty})`,
+                undefined,
+                level.levelID,
+                ['levels-board__level-btn']
+            ).getElement();
             levelSelectButtonsWrapper.append(levelButton);
         });
 
@@ -79,5 +87,26 @@ export default class LevelsBoard {
 
     public getContent() {
         return this.content;
+    }
+
+    static getLevelByButtonID(id: string) {
+        switch (id) {
+            case 'Level-1':
+                return Levels['Level-1'];
+            case 'Level-2':
+                return Levels['Level-2'];
+            case 'Level-3':
+                return Levels['Level-3'];
+            case 'Level-4':
+                return Levels['Level-4'];
+            case 'Level-5':
+                return Levels['Level-5'];
+            case 'Level-6':
+                return Levels['Level-6'];
+
+            default:
+                break;
+        }
+        return Levels['Level-1'];
     }
 }
