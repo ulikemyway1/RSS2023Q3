@@ -45,21 +45,23 @@ export default class LevelsBoard {
                         btn.classList.remove('selected');
                     }
                 });
-                btn.classList.add('selected');
-                const list = await new LevelRoundList(
-                    LevelsBoard.getLevelByButtonID(btn.id),
-                    btn.id
-                ).getList();
-                if (list) {
-                    if (
-                        roundListWrapper.lastElementChild &&
-                        roundListWrapper.lastElementChild.classList.contains(
-                            'levels-board__level-list'
-                        )
-                    ) {
-                        roundListWrapper.lastElementChild.remove();
+                if (!btn.classList.contains('selected')) {
+                    btn.classList.add('selected');
+                    const list = await new LevelRoundList(
+                        LevelsBoard.getLevelByButtonID(btn.id),
+                        btn.id
+                    ).getList();
+                    if (list) {
+                        if (
+                            roundListWrapper.lastElementChild &&
+                            roundListWrapper.lastElementChild.classList.contains(
+                                'levels-board__level-list'
+                            )
+                        ) {
+                            roundListWrapper.lastElementChild.remove();
+                        }
+                        roundListWrapper.append(list);
                     }
-                    roundListWrapper.append(list);
                 }
             }
         });
@@ -90,12 +92,11 @@ export default class LevelsBoard {
         const levelDescrKeys = Object.keys(levelDescr);
         levelDescrKeys.forEach((key) => {
             const level = levelDescr[key];
-            const levelButton = new InputElement(
+            const levelButton = new BaseElement(
                 'button',
-                `${level.name} \n (${level.difficulty})`,
-                undefined,
                 level.levelID,
-                ['levels-board__level-btn']
+                ['levels-board__level-btn'],
+                `${level.name} \n (${level.difficulty})`
             ).getElement();
             levelSelectButtonsWrapper.append(levelButton);
         });
