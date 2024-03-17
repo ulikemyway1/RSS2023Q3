@@ -1,3 +1,4 @@
+import gameBoard from '../game-board/gameBoard';
 import BaseElement from '../utils/BaseElement';
 import InputElement from '../utils/InputElement';
 import levelDescr from './levelDescr';
@@ -46,7 +47,8 @@ export default class LevelsBoard {
                 });
                 btn.classList.add('selected');
                 const list = await new LevelRoundList(
-                    LevelsBoard.getLevelByButtonID(btn.id)
+                    LevelsBoard.getLevelByButtonID(btn.id),
+                    btn.id
                 ).getList();
                 if (list) {
                     if (
@@ -58,6 +60,29 @@ export default class LevelsBoard {
                         roundListWrapper.lastElementChild.remove();
                     }
                     roundListWrapper.append(list);
+                }
+            }
+        });
+
+        roundListWrapper.addEventListener('click', (event) => {
+            const targetElement = event.target;
+            if (targetElement && targetElement instanceof HTMLElement) {
+                const roundCard = targetElement.closest('.levels-list__item');
+                if (
+                    roundCard &&
+                    roundCard instanceof HTMLElement &&
+                    roundCard.dataset.index
+                ) {
+                    const roundNumber = roundCard.dataset.index;
+                    if (roundNumber && roundCard.parentElement) {
+                        const levelNumber =
+                            roundCard.parentElement.dataset.level;
+                        gameBoard.loadChosenRound(
+                            Number(levelNumber),
+                            Number(roundNumber)
+                        );
+                        this.getContent().classList.add('hidden');
+                    }
                 }
             }
         });

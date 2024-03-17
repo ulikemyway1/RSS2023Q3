@@ -339,6 +339,19 @@ class GameBoard {
         this.audioHintBtn.classList.add('active');
     }
 
+    public async loadChosenRound(level: number, round: number) {
+        this.levelNumber = level;
+        this.roundNumber = round;
+        this.wordNumber = 0;
+        await this.loadLevel(this.levelNumber);
+        if (this.resultBlock) {
+            while (this.resultBlock.lastChild) {
+                this.resultBlock.lastChild.remove();
+            }
+        }
+        this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+    }
+
     private checkWordsOrder() {
         if (
             this.resultBlock &&

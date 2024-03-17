@@ -6,7 +6,13 @@ export default class ListElement {
 
     parent: HTMLOListElement | HTMLUListElement | null = null;
 
-    constructor(type: 'ol' | 'ul', parentClassList: string[]) {
+    levelNumber: string;
+
+    constructor(
+        type: 'ol' | 'ul',
+        parentClassList: string[],
+        levelNumber: string
+    ) {
         this.type = type;
         if (type === 'ol') {
             this.parent = document.createElement('ol');
@@ -14,28 +20,33 @@ export default class ListElement {
             this.parent = document.createElement('ul');
         }
         this.parent.classList.add(...parentClassList);
+
+        this.levelNumber = levelNumber;
     }
 
     public addListItem(
         content: string | number,
         liClassList: string[],
-        imgSrc: string
+        imgSrc: string,
+        index: number
     ) {
         if (this.parent) {
             this.parent.append(
-                this.createListItem(content, liClassList, imgSrc)
+                this.createListItem(content, liClassList, imgSrc, index)
             );
         }
     }
 
     public getList() {
+        if (this.parent) this.parent.dataset.level = this.levelNumber;
         return this.parent;
     }
 
     private createListItem(
         content: string | number,
         liClassList: string[],
-        imgSrc: string
+        imgSrc: string,
+        index: number
     ) {
         const li = document.createElement('li');
         const imgWrapper = new BaseElement('div', undefined, [
@@ -58,6 +69,7 @@ export default class ListElement {
             ).getElement()
         );
         li.classList.add(...liClassList);
+        li.dataset.index = String(index);
         return li;
     }
 }
