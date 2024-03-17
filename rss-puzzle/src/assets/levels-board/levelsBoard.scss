@@ -1,11 +1,4 @@
-:root {
-    --color-level-1: #06c038;
-    --color-level-2: #47c006;
-    --color-level-3: #b1c006;
-    --color-level-4: #c08806;
-    --color-level-5: #c05006;
-    --color-level-6: #c01f06;
-}
+@import url('../sass/colorsVar.scss');
 
 .levels-board {
     font-family: Arial, Helvetica, sans-serif;

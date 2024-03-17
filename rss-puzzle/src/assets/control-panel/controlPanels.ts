@@ -111,7 +111,7 @@ export default class ControlPanel {
             'Select Level',
             undefined,
             undefined,
-            ['button', 'select-leve-btn']
+            ['button', 'select-level-btn']
         ).getElement();
         btn.addEventListener('click', () => {
             if (appLoader.getInstance()) {

@@ -59,6 +59,8 @@ class GameBoard {
 
     userSentence: string[] = [];
 
+    roundDescr = new BaseElement('p', undefined, ['round-descr']);
+
     checkBtn = new InputElement('button', 'Check', undefined, undefined, [
         'game-board__check-btn',
         'button',
@@ -197,6 +199,7 @@ class GameBoard {
         );
 
         gameBoard.append(
+            this.roundDescr.getElement(),
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
@@ -215,6 +218,7 @@ class GameBoard {
         await this.loadLevel(this.levelNumber);
         if (this.levelData) this.init();
         this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+        this.roundDescr.element.textContent = `Difficulty level: ${this.levelNumber}`;
     }
 
     public getResultBlock() {
