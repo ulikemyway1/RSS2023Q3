@@ -4,6 +4,7 @@ import LevelsBoard from '../levels-board/levelsBoard';
 import BaseElement from '../utils/BaseElement';
 import ImageElement from '../utils/ImageElement';
 import InputElement from '../utils/InputElement';
+import ListElement from '../utils/ListElement';
 import './controlPanel.scss';
 
 type UserSettings = {
@@ -113,10 +114,23 @@ export default class ControlPanel {
             undefined,
             ['button', 'select-level-btn']
         ).getElement();
+
         btn.addEventListener('click', () => {
             if (appLoader.getInstance()) {
                 const instance = appLoader.getInstance();
                 instance.classList.remove('hidden');
+                if (
+                    instance.lastElementChild &&
+                    instance.lastElementChild.lastElementChild
+                ) {
+                    instance.lastElementChild.lastElementChild.childNodes.forEach(
+                        (item) => {
+                            if (item instanceof HTMLElement) {
+                                ListElement.getActualCompletedStatus(item);
+                            }
+                        }
+                    );
+                }
             } else {
                 const instance = new LevelsBoard().getContent();
                 appLoader.setInstance(instance);

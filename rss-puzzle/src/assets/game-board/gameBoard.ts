@@ -9,6 +9,10 @@ import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
+import {
+    completedLevelsDB,
+    completedRoundsDB,
+} from '../levels-board/gameProgress';
 
 type gameLevels = number;
 
@@ -139,10 +143,18 @@ class GameBoard {
                 this.checkBtn.value = 'Check';
                 this.checkBtn.disabled = true;
                 removeOrderCorectnessresults();
+
+                let completedRound = this.roundNumber;
+                const completedLevel = this.levelNumber;
+
                 if (this.levelData) {
                     this.wordNumber += 1;
                     if (this.wordNumber > 9) {
                         this.wordNumber = 0;
+                        completedRound = this.roundNumber;
+                        completedRoundsDB.add(
+                            `${completedLevel}-${completedRound}`
+                        );
                         this.roundNumber += 1;
                         if (this.resultBlock) {
                             while (this.resultBlock.lastChild) {
@@ -151,6 +163,7 @@ class GameBoard {
                         }
                     }
                     if (this.roundNumber > this.levelData.roundsCount) {
+                        completedLevelsDB.add(String(completedLevel));
                         this.levelNumber += 1;
                         this.roundNumber = 0;
                         if (Number(this.levelNumber) > 6) {

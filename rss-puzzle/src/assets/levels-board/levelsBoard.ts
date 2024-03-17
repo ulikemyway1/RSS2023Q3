@@ -37,15 +37,15 @@ export default class LevelsBoard {
                 btn instanceof HTMLElement &&
                 btn.classList.contains('levels-board__level-btn')
             ) {
-                levelSelectButtonsWrapper.childNodes.forEach((btn) => {
-                    if (
-                        btn instanceof HTMLElement &&
-                        btn.classList.contains('levels-board__level-btn')
-                    ) {
-                        btn.classList.remove('selected');
-                    }
-                });
                 if (!btn.classList.contains('selected')) {
+                    levelSelectButtonsWrapper.childNodes.forEach((btn) => {
+                        if (
+                            btn instanceof HTMLElement &&
+                            btn.classList.contains('levels-board__level-btn')
+                        ) {
+                            btn.classList.remove('selected');
+                        }
+                    });
                     btn.classList.add('selected');
                     const list = await new LevelRoundList(
                         LevelsBoard.getLevelByButtonID(btn.id),

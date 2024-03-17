@@ -114,6 +114,14 @@
             filter: blur(2px);
             transition: all 0.6s;
         }
+
+        &.completed {
+            outline: 2px solid green;
+            background-color: #d4ffd7;
+            .levels-list__item-img {
+                filter: none;
+            }
+        }
     }
 }
 
