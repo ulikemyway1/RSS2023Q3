@@ -1,6 +1,9 @@
+import appLoader from '../..';
 import gameBoard from '../game-board/gameBoard';
+import LevelsBoard from '../levels-board/levelsBoard';
 import BaseElement from '../utils/BaseElement';
 import ImageElement from '../utils/ImageElement';
+import InputElement from '../utils/InputElement';
 import './controlPanel.scss';
 
 type UserSettings = {
@@ -23,7 +26,8 @@ export default class ControlPanel {
         ]).getElement();
         this.options.push(
             this.createTranslationOption(),
-            this.createPronuncuationOption()
+            this.createPronuncuationOption(),
+            this.createSelectLevelBtn()
         );
         this.controlPanel.append(...this.options);
     }
@@ -99,6 +103,27 @@ export default class ControlPanel {
         });
 
         return pronuncuationOptionBtn;
+    }
+
+    private createSelectLevelBtn() {
+        const btn = new InputElement(
+            'button',
+            'Select Level',
+            undefined,
+            undefined,
+            ['button', 'select-level-btn']
+        ).getElement();
+        btn.addEventListener('click', () => {
+            if (appLoader.getInstance()) {
+                const instance = appLoader.getInstance();
+                instance.classList.remove('hidden');
+            } else {
+                const instance = new LevelsBoard().getContent();
+                appLoader.setInstance(instance);
+                document.body.append(instance);
+            }
+        });
+        return btn;
     }
 
     private loadUserSettings() {

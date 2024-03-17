@@ -27,12 +27,12 @@ interface IlevelData {
     id: string;
     name: string;
     imageSrc: string;
-    custSrc: string;
+    cutSrc: string;
     author: string;
     year: string;
 }
 
-interface IwordCollectionData {
+export interface IwordCollectionData {
     rounds: {
         levelData: IlevelData;
         words: IWords;
@@ -58,6 +58,8 @@ class GameBoard {
     currentPieces: PuzzlePiece[] | null = null;
 
     userSentence: string[] = [];
+
+    roundDescr = new BaseElement('p', undefined, ['round-descr']);
 
     checkBtn = new InputElement('button', 'Check', undefined, undefined, [
         'game-board__check-btn',
@@ -197,6 +199,7 @@ class GameBoard {
         );
 
         gameBoard.append(
+            this.roundDescr.getElement(),
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
@@ -215,6 +218,8 @@ class GameBoard {
         await this.loadLevel(this.levelNumber);
         if (this.levelData) this.init();
         this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+        this.roundDescr.element.textContent = `Difficulty level: ${this.levelNumber}`;
+        this.roundDescr.element.id = `level-${this.levelNumber}`;
     }
 
     public getResultBlock() {
@@ -337,6 +342,20 @@ class GameBoard {
             this.autoCompleteBtn.disabled = true;
         }
         this.audioHintBtn.classList.add('active');
+    }
+
+    public async loadChosenRound(level: number, round: number) {
+        this.levelNumber = level;
+        this.roundNumber = round;
+        this.wordNumber = 0;
+        await this.loadLevel(this.levelNumber);
+        if (this.resultBlock) {
+            while (this.resultBlock.lastChild) {
+                this.resultBlock.lastChild.remove();
+            }
+        }
+        this.autoCompleteBtn.disabled = false;
+        this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
     }
 
     private checkWordsOrder() {

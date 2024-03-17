@@ -1,0 +1,189 @@
+@import url('../sass/colorsVar.scss');
+
+.levels-board {
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    height: 100dvh;
+    width: 100vw;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    background: #ffffff;
+    z-index: 100;
+    &__title {
+        text-align: center;
+    }
+
+    &__btn-wrapper {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+    }
+
+    &__list-wrapper {
+        min-height: 70dvh;
+        overflow: auto;
+    }
+
+    &__level-list {
+        padding: 5px 15px;
+        display: grid;
+        width: 90vw;
+        max-width: 1200px;
+        grid-template-columns: repeat(auto-fit, 200px);
+        justify-content: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    &__close-btn {
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        border: none;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background: url(../img/close.svg);
+        background-size: contain;
+        transition: all 0.6s;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &__level-btn {
+        position: relative;
+        font-size: 16px;
+        padding: 15px 5px;
+        min-width: 115px;
+        cursor: pointer;
+        transition: all 0.6s;
+        filter: drop-shadow(2px 2px 2px rgb(137, 137, 137));
+
+        &.selected {
+            cursor: auto;
+            background: rgb(219, 219, 219);
+            transform: translateY(-10px);
+            filter: drop-shadow(0px 3px 3px rgb(0, 0, 0));
+            &:hover {
+                background: rgb(219, 219, 219);
+            }
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: -20px;
+            width: 100%;
+            height: 9px;
+            border: 1px solid #c0c0c0;
+            font-size: 8px;
+            line-height: 8px;
+            text-align: left;
+        }
+    }
+}
+
+.levels-list {
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+        padding: 5px 5px;
+        border: 1px solid #6a6a6a;
+        border-radius: 4px;
+        font-size: 14px;
+        font-style: italic;
+        user-select: none;
+        text-align: center;
+        cursor: pointer;
+
+        &-img {
+            height: auto;
+            width: 170px;
+            filter: blur(2px);
+            transition: all 0.6s;
+        }
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .levels-list__item:hover .levels-list__item-img {
+        transform: scale(1.03);
+    }
+}
+
+.list-item__img-wrapper {
+    height: 96px;
+    width: 170px;
+    background: url('../img/loading.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+#Level-1::after {
+    content: '▇▇';
+    color: var(--color-level-1);
+    text-align: left;
+}
+
+#Level-2::after {
+    content: '▇▇▇▇';
+    color: var(--color-level-2);
+    text-align: left;
+}
+#Level-3::after {
+    content: '▇▇▇▇▇▇';
+    color: var(--color-level-3);
+    text-align: left;
+}
+#Level-4::after {
+    content: '▇▇▇▇▇▇▇▇';
+    color: var(--color-level-4);
+    text-align: left;
+}
+#Level-5::after {
+    content: '▇▇▇▇▇▇▇▇▇▇';
+    color: var(--color-level-5);
+    text-align: left;
+}
+#Level-6::after {
+    content: '▇▇▇▇▇▇▇▇▇▇▇▇▇▇';
+    color: var(--color-level-6);
+    text-align: left;
+}
+
+.levels-board__level-list[data-level='1'] .levels-list__item:hover {
+    outline: 2px solid var(--color-level-1);
+}
+
+.levels-board__level-list[data-level='2'] .levels-list__item:hover {
+    outline: 2px solid var(--color-level-2);
+}
+
+.levels-board__level-list[data-level='3'] .levels-list__item:hover {
+    outline: 2px solid var(--color-level-3);
+}
+
+.levels-board__level-list[data-level='4'] .levels-list__item:hover {
+    outline: 2px solid var(--color-level-4);
+}
+
+.levels-board__level-list[data-level='5'] .levels-list__item:hover {
+    outline: 2px solid var(--color-level-5);
+}
+
+.levels-board__level-list[data-level='6'] .levels-list__item:hover {
+    outline: 2px solid var(--color-level-6);
+}

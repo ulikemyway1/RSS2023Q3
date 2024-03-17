@@ -7,12 +7,13 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100vh;
+    justify-content: flex-start;
+    height: 100dvh;
     background: url('../img/start-screen.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-blend-mode: multiply;
     min-height: 640px;
 }
 
@@ -33,4 +34,8 @@ body {
     border: none;
     font-size: 1.3rem;
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }
