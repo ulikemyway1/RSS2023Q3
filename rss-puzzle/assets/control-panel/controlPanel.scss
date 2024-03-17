@@ -1,12 +1,14 @@
 .control-panel {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-around;
     gap: 15px;
-    padding: 5px;
-    height: 40px;
+    padding: 5px 15px;
+    height: 50px;
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(5px);
     border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
 
     &__item {
         height: 100%;
@@ -58,5 +60,18 @@
 
     .control-panel__item:has(.control-panel__pronuncuation-icon):hover::before {
         content: 'Pronunciation Hint';
+    }
+}
+
+.button.select-level-btn {
+    padding: 5px 15px;
+    color: #000000;
+    background: #c7c7c7;
+    transition: all 0.4s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .button.select-level-btn:hover {
+        background: #a8a8a8;
     }
 }

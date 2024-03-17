@@ -9,6 +9,10 @@ import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
+import {
+    completedLevelsDB,
+    completedRoundsDB,
+} from '../levels-board/gameProgress';
 
 type gameLevels = number;
 
@@ -58,6 +62,8 @@ class GameBoard {
     currentPieces: PuzzlePiece[] | null = null;
 
     userSentence: string[] = [];
+
+    roundDescr = new BaseElement('p', undefined, ['round-descr']);
 
     checkBtn = new InputElement('button', 'Check', undefined, undefined, [
         'game-board__check-btn',
@@ -137,10 +143,18 @@ class GameBoard {
                 this.checkBtn.value = 'Check';
                 this.checkBtn.disabled = true;
                 removeOrderCorectnessresults();
+
+                let completedRound = this.roundNumber;
+                const completedLevel = this.levelNumber;
+
                 if (this.levelData) {
                     this.wordNumber += 1;
                     if (this.wordNumber > 9) {
                         this.wordNumber = 0;
+                        completedRound = this.roundNumber;
+                        completedRoundsDB.add(
+                            `${completedLevel}-${completedRound}`
+                        );
                         this.roundNumber += 1;
                         if (this.resultBlock) {
                             while (this.resultBlock.lastChild) {
@@ -149,6 +163,7 @@ class GameBoard {
                         }
                     }
                     if (this.roundNumber > this.levelData.roundsCount) {
+                        completedLevelsDB.add(String(completedLevel));
                         this.levelNumber += 1;
                         this.roundNumber = 0;
                         if (Number(this.levelNumber) > 6) {
@@ -197,6 +212,7 @@ class GameBoard {
         );
 
         gameBoard.append(
+            this.roundDescr.getElement(),
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
@@ -215,6 +231,8 @@ class GameBoard {
         await this.loadLevel(this.levelNumber);
         if (this.levelData) this.init();
         this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+        this.roundDescr.element.textContent = `Difficulty level: ${this.levelNumber}`;
+        this.roundDescr.element.id = `level-${this.levelNumber}`;
     }
 
     public getResultBlock() {
@@ -337,6 +355,20 @@ class GameBoard {
             this.autoCompleteBtn.disabled = true;
         }
         this.audioHintBtn.classList.add('active');
+    }
+
+    public async loadChosenRound(level: number, round: number) {
+        this.levelNumber = level;
+        this.roundNumber = round;
+        this.wordNumber = 0;
+        await this.loadLevel(this.levelNumber);
+        if (this.resultBlock) {
+            while (this.resultBlock.lastChild) {
+                this.resultBlock.lastChild.remove();
+            }
+        }
+        this.autoCompleteBtn.disabled = false;
+        this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
     }
 
     private checkWordsOrder() {
