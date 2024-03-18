@@ -3,6 +3,8 @@ class GameProgressObserver {
 
     private completedLevelsDB: Set<string> = new Set();
 
+    private lastCompletedRound: string[] = [];
+
     constructor() {
         this.loadDataFromLocalStorage();
     }
@@ -48,6 +50,18 @@ class GameProgressObserver {
     public deleteAllData() {
         this.completedLevelsDB.clear();
         this.completedRoundsDB.clear();
+    }
+
+    public saveLastCompletedRound(round: string) {
+        localStorage.setItem('lastCompleted__ULIKE', JSON.stringify([round]));
+    }
+
+    public getLastCompletedRound() {
+        const lastRound = localStorage.getItem('lastCompleted__ULIKE');
+        if (lastRound) {
+            return JSON.parse(lastRound);
+        }
+        return null;
     }
 
     private saveToLocalStorage(instance: Set<string>, savedName: string) {
