@@ -29,7 +29,12 @@ export default class Header {
             appLoader.load();
         });
         if (this.header) {
-            this.header.append(logOutBtn);
+            const headerWrapper = new BaseElement('div', undefined, [
+                'wrapper',
+                'header-wrapper',
+            ]).getElement();
+            headerWrapper.append(logOutBtn);
+            this.header.append(headerWrapper);
         }
     }
 

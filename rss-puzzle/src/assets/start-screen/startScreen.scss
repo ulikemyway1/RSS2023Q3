@@ -17,8 +17,9 @@
 
     &__greeting {
         font-size: 36px;
-        color: #4c7ba1;
+        color: #0d5ca6;
         font-weight: 600;
+        filter: drop-shadow(1px 1px 3px);
     }
 
     &__wrapper {
