@@ -52,7 +52,7 @@
     padding: 0 5px;
     background: #ffffff;
     font-family: 'Space Mono', monospace;
-    font-size: clamp(8px, 2vw, 16px);
+    font-size: clamp(6px, 1.9vw, 13px);
     letter-spacing: -0.7px;
     line-height: 40px;
     border: 1px solid #000000;
@@ -140,6 +140,12 @@
         background: #e2e2e2;
     }
 
+    .game-board__puzzle-line.completed
+        .game-board__puzzle-line-child:hover
+        .puzzle-piece-bg:after {
+        background: #ffffff;
+    }
+
     .game-board__puzzle-line-child:hover .puzzle-piece {
         background: #e2e2e2;
     }
@@ -151,7 +157,7 @@
 
 @keyframes forward {
     0% {
-        top: 210px;
+        top: 150px;
         scale: 0;
         opacity: 0.5;
     }
@@ -165,7 +171,7 @@
 
 @keyframes backward {
     0% {
-        top: -210px;
+        top: -150px;
         scale: 0;
         opacity: 0.5;
     }
@@ -179,7 +185,7 @@
 
 .game-board__check-btn,
 .game-board__autocomplete-btn {
-    min-width: 100px;
+    min-width: 110px;
     padding: 0 10px;
     min-height: 40px;
     background: rgb(227, 126, 25);
