@@ -97,6 +97,7 @@ class GameBoard {
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
         this.roundNumber = roundNumber;
+        this.continueGame();
     }
 
     private async init() {
@@ -212,6 +213,9 @@ class GameBoard {
                 gameProgressObserver.addCompletedRound(
                     `${completedLevel}-${completedRound}`
                 );
+                gameProgressObserver.saveLastCompletedRound(
+                    `${completedLevel}-${completedRound}`
+                );
                 this.roundNumber += 1;
                 if (this.resultBlock) {
                     while (this.resultBlock.lastChild) {
@@ -240,6 +244,8 @@ class GameBoard {
         const data: IwordCollectionData = await response.json();
         this.levelData = data;
         this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+        this.roundDescr.element.textContent = `Difficulty level: ${this.levelNumber}`;
+        this.roundDescr.element.id = `level-${this.levelNumber}`;
     }
 
     public async loadGameBoard() {
@@ -451,6 +457,32 @@ class GameBoard {
             );
         }
         if (parent) parent.append(newLine);
+    }
+
+    private continueGame() {
+        const savedData = gameProgressObserver.getLastCompletedRound();
+
+        if (savedData) {
+            const round = Number(savedData[0].split('-')[1]) + 1;
+            const level = Number(savedData[0].split('-')[0]);
+
+            if (
+                (level === 1 && round > 44) ||
+                (level === 2 && round > 40) ||
+                (level === 3 && round > 39) ||
+                (level === 4 && round > 28) ||
+                (level === 5 && round > 28)
+            ) {
+                this.levelNumber = level + 1;
+                this.roundNumber = 0;
+            } else if (level === 6 && round > 24) {
+                this.levelNumber = 1;
+                this.roundNumber = 0;
+            } else {
+                this.levelNumber = level;
+                this.roundNumber = round;
+            }
+        }
     }
 }
 
