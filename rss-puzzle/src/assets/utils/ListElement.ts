@@ -1,3 +1,4 @@
+import gameProgressObserver from '../levels-board/gameProgress';
 import BaseElement from './BaseElement';
 import ImageElement from './ImageElement';
 
@@ -70,6 +71,27 @@ export default class ListElement {
         );
         li.classList.add(...liClassList);
         li.dataset.index = String(index);
+        li.dataset.level = this.levelNumber;
+        if (this.isCompleted(li)) {
+            li.classList.add('complited');
+        }
         return li;
+    }
+
+    private isCompleted(li: HTMLElement): boolean {
+        const ID = `${li.dataset.level}-${li.dataset.index}`;
+        if (gameProgressObserver.isCompletedRound(ID)) {
+            return true;
+        }
+        return false;
+    }
+
+    static getActualCompletedStatus(li: HTMLElement) {
+        const ID = `${li.dataset.level}-${li.dataset.index}`;
+        if (gameProgressObserver.isCompletedRound(ID)) {
+            li.classList.add('complited');
+        } else {
+            li.classList.remove('complited');
+        }
     }
 }

@@ -4,6 +4,7 @@ import InputElement from '../utils/InputElement';
 import levelDescr from './levelDescr';
 import LevelRoundList from './levelRoundList';
 import './levelsBoard.scss';
+import levelsHashDB from './levelsHashDB';
 import Levels from './levelsSrc';
 
 export default class LevelsBoard {
@@ -37,30 +38,50 @@ export default class LevelsBoard {
                 btn instanceof HTMLElement &&
                 btn.classList.contains('levels-board__level-btn')
             ) {
-                levelSelectButtonsWrapper.childNodes.forEach((btn) => {
-                    if (
-                        btn instanceof HTMLElement &&
-                        btn.classList.contains('levels-board__level-btn')
-                    ) {
-                        btn.classList.remove('selected');
-                    }
-                });
                 if (!btn.classList.contains('selected')) {
-                    btn.classList.add('selected');
-                    const list = await new LevelRoundList(
-                        LevelsBoard.getLevelByButtonID(btn.id),
-                        btn.id
-                    ).getList();
-                    if (list) {
+                    levelSelectButtonsWrapper.childNodes.forEach((btn) => {
                         if (
-                            roundListWrapper.lastElementChild &&
-                            roundListWrapper.lastElementChild.classList.contains(
-                                'levels-board__level-list'
-                            )
+                            btn instanceof HTMLElement &&
+                            btn.classList.contains('levels-board__level-btn')
                         ) {
-                            roundListWrapper.lastElementChild.remove();
+                            btn.classList.remove('selected');
                         }
-                        roundListWrapper.append(list);
+                    });
+                    btn.classList.add('selected');
+
+                    const src = LevelsBoard.getLevelByButtonID(btn.id);
+
+                    if (!levelsHashDB.has(src)) {
+                        const list = await new LevelRoundList(
+                            LevelsBoard.getLevelByButtonID(btn.id),
+                            btn.id
+                        ).getList();
+                        if (list) {
+                            levelsHashDB.set(src, list);
+                            if (
+                                roundListWrapper.lastElementChild &&
+                                roundListWrapper.lastElementChild.classList.contains(
+                                    'levels-board__level-list'
+                                )
+                            ) {
+                                roundListWrapper.lastElementChild.remove();
+                            }
+                            roundListWrapper.append(list);
+                        }
+                    } else {
+                        const list = levelsHashDB.get(src);
+
+                        if (list) {
+                            if (
+                                roundListWrapper.lastElementChild &&
+                                roundListWrapper.lastElementChild.classList.contains(
+                                    'levels-board__level-list'
+                                )
+                            ) {
+                                roundListWrapper.lastElementChild.remove();
+                            }
+                            roundListWrapper.append(list);
+                        }
                     }
                 }
             }
