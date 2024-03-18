@@ -120,7 +120,8 @@ class GameBoard {
         });
 
         this.checkBtn.disabled = true;
-        this.checkBtn.addEventListener('click', () => {
+
+        this.checkBtn.addEventListener('click', async () => {
             if (!this.translateBox.getStatus()) {
                 this.translateBox.isVisible(false);
             } else {
@@ -134,6 +135,7 @@ class GameBoard {
             }
 
             this.autoCompleteBtn.disabled = false;
+
             if (!this.currentSentenceCompletedCorrectly) {
                 this.checkWordsOrder.bind(this)();
             } else {
@@ -141,49 +143,7 @@ class GameBoard {
                 this.checkBtn.disabled = true;
                 removeOrderCorectnessresults();
 
-                let completedRound = this.roundNumber;
-                const completedLevel = this.levelNumber;
-
-                if (this.levelData) {
-                    this.wordNumber += 1;
-                    if (this.wordNumber > 9) {
-                        this.wordNumber = 0;
-                        completedRound = this.roundNumber;
-                        gameProgressObserver.addCompletedRound(
-                            `${completedLevel}-${completedRound}`
-                        );
-                        this.roundNumber += 1;
-                        if (this.resultBlock) {
-                            while (this.resultBlock.lastChild) {
-                                this.resultBlock.lastChild.remove();
-                            }
-                        }
-                    }
-                    if (this.roundNumber > this.levelData.roundsCount) {
-                        gameProgressObserver.addCompletedLevel(
-                            String(completedLevel)
-                        );
-                        this.levelNumber += 1;
-                        this.roundNumber = 0;
-                        if (Number(this.levelNumber) > 6) {
-                            this.levelNumber = 1;
-                        }
-                        this.loadLevel(this.levelNumber);
-                        if (this.resultBlock) {
-                            while (this.resultBlock.lastChild) {
-                                this.resultBlock.lastChild.remove();
-                            }
-                        }
-                    }
-                }
-                if (this.resultBlock && this.resultBlock.lastElementChild)
-                    this.resultBlock.lastElementChild.classList.add(
-                        'completed'
-                    );
-                this.putSentenceInSourceBlock(
-                    this.roundNumber,
-                    this.wordNumber
-                );
+                this.getActualLevelData();
             }
         });
         this.autoCompleteBtn.addEventListener(
@@ -225,6 +185,48 @@ class GameBoard {
         );
     }
 
+    private async getActualLevelData() {
+        let completedRound = this.roundNumber;
+        const completedLevel = this.levelNumber;
+
+        if (this.levelData) {
+            this.wordNumber += 1;
+            if (this.wordNumber > 9) {
+                this.wordNumber = 0;
+                completedRound = this.roundNumber;
+                gameProgressObserver.addCompletedRound(
+                    `${completedLevel}-${completedRound}`
+                );
+                this.roundNumber += 1;
+                if (this.resultBlock) {
+                    while (this.resultBlock.lastChild) {
+                        this.resultBlock.lastChild.remove();
+                    }
+                }
+            }
+            if (this.roundNumber === this.levelData.roundsCount) {
+                gameProgressObserver.addCompletedLevel(String(completedLevel));
+                this.levelNumber += 1;
+                this.roundNumber = 0;
+                if (Number(this.levelNumber) > 6) {
+                    this.levelNumber = 1;
+                }
+                if (this.resultBlock) {
+                    while (this.resultBlock.lastChild) {
+                        this.resultBlock.lastChild.remove();
+                    }
+                }
+            }
+        }
+        this.levelData = null;
+        const response = await fetch(
+            `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel${this.levelNumber}.json`
+        );
+        const data: IwordCollectionData = await response.json();
+        this.levelData = data;
+        this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+    }
+
     public async loadGameBoard() {
         clearBody();
         await this.loadLevel(this.levelNumber);
@@ -243,11 +245,11 @@ class GameBoard {
     }
 
     private async loadLevel(level: gameLevels) {
-        this.levelData = await fetch(
+        const response = await fetch(
             `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel${level}.json`
-        )
-            .then((response) => response.json())
-            .then((data) => data);
+        );
+        const data: IwordCollectionData = await response.json();
+        this.levelData = data;
     }
 
     private putSentenceInSourceBlock(roundNumber: number, wordNumber: number) {
