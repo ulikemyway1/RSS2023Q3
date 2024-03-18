@@ -119,10 +119,14 @@ class GameBoard {
         this.sourceBlock.addEventListener('click', (event) => {
             if (
                 event.target instanceof HTMLElement &&
-                event.target.classList.contains('puzzle-piece') &&
+                (event.target.classList.contains('puzzle-piece') ||
+                    event.target.classList.contains('puzzle-text') ||
+                    event.target.classList.contains('puzzle-piece-bg')) &&
                 this.resultBlock
             ) {
-                movePiece(event.target, this.resultBlock);
+                const puzzle = event.target.closest('.puzzle-piece');
+                if (puzzle instanceof HTMLElement)
+                    movePiece(puzzle, this.resultBlock);
             }
         });
 
@@ -427,11 +431,15 @@ class GameBoard {
             newLine.addEventListener('click', (event) => {
                 if (
                     event.target instanceof HTMLElement &&
-                    event.target.classList.contains('puzzle-piece') &&
+                    (event.target.classList.contains('puzzle-piece') ||
+                        event.target.classList.contains('puzzle-text') ||
+                        event.target.classList.contains('puzzle-piece-bg')) &&
                     this.sourceBlock &&
                     !newLine.classList.contains('completed')
                 ) {
-                    movePiece(event.target, this.sourceBlock);
+                    const puzzle = event.target.closest('.puzzle-piece');
+                    if (puzzle instanceof HTMLElement)
+                        movePiece(puzzle, this.sourceBlock);
                 }
             });
         }
