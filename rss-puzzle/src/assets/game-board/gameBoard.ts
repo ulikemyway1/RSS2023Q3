@@ -244,6 +244,8 @@ class GameBoard {
         const data: IwordCollectionData = await response.json();
         this.levelData = data;
         this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
+        this.roundDescr.element.textContent = `Difficulty level: ${this.levelNumber}`;
+        this.roundDescr.element.id = `level-${this.levelNumber}`;
     }
 
     public async loadGameBoard() {
