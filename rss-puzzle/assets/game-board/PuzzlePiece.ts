@@ -4,8 +4,12 @@ export default class PuzzlePiece extends BaseElement {
     #order: number;
 
     constructor(innerText: string, order: number) {
-        super('div', undefined, ['puzzle-piece'], innerText);
+        super('div', undefined, ['puzzle-piece']);
         this.#order = order;
+        const textBlock = document.createElement('span');
+        textBlock.classList.add('puzzle-text');
+        textBlock.textContent = innerText;
+        this.element.append(textBlock);
     }
 
     public getOrder() {

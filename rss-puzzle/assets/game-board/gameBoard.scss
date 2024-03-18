@@ -2,30 +2,33 @@
 @import url('../sass/colorsVar.scss');
 
 .game-board {
-    height: 93vh;
     width: 100%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.3);
     &__result-block,
     &__source-block {
         display: flex;
         width: 100%;
-        padding: 0 30px;
+        padding: 8px 30px;
         height: 250px;
-        border: 1px solid black;
     }
 
     &__result-block {
         flex-direction: column;
-        height: 500px;
+        height: 440px;
     }
 
     &__source-block {
-        height: 50px;
+        height: 58px;
+        background: rgba(27, 27, 27, 0.5);
     }
 
     &__button-wrapper {
-        padding: 10px;
+        padding: 10px 30px;
         display: flex;
+        width: 100%;
         justify-content: space-between;
+        background: rgba(255, 255, 255, 0.3);
     }
 
     &__puzzle-line {
@@ -37,31 +40,22 @@
             width: fit-content;
             height: 42px;
             min-width: 39px;
-            border: 1px dashed #969696;
             transition: width 0.4s;
-            &:hover .puzzle-piece {
-                background: #e2e2e2;
-            }
         }
     }
 }
 
-.game-board__puzzle-line.completed:hover .puzzle-piece {
-    cursor: auto;
-    background: #ffffff;
-}
 .puzzle-piece {
     width: 100%;
     position: relative;
     display: inline-block;
     padding: 0 5px;
-    padding-left: clamp(1.125rem, 1.054rem + 0.36vw, 1.375rem);
-    border: 1px solid rgb(87, 62, 232);
     background: #ffffff;
     font-family: 'Space Mono', monospace;
     font-size: clamp(8px, 2vw, 16px);
     letter-spacing: -0.7px;
     line-height: 40px;
+    border: 1px solid #000000;
     cursor: pointer;
     transition:
         top 0.6s,
@@ -70,6 +64,13 @@
     animation-name: show;
     animation-duration: 0.6s;
     user-select: none;
+}
+
+.puzzle-text {
+    display: block;
+    position: relative;
+    text-indent: 12px;
+    z-index: 1000;
 }
 
 .puzzle-piece:after {
@@ -87,33 +88,33 @@
     content: '';
     display: block;
     position: absolute;
-    height: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
-    width: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
-    left: -1px;
+    height: 12px;
+    width: 16px;
+    left: -3.5px;
     border-radius: 100%;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     background: #e2e2e2;
     bottom: 50%;
     transform: translateY(50%) rotate(270deg);
-    border: 1px dotted #5d5d5d;
+    border: 1px solid #5d5d5d;
     border-top: none;
 }
 .puzzle-piece-bg::after {
     content: '';
     display: block;
     position: absolute;
-    height: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
-    width: clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem);
+    height: 16px;
+    width: 16px;
     border-radius: 100%;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
     background: #ffffff;
     bottom: 50%;
-    right: calc(-1 * clamp(0.813rem, 0.688rem + 0.63vw, 1.25rem));
+    right: -17px;
     transform: translateY(50%) rotate(270deg);
     z-index: 100;
-    border: 1px dotted #5d5d5d;
+    border: 1px solid #5d5d5d;
     border-top: none;
 }
 
@@ -137,6 +138,14 @@
     .puzzle-piece-bg:hover::after,
     .game-board__puzzle-line-child:hover .puzzle-piece-bg:after {
         background: #e2e2e2;
+    }
+
+    .game-board__puzzle-line-child:hover .puzzle-piece {
+        background: #e2e2e2;
+    }
+    .game-board__puzzle-line.completed:hover .puzzle-piece {
+        cursor: auto;
+        background: #ffffff;
     }
 }
 

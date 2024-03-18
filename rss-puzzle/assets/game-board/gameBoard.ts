@@ -9,10 +9,7 @@ import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
-import {
-    completedLevelsDB,
-    completedRoundsDB,
-} from '../levels-board/gameProgress';
+import gameProgressObserver from '../levels-board/gameProgress';
 
 type gameLevels = number;
 
@@ -45,6 +42,17 @@ export interface IwordCollectionData {
 }
 
 class GameBoard {
+    controlPanel: HTMLElement | null = null;
+
+    gameBoardWrapper = new BaseElement('div', undefined, [
+        'wrapper',
+        'game-board',
+    ]).getElement();
+
+    gameBoard = new BaseElement('section', undefined, [
+        'game-board',
+    ]).getElement();
+
     sourceBlock: HTMLElement | null = null;
 
     resultBlock: HTMLElement | null = null;
@@ -100,10 +108,6 @@ class GameBoard {
 
         this.translateBox = new TranslateBox();
 
-        const gameBoard = new BaseElement('section', undefined, [
-            'game-board',
-        ]).getElement();
-
         this.sourceBlock = new BaseElement('div', undefined, [
             'game-board__source-block',
         ]).getElement();
@@ -115,15 +119,20 @@ class GameBoard {
         this.sourceBlock.addEventListener('click', (event) => {
             if (
                 event.target instanceof HTMLElement &&
-                event.target.classList.contains('puzzle-piece') &&
+                (event.target.classList.contains('puzzle-piece') ||
+                    event.target.classList.contains('puzzle-text') ||
+                    event.target.classList.contains('puzzle-piece-bg')) &&
                 this.resultBlock
             ) {
-                movePiece(event.target, this.resultBlock);
+                const puzzle = event.target.closest('.puzzle-piece');
+                if (puzzle instanceof HTMLElement)
+                    movePiece(puzzle, this.resultBlock);
             }
         });
 
         this.checkBtn.disabled = true;
-        this.checkBtn.addEventListener('click', () => {
+
+        this.checkBtn.addEventListener('click', async () => {
             if (!this.translateBox.getStatus()) {
                 this.translateBox.isVisible(false);
             } else {
@@ -137,6 +146,7 @@ class GameBoard {
             }
 
             this.autoCompleteBtn.disabled = false;
+
             if (!this.currentSentenceCompletedCorrectly) {
                 this.checkWordsOrder.bind(this)();
             } else {
@@ -144,47 +154,7 @@ class GameBoard {
                 this.checkBtn.disabled = true;
                 removeOrderCorectnessresults();
 
-                let completedRound = this.roundNumber;
-                const completedLevel = this.levelNumber;
-
-                if (this.levelData) {
-                    this.wordNumber += 1;
-                    if (this.wordNumber > 9) {
-                        this.wordNumber = 0;
-                        completedRound = this.roundNumber;
-                        completedRoundsDB.add(
-                            `${completedLevel}-${completedRound}`
-                        );
-                        this.roundNumber += 1;
-                        if (this.resultBlock) {
-                            while (this.resultBlock.lastChild) {
-                                this.resultBlock.lastChild.remove();
-                            }
-                        }
-                    }
-                    if (this.roundNumber > this.levelData.roundsCount) {
-                        completedLevelsDB.add(String(completedLevel));
-                        this.levelNumber += 1;
-                        this.roundNumber = 0;
-                        if (Number(this.levelNumber) > 6) {
-                            this.levelNumber = 1;
-                        }
-                        this.loadLevel(this.levelNumber);
-                        if (this.resultBlock) {
-                            while (this.resultBlock.lastChild) {
-                                this.resultBlock.lastChild.remove();
-                            }
-                        }
-                    }
-                }
-                if (this.resultBlock && this.resultBlock.lastElementChild)
-                    this.resultBlock.lastElementChild.classList.add(
-                        'completed'
-                    );
-                this.putSentenceInSourceBlock(
-                    this.roundNumber,
-                    this.wordNumber
-                );
+                this.getActualLevelData();
             }
         });
         this.autoCompleteBtn.addEventListener(
@@ -204,6 +174,10 @@ class GameBoard {
                 );
             this.audioHintBtn.classList.add('speaking');
         });
+        const gameBoardFooterWrapper = new BaseElement('div', undefined, [
+            'wrapper',
+        ]).getElement();
+        gameBoardFooterWrapper.append(btnWrapper);
 
         btnWrapper.append(
             this.checkBtn,
@@ -211,19 +185,61 @@ class GameBoard {
             this.autoCompleteBtn
         );
 
-        gameBoard.append(
+        this.gameBoardWrapper.append(
             this.roundDescr.getElement(),
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
             btnWrapper
         );
-
+        this.controlPanel = new ControlPanel().getElement();
         document.body.append(
-            new ControlPanel().getElement(),
+            this.controlPanel,
             this.audioHint.getElement(),
-            gameBoard
+            this.gameBoardWrapper
         );
+    }
+
+    private async getActualLevelData() {
+        let completedRound = this.roundNumber;
+        const completedLevel = this.levelNumber;
+
+        if (this.levelData) {
+            this.wordNumber += 1;
+            if (this.wordNumber > 9) {
+                this.wordNumber = 0;
+                completedRound = this.roundNumber;
+                gameProgressObserver.addCompletedRound(
+                    `${completedLevel}-${completedRound}`
+                );
+                this.roundNumber += 1;
+                if (this.resultBlock) {
+                    while (this.resultBlock.lastChild) {
+                        this.resultBlock.lastChild.remove();
+                    }
+                }
+            }
+            if (this.roundNumber === this.levelData.roundsCount) {
+                gameProgressObserver.addCompletedLevel(String(completedLevel));
+                this.levelNumber += 1;
+                this.roundNumber = 0;
+                if (Number(this.levelNumber) > 6) {
+                    this.levelNumber = 1;
+                }
+                if (this.resultBlock) {
+                    while (this.resultBlock.lastChild) {
+                        this.resultBlock.lastChild.remove();
+                    }
+                }
+            }
+        }
+        this.levelData = null;
+        const response = await fetch(
+            `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel${this.levelNumber}.json`
+        );
+        const data: IwordCollectionData = await response.json();
+        this.levelData = data;
+        this.putSentenceInSourceBlock(this.roundNumber, this.wordNumber);
     }
 
     public async loadGameBoard() {
@@ -244,11 +260,11 @@ class GameBoard {
     }
 
     private async loadLevel(level: gameLevels) {
-        this.levelData = await fetch(
+        const response = await fetch(
             `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel${level}.json`
-        )
-            .then((response) => response.json())
-            .then((data) => data);
+        );
+        const data: IwordCollectionData = await response.json();
+        this.levelData = data;
     }
 
     private putSentenceInSourceBlock(roundNumber: number, wordNumber: number) {
@@ -415,11 +431,15 @@ class GameBoard {
             newLine.addEventListener('click', (event) => {
                 if (
                     event.target instanceof HTMLElement &&
-                    event.target.classList.contains('puzzle-piece') &&
+                    (event.target.classList.contains('puzzle-piece') ||
+                        event.target.classList.contains('puzzle-text') ||
+                        event.target.classList.contains('puzzle-piece-bg')) &&
                     this.sourceBlock &&
                     !newLine.classList.contains('completed')
                 ) {
-                    movePiece(event.target, this.sourceBlock);
+                    const puzzle = event.target.closest('.puzzle-piece');
+                    if (puzzle instanceof HTMLElement)
+                        movePiece(puzzle, this.sourceBlock);
                 }
             });
         }

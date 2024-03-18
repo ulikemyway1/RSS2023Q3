@@ -116,8 +116,11 @@ export default class ControlPanel {
         ).getElement();
 
         btn.addEventListener('click', () => {
+            this.controlPanel.classList.add('hidden');
+            gameBoard.gameBoardWrapper.classList.add('hidden');
             if (appLoader.getInstance()) {
                 const instance = appLoader.getInstance();
+                document.body.append(instance);
                 instance.classList.remove('hidden');
                 if (
                     instance.lastElementChild &&
@@ -133,6 +136,18 @@ export default class ControlPanel {
                 }
             } else {
                 const instance = new LevelsBoard().getContent();
+                if (
+                    instance.lastElementChild &&
+                    instance.lastElementChild.lastElementChild
+                ) {
+                    instance.lastElementChild.lastElementChild.childNodes.forEach(
+                        (item) => {
+                            if (item instanceof HTMLElement) {
+                                ListElement.getActualCompletedStatus(item);
+                            }
+                        }
+                    );
+                }
                 appLoader.setInstance(instance);
                 document.body.append(instance);
             }
