@@ -8,24 +8,26 @@
     &__source-block {
         display: flex;
         width: 100%;
-        padding: 0 30px;
+        padding: 8px 30px;
         height: 250px;
         border: 1px solid black;
     }
 
     &__result-block {
         flex-direction: column;
-        height: 500px;
+        height: 440px;
     }
 
     &__source-block {
         height: 50px;
+        background: rgba(255, 255, 255, 0.3);
     }
 
     &__button-wrapper {
         padding: 10px;
         display: flex;
         justify-content: space-between;
+        background: rgba(255, 255, 255, 0.3);
     }
 
     &__puzzle-line {

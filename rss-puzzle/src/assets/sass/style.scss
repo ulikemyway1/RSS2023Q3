@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100dvh;
+    min-height: 100dvh;
     background: url('../img/start-screen.jpg');
     background-position: center;
     background-size: cover;

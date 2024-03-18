@@ -119,7 +119,8 @@ export default class LevelsBoard {
                 'button',
                 level.levelID,
                 ['levels-board__level-btn'],
-                `${level.name} \n (${level.difficulty})`
+                `${level.name} \n
+                 (${level.difficulty})`
             ).getElement();
             levelSelectButtonsWrapper.append(levelButton);
         });
@@ -131,9 +132,12 @@ export default class LevelsBoard {
             undefined,
             ['levels-board__close-btn']
         ).getElement();
-        closeBtn.addEventListener('click', () =>
-            this.content.classList.add('hidden')
-        );
+        closeBtn.addEventListener('click', () => {
+            if (gameBoard.controlPanel)
+                gameBoard.controlPanel.classList.remove('hidden');
+            gameBoard.gameBoard.classList.remove('hidden');
+            this.content.classList.add('hidden');
+        });
 
         content.push(
             closeBtn,

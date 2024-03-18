@@ -42,6 +42,12 @@ export interface IwordCollectionData {
 }
 
 class GameBoard {
+    controlPanel: HTMLElement | null = null;
+
+    gameBoard = new BaseElement('section', undefined, [
+        'game-board',
+    ]).getElement();
+
     sourceBlock: HTMLElement | null = null;
 
     resultBlock: HTMLElement | null = null;
@@ -96,10 +102,6 @@ class GameBoard {
         this.currentSentenceCompletedCorrectly = false;
 
         this.translateBox = new TranslateBox();
-
-        const gameBoard = new BaseElement('section', undefined, [
-            'game-board',
-        ]).getElement();
 
         this.sourceBlock = new BaseElement('div', undefined, [
             'game-board__source-block',
@@ -170,18 +172,18 @@ class GameBoard {
             this.autoCompleteBtn
         );
 
-        gameBoard.append(
+        this.gameBoard.append(
             this.roundDescr.getElement(),
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
             btnWrapper
         );
-
+        this.controlPanel = new ControlPanel().getElement();
         document.body.append(
-            new ControlPanel().getElement(),
+            this.controlPanel,
             this.audioHint.getElement(),
-            gameBoard
+            this.gameBoard
         );
     }
 
