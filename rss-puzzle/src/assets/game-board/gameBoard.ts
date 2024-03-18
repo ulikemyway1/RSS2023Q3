@@ -9,10 +9,7 @@ import removeOrderCorectnessresults from './removeOrderCorectnessResults';
 import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
-import {
-    completedLevelsDB,
-    completedRoundsDB,
-} from '../levels-board/gameProgress';
+import gameProgressObserver from '../levels-board/gameProgress';
 
 type gameLevels = number;
 
@@ -152,7 +149,7 @@ class GameBoard {
                     if (this.wordNumber > 9) {
                         this.wordNumber = 0;
                         completedRound = this.roundNumber;
-                        completedRoundsDB.add(
+                        gameProgressObserver.addCompletedRound(
                             `${completedLevel}-${completedRound}`
                         );
                         this.roundNumber += 1;
@@ -163,7 +160,9 @@ class GameBoard {
                         }
                     }
                     if (this.roundNumber > this.levelData.roundsCount) {
-                        completedLevelsDB.add(String(completedLevel));
+                        gameProgressObserver.addCompletedLevel(
+                            String(completedLevel)
+                        );
                         this.levelNumber += 1;
                         this.roundNumber = 0;
                         if (Number(this.levelNumber) > 6) {

@@ -133,6 +133,18 @@ export default class ControlPanel {
                 }
             } else {
                 const instance = new LevelsBoard().getContent();
+                if (
+                    instance.lastElementChild &&
+                    instance.lastElementChild.lastElementChild
+                ) {
+                    instance.lastElementChild.lastElementChild.childNodes.forEach(
+                        (item) => {
+                            if (item instanceof HTMLElement) {
+                                ListElement.getActualCompletedStatus(item);
+                            }
+                        }
+                    );
+                }
                 appLoader.setInstance(instance);
                 document.body.append(instance);
             }

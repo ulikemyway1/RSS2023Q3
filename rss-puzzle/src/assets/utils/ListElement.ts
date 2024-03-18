@@ -1,4 +1,4 @@
-import { completedRoundsDB } from '../levels-board/gameProgress';
+import gameProgressObserver from '../levels-board/gameProgress';
 import BaseElement from './BaseElement';
 import ImageElement from './ImageElement';
 
@@ -80,7 +80,7 @@ export default class ListElement {
 
     private isCompleted(li: HTMLElement): boolean {
         const ID = `${li.dataset.level}-${li.dataset.index}`;
-        if (completedRoundsDB.has(ID)) {
+        if (gameProgressObserver.isCompletedRound(ID)) {
             return true;
         }
         return false;
@@ -88,6 +88,7 @@ export default class ListElement {
 
     static getActualCompletedStatus(li: HTMLElement) {
         const ID = `${li.dataset.level}-${li.dataset.index}`;
-        if (completedRoundsDB.has(ID)) li.classList.add('completed');
+        if (gameProgressObserver.isCompletedRound(ID))
+            li.classList.add('complited');
     }
 }
