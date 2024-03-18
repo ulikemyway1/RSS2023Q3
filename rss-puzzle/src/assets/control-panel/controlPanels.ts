@@ -118,6 +118,7 @@ export default class ControlPanel {
         btn.addEventListener('click', () => {
             if (appLoader.getInstance()) {
                 const instance = appLoader.getInstance();
+                document.body.append(instance);
                 instance.classList.remove('hidden');
                 if (
                     instance.lastElementChild &&

@@ -45,7 +45,10 @@ class GameProgressObserver {
         }
     }
 
-    public deleteAllData() {}
+    public deleteAllData() {
+        this.completedLevelsDB.clear();
+        this.completedRoundsDB.clear();
+    }
 
     private saveToLocalStorage(instance: Set<string>, savedName: string) {
         const data = Array.from(instance);

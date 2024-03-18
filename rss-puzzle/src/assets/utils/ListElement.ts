@@ -88,7 +88,10 @@ export default class ListElement {
 
     static getActualCompletedStatus(li: HTMLElement) {
         const ID = `${li.dataset.level}-${li.dataset.index}`;
-        if (gameProgressObserver.isCompletedRound(ID))
+        if (gameProgressObserver.isCompletedRound(ID)) {
             li.classList.add('complited');
+        } else {
+            li.classList.remove('complited');
+        }
     }
 }
