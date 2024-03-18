@@ -41,6 +41,10 @@ module.exports = {
         'import/no-unresolved': [2, { caseSensitive: false }],
         'no-shadow': 'off',
         'class-methods-use-this': 'off',
+        'import/no-extraneous-dependencies': [
+            'warn',
+            { devDependencies: ['**/*.test.js', '**/*.spec.js'] },
+        ],
     },
     settings: {
         'import/resolver': {
