@@ -479,8 +479,8 @@ class GameBoard {
                 this.levelNumber = level + 1;
                 this.roundNumber = 0;
             } else if (level === 6 && round > 24) {
-                this.levelNumber = level;
-                this.roundNumber = round - 1;
+                this.levelNumber = 1;
+                this.roundNumber = 0;
             } else {
                 this.levelNumber = level;
                 this.roundNumber = round;
