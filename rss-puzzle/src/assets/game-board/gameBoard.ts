@@ -165,6 +165,10 @@ class GameBoard {
                 );
             this.audioHintBtn.classList.add('speaking');
         });
+        const gameBoardFooterWrapper = new BaseElement('div', undefined, [
+            'wrapper',
+        ]).getElement();
+        gameBoardFooterWrapper.append(btnWrapper);
 
         btnWrapper.append(
             this.checkBtn,
@@ -172,13 +176,18 @@ class GameBoard {
             this.autoCompleteBtn
         );
 
-        this.gameBoard.append(
+        const gameBoardWrapper = new BaseElement('div', undefined, [
+            'wrapper',
+        ]).getElement();
+
+        gameBoardWrapper.append(
             this.roundDescr.getElement(),
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
             btnWrapper
         );
+        this.gameBoard.append(gameBoardWrapper);
         this.controlPanel = new ControlPanel().getElement();
         document.body.append(
             this.controlPanel,

@@ -39,3 +39,16 @@ body {
 .hidden {
     display: none;
 }
+
+.wrapper {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1440px;
+}
+
+.wrapper.header-wrapper {
+    width: 100vw;
+    align-items: flex-end;
+}

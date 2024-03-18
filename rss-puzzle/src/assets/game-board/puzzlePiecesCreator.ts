@@ -69,8 +69,13 @@ export default class PuzzlePiecesCreator {
                 100;
             arr.forEach((item) => {
                 const piece = item.getElement();
-                if (piece.textContent)
-                    piece.dataset.parentWidth = `${piece.textContent.length * letterWidth}%`;
+                if (piece.textContent) {
+                    if (piece.textContent.length < 5) {
+                        piece.dataset.parentWidth = `${piece.textContent.length * letterWidth * 1.3}%`;
+                    } else {
+                        piece.dataset.parentWidth = `${piece.textContent.length * letterWidth}%`;
+                    }
+                }
             });
         }
     }

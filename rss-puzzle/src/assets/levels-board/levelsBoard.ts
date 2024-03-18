@@ -107,6 +107,9 @@ export default class LevelsBoard {
                         gameBoard.roundDescr.element.textContent = `Difficulty level: ${levelNumber}`;
                         gameBoard.roundDescr.element.id = `level-${levelNumber}`;
                         this.getContent().classList.add('hidden');
+                        if (gameBoard.controlPanel)
+                            gameBoard.controlPanel.classList.remove('hidden');
+                        gameBoard.gameBoard.classList.remove('hidden');
                     }
                 }
             }
