@@ -109,7 +109,7 @@ export default class LevelsBoard {
                         this.getContent().classList.add('hidden');
                         if (gameBoard.controlPanel)
                             gameBoard.controlPanel.classList.remove('hidden');
-                        gameBoard.gameBoard.classList.remove('hidden');
+                        gameBoard.gameBoardWrapper.classList.remove('hidden');
                     }
                 }
             }
@@ -138,7 +138,7 @@ export default class LevelsBoard {
         closeBtn.addEventListener('click', () => {
             if (gameBoard.controlPanel)
                 gameBoard.controlPanel.classList.remove('hidden');
-            gameBoard.gameBoard.classList.remove('hidden');
+            gameBoard.gameBoardWrapper.classList.remove('hidden');
             this.content.classList.add('hidden');
         });
 
