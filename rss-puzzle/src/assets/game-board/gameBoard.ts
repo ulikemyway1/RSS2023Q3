@@ -213,6 +213,9 @@ class GameBoard {
                 gameProgressObserver.addCompletedRound(
                     `${completedLevel}-${completedRound}`
                 );
+                gameProgressObserver.saveLastCompletedRound(
+                    `${completedLevel}-${completedRound}`
+                );
                 this.roundNumber += 1;
                 if (this.resultBlock) {
                     while (this.resultBlock.lastChild) {
@@ -455,19 +458,11 @@ class GameBoard {
     }
 
     private continueGame() {
-        const savedData = localStorage.getItem('completedRounds__ULIKE');
+        const savedData = gameProgressObserver.getLastCompletedRound();
 
         if (savedData) {
-            const completedRoundsArr: string[] = JSON.parse(savedData);
-            const round =
-                Number(
-                    completedRoundsArr[completedRoundsArr.length - 1].split(
-                        '-'
-                    )[1]
-                ) + 1;
-            const level = Number(
-                completedRoundsArr[completedRoundsArr.length - 1].split('-')[0]
-            );
+            const round = Number(savedData[0].split('-')[1]) + 1;
+            const level = Number(savedData[0].split('-')[0]);
 
             if (
                 (level === 1 && round > 44) ||
