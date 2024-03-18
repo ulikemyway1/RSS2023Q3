@@ -3,6 +3,7 @@
 //     outline: 1px solid red;
 // }
 .levels-board {
+    position: relative;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     height: 93vh;
@@ -44,8 +45,8 @@
 
     &__close-btn {
         position: absolute;
-        right: 40px;
-        top: 60px;
+        right: 30px;
+        top: 20px;
         border: none;
         cursor: pointer;
         width: 30px;
