@@ -117,7 +117,7 @@ export default class ControlPanel {
 
         btn.addEventListener('click', () => {
             this.controlPanel.classList.add('hidden');
-            gameBoard.gameBoard.classList.add('hidden');
+            gameBoard.gameBoardWrapper.classList.add('hidden');
             if (appLoader.getInstance()) {
                 const instance = appLoader.getInstance();
                 document.body.append(instance);

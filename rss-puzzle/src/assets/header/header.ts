@@ -22,10 +22,12 @@ export default class Header {
             undefined,
             ['button', 'logout-btn']
         ).getElement();
+
         logOutBtn.addEventListener('click', () => {
             ControlPanel.saveUserSettings('default');
             deleteUser();
-            while (document.body.lastChild) document.body.lastChild.remove();
+            while (document.body.lastElementChild)
+                document.body.lastElementChild.remove();
             appLoader.load();
         });
         if (this.header) {

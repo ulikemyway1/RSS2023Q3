@@ -44,6 +44,11 @@ export interface IwordCollectionData {
 class GameBoard {
     controlPanel: HTMLElement | null = null;
 
+    gameBoardWrapper = new BaseElement('div', undefined, [
+        'wrapper',
+        'game-board',
+    ]).getElement();
+
     gameBoard = new BaseElement('section', undefined, [
         'game-board',
     ]).getElement();
@@ -176,23 +181,18 @@ class GameBoard {
             this.autoCompleteBtn
         );
 
-        const gameBoardWrapper = new BaseElement('div', undefined, [
-            'wrapper',
-        ]).getElement();
-
-        gameBoardWrapper.append(
+        this.gameBoardWrapper.append(
             this.roundDescr.getElement(),
             this.translateBox.getView(),
             this.resultBlock,
             this.sourceBlock,
             btnWrapper
         );
-        this.gameBoard.append(gameBoardWrapper);
         this.controlPanel = new ControlPanel().getElement();
         document.body.append(
             this.controlPanel,
             this.audioHint.getElement(),
-            this.gameBoard
+            this.gameBoardWrapper
         );
     }
 
