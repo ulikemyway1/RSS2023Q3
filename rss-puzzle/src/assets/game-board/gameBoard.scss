@@ -41,17 +41,10 @@
             height: 42px;
             min-width: 39px;
             transition: width 0.4s;
-            &:hover .puzzle-piece {
-                background: #e2e2e2;
-            }
         }
     }
 }
 
-.game-board__puzzle-line.completed:hover .puzzle-piece {
-    cursor: auto;
-    background: #ffffff;
-}
 .puzzle-piece {
     width: 100%;
     position: relative;
@@ -145,6 +138,14 @@
     .puzzle-piece-bg:hover::after,
     .game-board__puzzle-line-child:hover .puzzle-piece-bg:after {
         background: #e2e2e2;
+    }
+
+    .game-board__puzzle-line-child:hover .puzzle-piece {
+        background: #e2e2e2;
+    }
+    .game-board__puzzle-line.completed:hover .puzzle-piece {
+        cursor: auto;
+        background: #ffffff;
     }
 }
 
