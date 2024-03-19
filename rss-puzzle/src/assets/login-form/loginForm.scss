@@ -1,9 +1,11 @@
 .login-form {
     display: flex;
-    margin: auto auto;
     padding: 40px;
     flex-direction: column;
+    margin: auto;
+    margin-top: 20vh;
     gap: 40px;
+    height: 460px;
     align-items: center;
     border: 1px solid black;
     border-radius: 26px;
