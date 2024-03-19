@@ -103,8 +103,6 @@ class GameBoard {
         'Results'
     ).getElement();
 
-    currentRoundStatistic: HTMLElement | null = null;
-
     statisticBoard = statBoard;
 
     statisticObserver = new StatisticObserver();
@@ -221,9 +219,9 @@ class GameBoard {
         );
 
         this.statisticBtn.addEventListener('click', () => {
-            if (this.currentRoundStatistic) {
-                document.body.append(this.statisticBoard.getContent());
-            }
+            this.gameBoardWrapper.classList.add('hidden');
+            document.body.append(this.statisticBoard.getContent());
+            // document.body.append(this.statisticBoard.getContent());
         });
     }
 
@@ -371,6 +369,7 @@ class GameBoard {
                 this.checkBtn.value = 'Continue';
                 this.currentSentenceCompletedCorrectly = true;
                 this.audioHintBtn.classList.add('active');
+                this.autoCompleteBtn.disabled = true;
                 this.statisticObserver.putUserKnow(
                     this.levelData.rounds[this.roundNumber].words[
                         this.wordNumber
@@ -414,10 +413,11 @@ class GameBoard {
             this.autoCompleteBtn.disabled = true;
         }
         this.audioHintBtn.classList.add('active');
-        if (this.levelData)
+        if (this.levelData) {
             this.statisticObserver.putUserDoesntKnow(
                 this.levelData.rounds[this.roundNumber].words[this.wordNumber]
             );
+        }
     }
 
     public async loadChosenRound(level: number, round: number) {

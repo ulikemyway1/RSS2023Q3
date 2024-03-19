@@ -21,4 +21,11 @@ export default class StatisticObserver {
         this.userDoesntKnow = [];
         this.userKnow = [];
     }
+
+    getStatistic() {
+        return {
+            userKnow: this.userKnow,
+            userDoesntKnow: this.userDoesntKnow,
+        };
+    }
 }
