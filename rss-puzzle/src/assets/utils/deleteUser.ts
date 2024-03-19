@@ -1,5 +1,7 @@
 import gameBoard from '../game-board/gameBoard';
 import gameProgressObserver from '../levels-board/gameProgress';
+import statBoard from '../statistic-board/statisticBoard';
+import statObserver from '../statistic-board/statisticObserver';
 
 export default function deleteUser() {
     localStorage.removeItem('user_ULIKE');
@@ -7,7 +9,8 @@ export default function deleteUser() {
     localStorage.removeItem('completedLevels__ULIKE');
     localStorage.removeItem('lastCompleted__ULIKE');
     gameProgressObserver.deleteAllData();
-    gameBoard.statisticObserver.reset();
+    statObserver.reset();
+    statBoard.clearOldContent();
     gameBoard.levelNumber = 1;
     gameBoard.roundNumber = 0;
     gameBoard.wordNumber = 0;

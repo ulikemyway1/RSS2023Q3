@@ -1,6 +1,6 @@
 import gameBoard, { IWord, IlevelData } from '../game-board/gameBoard';
 
-export default class StatisticObserver {
+class StatisticObserver {
     private userKnow: IWord[] = [];
 
     private userDoesntKnow: IWord[] = [];
@@ -51,3 +51,6 @@ export default class StatisticObserver {
         this.userKnow = userCompleted;
     }
 }
+
+const statObserver = new StatisticObserver();
+export default statObserver;

@@ -1,5 +1,13 @@
 .statistic-btn {
-    padding: 5px;
+    padding: 6px 9px;
+    background: rgb(97, 3, 160);
+    transition: all 0.6s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .statistic-btn:hover {
+        background: rgb(75, 3, 123);
+    }
 }
 
 .statistic-board {
@@ -63,7 +71,11 @@
     }
 
     &__img-descr {
+        margin: 0 auto;
         font-style: italic;
+        width: 80%;
+        max-width: 800px;
+        text-align: center;
     }
 }
 
@@ -77,8 +89,10 @@
 
 .all-unknown {
     color: rgb(205, 8, 8);
+    text-shadow: 1px 1px 1px #000000;
 }
 
 .all-known {
     color: rgb(15, 88, 11);
+    text-shadow: 1px 1px 1px #000000;
 }

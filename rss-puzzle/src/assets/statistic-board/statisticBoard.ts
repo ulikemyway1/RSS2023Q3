@@ -5,29 +5,29 @@ import ImageElement from '../utils/ImageElement';
 import './statisticBoard.scss';
 
 class StatisticBoard {
-    content = new BaseElement('section', undefined, [
+    public content = new BaseElement('section', undefined, [
         'statistic-board',
     ]).getElement();
 
-    title = new BaseElement(
+    private title = new BaseElement(
         'h2',
         undefined,
         ['statistic-board__title'],
         'Your round statistic'
     ).getElement();
 
-    imgWrapper = new BaseElement('div', undefined, [
+    private imgWrapper = new BaseElement('div', undefined, [
         'statistic-board__img-wrapper',
     ]).getElement();
 
-    knownSection = new BaseElement(
+    private knownSection = new BaseElement(
         'div',
         undefined,
         ['statistic-board__known-section'],
         'You know...'
     ).getElement();
 
-    unknownSection = new BaseElement(
+    private unknownSection = new BaseElement(
         'div',
         undefined,
         ['statistic-board__unknown-section'],
@@ -44,11 +44,26 @@ class StatisticBoard {
     }
 
     getContent() {
+        this.clearOldContent();
         this.fillContent();
         return this.content;
     }
 
-    fillContent() {
+    public clearOldContent() {
+        while (this.imgWrapper.lastElementChild) {
+            this.imgWrapper.lastElementChild.remove();
+        }
+
+        while (this.knownSection.lastElementChild) {
+            this.knownSection.lastElementChild.remove();
+        }
+
+        while (this.unknownSection.lastElementChild) {
+            this.unknownSection.lastElementChild.remove();
+        }
+    }
+
+    private fillContent() {
         const { userKnow, userDoesntKnow, imgInfo } =
             gameBoard.statisticObserver.getStatistic();
 
@@ -70,7 +85,7 @@ class StatisticBoard {
                 'p',
                 undefined,
                 ['statistic-board__text-info', 'all-known'],
-                'Wow! You haveput all the sentences together correctly.'
+                'Wow! You have put all the sentences together correctly.'
             ).getElement();
             this.unknownSection.append(info);
         } else {

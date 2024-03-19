@@ -10,8 +10,8 @@ import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
 import gameProgressObserver from '../levels-board/gameProgress';
-import StatisticObserver from '../statistic-board/statisticObserver';
 import statBoard from '../statistic-board/statisticBoard';
+import statObserver from '../statistic-board/statisticObserver';
 
 type gameLevels = number;
 
@@ -105,7 +105,7 @@ class GameBoard {
 
     statisticBoard = statBoard;
 
-    statisticObserver = new StatisticObserver();
+    statisticObserver = statObserver;
 
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
@@ -220,8 +220,8 @@ class GameBoard {
 
         this.statisticBtn.addEventListener('click', () => {
             this.gameBoardWrapper.classList.add('hidden');
+            this.statisticBoard.content.classList.remove('hidden');
             document.body.append(this.statisticBoard.getContent());
-            // document.body.append(this.statisticBoard.getContent());
         });
     }
 
@@ -258,8 +258,8 @@ class GameBoard {
                     this.levelNumber = 1;
                 }
                 if (this.resultBlock) {
-                    while (this.resultBlock.lastChild) {
-                        this.resultBlock.lastChild.remove();
+                    while (this.resultBlock.lastElementChild) {
+                        this.resultBlock.lastElementChild.remove();
                     }
                 }
             }
@@ -333,7 +333,14 @@ class GameBoard {
                 }
             }
             this.currentPieces = [...puzzlePieces];
-            if (this.resultBlock)
+            if (
+                (this.resultBlock &&
+                    this.resultBlock.lastElementChild &&
+                    this.resultBlock.lastElementChild.classList.contains(
+                        'completed'
+                    )) ||
+                (this.resultBlock && this.resultBlock.childElementCount === 0)
+            )
                 this.createNewLine(puzzlePieces.length, this.resultBlock);
         }
     }
