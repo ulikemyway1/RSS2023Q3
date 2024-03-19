@@ -11,6 +11,7 @@ import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
 import gameProgressObserver from '../levels-board/gameProgress';
 import StatisticObserver from '../statistic-board/statisticObserver';
+import statBoard from '../statistic-board/statisticBoard';
 
 type gameLevels = number;
 
@@ -103,6 +104,8 @@ class GameBoard {
     ).getElement();
 
     currentRoundStatistic: HTMLElement | null = null;
+
+    statisticBoard = statBoard;
 
     statisticObserver = new StatisticObserver();
 
@@ -219,7 +222,7 @@ class GameBoard {
 
         this.statisticBtn.addEventListener('click', () => {
             if (this.currentRoundStatistic) {
-                document.body.append(this.currentRoundStatistic);
+                document.body.append(this.statisticBoard.getContent());
             }
         });
     }

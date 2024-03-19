@@ -1,7 +1,7 @@
 import BaseElement from '../utils/BaseElement';
 import './statisticBoard.scss';
 
-export default class StatisticBoard {
+class StatisticBoard {
     content = new BaseElement('section', undefined, [
         'statistic-board',
     ]).getElement();
@@ -10,3 +10,6 @@ export default class StatisticBoard {
         return this.content;
     }
 }
+
+const statBoard = new StatisticBoard();
+export default statBoard;
