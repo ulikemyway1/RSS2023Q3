@@ -370,6 +370,7 @@ class GameBoard {
                 this.currentSentenceCompletedCorrectly = true;
                 this.audioHintBtn.classList.add('active');
                 this.autoCompleteBtn.disabled = true;
+                this.resultBlock.lastElementChild.classList.add('completed');
                 this.statisticObserver.putUserKnow(
                     this.levelData.rounds[this.roundNumber].words[
                         this.wordNumber
@@ -384,7 +385,6 @@ class GameBoard {
                 this.currentSentenceCompletedCorrectly = false;
                 this.checkBtn.value = 'Check';
                 this.statisticBtn.classList.add('hidden');
-                this.statisticObserver.popUeserKnow();
                 if (!this.translateBox.getStatus()) {
                     this.translateBox.isVisible(false);
                 } else {

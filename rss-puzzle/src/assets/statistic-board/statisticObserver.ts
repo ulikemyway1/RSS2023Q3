@@ -23,9 +23,20 @@ export default class StatisticObserver {
     }
 
     getStatistic() {
+        this.filter();
         return {
             userKnow: this.userKnow,
             userDoesntKnow: this.userDoesntKnow,
         };
+    }
+
+    private filter() {
+        const userCompleted = this.userKnow.filter((item) => {
+            if (this.userDoesntKnow.indexOf(item) !== -1) {
+                return null;
+            }
+            return item;
+        });
+        this.userKnow = userCompleted;
     }
 }
