@@ -1,4 +1,5 @@
 import gameBoard from '../game-board/gameBoard';
+import statBoard from '../statistic-board/statisticBoard';
 import BaseElement from '../utils/BaseElement';
 import InputElement from '../utils/InputElement';
 import levelDescr from './levelDescr';
@@ -110,6 +111,9 @@ export default class LevelsBoard {
                         if (gameBoard.controlPanel)
                             gameBoard.controlPanel.classList.remove('hidden');
                         gameBoard.gameBoardWrapper.classList.remove('hidden');
+                        gameBoard.statisticObserver.reset();
+                        statBoard.clearOldContent();
+                        gameBoard.statisticBtn.classList.add('hidden');
                     }
                 }
             }

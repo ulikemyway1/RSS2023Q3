@@ -15,4 +15,5 @@ export default function clearBody() {
         if (currentElement && currentElement.nextSibling)
             currentElement = currentElement.nextSibling;
     }
+    if (gameBoard.resultBlock) gameBoard.resultBlock.innerHTML = '';
 }

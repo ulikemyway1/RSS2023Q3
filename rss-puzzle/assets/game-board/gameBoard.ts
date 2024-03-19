@@ -10,10 +10,12 @@ import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
 import gameProgressObserver from '../levels-board/gameProgress';
+import statBoard from '../statistic-board/statisticBoard';
+import statObserver from '../statistic-board/statisticObserver';
 
 type gameLevels = number;
 
-interface IWord {
+export interface IWord {
     audioExample: string;
     id: number;
     textExample: string;
@@ -24,7 +26,7 @@ interface IWord {
 
 interface IWords extends Array<IWord> {}
 
-interface IlevelData {
+export interface IlevelData {
     id: string;
     name: string;
     imageSrc: string;
@@ -93,6 +95,17 @@ class GameBoard {
     private currentSentenceCompletedCorrectly: boolean = false;
 
     translateBox = new TranslateBox();
+
+    statisticBtn = new BaseElement(
+        'button',
+        undefined,
+        ['statistic-btn', 'button', 'hidden'],
+        'Results'
+    ).getElement();
+
+    statisticBoard = statBoard;
+
+    statisticObserver = statObserver;
 
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
@@ -180,8 +193,13 @@ class GameBoard {
         ]).getElement();
         gameBoardFooterWrapper.append(btnWrapper);
 
+        const gameBoardInnerWrapper = new BaseElement('div', undefined, [
+            'inner-wrapper',
+        ]).getElement();
+        gameBoardInnerWrapper.append(this.checkBtn, this.statisticBtn);
+
         btnWrapper.append(
-            this.checkBtn,
+            gameBoardInnerWrapper,
             this.audioHintBtn,
             this.autoCompleteBtn
         );
@@ -199,6 +217,12 @@ class GameBoard {
             this.audioHint.getElement(),
             this.gameBoardWrapper
         );
+
+        this.statisticBtn.addEventListener('click', () => {
+            this.gameBoardWrapper.classList.add('hidden');
+            this.statisticBoard.content.classList.remove('hidden');
+            document.body.append(this.statisticBoard.getContent());
+        });
     }
 
     private async getActualLevelData() {
@@ -222,17 +246,20 @@ class GameBoard {
                         this.resultBlock.lastChild.remove();
                     }
                 }
+                this.statisticBtn.classList.add('hidden');
+                this.statisticObserver.reset();
             }
             if (this.roundNumber === this.levelData.roundsCount) {
                 gameProgressObserver.addCompletedLevel(String(completedLevel));
                 this.levelNumber += 1;
                 this.roundNumber = 0;
+                this.statisticObserver.reset();
                 if (Number(this.levelNumber) > 6) {
                     this.levelNumber = 1;
                 }
                 if (this.resultBlock) {
-                    while (this.resultBlock.lastChild) {
-                        this.resultBlock.lastChild.remove();
+                    while (this.resultBlock.lastElementChild) {
+                        this.resultBlock.lastElementChild.remove();
                     }
                 }
             }
@@ -306,7 +333,14 @@ class GameBoard {
                 }
             }
             this.currentPieces = [...puzzlePieces];
-            if (this.resultBlock)
+            if (
+                (this.resultBlock &&
+                    this.resultBlock.lastElementChild &&
+                    this.resultBlock.lastElementChild.classList.contains(
+                        'completed'
+                    )) ||
+                (this.resultBlock && this.resultBlock.childElementCount === 0)
+            )
                 this.createNewLine(puzzlePieces.length, this.resultBlock);
         }
     }
@@ -344,11 +378,22 @@ class GameBoard {
                 this.checkBtn.value = 'Continue';
                 this.currentSentenceCompletedCorrectly = true;
                 this.audioHintBtn.classList.add('active');
+                this.autoCompleteBtn.disabled = true;
+                this.resultBlock.lastElementChild.classList.add('completed');
+                this.statisticObserver.putUserKnow(
+                    this.levelData.rounds[this.roundNumber].words[
+                        this.wordNumber
+                    ]
+                );
                 if (!this.translateBox.getStatus())
                     this.translateBox.isVisible(true);
+                if (this.wordNumber === 9) {
+                    this.statisticBtn.classList.remove('hidden');
+                }
             } else {
                 this.currentSentenceCompletedCorrectly = false;
                 this.checkBtn.value = 'Check';
+                this.statisticBtn.classList.add('hidden');
                 if (!this.translateBox.getStatus()) {
                     this.translateBox.isVisible(false);
                 } else {
@@ -377,6 +422,11 @@ class GameBoard {
             this.autoCompleteBtn.disabled = true;
         }
         this.audioHintBtn.classList.add('active');
+        if (this.levelData) {
+            this.statisticObserver.putUserDoesntKnow(
+                this.levelData.rounds[this.roundNumber].words[this.wordNumber]
+            );
+        }
     }
 
     public async loadChosenRound(level: number, round: number) {

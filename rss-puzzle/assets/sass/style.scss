@@ -3,18 +3,19 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html {
+    min-height: 100dvh;
+}
 body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100dvh;
+    min-height: 100%;
     background: url('../img/start-screen.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     background-blend-mode: multiply;
-    min-height: 640px;
 }
 
 .logout-btn {
@@ -55,4 +56,9 @@ body {
 
 .wrapper.hidden {
     display: none;
+}
+
+.inner-wrapper {
+    display: flex;
+    gap: 20px;
 }
