@@ -28,6 +28,7 @@
         margin: 0 auto;
         padding: 5px 8px;
         width: 90%;
+        max-width: 1000px;
         text-align-last: left;
         font-size: 18px;
         border-radius: 8px;
@@ -61,4 +62,12 @@
 
 .known-card {
     border: 2px solid rgb(8, 112, 1);
+}
+
+.all-unknown {
+    color: rgb(205, 8, 8);
+}
+
+.all-known {
+    color: rgb(15, 88, 11);
 }

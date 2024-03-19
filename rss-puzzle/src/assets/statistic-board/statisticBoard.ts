@@ -50,16 +50,35 @@ class StatisticBoard {
     fillContent() {
         const { userKnow, userDoesntKnow } =
             gameBoard.statisticObserver.getStatistic();
+        if (userDoesntKnow.length === 0) {
+            const info = new BaseElement(
+                'p',
+                undefined,
+                ['statistic-board__text-info', 'all-known'],
+                'Wow! You haveput all the sentences together correctly.'
+            ).getElement();
+            this.unknownSection.append(info);
+        } else {
+            userDoesntKnow.forEach((obj) => {
+                const card = this.createCard(obj, 'unknown');
+                this.unknownSection.append(card);
+            });
+        }
 
-        userDoesntKnow.forEach((obj) => {
-            const card = this.createCard(obj, 'unknown');
-            this.unknownSection.append(card);
-        });
-
-        userKnow.forEach((obj) => {
-            const card = this.createCard(obj, 'known');
-            this.knownSection.append(card);
-        });
+        if (userKnow.length === 0) {
+            const info = new BaseElement(
+                'p',
+                undefined,
+                ['statistic-board__text-info', 'all-unknown'],
+                'Oops! You have put all the sentences together incorrectly.'
+            ).getElement();
+            this.knownSection.append(info);
+        } else {
+            userKnow.forEach((obj) => {
+                const card = this.createCard(obj, 'known');
+                this.knownSection.append(card);
+            });
+        }
     }
 
     private createCard(obj: IWord, type: 'known' | 'unknown') {
