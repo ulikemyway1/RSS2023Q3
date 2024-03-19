@@ -22,7 +22,7 @@ export default class StatisticObserver {
         this.userKnow = [];
     }
 
-    getStatistic() {
+    public getStatistic() {
         this.filter();
         return {
             userKnow: this.userKnow,

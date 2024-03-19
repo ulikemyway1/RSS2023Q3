@@ -247,11 +247,13 @@ class GameBoard {
                     }
                 }
                 this.statisticBtn.classList.add('hidden');
+                this.statisticObserver.reset();
             }
             if (this.roundNumber === this.levelData.roundsCount) {
                 gameProgressObserver.addCompletedLevel(String(completedLevel));
                 this.levelNumber += 1;
                 this.roundNumber = 0;
+                this.statisticObserver.reset();
                 if (Number(this.levelNumber) > 6) {
                     this.levelNumber = 1;
                 }
