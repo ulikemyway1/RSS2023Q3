@@ -56,3 +56,8 @@ body {
 .wrapper.hidden {
     display: none;
 }
+
+.inner-wrapper {
+    display: flex;
+    gap: 20px;
+}
