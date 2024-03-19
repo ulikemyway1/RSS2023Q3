@@ -1,6 +1,7 @@
 import gameBoard, { IWord } from '../game-board/gameBoard';
 import SentencePronunciation from '../game-features/sentencePronunciation';
 import BaseElement from '../utils/BaseElement';
+import ImageElement from '../utils/ImageElement';
 import './statisticBoard.scss';
 
 class StatisticBoard {
@@ -48,8 +49,22 @@ class StatisticBoard {
     }
 
     fillContent() {
-        const { userKnow, userDoesntKnow } =
+        const { userKnow, userDoesntKnow, imgInfo } =
             gameBoard.statisticObserver.getStatistic();
+
+        const img = new ImageElement(
+            `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${imgInfo[0].cutSrc}`,
+            ['statistic-board__img'],
+            'Image'
+        ).getElement();
+        const imgDescr = new BaseElement(
+            'p',
+            undefined,
+            ['statistic-board__img-descr'],
+            `${imgInfo[0].name} by ${imgInfo[0].author} (${imgInfo[0].year})`
+        ).getElement();
+        this.imgWrapper.append(img, imgDescr);
+
         if (userDoesntKnow.length === 0) {
             const info = new BaseElement(
                 'p',

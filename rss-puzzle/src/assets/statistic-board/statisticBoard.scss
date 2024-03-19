@@ -54,6 +54,17 @@
         align-self: center;
         justify-self: flex-end;
     }
+
+    &__img {
+        width: 80%;
+        max-width: 800px;
+        height: auto;
+        border: 5px solid #ffffff;
+    }
+
+    &__img-descr {
+        font-style: italic;
+    }
 }
 
 .unknown-card {

@@ -26,7 +26,7 @@ export interface IWord {
 
 interface IWords extends Array<IWord> {}
 
-interface IlevelData {
+export interface IlevelData {
     id: string;
     name: string;
     imageSrc: string;
