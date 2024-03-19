@@ -1,32 +1,33 @@
 import gameBoard, { IWord } from '../game-board/gameBoard';
 import SentencePronunciation from '../game-features/sentencePronunciation';
 import BaseElement from '../utils/BaseElement';
+import ImageElement from '../utils/ImageElement';
 import './statisticBoard.scss';
 
 class StatisticBoard {
-    content = new BaseElement('section', undefined, [
+    public content = new BaseElement('section', undefined, [
         'statistic-board',
     ]).getElement();
 
-    title = new BaseElement(
+    private title = new BaseElement(
         'h2',
         undefined,
         ['statistic-board__title'],
         'Your round statistic'
     ).getElement();
 
-    imgWrapper = new BaseElement('div', undefined, [
+    private imgWrapper = new BaseElement('div', undefined, [
         'statistic-board__img-wrapper',
     ]).getElement();
 
-    knownSection = new BaseElement(
+    private knownSection = new BaseElement(
         'div',
         undefined,
         ['statistic-board__known-section'],
         'You know...'
     ).getElement();
 
-    unknownSection = new BaseElement(
+    private unknownSection = new BaseElement(
         'div',
         undefined,
         ['statistic-board__unknown-section'],
@@ -43,19 +44,48 @@ class StatisticBoard {
     }
 
     getContent() {
+        this.clearOldContent();
         this.fillContent();
         return this.content;
     }
 
-    fillContent() {
-        const { userKnow, userDoesntKnow } =
+    public clearOldContent() {
+        while (this.imgWrapper.lastElementChild) {
+            this.imgWrapper.lastElementChild.remove();
+        }
+
+        while (this.knownSection.lastElementChild) {
+            this.knownSection.lastElementChild.remove();
+        }
+
+        while (this.unknownSection.lastElementChild) {
+            this.unknownSection.lastElementChild.remove();
+        }
+    }
+
+    private fillContent() {
+        const { userKnow, userDoesntKnow, imgInfo } =
             gameBoard.statisticObserver.getStatistic();
+
+        const img = new ImageElement(
+            `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${imgInfo[0].cutSrc}`,
+            ['statistic-board__img'],
+            'Image'
+        ).getElement();
+        const imgDescr = new BaseElement(
+            'p',
+            undefined,
+            ['statistic-board__img-descr'],
+            `${imgInfo[0].name} by ${imgInfo[0].author} (${imgInfo[0].year})`
+        ).getElement();
+        this.imgWrapper.append(img, imgDescr);
+
         if (userDoesntKnow.length === 0) {
             const info = new BaseElement(
                 'p',
                 undefined,
                 ['statistic-board__text-info', 'all-known'],
-                'Wow! You haveput all the sentences together correctly.'
+                'Wow! You have put all the sentences together correctly.'
             ).getElement();
             this.unknownSection.append(info);
         } else {

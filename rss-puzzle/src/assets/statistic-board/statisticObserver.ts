@@ -1,9 +1,11 @@
-import { IWord } from '../game-board/gameBoard';
+import gameBoard, { IWord, IlevelData } from '../game-board/gameBoard';
 
-export default class StatisticObserver {
+class StatisticObserver {
     private userKnow: IWord[] = [];
 
     private userDoesntKnow: IWord[] = [];
+
+    private imgInfo: IlevelData[] = [];
 
     public putUserKnow(obj: IWord) {
         this.userKnow.push(obj);
@@ -22,11 +24,20 @@ export default class StatisticObserver {
         this.userKnow = [];
     }
 
+    private putImgInfo() {
+        if (gameBoard.levelData)
+            this.imgInfo = [
+                gameBoard.levelData.rounds[gameBoard.roundNumber].levelData,
+            ];
+    }
+
     public getStatistic() {
         this.filter();
+        this.putImgInfo();
         return {
             userKnow: this.userKnow,
             userDoesntKnow: this.userDoesntKnow,
+            imgInfo: this.imgInfo,
         };
     }
 
@@ -40,3 +51,6 @@ export default class StatisticObserver {
         this.userKnow = userCompleted;
     }
 }
+
+const statObserver = new StatisticObserver();
+export default statObserver;
