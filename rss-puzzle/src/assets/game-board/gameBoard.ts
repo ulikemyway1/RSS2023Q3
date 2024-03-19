@@ -10,6 +10,7 @@ import TranslateBox from '../game-features/translateBox';
 import ControlPanel from '../control-panel/controlPanels';
 import SentencePronunciation from '../game-features/sentencePronunciation';
 import gameProgressObserver from '../levels-board/gameProgress';
+import StatisticObserver from '../statistic-board/statisticObserver';
 
 type gameLevels = number;
 
@@ -93,6 +94,17 @@ class GameBoard {
     private currentSentenceCompletedCorrectly: boolean = false;
 
     translateBox = new TranslateBox();
+
+    statisticBtn = new BaseElement(
+        'button',
+        undefined,
+        ['statistic-btn', 'button', 'hidden'],
+        'Results'
+    ).getElement();
+
+    currentRoundStatistic: HTMLElement | null = null;
+
+    statisticObserver = new StatisticObserver();
 
     constructor(levelNumber: gameLevels, roundNumber: number) {
         this.levelNumber = levelNumber;
@@ -180,8 +192,13 @@ class GameBoard {
         ]).getElement();
         gameBoardFooterWrapper.append(btnWrapper);
 
+        const gameBoardInnerWrapper = new BaseElement('div', undefined, [
+            'inner-wrapper',
+        ]).getElement();
+        gameBoardInnerWrapper.append(this.checkBtn, this.statisticBtn);
+
         btnWrapper.append(
-            this.checkBtn,
+            gameBoardInnerWrapper,
             this.audioHintBtn,
             this.autoCompleteBtn
         );
@@ -199,6 +216,12 @@ class GameBoard {
             this.audioHint.getElement(),
             this.gameBoardWrapper
         );
+
+        this.statisticBtn.addEventListener('click', () => {
+            if (this.currentRoundStatistic) {
+                document.body.append(this.currentRoundStatistic);
+            }
+        });
     }
 
     private async getActualLevelData() {
@@ -222,6 +245,7 @@ class GameBoard {
                         this.resultBlock.lastChild.remove();
                     }
                 }
+                this.statisticBtn.classList.add('hidden');
             }
             if (this.roundNumber === this.levelData.roundsCount) {
                 gameProgressObserver.addCompletedLevel(String(completedLevel));
@@ -346,9 +370,13 @@ class GameBoard {
                 this.audioHintBtn.classList.add('active');
                 if (!this.translateBox.getStatus())
                     this.translateBox.isVisible(true);
+                if (this.wordNumber === 9) {
+                    this.statisticBtn.classList.remove('hidden');
+                }
             } else {
                 this.currentSentenceCompletedCorrectly = false;
                 this.checkBtn.value = 'Check';
+                this.statisticBtn.classList.add('hidden');
                 if (!this.translateBox.getStatus()) {
                     this.translateBox.isVisible(false);
                 } else {
