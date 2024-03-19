@@ -1,14 +1,20 @@
+import { IWord } from '../game-board/gameBoard';
+
 export default class StatisticObserver {
-    private userKnow: string[] = [];
+    private userKnow: IWord[] = [];
 
-    private userDoesntKnow: string[] = [];
+    private userDoesntKnow: IWord[] = [];
 
-    public putUserKnow(str: string) {
-        this.userKnow.push(str);
+    public putUserKnow(obj: IWord) {
+        this.userKnow.push(obj);
     }
 
-    public putUserDoesntKnow(str: string) {
-        this.userDoesntKnow.push(str);
+    public popUeserKnow() {
+        this.userKnow.pop();
+    }
+
+    public putUserDoesntKnow(obj: IWord) {
+        this.userDoesntKnow.push(obj);
     }
 
     public reset() {

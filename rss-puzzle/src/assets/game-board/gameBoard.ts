@@ -15,7 +15,7 @@ import statBoard from '../statistic-board/statisticBoard';
 
 type gameLevels = number;
 
-interface IWord {
+export interface IWord {
     audioExample: string;
     id: number;
     textExample: string;
@@ -371,6 +371,11 @@ class GameBoard {
                 this.checkBtn.value = 'Continue';
                 this.currentSentenceCompletedCorrectly = true;
                 this.audioHintBtn.classList.add('active');
+                this.statisticObserver.putUserKnow(
+                    this.levelData.rounds[this.roundNumber].words[
+                        this.wordNumber
+                    ]
+                );
                 if (!this.translateBox.getStatus())
                     this.translateBox.isVisible(true);
                 if (this.wordNumber === 9) {
@@ -380,6 +385,7 @@ class GameBoard {
                 this.currentSentenceCompletedCorrectly = false;
                 this.checkBtn.value = 'Check';
                 this.statisticBtn.classList.add('hidden');
+                this.statisticObserver.popUeserKnow();
                 if (!this.translateBox.getStatus()) {
                     this.translateBox.isVisible(false);
                 } else {
@@ -408,6 +414,10 @@ class GameBoard {
             this.autoCompleteBtn.disabled = true;
         }
         this.audioHintBtn.classList.add('active');
+        if (this.levelData)
+            this.statisticObserver.putUserDoesntKnow(
+                this.levelData.rounds[this.roundNumber].words[this.wordNumber]
+            );
     }
 
     public async loadChosenRound(level: number, round: number) {
