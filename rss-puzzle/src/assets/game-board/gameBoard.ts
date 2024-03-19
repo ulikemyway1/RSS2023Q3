@@ -15,7 +15,7 @@ import statBoard from '../statistic-board/statisticBoard';
 
 type gameLevels = number;
 
-interface IWord {
+export interface IWord {
     audioExample: string;
     id: number;
     textExample: string;
@@ -102,8 +102,6 @@ class GameBoard {
         ['statistic-btn', 'button', 'hidden'],
         'Results'
     ).getElement();
-
-    currentRoundStatistic: HTMLElement | null = null;
 
     statisticBoard = statBoard;
 
@@ -221,9 +219,9 @@ class GameBoard {
         );
 
         this.statisticBtn.addEventListener('click', () => {
-            if (this.currentRoundStatistic) {
-                document.body.append(this.statisticBoard.getContent());
-            }
+            this.gameBoardWrapper.classList.add('hidden');
+            document.body.append(this.statisticBoard.getContent());
+            // document.body.append(this.statisticBoard.getContent());
         });
     }
 
@@ -371,6 +369,13 @@ class GameBoard {
                 this.checkBtn.value = 'Continue';
                 this.currentSentenceCompletedCorrectly = true;
                 this.audioHintBtn.classList.add('active');
+                this.autoCompleteBtn.disabled = true;
+                this.resultBlock.lastElementChild.classList.add('completed');
+                this.statisticObserver.putUserKnow(
+                    this.levelData.rounds[this.roundNumber].words[
+                        this.wordNumber
+                    ]
+                );
                 if (!this.translateBox.getStatus())
                     this.translateBox.isVisible(true);
                 if (this.wordNumber === 9) {
@@ -408,6 +413,11 @@ class GameBoard {
             this.autoCompleteBtn.disabled = true;
         }
         this.audioHintBtn.classList.add('active');
+        if (this.levelData) {
+            this.statisticObserver.putUserDoesntKnow(
+                this.levelData.rounds[this.roundNumber].words[this.wordNumber]
+            );
+        }
     }
 
     public async loadChosenRound(level: number, round: number) {
