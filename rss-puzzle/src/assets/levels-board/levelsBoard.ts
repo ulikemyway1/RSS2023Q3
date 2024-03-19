@@ -110,6 +110,7 @@ export default class LevelsBoard {
                         if (gameBoard.controlPanel)
                             gameBoard.controlPanel.classList.remove('hidden');
                         gameBoard.gameBoardWrapper.classList.remove('hidden');
+                        gameBoard.statisticObserver.reset();
                     }
                 }
             }
