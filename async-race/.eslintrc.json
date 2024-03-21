@@ -5,7 +5,7 @@
     },
     "extends": [
         "airbnb",
-        "airbnb-typescript/base"
+        // "airbnb-typescript/base"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {

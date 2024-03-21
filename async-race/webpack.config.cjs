@@ -37,7 +37,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'RSS Puzzle',
+            title: 'AsyncRACE',
         }),
         new CopyPlugin({
             patterns: [
