@@ -1,21 +1,19 @@
 export default class BaseElement {
-    
-    element: HTMLElement;
+  element: HTMLElement;
 
-    constructor (tag: string, classNames?: string[], textContent?: string) {
-        
-        this.element = document.createElement(tag);
+  constructor(tag: string, classNames?: string[], textContent?: string) {
+    this.element = document.createElement(tag);
 
-        if (classNames) {
-            this.element.classList.add(...classNames);
-        }
-
-        if (textContent) {
-            this.element.textContent = textContent;
-        }
+    if (classNames) {
+      this.element.classList.add(...classNames);
     }
 
-    getElement() {
-        return this.element;
+    if (textContent) {
+      this.element.textContent = textContent;
     }
+  }
+
+  getElement() {
+    return this.element;
+  }
 }
