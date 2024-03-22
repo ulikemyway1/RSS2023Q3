@@ -1,0 +1,11 @@
+.garage {
+  padding: 5px 0;
+  text-align: center;
+  font-size: 18px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 800;
+
+  &__cars-counter {
+    margin-top: 15px;
+  }
+}
