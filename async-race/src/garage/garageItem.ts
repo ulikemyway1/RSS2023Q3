@@ -3,6 +3,7 @@ import BaseElement from "../utils/baseElement";
 import Car from "./car";
 import CarNameSelector from "./carNameSelector";
 import ColorSelector from "./colorSelector";
+import garageDataOwner from "./garageDataOwner";
 
 export default class GarageItem {
   private item: HTMLElement = new BaseElement("article", [
@@ -60,6 +61,10 @@ export default class GarageItem {
       ["button", "delete-btn"],
       "Delete",
     ).getElement();
+
+    deleteBtn.addEventListener("click", () => {
+      if (this.car) this.deleteCar(this.car?.getID());
+    });
 
     btnWrapper.append(editBtn, applyBtn);
 
@@ -119,6 +124,10 @@ export default class GarageItem {
         name: newName,
         color: newColor,
       }),
-    }).then((response) => console.log(response));
+    });
+  }
+
+  private async deleteCar(id: number) {
+    await garageDataOwner.deleteCar(id).then(() => this.item.remove());
   }
 }
