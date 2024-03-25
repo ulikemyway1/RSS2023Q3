@@ -7,5 +7,100 @@
 
   &__cars-counter {
     margin-top: 15px;
+    color: #064e15;
+  }
+}
+
+.car svg {
+  height: 65px;
+  width: auto;
+  & g path {
+    transform: scale(0.37);
+  }
+}
+
+.car .target {
+  fill: var(--car-color);
+}
+
+.color-selector {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  height: 30px;
+}
+.color-selector:disabled {
+  cursor: auto;
+}
+
+.garage__item {
+  display: grid;
+  padding: 0 10px;
+  gap: 10px;
+  grid-template-columns: 20% 80%;
+  grid-template-areas:
+    "A B"
+    "C D";
+  justify-items: flex-start;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.car {
+  grid-area: B;
+}
+
+.garage__item-wrapper {
+  display: flex;
+  flex-direction: column;
+  grid-area: A;
+  gap: 5px;
+}
+.car-name-selector {
+  display: block;
+  width: 100%;
+  height: 30px;
+}
+
+.button {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.garage__btn-wrapper {
+  display: flex;
+  gap: 5px;
+  grid-area: C;
+}
+
+.delete-btn {
+  grid-area: D;
+  margin-right: 5px;
+  display: block;
+  justify-self: end;
+}
+
+.hidden {
+  display: none;
+}
+
+.garage__creation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 0;
+  gap: 5px;
+
+  & .car-name-selector {
+    width: 140px;
+  }
+
+  & .color-selector {
+    width: 140px;
+  }
+
+  &-wrapper {
+    display: flex;
+    gap: 5px;
   }
 }

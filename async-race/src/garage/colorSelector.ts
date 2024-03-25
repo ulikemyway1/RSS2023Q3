@@ -20,6 +20,10 @@ export default class ColorSelector {
     this.target = element;
   }
 
+  public setInitialColor(color: string) {
+    this.colorSelector.value = color;
+  }
+
   public getColorSelector() {
     return this.colorSelector;
   }

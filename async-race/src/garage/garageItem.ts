@@ -1,3 +1,4 @@
+import garage from "..";
 import { CarDescr } from "../types/garageTypes";
 import BaseElement from "../utils/baseElement";
 import Car from "./car";
@@ -128,6 +129,9 @@ export default class GarageItem {
   }
 
   private async deleteCar(id: number) {
-    await garageDataOwner.deleteCar(id).then(() => this.item.remove());
+    await garageDataOwner
+      .deleteCar(id)
+      .then(() => this.item.remove())
+      .then(() => garage.getCarsCounter().updateCarsAmont());
   }
 }
