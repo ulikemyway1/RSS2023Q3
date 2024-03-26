@@ -35,12 +35,13 @@
 
 .garage__item {
   display: grid;
+  position: relative;
   padding: 0 10px;
   gap: 10px;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 2fr 1fr 8fr;
   grid-template-areas:
-    "A B"
-    "C D";
+    "A J B"
+    "C J D";
   justify-items: flex-start;
   align-items: center;
   border: 1px solid black;
@@ -48,6 +49,8 @@
 
 .car {
   grid-area: B;
+  position: relative;
+  left: 0%;
 }
 
 .garage__item-wrapper {
@@ -102,5 +105,35 @@
   &-wrapper {
     display: flex;
     gap: 5px;
+  }
+}
+
+.car-control-wrapper {
+  display: flex;
+  grid-area: J;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.driving {
+  animation-name: car-driving;
+  animation-duration: var(--velocity);
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.stop-driving {
+  animation-play-state: paused;
+}
+
+@keyframes car-driving {
+  0% {
+    left: 0%;
+  }
+
+  100% {
+    left: calc(100% - 70px);
   }
 }

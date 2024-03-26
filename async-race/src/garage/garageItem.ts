@@ -1,5 +1,7 @@
 import garage from "..";
+import Engine from "../car-animation/engine";
 import { CarDescr } from "../types/garageTypes";
+import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
 import Car from "./car";
 import CarNameSelector from "./carNameSelector";
@@ -11,7 +13,7 @@ export default class GarageItem {
     "garage__item",
   ]).getElement();
 
-  private car: Car | null = null;
+  private car: Car;
 
   private colorSelector: ColorSelector = new ColorSelector();
 
@@ -24,6 +26,18 @@ export default class GarageItem {
   private currentCarName: string;
 
   private currentCarColor: string;
+
+  private driveBtn = new ButtonElement(
+    ["drive", "button"],
+    "Start",
+  ).getButton();
+
+  private stopBtn = new ButtonElement(
+    ["stop-car", "button"],
+    "Stop",
+  ).getButton();
+
+  private engine: Engine;
 
   constructor(carDescr: CarDescr) {
     this.car = new Car(carDescr.id, carDescr.color, carDescr.name);
@@ -106,7 +120,26 @@ export default class GarageItem {
         this.currentCarName = this.colorSelector.getColorSelector().value;
       }
     });
-    this.item.append(this.car.getCar(), wrapper, btnWrapper, deleteBtn);
+
+    const carControlBtnWrapper = new BaseElement("div", [
+      "car-control-wrapper",
+    ]).getElement();
+    this.engine = new Engine(this.car);
+    carControlBtnWrapper.append(this.driveBtn, this.stopBtn);
+    this.driveBtn.addEventListener("click", () =>
+      this.engine.start.bind(this.engine)(),
+    );
+    this.stopBtn.addEventListener("click", () =>
+      this.engine.stopDriving.bind(this.engine)(),
+    );
+
+    this.item.append(
+      this.car.getCar(),
+      wrapper,
+      btnWrapper,
+      deleteBtn,
+      carControlBtnWrapper,
+    );
   }
 
   public getGarageItem() {
