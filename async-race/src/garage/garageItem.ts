@@ -27,12 +27,9 @@ export default class GarageItem {
 
   private currentCarColor: string;
 
-  private driveBtn = new ButtonElement(
-    ["drive", "button"],
-    "Start",
-  ).getButton();
+  public driveBtn = new ButtonElement(["drive", "button"], "Start").getButton();
 
-  private stopBtn = new ButtonElement(
+  public stopBtn = new ButtonElement(
     ["stop-car", "button"],
     "Stop",
   ).getButton();
@@ -40,7 +37,7 @@ export default class GarageItem {
   private engine: Engine;
 
   constructor(carDescr: CarDescr) {
-    this.car = new Car(carDescr.id, carDescr.color, carDescr.name);
+    this.car = new Car(carDescr.id, carDescr.color, carDescr.name, this);
     this.colorSelector.bindElement(this.car);
     this.colorSelector.setInitialColor(carDescr.color);
     this.colorSelector.getColorSelector().disabled = true;
@@ -140,6 +137,7 @@ export default class GarageItem {
       deleteBtn,
       carControlBtnWrapper,
     );
+    this.stopBtn.disabled = true;
   }
 
   public getGarageItem() {
