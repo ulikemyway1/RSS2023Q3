@@ -1,0 +1,31 @@
+const carNames: string[] = [
+  "Tesla",
+  "Opel",
+  "Mazda",
+  "Kia",
+  "Subaru",
+  "Nissan",
+  "Ford",
+  "Geely",
+  "BMW",
+  "Skoda",
+  "Audi",
+  "Lada",
+  "Lexus",
+  "Fiat",
+  "Volvo",
+];
+const carModels: string[] = [
+  "Focus",
+  "Universal",
+  "Hustler",
+  "Murder",
+  "Fantom",
+  "Spider",
+  "Cracker",
+  "Pigon",
+  "Evil",
+  "Clown",
+  "Analogvnet",
+];
+export { carNames, carModels };

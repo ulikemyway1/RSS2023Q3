@@ -1,0 +1,134 @@
+.garage {
+  padding: 5px 0;
+  text-align: center;
+  font-size: 18px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 800;
+
+  &__cars-counter {
+    margin-top: 15px;
+    color: #064e15;
+  }
+}
+
+.car svg {
+  height: 65px;
+  width: auto;
+  & g path {
+    transform: scale(0.37);
+  }
+}
+
+.car .target {
+  fill: var(--car-color);
+}
+
+.color-selector {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  height: 30px;
+}
+.color-selector:disabled {
+  cursor: auto;
+}
+
+.garage__item {
+  display: grid;
+  position: relative;
+  padding: 0 10px;
+  gap: 10px;
+  grid-template-columns: 2fr 1fr 8fr;
+  grid-template-areas:
+    "A J B"
+    "C J D";
+  justify-items: flex-start;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.car {
+  grid-area: B;
+  position: relative;
+  left: 0%;
+}
+
+.garage__item-wrapper {
+  display: flex;
+  flex-direction: column;
+  grid-area: A;
+  gap: 5px;
+}
+.car-name-selector {
+  display: block;
+  width: 100%;
+  height: 30px;
+}
+
+.garage__btn-wrapper {
+  display: flex;
+  gap: 5px;
+  grid-area: C;
+}
+
+.delete-btn {
+  grid-area: D;
+  margin-right: 5px;
+  display: block;
+  justify-self: end;
+}
+
+.hidden {
+  display: none;
+}
+
+.garage__creation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 0;
+  gap: 5px;
+
+  & .car-name-selector {
+    width: 140px;
+  }
+
+  & .color-selector {
+    width: 140px;
+  }
+
+  &-wrapper {
+    display: flex;
+    gap: 5px;
+  }
+}
+
+.car-control-wrapper {
+  display: flex;
+  grid-area: J;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.driving {
+  animation-name: car-driving;
+  animation-duration: var(--velocity);
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.stop-driving {
+  animation-play-state: paused;
+}
+
+@keyframes car-driving {
+  0% {
+    left: 0%;
+  }
+
+  100% {
+    left: calc(100% - 70px);
+  }
+}
