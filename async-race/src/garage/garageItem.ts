@@ -34,6 +34,15 @@ export default class GarageItem {
     "Stop",
   ).getButton();
 
+  public deleteBtn = new ButtonElement(
+    ["button", "delete-btn"],
+    "Delete",
+  ).getButton();
+  public editBtn = new ButtonElement(
+    ["button", "edit-btn"],
+    "Edit",
+  ).getButton();
+
   private engine: Engine;
 
   constructor(carDescr: CarDescr) {
@@ -53,11 +62,7 @@ export default class GarageItem {
       this.nameSelector.getNameSelector(),
       this.colorSelector.getColorSelector(),
     );
-    const editBtn = new BaseElement(
-      "button",
-      ["button", "edit-btn"],
-      "Edit",
-    ).getElement();
+
     const applyBtn = new BaseElement(
       "button",
       ["button", "apply-btn", "hidden"],
@@ -68,27 +73,21 @@ export default class GarageItem {
       "garage__btn-wrapper",
     ]).getElement();
 
-    const deleteBtn = new BaseElement(
-      "button",
-      ["button", "delete-btn"],
-      "Delete",
-    ).getElement();
-
-    deleteBtn.addEventListener("click", () => {
+    this.deleteBtn.addEventListener("click", () => {
       if (this.car) this.deleteCar(this.car?.getID());
     });
 
-    btnWrapper.append(editBtn, applyBtn);
+    btnWrapper.append(this.editBtn, applyBtn);
 
-    editBtn.addEventListener("click", () => {
+    this.editBtn.addEventListener("click", () => {
       if (!this.editModeActive && this.car) {
-        editBtn.textContent = "Cancel";
+        this.editBtn.textContent = "Cancel";
         applyBtn.classList.remove("hidden");
         this.editModeActive = true;
         this.colorSelector.getColorSelector().disabled = false;
         this.nameSelector.getNameSelector().disabled = false;
       } else {
-        editBtn.textContent = "Edit";
+        this.editBtn.textContent = "Edit";
         applyBtn.classList.add("hidden");
         this.editModeActive = false;
         this.colorSelector.getColorSelector().disabled = true;
@@ -108,7 +107,7 @@ export default class GarageItem {
         const carID = this.car.getID();
         console.log(carID);
         this.editCar(carID);
-        editBtn.textContent = "Edit";
+        this.editBtn.textContent = "Edit";
         applyBtn.classList.add("hidden");
         this.editModeActive = false;
         this.colorSelector.getColorSelector().disabled = true;
@@ -123,9 +122,11 @@ export default class GarageItem {
     ]).getElement();
     this.engine = new Engine(this.car);
     carControlBtnWrapper.append(this.driveBtn, this.stopBtn);
-    this.driveBtn.addEventListener("click", () =>
-      this.engine.start.bind(this.engine)(),
-    );
+    this.driveBtn.addEventListener("click", () => {
+      this.deleteBtn.disabled = true;
+      this.editBtn.disabled = true;
+      this.engine.start.bind(this.engine)();
+    });
     this.stopBtn.addEventListener("click", () =>
       this.engine.stopDriving.bind(this.engine)(),
     );
@@ -134,7 +135,7 @@ export default class GarageItem {
       this.car.getCar(),
       wrapper,
       btnWrapper,
-      deleteBtn,
+      this.deleteBtn,
       carControlBtnWrapper,
     );
     this.stopBtn.disabled = true;
