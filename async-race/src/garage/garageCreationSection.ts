@@ -82,7 +82,8 @@ export default class GarageCreationSection {
         garage.getItemWrapper().addContent(garageItem);
       })
       .then(() => garage.getCarsCounter().updateCarsAmont())
-      .then(() => this.clearInput());
+      .then(() => this.clearInput())
+      .then(() => garage.getItemWrapper().updateAllContent());
   }
 
   private clearInput() {

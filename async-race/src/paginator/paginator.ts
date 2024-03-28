@@ -30,18 +30,18 @@ export default class Paginator {
     "Prev Page",
   ).getButton();
 
-  private content: HTMLElement[] = [];
+  private content: Set<HTMLElement> = new Set();
 
   private nav: HTMLElement = new BaseElement("span", [
     "paginator__nav",
   ]).getElement();
 
-  constructor(content: HTMLElement[], numberPerPage: number) {
+  constructor(content: Set<HTMLElement>, numberPerPage: number) {
     this.numberPerPage = numberPerPage;
 
     this.content = content;
 
-    const totalElements = this.content.length;
+    const totalElements = this.content.size;
 
     this.totalPages = Math.ceil(totalElements / numberPerPage);
 
@@ -71,20 +71,23 @@ export default class Paginator {
     return this.view;
   }
 
-  public updateAllContent(content: HTMLElement[]) {
-    const totalElements = content.length;
-
-    this.content = content;
+  public updateAllContent(content?: Set<HTMLElement>) {
+    let totalElements: number;
+    if (content) {
+      totalElements = content.size;
+      this.content = content;
+    } else {
+      totalElements = this.content.size;
+    }
 
     this.totalPages = Math.floor((totalElements - 1) / this.numberPerPage);
-    console.log(totalElements);
     this.nav.textContent = `${this.currentPage} / ${this.totalPages}`;
 
     this.listContent(1);
   }
 
   public addContent(content: HTMLElement) {
-    this.content.push(content);
+    this.content.add(content);
   }
 
   private listContent(page: number) {
@@ -93,15 +96,16 @@ export default class Paginator {
 
     this.clearContentWrapper();
 
-    if (this.content.length === 0) {
+    if (this.content.size === 0) {
       const InfMessage = new BaseElement("span", [
         "paginator__inf-message",
         "Nothing",
       ]).getElement();
       this.contentWrapper.append(InfMessage);
     } else {
+      const arr = Array.from(this.content);
       for (let i = firstElementIndex; i <= lastElementIndex; i += 1) {
-        if (this.content[i]) this.contentWrapper.append(this.content[i]);
+        if (arr[i]) this.contentWrapper.append(arr[i]);
       }
       this.updateNavInfo(page);
     }

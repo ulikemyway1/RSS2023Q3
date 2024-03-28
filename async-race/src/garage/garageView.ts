@@ -1,8 +1,6 @@
 import "./garageView.scss";
 import BaseElement from "../utils/baseElement";
 import garageDataOwner from "./garageDataOwner";
-import { AllCardDescr } from "../types/garageTypes";
-import Car from "./car";
 import GarageItem from "./garageItem";
 import GarageCreationSection from "./garageCreationSection";
 import GarageItemsWrapper from "./garageItemsWrapper";
@@ -19,7 +17,9 @@ export default class GarageView {
 
   private carsCounter = new CarsCounter();
 
-  private itemsWrapper = new GarageItemsWrapper([], 7);
+  private itemsWrapper = new GarageItemsWrapper(new Set(), 7);
+
+  private allItems: Set<HTMLElement> = new Set();
 
   constructor() {
     this.appendElement([
@@ -41,11 +41,10 @@ export default class GarageView {
 
   public async showAllCars() {
     const data = await garageDataOwner.getAllCars();
-    const allItems: HTMLElement[] = [];
     data.forEach((carDescr) => {
-      allItems.push(new GarageItem(carDescr).getGarageItem());
+      this.allItems.add(new GarageItem(carDescr).getGarageItem());
     });
-    this.itemsWrapper.updateAllContent(allItems);
+    this.itemsWrapper.updateAllContent(this.allItems);
   }
 
   public getItemWrapper() {
@@ -54,5 +53,8 @@ export default class GarageView {
 
   public getCarsCounter() {
     return this.carsCounter;
+  }
+  public getAllItems() {
+    return this.allItems;
   }
 }
