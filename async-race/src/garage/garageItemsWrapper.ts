@@ -1,16 +1,9 @@
+import Paginator from "../paginator/paginator";
 import BaseElement from "../utils/baseElement";
 import GarageItem from "./garageItem";
 
-export default class GarageItemsWrapper {
-  private element: HTMLElement = new BaseElement("section", [
-    "garage__items-wrapper",
-  ]).getElement();
-
-  public appendItem(item: HTMLElement[]) {
-    this.element.append(...item);
-  }
-
-  public getGarageItemWrapper() {
-    return this.element;
+export default class GarageItemsWrapper extends Paginator {
+  constructor(allContent: HTMLElement[], numberPerPage: number) {
+    super(allContent, numberPerPage);
   }
 }

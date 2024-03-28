@@ -19,13 +19,13 @@ export default class GarageView {
 
   private carsCounter = new CarsCounter();
 
-  private itemsWrapper = new GarageItemsWrapper();
+  private itemsWrapper = new GarageItemsWrapper([], 7);
 
   constructor() {
     this.appendElement([
       this.creationSection.getCreationSection(),
       this.carsCounter.getElement(),
-      this.itemsWrapper.getGarageItemWrapper(),
+      this.itemsWrapper.getView(),
     ]);
     this.carsCounter.updateCarsAmont();
     this.showAllCars();
@@ -41,9 +41,11 @@ export default class GarageView {
 
   public async showAllCars() {
     const data = await garageDataOwner.getAllCars();
+    const allItems: HTMLElement[] = [];
     data.forEach((carDescr) => {
-      this.itemsWrapper.appendItem([new GarageItem(carDescr).getGarageItem()]);
+      allItems.push(new GarageItem(carDescr).getGarageItem());
     });
+    this.itemsWrapper.updateAllContent(allItems);
   }
 
   public getItemWrapper() {
