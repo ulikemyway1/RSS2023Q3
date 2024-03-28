@@ -16,9 +16,9 @@ export default class Paginator {
     "paginator__controls-wrapper",
   ]).getElement();
 
-  private currentPage: number = 1;
+  private currentPage: number = 0;
 
-  private totalPages: number = 1;
+  private totalPages: number = 0;
 
   private nextPageBtn = new ButtonElement(
     ["paginator__next-btn"],
@@ -45,7 +45,7 @@ export default class Paginator {
 
     this.totalPages = Math.ceil(totalElements / numberPerPage);
 
-    this.nav.textContent = `${this.currentPage} / ${this.totalPages}`;
+    this.nav.textContent = `${this.currentPage + 1} / ${this.totalPages}`;
 
     this.controlsWrapper.append(this.prevPageBtn, this.nextPageBtn);
 
@@ -59,8 +59,10 @@ export default class Paginator {
       this.goToPrevPage.bind(this)(),
     );
     this.prevPageBtn.disabled = true;
+    this.nextPageBtn.disabled = true;
 
     this.view.append(this.contentWrapper, this.nav, this.controlsWrapper);
+    this.updateControlsStatus();
   }
 
   public setNumberPerPage(number: number) {
@@ -73,17 +75,18 @@ export default class Paginator {
 
   public updateAllContent(content?: Set<HTMLElement>) {
     let totalElements: number;
-    if (content) {
+    if (content && content.size > 0) {
       totalElements = content.size;
       this.content = content;
     } else {
       totalElements = this.content.size;
     }
 
-    this.totalPages = Math.floor((totalElements - 1) / this.numberPerPage);
+    this.totalPages = Math.ceil(totalElements / this.numberPerPage);
     this.nav.textContent = `${this.currentPage} / ${this.totalPages}`;
 
-    this.listContent(1);
+    this.listContent(0);
+    this.updateControlsStatus();
   }
 
   public addContent(content: HTMLElement) {
@@ -118,35 +121,40 @@ export default class Paginator {
 
   private updateNavInfo(page: number) {
     this.currentPage = page;
-    this.nav.textContent = `${this.currentPage} / ${this.totalPages}`;
+    this.nav.textContent = `${this.currentPage + 1} / ${this.totalPages}`;
   }
 
   private goToNextPage() {
-    if (this.currentPage < this.totalPages) {
+    if (this.currentPage < this.totalPages - 1) {
       this.currentPage += 1;
       this.listContent(this.currentPage);
     }
-    if (this.currentPage === this.totalPages) {
+    this.updateControlsStatus();
+  }
+
+  private goToPrevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage -= 1;
+      this.listContent(this.currentPage);
+    }
+    this.updateControlsStatus();
+  }
+
+  private updateControlsStatus() {
+    if (this.currentPage === this.totalPages - 1) {
       this.nextPageBtn.disabled = true;
     } else {
       this.nextPageBtn.disabled = false;
     }
-    if (this.currentPage !== 1) {
+    if (this.currentPage !== 0) {
       this.prevPageBtn.disabled = false;
     }
-  }
-
-  private goToPrevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage -= 1;
-      this.listContent(this.currentPage);
-    }
-    if (this.currentPage === 1) {
+    if (this.currentPage === 0) {
       this.prevPageBtn.disabled = true;
     } else {
       this.prevPageBtn.disabled = false;
     }
-    if (this.currentPage !== this.totalPages) {
+    if (this.currentPage !== this.totalPages - 1) {
       this.nextPageBtn.disabled = false;
     }
   }
