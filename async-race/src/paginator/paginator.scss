@@ -1,0 +1,20 @@
+.paginator {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__content-wrapper {
+    display: flex;
+    padding: 5px;
+    min-height: 780px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__controls-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    justify-content: center;
+  }
+}

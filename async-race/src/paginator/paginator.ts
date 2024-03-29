@@ -1,3 +1,4 @@
+import "./paginator.scss";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
 
@@ -21,12 +22,12 @@ export default class Paginator {
   private totalPages: number = 0;
 
   private nextPageBtn = new ButtonElement(
-    ["paginator__next-btn"],
+    ["paginator__next-btn", "button"],
     "Next Page",
   ).getButton();
 
   private prevPageBtn = new ButtonElement(
-    ["paginator__next-btn"],
+    ["paginator__next-btn", "button"],
     "Prev Page",
   ).getButton();
 
