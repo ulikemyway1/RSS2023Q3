@@ -2,7 +2,6 @@ import { AllCardDescr } from "../types/garageTypes";
 
 class GarageDataOwner {
   url: string = "";
-
   constructor(url: string) {
     this.url = url;
   }

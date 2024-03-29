@@ -79,10 +79,11 @@ export default class GarageCreationSection {
       .then((respone) => respone.json())
       .then((car: CarDescr) => {
         const garageItem = new GarageItem(car).getGarageItem();
-        garage.getItemWrapper().appendItem([garageItem]);
+        garage.getItemWrapper().addContent(garageItem);
       })
       .then(() => garage.getCarsCounter().updateCarsAmont())
-      .then(() => this.clearInput());
+      .then(() => this.clearInput())
+      .then(() => garage.getItemWrapper().updateAllContent());
   }
 
   private clearInput() {

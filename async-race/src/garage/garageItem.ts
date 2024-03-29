@@ -165,5 +165,7 @@ export default class GarageItem {
       .deleteCar(id)
       .then(() => this.item.remove())
       .then(() => garage.getCarsCounter().updateCarsAmont());
+    garage.getAllItems().delete(this.item);
+    garage.getItemWrapper().updateAllContent();
   }
 }
