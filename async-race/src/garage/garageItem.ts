@@ -43,7 +43,7 @@ export default class GarageItem {
     "Edit",
   ).getButton();
 
-  private engine: Engine;
+  public engine: Engine;
 
   constructor(carDescr: CarDescr) {
     this.car = new Car(carDescr.id, carDescr.color, carDescr.name, this);
@@ -165,7 +165,7 @@ export default class GarageItem {
       .deleteCar(id)
       .then(() => this.item.remove())
       .then(() => garage.getCarsCounter().updateCarsAmont());
-    garage.getAllItems().delete(this.item);
+    garage.getAllItems().delete(this);
     garage.getItemWrapper().updateAllContent();
   }
 }
