@@ -21,6 +21,12 @@ export default class RaceController {
     this.startRaceBtn.addEventListener("click", () =>
       this.startRace.bind(this)(),
     );
+    this.stopRaceBtn.disabled = true;
+
+    this.stopRaceBtn.addEventListener("click", () =>
+      this.stopRace.bind(this)(),
+    );
+
     this.element.append(this.startRaceBtn, this.stopRaceBtn);
   }
 
@@ -29,9 +35,20 @@ export default class RaceController {
   }
 
   private startRace() {
+    this.startRaceBtn.disabled = true;
     garage
       .getItemWrapper()
       .getCurrentPageContent()
       .forEach((garaItem) => garaItem.engine.start());
+    this.stopRaceBtn.disabled = false;
+  }
+
+  private stopRace() {
+    this.stopRaceBtn.disabled = true;
+    garage
+      .getItemWrapper()
+      .getCurrentPageContent()
+      .forEach((garaItem) => garaItem.engine.stopDriving());
+    this.startRaceBtn.disabled = false;
   }
 }
