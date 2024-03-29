@@ -7,26 +7,28 @@ export default class RaceController {
     "garage__race-control-wrapper",
   ]).getElement();
 
-  private startRace = new ButtonElement(
+  private startRaceBtn = new ButtonElement(
     ["start-race", "button"],
     "Start Race",
   ).getButton();
 
-  private stopRace = new ButtonElement(
+  private stopRaceBtn = new ButtonElement(
     ["stop-race", "button"],
     "Stop Race",
   ).getButton();
 
   constructor() {
-    this.startRace.addEventListener("click", () => this.Race.bind(this)());
-    this.element.append(this.startRace, this.stopRace);
+    this.startRaceBtn.addEventListener("click", () =>
+      this.startRace.bind(this)(),
+    );
+    this.element.append(this.startRaceBtn, this.stopRaceBtn);
   }
 
   public getElement() {
     return this.element;
   }
 
-  private Race() {
+  private startRace() {
     garage
       .getItemWrapper()
       .getCurrentPageContent()
