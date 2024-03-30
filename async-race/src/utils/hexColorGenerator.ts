@@ -9,7 +9,7 @@ export default class HexColorGenerator {
     this.green = Math.floor(Math.random() * 255);
   }
 
-  getColor() {
+  getColor(): string {
     return `#${this.red.toString(16).padStart(2, "0")}${this.green.toString(16).padStart(2, "0")}${this.blue.toString(16).padStart(2, "0")}`;
   }
 }

@@ -30,6 +30,7 @@ export default class GarageCreationSection {
       ["button", "create-btn"],
       "Generate 100 cars",
     ).getElement();
+
     const buttonWrapper = new BaseElement("div", [
       "garage__creation-section-wrapper",
     ]).getElement();
@@ -59,7 +60,7 @@ export default class GarageCreationSection {
     });
   }
 
-  private createCar(carDescr?: Omit<CarDescr, "id">) {
+  private createCar(carDescr?: Omit<CarDescr, "id">): void {
     let bodyContent: Omit<CarDescr, "id">;
     if (carDescr) {
       bodyContent = carDescr;
@@ -86,19 +87,19 @@ export default class GarageCreationSection {
       .then(() => garage.getItemWrapper().updateAllContent());
   }
 
-  private clearInput() {
+  private clearInput(): void {
     this.carNameInput.value = "";
     this.createBtn.disabled = true;
   }
 
-  public getCreationSection() {
+  public getCreationSection(): HTMLElement {
     return this.creationSection;
   }
 
-  public createHundredCars() {
+  public createHundredCars(): void {
     for (let i = 1; i <= 100; i += 1) {
-      const nameIndex = Math.floor(Math.random() * carNames.length);
-      const modelIndex = Math.floor(Math.random() * carModels.length);
+      const nameIndex: number = Math.floor(Math.random() * carNames.length);
+      const modelIndex: number = Math.floor(Math.random() * carModels.length);
       if (!carNames[nameIndex] || !carModels[modelIndex]) {
         i -= 1;
         continue;

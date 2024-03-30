@@ -1,5 +1,3 @@
-import BaseElement from "./baseElement";
-
 export default class ButtonElement {
   private button: HTMLButtonElement = document.createElement("button");
 
@@ -8,7 +6,7 @@ export default class ButtonElement {
     if (textContent) this.button.textContent = textContent;
   }
 
-  public getButton() {
+  public getButton(): HTMLButtonElement {
     return this.button;
   }
 }

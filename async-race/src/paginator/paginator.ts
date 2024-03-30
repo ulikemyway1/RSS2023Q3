@@ -1,7 +1,6 @@
 import "./paginator.scss";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
-import Car from "../garage/car";
 import GarageItem from "../garage/garageItem";
 
 export default class Paginator {
@@ -70,15 +69,15 @@ export default class Paginator {
     this.updateControlsStatus();
   }
 
-  public setNumberPerPage(number: number) {
+  public setNumberPerPage(number: number): void {
     this.numberPerPage = number;
   }
 
-  public getView() {
+  public getView(): HTMLElement {
     return this.view;
   }
 
-  public updateAllContent(content?: Set<GarageItem>) {
+  public updateAllContent(content?: Set<GarageItem>): void {
     let totalElements: number;
     if (content && content.size > 0) {
       totalElements = content.size;
@@ -94,19 +93,19 @@ export default class Paginator {
     this.updateControlsStatus();
   }
 
-  public addContent(content: GarageItem) {
+  public addContent(content: GarageItem): void {
     this.content.add(content);
   }
 
-  public getContent() {
+  public getContent(): Set<GarageItem> {
     return this.content;
   }
 
-  public getCurrentPageContent() {
+  public getCurrentPageContent(): Set<GarageItem> {
     return this.currentPageContent;
   }
 
-  private listContent(page: number) {
+  private listContent(page: number): void {
     this.currentPageContent.clear();
     const firstElementIndex = page * this.numberPerPage;
     const lastElementIndex = firstElementIndex + this.numberPerPage - 1;
@@ -131,17 +130,17 @@ export default class Paginator {
     }
   }
 
-  private clearContentWrapper() {
+  private clearContentWrapper(): void {
     while (this.contentWrapper.lastElementChild)
       this.contentWrapper.lastElementChild.remove();
   }
 
-  private updateNavInfo(page: number) {
+  private updateNavInfo(page: number): void {
     this.currentPage = page;
     this.nav.textContent = `${this.currentPage + 1} / ${this.totalPages}`;
   }
 
-  private goToNextPage() {
+  private goToNextPage(): void {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage += 1;
       this.listContent(this.currentPage);
@@ -149,7 +148,7 @@ export default class Paginator {
     this.updateControlsStatus();
   }
 
-  private goToPrevPage() {
+  private goToPrevPage(): void {
     if (this.currentPage > 0) {
       this.currentPage -= 1;
       this.listContent(this.currentPage);
@@ -157,7 +156,7 @@ export default class Paginator {
     this.updateControlsStatus();
   }
 
-  private updateControlsStatus() {
+  private updateControlsStatus(): void {
     if (this.currentPage === this.totalPages - 1) {
       this.nextPageBtn.disabled = true;
     } else {
