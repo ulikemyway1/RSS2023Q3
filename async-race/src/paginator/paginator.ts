@@ -23,12 +23,12 @@ export default class Paginator {
 
   private totalPages: number = 0;
 
-  private nextPageBtn = new ButtonElement(
+  public nextPageBtn = new ButtonElement(
     ["paginator__next-btn", "button"],
     "Next Page",
   ).getButton();
 
-  private prevPageBtn = new ButtonElement(
+  public prevPageBtn = new ButtonElement(
     ["paginator__next-btn", "button"],
     "Prev Page",
   ).getButton();

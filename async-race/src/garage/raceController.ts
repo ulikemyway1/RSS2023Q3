@@ -51,6 +51,8 @@ export default class RaceController {
   private startRace() {
     this.race = new Race();
     this.startRaceBtn.disabled = true;
+    garage.getItemWrapper().nextPageBtn.disabled = true;
+    garage.getItemWrapper().prevPageBtn.disabled = true;
     const allEngineStartedPromises: Promise<Response>[] = [];
     garage
       .getItemWrapper()
@@ -83,6 +85,10 @@ export default class RaceController {
       .getItemWrapper()
       .getCurrentPageContent()
       .forEach((garaItem) => stopPromises.push(garaItem.engine.stopDriving()));
-    Promise.all(stopPromises).then(() => (this.startRaceBtn.disabled = false));
+    Promise.all(stopPromises).then(() => {
+      garage.getItemWrapper().nextPageBtn.disabled = false;
+      garage.getItemWrapper().prevPageBtn.disabled = false;
+      this.startRaceBtn.disabled = false;
+    });
   }
 }
