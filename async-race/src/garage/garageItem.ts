@@ -43,7 +43,7 @@ export default class GarageItem {
     "Edit",
   ).getButton();
 
-  private engine: Engine;
+  public engine: Engine;
 
   constructor(carDescr: CarDescr) {
     this.car = new Car(carDescr.id, carDescr.color, carDescr.name, this);
@@ -81,12 +81,16 @@ export default class GarageItem {
 
     this.editBtn.addEventListener("click", () => {
       if (!this.editModeActive && this.car) {
+        garage.getRaceController().getStartBrn().disabled = true;
+        this.driveBtn.disabled = true;
         this.editBtn.textContent = "Cancel";
         applyBtn.classList.remove("hidden");
         this.editModeActive = true;
         this.colorSelector.getColorSelector().disabled = false;
         this.nameSelector.getNameSelector().disabled = false;
       } else {
+        garage.getRaceController().getStartBrn().disabled = false;
+        this.driveBtn.disabled = false;
         this.editBtn.textContent = "Edit";
         applyBtn.classList.add("hidden");
         this.editModeActive = false;
@@ -104,16 +108,17 @@ export default class GarageItem {
 
     applyBtn.addEventListener("click", () => {
       if (this.car) {
+        this.driveBtn.disabled = false;
+        garage.getRaceController().getStartBrn().disabled = false;
         const carID = this.car.getID();
-        console.log(carID);
         this.editCar(carID);
         this.editBtn.textContent = "Edit";
         applyBtn.classList.add("hidden");
         this.editModeActive = false;
         this.colorSelector.getColorSelector().disabled = true;
         this.nameSelector.getNameSelector().disabled = true;
-        this.currentCarColor = this.nameSelector.getNameSelector().value;
-        this.currentCarName = this.colorSelector.getColorSelector().value;
+        this.currentCarName = this.nameSelector.getNameSelector().value;
+        this.currentCarColor = this.colorSelector.getColorSelector().value;
       }
     });
 
@@ -125,10 +130,10 @@ export default class GarageItem {
     this.driveBtn.addEventListener("click", () => {
       this.deleteBtn.disabled = true;
       this.editBtn.disabled = true;
-      this.engine.start.bind(this.engine)();
+      this.engine.start.bind(this.engine)("alone");
     });
     this.stopBtn.addEventListener("click", () =>
-      this.engine.stopDriving.bind(this.engine)(),
+      this.engine.stopDriving.bind(this.engine)("alone"),
     );
 
     this.item.append(
@@ -165,7 +170,7 @@ export default class GarageItem {
       .deleteCar(id)
       .then(() => this.item.remove())
       .then(() => garage.getCarsCounter().updateCarsAmont());
-    garage.getAllItems().delete(this.item);
+    garage.getAllItems().delete(this);
     garage.getItemWrapper().updateAllContent();
   }
 }

@@ -9,6 +9,19 @@
     margin-top: 15px;
     color: #064e15;
   }
+
+  &__header-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+
+  &__race-control-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 
 .car svg {
@@ -122,6 +135,11 @@
 
 .stop-driving {
   animation-play-state: paused;
+}
+
+.start-race,
+.stop-race {
+  width: 80px;
 }
 
 @keyframes car-driving {

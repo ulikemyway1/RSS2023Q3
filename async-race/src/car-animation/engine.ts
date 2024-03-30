@@ -1,30 +1,42 @@
+import garage from "..";
 import Car from "../garage/car";
 import GarageItem from "../garage/garageItem";
+
+type driveMode = "alone" | "race";
 
 export default class Engine {
   car: Car;
   carView: HTMLElement;
   context: GarageItem;
+  private workTime: number = 0;
   constructor(car: Car) {
     this.car = car;
     this.context = this.car.context;
     this.carView = this.car.getCar();
   }
-  async start() {
-    await fetch(
+
+  async start(mode: driveMode) {
+    this.context.editBtn.disabled = true;
+    garage.getRaceController().getStartBrn().disabled = true;
+    const response = fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=started`,
       {
         method: "PATCH",
       },
-    )
-      .then((response) => response.json())
-      .then((data) => this.applyDrivingStyles(data))
-      .then(() => (this.context.driveBtn.disabled = true))
-      .then(() => this.drive());
+    );
+    if (mode === "alone") {
+      response
+        .then((response) => response.json())
+        .then((data) => this.applyDrivingStyles(data))
+        .then(() => (this.context.driveBtn.disabled = true))
+        .then(() => this.drive(mode));
+    }
+    return response;
   }
 
-  private applyDrivingStyles(data: { velocity: number; distance: number }) {
+  public applyDrivingStyles(data: { velocity: number; distance: number }) {
     const animationDuration = data.distance / data.velocity;
+    this.workTime = animationDuration;
     this.carView.style.setProperty(
       "--velocity",
       String(animationDuration + "ms"),
@@ -32,8 +44,8 @@ export default class Engine {
     this.carView.classList.add("driving");
   }
 
-  private async drive() {
-    this.context.stopBtn.disabled = false;
+  public async drive(mode: driveMode) {
+    if (mode === "alone") this.context.stopBtn.disabled = false;
     try {
       const response = await fetch(
         `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=drive`,
@@ -58,6 +70,20 @@ export default class Engine {
           throw new Error(
             `Car (ID ${this.car.getID()} - Ooops. Wrong paramets: "status" should be "started", "stopped" or "drive"`,
           );
+        } else if (mode === "race") {
+          response.json().then((result: { success: boolean }) => {
+            if (result.success) {
+              garage
+                .getRaceController()
+                .getRace()
+                .saveWinner({
+                  id: this.car.getID(),
+                  name: this.car.getName(),
+                  wins: 1,
+                  time: Number(Math.round(this.workTime)),
+                });
+            }
+          });
         }
       });
     } catch (e) {
@@ -69,8 +95,8 @@ export default class Engine {
     }
   }
 
-  public stopDriving() {
-    fetch(
+  public async stopDriving(mode: "alone" | "race") {
+    await fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=stopped`,
       {
         method: "PATCH",
@@ -78,10 +104,13 @@ export default class Engine {
     )
       .then(() => this.car.getCar().classList.remove("driving", "stop-driving"))
       .then(() => {
-        this.context.driveBtn.disabled = false;
         this.context.stopBtn.disabled = true;
         this.context.deleteBtn.disabled = false;
         this.context.editBtn.disabled = false;
+        if (mode === "alone") {
+          garage.getRaceController().getStartBrn().disabled = false;
+          this.context.driveBtn.disabled = false;
+        }
       });
   }
 }
