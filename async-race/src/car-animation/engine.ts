@@ -15,7 +15,7 @@ export default class Engine {
     this.carView = this.car.getCar();
   }
 
-  async start(mode: driveMode) {
+  async start(mode: driveMode): Promise<Response> {
     this.context.editBtn.disabled = true;
     garage.getRaceController().getStartBrn().disabled = true;
     const response = fetch(
@@ -44,7 +44,7 @@ export default class Engine {
     this.carView.classList.add("driving");
   }
 
-  public async drive(mode: driveMode) {
+  public async drive(mode: driveMode): Promise<void> {
     if (mode === "alone") this.context.stopBtn.disabled = false;
     try {
       const response = await fetch(
@@ -95,7 +95,7 @@ export default class Engine {
     }
   }
 
-  public async stopDriving(mode: "alone" | "race") {
+  public async stopDriving(mode: driveMode): Promise<void> {
     await fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=stopped`,
       {
