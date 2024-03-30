@@ -77,6 +77,7 @@ export default class RaceController {
 
   private stopRace() {
     this.stopRaceBtn.disabled = true;
+    if (this.race.alert) this.race.alert.remove();
     const stopPromises: Promise<void>[] = [];
     garage
       .getItemWrapper()

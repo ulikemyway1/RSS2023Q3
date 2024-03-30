@@ -78,6 +78,7 @@ export default class Engine {
                 .getRace()
                 .saveWinner({
                   id: this.car.getID(),
+                  name: this.car.getName(),
                   wins: 1,
                   time: Number(Math.round(this.workTime)),
                 });

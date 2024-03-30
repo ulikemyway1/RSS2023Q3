@@ -1,14 +1,16 @@
 import garage from "..";
-
+import showWinner from "./winnerAnnouncement";
+import "./race.scss";
 type WinnerDescr = {
   id: number;
   wins: number;
+  name: string;
   time: number;
 };
 
 export default class Race {
   private winnerIsKnown = false;
-
+  public alert: HTMLElement | null = null;
   constructor() {}
 
   public saveWinner(winnerInfo: WinnerDescr) {
@@ -29,6 +31,12 @@ export default class Race {
     } else {
       this.updateData(winnerInfo, existingRecord);
     }
+    this.alert = showWinner(
+      winnerInfo.id,
+      winnerInfo.name,
+      Number((winnerInfo.time / 1000).toFixed(2)),
+    );
+    garage.getView().append(this.alert);
   }
 
   private async createNewRecord(winnerInfo: WinnerDescr) {

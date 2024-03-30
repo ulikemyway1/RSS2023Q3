@@ -1,0 +1,30 @@
+.alert {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  font-size: 22px;
+  top: 40vh;
+  left: 50%;
+  padding: 10px;
+  transform: translateX(-50%);
+  background: #00000058;
+  border-radius: 12px;
+  color: #ffb700;
+  filter: drop-shadow(0px 3px 1px black);
+  user-select: none;
+  white-space: nowrap;
+
+  &__car-name {
+    text-transform: uppercase;
+    color: #ffc800;
+  }
+
+  &__car-id {
+    font-size: 16px;
+  }
+
+  &__time-result {
+    font-size: 20px;
+  }
+}
