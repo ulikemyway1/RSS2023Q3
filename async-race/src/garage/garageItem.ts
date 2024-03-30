@@ -81,12 +81,16 @@ export default class GarageItem {
 
     this.editBtn.addEventListener("click", () => {
       if (!this.editModeActive && this.car) {
+        garage.getRaceController().getStartBrn().disabled = true;
+        this.driveBtn.disabled = true;
         this.editBtn.textContent = "Cancel";
         applyBtn.classList.remove("hidden");
         this.editModeActive = true;
         this.colorSelector.getColorSelector().disabled = false;
         this.nameSelector.getNameSelector().disabled = false;
       } else {
+        garage.getRaceController().getStartBrn().disabled = false;
+        this.driveBtn.disabled = false;
         this.editBtn.textContent = "Edit";
         applyBtn.classList.add("hidden");
         this.editModeActive = false;
