@@ -1,8 +1,10 @@
 import garage from "..";
+import Race from "../race/race";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
 
 export default class RaceController {
+  private race = new Race();
   private element = new BaseElement("div", [
     "garage__race-control-wrapper",
   ]).getElement();
@@ -34,12 +36,17 @@ export default class RaceController {
     return this.element;
   }
 
+  public getRace() {
+    return this.race;
+  }
+
   private startRace() {
+    this.race = new Race();
     this.startRaceBtn.disabled = true;
     garage
       .getItemWrapper()
       .getCurrentPageContent()
-      .forEach((garaItem) => garaItem.engine.start());
+      .forEach((garaItem) => garaItem.engine.start("race"));
     this.stopRaceBtn.disabled = false;
   }
 

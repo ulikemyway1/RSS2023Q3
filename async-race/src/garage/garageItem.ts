@@ -125,7 +125,7 @@ export default class GarageItem {
     this.driveBtn.addEventListener("click", () => {
       this.deleteBtn.disabled = true;
       this.editBtn.disabled = true;
-      this.engine.start.bind(this.engine)();
+      this.engine.start.bind(this.engine)("alone");
     });
     this.stopBtn.addEventListener("click", () =>
       this.engine.stopDriving.bind(this.engine)(),

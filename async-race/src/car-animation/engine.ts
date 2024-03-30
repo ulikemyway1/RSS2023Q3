@@ -1,16 +1,20 @@
+import garage from "..";
 import Car from "../garage/car";
 import GarageItem from "../garage/garageItem";
+
+type driveMode = "alone" | "race";
 
 export default class Engine {
   car: Car;
   carView: HTMLElement;
   context: GarageItem;
+  private workTime: number = 0;
   constructor(car: Car) {
     this.car = car;
     this.context = this.car.context;
     this.carView = this.car.getCar();
   }
-  async start() {
+  async start(mode: driveMode) {
     await fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=started`,
       {
@@ -20,11 +24,12 @@ export default class Engine {
       .then((response) => response.json())
       .then((data) => this.applyDrivingStyles(data))
       .then(() => (this.context.driveBtn.disabled = true))
-      .then(() => this.drive());
+      .then(() => this.drive(mode));
   }
 
   private applyDrivingStyles(data: { velocity: number; distance: number }) {
     const animationDuration = data.distance / data.velocity;
+    this.workTime = animationDuration;
     this.carView.style.setProperty(
       "--velocity",
       String(animationDuration + "ms"),
@@ -32,7 +37,7 @@ export default class Engine {
     this.carView.classList.add("driving");
   }
 
-  private async drive() {
+  private async drive(mode: driveMode) {
     this.context.stopBtn.disabled = false;
     try {
       const response = await fetch(
@@ -58,6 +63,19 @@ export default class Engine {
           throw new Error(
             `Car (ID ${this.car.getID()} - Ooops. Wrong paramets: "status" should be "started", "stopped" or "drive"`,
           );
+        } else if (mode === "race") {
+          response.json().then((result: { success: boolean }) => {
+            if (result.success) {
+              garage
+                .getRaceController()
+                .getRace()
+                .saveWinner({
+                  id: this.car.getID(),
+                  wins: 1,
+                  time: Number(Math.round(this.workTime)),
+                });
+            }
+          });
         }
       });
     } catch (e) {

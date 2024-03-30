@@ -69,4 +69,8 @@ export default class GarageView {
   public getAllItems() {
     return this.allItems;
   }
+
+  public getRaceController() {
+    return this.raceController;
+  }
 }
