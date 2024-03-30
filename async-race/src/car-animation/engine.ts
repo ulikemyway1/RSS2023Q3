@@ -108,7 +108,8 @@ export default class Engine {
         this.context.stopBtn.disabled = true;
         this.context.deleteBtn.disabled = false;
         this.context.editBtn.disabled = false;
-        if (mode === "alone") garage.getRaceController().getStartBrn().disabled = false;
+        if (mode === "alone")
+          garage.getRaceController().getStartBrn().disabled = false;
       });
   }
 }
