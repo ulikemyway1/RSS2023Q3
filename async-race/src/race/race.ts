@@ -1,3 +1,5 @@
+import garage from "..";
+
 type WinnerDescr = {
   id: number;
   wins: number;
@@ -13,6 +15,7 @@ export default class Race {
     if (!this.winnerIsKnown) {
       this.winnerIsKnown = true;
       this.tryMakeNewRecord(winnerInfo);
+      garage.getRaceController().getResetBtn().disabled = false;
     }
   }
 

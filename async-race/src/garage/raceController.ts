@@ -16,7 +16,7 @@ export default class RaceController {
 
   private stopRaceBtn = new ButtonElement(
     ["stop-race", "button"],
-    "Stop Race",
+    "Reset",
   ).getButton();
 
   constructor() {
@@ -40,6 +40,10 @@ export default class RaceController {
     return this.race;
   }
 
+  public getResetBtn() {
+    return this.stopRaceBtn;
+  }
+
   private startRace() {
     this.race = new Race();
     this.startRaceBtn.disabled = true;
@@ -47,7 +51,6 @@ export default class RaceController {
       .getItemWrapper()
       .getCurrentPageContent()
       .forEach((garaItem) => garaItem.engine.start("race"));
-    this.stopRaceBtn.disabled = false;
   }
 
   private stopRace() {
