@@ -17,6 +17,7 @@ export default class Engine {
 
   async start(mode: driveMode) {
     this.context.editBtn.disabled = true;
+    garage.getRaceController().getStartBrn().disabled = true;
     const response = fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=started`,
       {
@@ -106,6 +107,7 @@ export default class Engine {
         this.context.stopBtn.disabled = true;
         this.context.deleteBtn.disabled = false;
         this.context.editBtn.disabled = false;
+        garage.getRaceController().getStartBrn().disabled = false;
       });
   }
 }

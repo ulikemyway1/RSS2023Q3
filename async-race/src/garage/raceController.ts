@@ -44,6 +44,10 @@ export default class RaceController {
     return this.stopRaceBtn;
   }
 
+  public getStartBrn() {
+    return this.startRaceBtn;
+  }
+
   private startRace() {
     this.race = new Race();
     this.startRaceBtn.disabled = true;
