@@ -1,7 +1,7 @@
 import Car from "./car";
 
 export default class ColorSelector {
-  colorSelector = document.createElement("input");
+  colorSelector: HTMLInputElement = document.createElement("input");
   target: Car | null = null;
   constructor() {
     this.colorSelector.type = "color";
@@ -16,15 +16,15 @@ export default class ColorSelector {
     });
   }
 
-  public bindElement(element: Car) {
+  public bindElement(element: Car): void {
     this.target = element;
   }
 
-  public setInitialColor(color: string) {
+  public setInitialColor(color: string): void {
     this.colorSelector.value = color;
   }
 
-  public getColorSelector() {
+  public getColorSelector(): HTMLInputElement {
     return this.colorSelector;
   }
 }

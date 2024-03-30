@@ -1,5 +1,5 @@
 export default class BaseElement {
-  element: HTMLElement;
+  private element: HTMLElement;
 
   constructor(tag: string, classNames?: string[], textContent?: string) {
     this.element = document.createElement(tag);
@@ -13,7 +13,7 @@ export default class BaseElement {
     }
   }
 
-  getElement() {
+  getElement(): HTMLElement {
     return this.element;
   }
 }

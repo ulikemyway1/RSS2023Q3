@@ -6,13 +6,13 @@ class GarageDataOwner {
     this.url = url;
   }
 
-  async getAllCars() {
+  async getAllCars(): Promise<AllCardDescr> {
     const response = await fetch(this.url);
     const data: AllCardDescr = await response.json();
     return data;
   }
 
-  async deleteCar(id: number) {
+  async deleteCar(id: number): Promise<void> {
     await fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: "DELETE",
     });

@@ -1,5 +1,6 @@
 import garage from "..";
 import Engine from "../car-animation/engine";
+import { updateCarData } from "../types/APItypes";
 import { CarDescr } from "../types/garageTypes";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
@@ -125,13 +126,17 @@ export default class GarageItem {
     const carControlBtnWrapper = new BaseElement("div", [
       "car-control-wrapper",
     ]).getElement();
+
     this.engine = new Engine(this.car);
+
     carControlBtnWrapper.append(this.driveBtn, this.stopBtn);
+
     this.driveBtn.addEventListener("click", () => {
       this.deleteBtn.disabled = true;
       this.editBtn.disabled = true;
       this.engine.start.bind(this.engine)("alone");
     });
+
     this.stopBtn.addEventListener("click", () =>
       this.engine.stopDriving.bind(this.engine)("alone"),
     );
@@ -150,22 +155,25 @@ export default class GarageItem {
     return this.item;
   }
 
-  private editCar(id: number) {
-    const newName = this.nameSelector.getNameSelector().value;
-    const newColor = this.colorSelector.getColorSelector().value;
+  private editCar(id: number): void {
+    const newName: string = this.nameSelector.getNameSelector().value;
+    const newColor: string = this.colorSelector.getColorSelector().value;
+
+    const newCarParam: updateCarData = {
+      name: newName,
+      color: newColor,
+    };
+
     fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: newName,
-        color: newColor,
-      }),
+      body: JSON.stringify(newCarParam),
     });
   }
 
-  private async deleteCar(id: number) {
+  private async deleteCar(id: number): Promise<void> {
     await garageDataOwner
       .deleteCar(id)
       .then(() => this.item.remove())

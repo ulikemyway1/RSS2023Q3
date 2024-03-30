@@ -2,6 +2,7 @@ import garage from "..";
 import Race from "../race/race";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
+import GarageItem from "./garageItem";
 
 export default class RaceController {
   private race = new Race();
@@ -32,23 +33,23 @@ export default class RaceController {
     this.element.append(this.startRaceBtn, this.stopRaceBtn);
   }
 
-  public getElement() {
+  public getElement(): HTMLElement {
     return this.element;
   }
 
-  public getRace() {
+  public getRace(): Race {
     return this.race;
   }
 
-  public getResetBtn() {
+  public getResetBtn(): HTMLButtonElement {
     return this.stopRaceBtn;
   }
 
-  public getStartBrn() {
+  public getStartBrn(): HTMLButtonElement {
     return this.startRaceBtn;
   }
 
-  private startRace() {
+  private startRace(): void {
     this.race = new Race();
     this.startRaceBtn.disabled = true;
     garage.getItemWrapper().nextPageBtn.disabled = true;
@@ -63,7 +64,7 @@ export default class RaceController {
         garaItem.deleteBtn.disabled = true;
         allEngineStartedPromises.push(garaItem.engine.start("race"));
       });
-    const garageItems = Array.from(
+    const garageItems: GarageItem[] = Array.from(
       garage.getItemWrapper().getCurrentPageContent(),
     );
     Promise.all(allEngineStartedPromises).then(() => {
@@ -77,7 +78,7 @@ export default class RaceController {
     });
   }
 
-  private stopRace() {
+  private stopRace(): void {
     this.stopRaceBtn.disabled = true;
     if (this.race.alert) this.race.alert.remove();
     const stopPromises: Promise<void>[] = [];

@@ -1,3 +1,4 @@
+import { getCarsResponse } from "../types/APItypes";
 import BaseElement from "../utils/baseElement";
 
 export default class CarsCounter {
@@ -17,13 +18,16 @@ export default class CarsCounter {
     this.element.append(this.count);
   }
 
-  public getElement() {
+  public getElement(): HTMLElement {
     return this.element;
   }
 
-  public updateCarsAmont() {
+  public updateCarsAmont(): void {
     fetch("http://127.0.0.1:3000/garage")
       .then((response) => response.json())
-      .then((data) => (this.count.textContent = data.length));
+      .then(
+        (data: getCarsResponse) =>
+          (this.count.textContent = String(data.length)),
+      );
   }
 }

@@ -1,4 +1,3 @@
-import BaseElement from "../utils/baseElement";
 import Car from "./car";
 
 export default class CarNameSelector {
@@ -14,12 +13,12 @@ export default class CarNameSelector {
     });
   }
 
-  public bindCar(car: Car) {
+  public bindCar(car: Car): void {
     this.target = car;
     this.nameSelector.value = car.getName();
   }
 
-  public getNameSelector() {
+  public getNameSelector(): HTMLInputElement {
     return this.nameSelector;
   }
 }

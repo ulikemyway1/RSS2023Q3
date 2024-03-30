@@ -69,23 +69,23 @@ export default class Car {
     this.element.dataset.color = color;
   }
 
-  getColor() {
+  getColor(): string {
     return this.color;
   }
 
-  getCar() {
+  getCar(): HTMLElement {
     return this.element;
   }
 
-  getName() {
+  getName(): string {
     return this.name;
   }
 
-  getID() {
+  getID(): number {
     return this.id;
   }
 
-  setName(name: string) {
+  setName(name: string): void {
     this.name = name;
   }
 }
