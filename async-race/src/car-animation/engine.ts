@@ -87,8 +87,8 @@ export default class Engine {
     }
   }
 
-  public stopDriving() {
-    fetch(
+  public async stopDriving() {
+    await fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=stopped`,
       {
         method: "PATCH",

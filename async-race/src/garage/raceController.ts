@@ -55,10 +55,11 @@ export default class RaceController {
 
   private stopRace() {
     this.stopRaceBtn.disabled = true;
+    const stopPromises: Promise<void>[] = [];
     garage
       .getItemWrapper()
       .getCurrentPageContent()
-      .forEach((garaItem) => garaItem.engine.stopDriving());
-    this.startRaceBtn.disabled = false;
+      .forEach((garaItem) => stopPromises.push(garaItem.engine.stopDriving()));
+    Promise.all(stopPromises).then(() => (this.startRaceBtn.disabled = false));
   }
 }
