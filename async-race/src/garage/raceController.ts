@@ -91,6 +91,10 @@ export default class RaceController {
       garage.getItemWrapper().nextPageBtn.disabled = false;
       garage.getItemWrapper().prevPageBtn.disabled = false;
       this.startRaceBtn.disabled = false;
+      garage
+        .getItemWrapper()
+        .getCurrentPageContent()
+        .forEach((item) => (item.driveBtn.disabled = false));
     });
   }
 }

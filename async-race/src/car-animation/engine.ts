@@ -104,12 +104,13 @@ export default class Engine {
     )
       .then(() => this.car.getCar().classList.remove("driving", "stop-driving"))
       .then(() => {
-        this.context.driveBtn.disabled = false;
         this.context.stopBtn.disabled = true;
         this.context.deleteBtn.disabled = false;
         this.context.editBtn.disabled = false;
-        if (mode === "alone")
+        if (mode === "alone") {
           garage.getRaceController().getStartBrn().disabled = false;
+          this.context.driveBtn.disabled = false;
+        }
       });
   }
 }
