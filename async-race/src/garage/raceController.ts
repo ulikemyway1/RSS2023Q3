@@ -64,7 +64,7 @@ export default class RaceController {
         garaItem.deleteBtn.disabled = true;
         allEngineStartedPromises.push(garaItem.engine.start("race"));
       });
-    const garageItems: GarageItem[] = Array.from(
+    const garageItems = Array.from(
       garage.getItemWrapper().getCurrentPageContent(),
     );
     Promise.all(allEngineStartedPromises).then(() => {
