@@ -133,7 +133,7 @@ export default class GarageItem {
       this.engine.start.bind(this.engine)("alone");
     });
     this.stopBtn.addEventListener("click", () =>
-      this.engine.stopDriving.bind(this.engine)(),
+      this.engine.stopDriving.bind(this.engine)("alone"),
     );
 
     this.item.append(

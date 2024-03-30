@@ -95,7 +95,7 @@ export default class Engine {
     }
   }
 
-  public async stopDriving() {
+  public async stopDriving(mode: "alone" | "race") {
     await fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=stopped`,
       {
@@ -108,7 +108,7 @@ export default class Engine {
         this.context.stopBtn.disabled = true;
         this.context.deleteBtn.disabled = false;
         this.context.editBtn.disabled = false;
-        garage.getRaceController().getStartBrn().disabled = false;
+        if (mode === "alone") garage.getRaceController().getStartBrn().disabled = false;
       });
   }
 }

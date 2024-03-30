@@ -84,7 +84,7 @@ export default class RaceController {
     garage
       .getItemWrapper()
       .getCurrentPageContent()
-      .forEach((garaItem) => stopPromises.push(garaItem.engine.stopDriving()));
+      .forEach((garagItem) => stopPromises.push(garagItem.engine.stopDriving("race")));
     Promise.all(stopPromises).then(() => {
       garage.getItemWrapper().nextPageBtn.disabled = false;
       garage.getItemWrapper().prevPageBtn.disabled = false;
