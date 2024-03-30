@@ -116,8 +116,8 @@ export default class GarageItem {
         this.editModeActive = false;
         this.colorSelector.getColorSelector().disabled = true;
         this.nameSelector.getNameSelector().disabled = true;
-        this.currentCarColor = this.nameSelector.getNameSelector().value;
-        this.currentCarName = this.colorSelector.getColorSelector().value;
+        this.currentCarName = this.nameSelector.getNameSelector().value;
+        this.currentCarColor = this.colorSelector.getColorSelector().value;
       }
     });
 
