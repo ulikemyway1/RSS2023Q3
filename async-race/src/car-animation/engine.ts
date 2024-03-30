@@ -15,6 +15,7 @@ export default class Engine {
     this.carView = this.car.getCar();
   }
   async start(mode: driveMode) {
+    this.context.editBtn.disabled = true;
     await fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=started`,
       {
@@ -38,7 +39,7 @@ export default class Engine {
   }
 
   private async drive(mode: driveMode) {
-    this.context.stopBtn.disabled = false;
+    if (mode === "alone") this.context.stopBtn.disabled = false;
     try {
       const response = await fetch(
         `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=drive`,

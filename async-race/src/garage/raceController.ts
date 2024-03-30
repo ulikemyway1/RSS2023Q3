@@ -50,7 +50,11 @@ export default class RaceController {
     garage
       .getItemWrapper()
       .getCurrentPageContent()
-      .forEach((garaItem) => garaItem.engine.start("race"));
+      .forEach((garaItem) => {
+        garaItem.stopBtn.disabled = true;
+        garaItem.driveBtn.disabled = true;
+        garaItem.engine.start("race");
+      });
   }
 
   private stopRace() {
