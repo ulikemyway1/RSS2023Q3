@@ -47,14 +47,27 @@ export default class RaceController {
   private startRace() {
     this.race = new Race();
     this.startRaceBtn.disabled = true;
+    const allEngineStartedPromises: Promise<Response>[] = [];
     garage
       .getItemWrapper()
       .getCurrentPageContent()
       .forEach((garaItem) => {
         garaItem.stopBtn.disabled = true;
         garaItem.driveBtn.disabled = true;
-        garaItem.engine.start("race");
+        allEngineStartedPromises.push(garaItem.engine.start("race"));
       });
+    const garageItems = Array.from(
+      garage.getItemWrapper().getCurrentPageContent(),
+    );
+    Promise.all(allEngineStartedPromises).then(() => {
+      for (let i = 0; i < allEngineStartedPromises.length; i += 1) {
+        allEngineStartedPromises[i]
+          .then((response) => response.json())
+          .then((data) => garageItems[i].engine.applyDrivingStyles(data))
+          .then(() => (garageItems[i].engine.context.driveBtn.disabled = true))
+          .then(() => garageItems[i].engine.drive("race"));
+      }
+    });
   }
 
   private stopRace() {
