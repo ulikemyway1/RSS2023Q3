@@ -108,8 +108,9 @@ export default class GarageItem {
 
     applyBtn.addEventListener("click", () => {
       if (this.car) {
+        this.driveBtn.disabled = false;
+        garage.getRaceController().getStartBrn().disabled = false;
         const carID = this.car.getID();
-        console.log(carID);
         this.editCar(carID);
         this.editBtn.textContent = "Edit";
         applyBtn.classList.add("hidden");
