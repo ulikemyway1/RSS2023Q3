@@ -1,5 +1,6 @@
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
+import startPage from "./mainPage";
 import "./mainView.scss";
 
 export default class MainVeiw {
@@ -17,9 +18,29 @@ export default class MainVeiw {
     "main",
   ]).getElement();
 
+  mainPage: HTMLElement = startPage.getView();
+
   constructor() {
     this.nav.append(this.navUl);
     this.header.append(this.nav);
+    this.content.push(this.mainPage);
+    this.contentContainer.append(this.mainPage);
+
+    const mainViewBtn = new ButtonElement(
+      ["main-btn", "button"],
+      "Main Page",
+    ).getButton();
+    mainViewBtn.disabled = true;
+    mainViewBtn.addEventListener("click", (e) => {
+      this.btnControls.forEach((btn) => (btn.disabled = false));
+      if (e.target === mainViewBtn) {
+        mainViewBtn.disabled = true;
+      }
+      this.content.forEach((element) => element.remove());
+      this.contentContainer.append(this.mainPage);
+    });
+    this.btnControls.push(mainViewBtn);
+    this.navUl.append(mainViewBtn);
   }
 
   public addContent(content: { name: string; element: HTMLElement }[]): void {

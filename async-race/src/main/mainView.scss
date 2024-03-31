@@ -5,3 +5,19 @@
   gap: 40px;
   padding: 10px 0;
 }
+
+.header {
+  height: 10vh;
+}
+
+.main-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  min-height: 80vh;
+  text-align: center;
+  font-size: 18px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: rgb(177, 177, 177);
+}
