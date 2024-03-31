@@ -1,9 +1,9 @@
 import "./paginator.scss";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
-import GarageItem from "../garage/garageItem";
+import { IListItem } from "../types/interface";
 
-export default class Paginator {
+export default class Paginator<T extends IListItem> {
   private numberPerPage: number;
 
   private view: HTMLElement = new BaseElement("div", [
@@ -32,15 +32,15 @@ export default class Paginator {
     "Prev Page",
   ).getButton();
 
-  private content: Set<GarageItem> = new Set();
+  private content: Set<T> = new Set();
 
   private nav: HTMLElement = new BaseElement("span", [
     "paginator__nav",
   ]).getElement();
 
-  private currentPageContent: Set<GarageItem> = new Set();
+  private currentPageContent: Set<T> = new Set();
 
-  constructor(content: Set<GarageItem>, numberPerPage: number) {
+  constructor(content: Set<T>, numberPerPage: number) {
     this.numberPerPage = numberPerPage;
 
     this.content = content;
@@ -53,7 +53,7 @@ export default class Paginator {
 
     this.controlsWrapper.append(this.prevPageBtn, this.nextPageBtn);
 
-    this.listContent(1);
+    this.listContent(0);
 
     this.nextPageBtn.addEventListener("click", () =>
       this.goToNextPage.bind(this)(),
@@ -77,7 +77,7 @@ export default class Paginator {
     return this.view;
   }
 
-  public updateAllContent(content?: Set<GarageItem>): void {
+  public updateAllContent(content?: Set<T>): void {
     let totalElements: number;
     if (content && content.size > 0) {
       totalElements = content.size;
@@ -93,15 +93,15 @@ export default class Paginator {
     this.updateControlsStatus();
   }
 
-  public addContent(content: GarageItem): void {
+  public addContent(content: T): void {
     this.content.add(content);
   }
 
-  public getContent(): Set<GarageItem> {
+  public getContent(): Set<T> {
     return this.content;
   }
 
-  public getCurrentPageContent(): Set<GarageItem> {
+  public getCurrentPageContent(): Set<T> {
     return this.currentPageContent;
   }
 
@@ -123,7 +123,7 @@ export default class Paginator {
       for (let i = firstElementIndex; i <= lastElementIndex; i += 1) {
         if (arr[i]) {
           this.currentPageContent.add(arr[i]);
-          this.contentWrapper.append(arr[i].getGarageItem());
+          this.contentWrapper.append(arr[i].getItem());
         }
       }
       this.updateNavInfo(page);

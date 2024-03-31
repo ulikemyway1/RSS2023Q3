@@ -2,18 +2,20 @@ import garage from "..";
 import Engine from "../car-animation/engine";
 import { updateCarData } from "../types/APItypes";
 import { CarDescr } from "../types/garageTypes";
+import { IGarageListItem, IListItem } from "../types/interface";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
+import BaseListItem from "../utils/baseListItem";
+import winnersDataHandler from "../winners/winnersDataHandler";
 import Car from "./car";
 import CarNameSelector from "./carNameSelector";
 import ColorSelector from "./colorSelector";
 import garageDataOwner from "./garageDataOwner";
 
-export default class GarageItem {
-  private item: HTMLElement = new BaseElement("article", [
-    "garage__item",
-  ]).getElement();
-
+export default class GarageItem
+  extends BaseListItem
+  implements IGarageListItem
+{
   private car: Car;
 
   private colorSelector: ColorSelector = new ColorSelector();
@@ -47,6 +49,7 @@ export default class GarageItem {
   public engine: Engine;
 
   constructor(carDescr: CarDescr) {
+    super("article", ["garage__item"]);
     this.car = new Car(carDescr.id, carDescr.color, carDescr.name, this);
     this.colorSelector.bindElement(this.car);
     this.colorSelector.setInitialColor(carDescr.color);
@@ -75,7 +78,12 @@ export default class GarageItem {
     ]).getElement();
 
     this.deleteBtn.addEventListener("click", () => {
-      if (this.car) this.deleteCar(this.car?.getID());
+      const car = this.car;
+      if (car) {
+        const carId = car.getID();
+        winnersDataHandler.deleteWinner(carId);
+        this.deleteCar(carId);
+      }
     });
 
     btnWrapper.append(this.editBtn, applyBtn);
@@ -151,7 +159,7 @@ export default class GarageItem {
     this.stopBtn.disabled = true;
   }
 
-  public getGarageItem() {
+  public getItem() {
     return this.item;
   }
 

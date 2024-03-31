@@ -9,9 +9,14 @@ export default class Car {
 
   private color: string;
 
-  public context: GarageItem;
+  public context: GarageItem | null;
 
-  constructor(id: number, color: string, name: string, context: GarageItem) {
+  constructor(
+    id: number,
+    color: string,
+    name: string,
+    context: GarageItem | null,
+  ) {
     this.element.innerHTML = `<?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
