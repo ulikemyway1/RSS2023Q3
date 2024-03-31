@@ -37,6 +37,12 @@ export default class WinnersView {
     return this.view;
   }
 
+  public async updateContent(): Promise<void> {
+    this.content.clear();
+    await this.loadRecords();
+    this.itemsWrapper?.updateAllContent(this.content);
+  }
+
   private async loadRecords() {
     const winnersData: winnerInfo[] = await this.dataHandler.getAllWinners();
 
@@ -66,14 +72,41 @@ export default class WinnersView {
       ["car-name-header"],
       "Name",
     ).getElement();
+
     const carWinsHeader = new ButtonElement(
       ["car-wins-header", "button"],
       "Wins",
     ).getButton();
+
+    carWinsHeader.addEventListener("click", () => {
+      this.dataHandler.setSortType("wins");
+
+      const currentSortOrder = this.dataHandler.getSortOrder();
+      if (currentSortOrder === "ASC") {
+        this.dataHandler.setSortOrder("DESC");
+      } else {
+        this.dataHandler.setSortOrder("ASC");
+      }
+      this.updateContent();
+    });
+
     const carTimeHeader = new ButtonElement(
       ["car-time-header", "button"],
-      "Time",
+      "Time, s",
     ).getButton();
+
+    carTimeHeader.addEventListener("click", () => {
+      this.dataHandler.setSortType("time");
+
+      const currentSortOrder = this.dataHandler.getSortOrder();
+      if (currentSortOrder === "ASC") {
+        this.dataHandler.setSortOrder("DESC");
+      } else {
+        this.dataHandler.setSortOrder("ASC");
+      }
+      this.updateContent();
+    });
+
     this.header.append(
       carIndexHeader,
       carImgHeader,
