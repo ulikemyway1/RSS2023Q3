@@ -4,6 +4,7 @@ import BaseElement from "../utils/baseElement";
 import WinnersItemWrapper from "./winnersItemWrapper";
 import WinnersTableItem, { winnerInfo } from "./winnersTableItem";
 import ButtonElement from "../utils/InputElement";
+import winnersDataHandler, { WinnersDataHandler } from "./winnersDataHandler";
 
 export default class WinnersView {
   private view: HTMLElement = new BaseElement(
@@ -20,6 +21,8 @@ export default class WinnersView {
     "winners__header",
   ]).getElement();
 
+  private dataHandler: WinnersDataHandler = winnersDataHandler;
+
   constructor() {
     this.initHeader();
     this.loadRecords()
@@ -35,10 +38,8 @@ export default class WinnersView {
   }
 
   private async loadRecords() {
-    const response = await fetch("http://127.0.0.1:3000/winners", {
-      method: "GET",
-    });
-    const winnersData: winnerInfo[] = await response.json();
+    const winnersData: winnerInfo[] = await this.dataHandler.getAllWinners();
+
     winnersData.forEach((winerDescr, index) =>
       this.content.add(this.createTableItem(winerDescr, index)),
     );

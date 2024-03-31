@@ -1,4 +1,4 @@
-import { AllCardDescr } from "../types/garageTypes";
+import { AllCardDescr, CarDescr } from "../types/garageTypes";
 
 class GarageDataOwner {
   url: string = "";
@@ -16,6 +16,14 @@ class GarageDataOwner {
     await fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: "DELETE",
     });
+  }
+
+  public async getCarDescr(id: number) {
+    const response = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
+      method: "GET",
+    });
+    const carDescr: CarDescr = await response.json();
+    return carDescr;
   }
 }
 

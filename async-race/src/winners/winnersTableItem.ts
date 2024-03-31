@@ -2,6 +2,7 @@ import Car from "../garage/car";
 import { CarDescr } from "../types/garageTypes";
 import { IWinnersTableItem } from "../types/interface";
 import BaseElement from "../utils/baseElement";
+import winnersDataHandler, { WinnersDataHandler } from "./winnersDataHandler";
 
 export type winnerInfo = {
   id: number;
@@ -20,6 +21,8 @@ export default class WinnersTableItem implements IWinnersTableItem {
 
   private index: number;
 
+  private dataHandler: WinnersDataHandler = winnersDataHandler;
+
   constructor(descr: winnerInfo, index: number) {
     this.carStat = descr;
     this.index = index;
@@ -27,10 +30,7 @@ export default class WinnersTableItem implements IWinnersTableItem {
   }
 
   private async loadCar(id: number): Promise<void> {
-    const response = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
-      method: "GET",
-    });
-    const carData: CarDescr = await response.json();
+    const carData = await this.dataHandler.getWinner(id);
     this.car = new Car(carData.id, carData.color, carData.name, null);
   }
 

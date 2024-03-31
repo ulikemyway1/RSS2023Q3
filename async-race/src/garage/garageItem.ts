@@ -6,6 +6,7 @@ import { IGarageListItem, IListItem } from "../types/interface";
 import ButtonElement from "../utils/InputElement";
 import BaseElement from "../utils/baseElement";
 import BaseListItem from "../utils/baseListItem";
+import winnersDataHandler from "../winners/winnersDataHandler";
 import Car from "./car";
 import CarNameSelector from "./carNameSelector";
 import ColorSelector from "./colorSelector";
@@ -77,7 +78,12 @@ export default class GarageItem
     ]).getElement();
 
     this.deleteBtn.addEventListener("click", () => {
-      if (this.car) this.deleteCar(this.car?.getID());
+      const car = this.car;
+      if (car) {
+        const carId = car.getID();
+        winnersDataHandler.deleteWinner(carId);
+        this.deleteCar(carId);
+      }
     });
 
     btnWrapper.append(this.editBtn, applyBtn);
