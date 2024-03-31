@@ -53,7 +53,7 @@ export default class Paginator<T extends IListItem> {
 
     this.controlsWrapper.append(this.prevPageBtn, this.nextPageBtn);
 
-    this.listContent(1);
+    this.listContent(0);
 
     this.nextPageBtn.addEventListener("click", () =>
       this.goToNextPage.bind(this)(),

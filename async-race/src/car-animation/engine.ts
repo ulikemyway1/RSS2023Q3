@@ -7,16 +7,15 @@ type driveMode = "alone" | "race";
 export default class Engine {
   car: Car;
   carView: HTMLElement;
-  context: GarageItem;
+  context: GarageItem | null;
   private workTime: number = 0;
   constructor(car: Car) {
     this.car = car;
     this.context = this.car.context;
     this.carView = this.car.getCar();
   }
-
   async start(mode: driveMode): Promise<Response> {
-    this.context.editBtn.disabled = true;
+    if (this.context) this.context.editBtn.disabled = true;
     garage.getRaceController().getStartBrn().disabled = true;
     const response = fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=started`,
@@ -24,11 +23,13 @@ export default class Engine {
         method: "PATCH",
       },
     );
-    if (mode === "alone") {
+    if (mode === "alone" && this.context) {
       response
         .then((response) => response.json())
         .then((data) => this.applyDrivingStyles(data))
-        .then(() => (this.context.driveBtn.disabled = true))
+        .then(() => {
+          if (this.context) this.context.driveBtn.disabled = true;
+        })
         .then(() => this.drive(mode));
     }
     return response;
@@ -45,7 +46,7 @@ export default class Engine {
   }
 
   public async drive(mode: driveMode): Promise<void> {
-    if (mode === "alone") this.context.stopBtn.disabled = false;
+    if (mode === "alone" && this.context) this.context.stopBtn.disabled = false;
     try {
       const response = await fetch(
         `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=drive`,
@@ -104,12 +105,14 @@ export default class Engine {
     )
       .then(() => this.car.getCar().classList.remove("driving", "stop-driving"))
       .then(() => {
-        this.context.stopBtn.disabled = true;
-        this.context.deleteBtn.disabled = false;
-        this.context.editBtn.disabled = false;
-        if (mode === "alone") {
-          garage.getRaceController().getStartBrn().disabled = false;
-          this.context.driveBtn.disabled = false;
+        if (this.context) {
+          this.context.stopBtn.disabled = true;
+          this.context.deleteBtn.disabled = false;
+          this.context.editBtn.disabled = false;
+          if (mode === "alone") {
+            garage.getRaceController().getStartBrn().disabled = false;
+            this.context.driveBtn.disabled = false;
+          }
         }
       });
   }

@@ -72,7 +72,10 @@ export default class RaceController {
         allEngineStartedPromises[i]
           .then((response) => response.json())
           .then((data) => garageItems[i].engine.applyDrivingStyles(data))
-          .then(() => (garageItems[i].engine.context.driveBtn.disabled = true))
+          .then(() => {
+            if (garageItems[i].engine.context)
+              garageItems[i].engine.context!.driveBtn.disabled = true;
+          })
           .then(() => garageItems[i].engine.drive("race"));
       }
     });
