@@ -43,9 +43,11 @@ export default class MainVeiw {
     this.navUl.append(mainViewBtn);
   }
 
-  public addContent(content: { name: string; element: HTMLElement }[]): void {
+  public addContent(
+    content: { name: string; element: HTMLElement; navCallbacl?: () => void }[],
+  ): void {
     content.forEach((item) => {
-      this.createNavItem(item.name, item.element);
+      this.createNavItem(item.name, item.element, item.navCallbacl);
       this.content.push(item.element);
     });
   }
@@ -58,7 +60,11 @@ export default class MainVeiw {
     return this.contentContainer;
   }
 
-  private createNavItem(textContent: string, target: HTMLElement): void {
+  private createNavItem(
+    textContent: string,
+    target: HTMLElement,
+    callback?: () => void,
+  ): void {
     const btn = new ButtonElement(
       ["header__nav-ul__li", "button"],
       textContent,
@@ -70,6 +76,9 @@ export default class MainVeiw {
       }
       this.content.forEach((element) => element.remove());
       this.contentContainer.append(target);
+      if (callback) {
+        callback();
+      }
     });
     this.btnControls.push(btn);
     this.navUl.append(btn);

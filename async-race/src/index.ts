@@ -17,6 +17,7 @@ mainVeiw.addContent([
   {
     name: "Open Winners Table",
     element: winners.getView(),
+    navCallbacl: winners.updateContent.bind(winners),
   },
 ]);
 
