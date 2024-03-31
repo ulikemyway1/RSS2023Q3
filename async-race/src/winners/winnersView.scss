@@ -4,9 +4,17 @@
   align-items: center;
   padding: 15px;
   font-family: Arial, Helvetica, sans-serif;
+  &__header {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 20px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid black;
+  }
 }
 
-.winner-table__item-wrapper {
+.winner-table__item-wrapper,
+.winners__header {
   width: 80vw;
   display: grid;
   grid-template-columns: 1fr 2fr 4fr 2fr 1fr;
@@ -16,10 +24,20 @@
     grid-area: unset;
   }
   .winner-index,
-  .winner-name {
+  .winner-name,
+  .car-index-header,
+  .car-name-header {
     justify-self: left;
   }
   .winner-time {
     justify-self: right;
   }
+}
+
+.car-wins-header,
+.car-time-header {
+  font-size: 22px;
+  font-weight: 800;
+  border: none;
+  background: none;
 }
