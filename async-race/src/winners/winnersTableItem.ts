@@ -18,8 +18,11 @@ export default class WinnersTableItem implements IWinnersTableItem {
 
   private carStat: winnerInfo;
 
-  constructor(descr: winnerInfo) {
+  private index: number;
+
+  constructor(descr: winnerInfo, index: number) {
     this.carStat = descr;
+    this.index = index;
     this.loadCar(descr.id).then(this.createWinnerItem.bind(this));
   }
 
@@ -33,6 +36,11 @@ export default class WinnersTableItem implements IWinnersTableItem {
 
   private createWinnerItem() {
     if (this.car) {
+      const carIndex = new BaseElement(
+        "span",
+        ["winner-index"],
+        String(this.index),
+      ).getElement();
       const carIcon = this.car.getCar();
       const carName = new BaseElement(
         "span",
@@ -49,7 +57,7 @@ export default class WinnersTableItem implements IWinnersTableItem {
         ["winner-wins"],
         String(this.carStat.wins),
       ).getElement();
-      this.itemWrapper.append(carIcon, carName, wins, bestTime);
+      this.itemWrapper.append(carIndex, carIcon, carName, wins, bestTime);
     }
   }
 

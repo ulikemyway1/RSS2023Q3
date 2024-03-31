@@ -32,13 +32,13 @@ export default class WinnersView {
       method: "GET",
     });
     const winnersData: winnerInfo[] = await response.json();
-    winnersData.forEach((winerDescr) =>
-      this.content.add(this.createTableItem(winerDescr)),
+    winnersData.forEach((winerDescr, index) =>
+      this.content.add(this.createTableItem(winerDescr, index)),
     );
   }
 
-  private createTableItem(descr: winnerInfo): WinnersTableItem {
-    const winnerTableitem = new WinnersTableItem(descr);
+  private createTableItem(descr: winnerInfo, index: number): WinnersTableItem {
+    const winnerTableitem = new WinnersTableItem(descr, index + 1);
     return winnerTableitem;
   }
 }
