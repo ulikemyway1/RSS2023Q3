@@ -89,7 +89,7 @@ export default class Paginator<T extends IListItem> {
     this.totalPages = Math.ceil(totalElements / this.numberPerPage);
     this.nav.textContent = `${this.currentPage} / ${this.totalPages}`;
 
-    this.listContent(0);
+    this.listContent(this.currentPage);
     this.updateControlsStatus();
   }
 
