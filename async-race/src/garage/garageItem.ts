@@ -18,6 +18,12 @@ export default class GarageItem
 {
   private car: Car;
 
+  private finishLine: HTMLElement = new BaseElement("div", [
+    "finish-line",
+  ]).getElement();
+
+  private bg: HTMLElement = new BaseElement("div", ["bg"]).getElement();
+
   private colorSelector: ColorSelector = new ColorSelector();
 
   private nameSelector: CarNameSelector = new CarNameSelector();
@@ -150,6 +156,8 @@ export default class GarageItem
     );
 
     this.item.append(
+      this.finishLine,
+      this.bg,
       this.car.getCar(),
       wrapper,
       btnWrapper,

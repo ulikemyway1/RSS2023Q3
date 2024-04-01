@@ -18,6 +18,10 @@ export default class Engine {
     if (this.context) this.context.editBtn.disabled = true;
     garage.getRaceController().getStartBrn().disabled = true;
     mainVeiw.btnControls.forEach((btn) => (btn.disabled = true));
+    garage.creationSection.createBtn.disabled = true;
+    garage.creationSection.createHandredBtn.disabled = true;
+    garage.creationSection.carNameInput.disabled = true;
+    garage.creationSection.carColorInput.disabled = true;
     const response = fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=started`,
       {
@@ -110,7 +114,13 @@ export default class Engine {
           this.context.stopBtn.disabled = true;
           this.context.deleteBtn.disabled = false;
           this.context.editBtn.disabled = false;
-          mainVeiw.btnControls.forEach((btn) => (btn.disabled = false));
+          garage.creationSection.createBtn.disabled = false;
+          garage.creationSection.createHandredBtn.disabled = false;
+          garage.creationSection.carNameInput.disabled = false;
+          garage.creationSection.carColorInput.disabled = false;
+          mainVeiw.btnControls.forEach((btn) => {
+            if (btn.textContent !== "Open Garage") btn.disabled = false;
+          });
           garage.getRaceController().getStartBrn().disabled = true;
           if (mode === "alone") {
             garage.getRaceController().getStartBrn().disabled = false;

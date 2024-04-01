@@ -14,6 +14,7 @@
   filter: drop-shadow(0px 3px 1px black);
   user-select: none;
   white-space: nowrap;
+  z-index: 1000;
 
   &__car-name {
     text-transform: uppercase;

@@ -1,3 +1,8 @@
+html {
+  scroll-behavior: smooth;
+  background: rgb(248, 248, 248);
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -7,8 +12,29 @@
 .button {
   padding: 5px;
   cursor: pointer;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  background: #9fbaf1;
+  transition: filter 0.3s;
 }
 
 .button:disabled {
   cursor: auto;
+  border: 1px solid #828282;
+  background: #e0e0e0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    filter: brightness(0.9);
+  }
+
+  .button:disabled:hover {
+    filter: brightness(1);
+  }
+}
+
+.main {
+  margin: 0 auto;
+  max-width: 1440px;
 }

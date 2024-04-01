@@ -6,11 +6,15 @@ import "./mainView.scss";
 export default class MainVeiw {
   content: HTMLElement[] = [];
 
-  header: HTMLElement = new BaseElement("header", ["header"]).getElement();
+  private header: HTMLElement = new BaseElement("header", [
+    "header",
+  ]).getElement();
 
-  nav: HTMLElement = new BaseElement("nav", ["nav"]).getElement();
+  private nav: HTMLElement = new BaseElement("nav", ["nav"]).getElement();
 
-  navUl: HTMLElement = new BaseElement("ul", ["header__nav-ul"]).getElement();
+  private navUl: HTMLElement = new BaseElement("ul", [
+    "header__nav-ul",
+  ]).getElement();
 
   btnControls: HTMLButtonElement[] = [];
 

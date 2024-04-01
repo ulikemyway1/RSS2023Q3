@@ -7,7 +7,8 @@
 }
 
 .header {
-  height: 10vh;
+  height: min-content;
+  border-bottom: 1px solid #000000;
 }
 
 .main-page {
@@ -15,9 +16,19 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  min-height: 80vh;
+  min-height: calc(95vh - 47.5px);
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background: rgb(177, 177, 177);
+  background: url("../img/main-page-bg.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #000000;
+  &__descr {
+    padding: 26px;
+    font-size: clamp(24px, 2vw, 48px);
+    max-width: 600px;
+    background: #ffffffdb;
+    font-weight: 600;
+  }
 }

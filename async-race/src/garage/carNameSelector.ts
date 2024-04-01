@@ -7,6 +7,9 @@ export default class CarNameSelector {
 
   constructor() {
     this.nameSelector.type = "text";
+    this.nameSelector.placeholder = "Car name (min 3)";
+    this.nameSelector.minLength = 3;
+    this.nameSelector.required = true;
     this.nameSelector.classList.add("car-name-selector");
     this.nameSelector.addEventListener("change", () => {
       if (this.target) this.target.setName(this.nameSelector.value);
