@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require("path");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.ts",
@@ -42,6 +43,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: "src/assets", to: "assets", noErrorOnMissing: true }],
     }),
+    new FaviconsWebpackPlugin("src/img/fav.png"),
   ],
   performance: {
     hints: false,
