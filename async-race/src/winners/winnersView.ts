@@ -88,35 +88,43 @@ export default class WinnersView {
     ).getElement();
 
     const carWinsHeader = new ButtonElement(
-      ["car-wins-header", "button"],
+      ["car-wins-header", "button", "underline"],
       "Wins",
     ).getButton();
 
     carWinsHeader.addEventListener("click", () => {
       this.dataHandler.setSortType("wins");
-
+      carTimeHeader.classList.remove("asc-sorting", "desc-sorting");
       const currentSortOrder = this.dataHandler.getSortOrder();
       if (currentSortOrder === "ASC") {
         this.dataHandler.setSortOrder("DESC");
+        carWinsHeader.classList.add("desc-sorting");
+        carWinsHeader.classList.remove("asc-sorting");
       } else {
         this.dataHandler.setSortOrder("ASC");
+        carWinsHeader.classList.add("asc-sorting");
+        carWinsHeader.classList.remove("desc-sorting");
       }
       this.updateContent();
     });
 
     const carTimeHeader = new ButtonElement(
-      ["car-time-header", "button"],
+      ["car-time-header", "button", "underline", "asc-sorting"],
       "Time, s",
     ).getButton();
 
     carTimeHeader.addEventListener("click", () => {
       this.dataHandler.setSortType("time");
-
+      carWinsHeader.classList.remove("asc-sorting", "desc-sorting");
       const currentSortOrder = this.dataHandler.getSortOrder();
       if (currentSortOrder === "ASC") {
         this.dataHandler.setSortOrder("DESC");
+        carTimeHeader.classList.add("desc-sorting");
+        carTimeHeader.classList.remove("asc-sorting");
       } else {
         this.dataHandler.setSortOrder("ASC");
+        carTimeHeader.classList.add("asc-sorting");
+        carTimeHeader.classList.remove("desc-sorting");
       }
       this.updateContent();
     });
