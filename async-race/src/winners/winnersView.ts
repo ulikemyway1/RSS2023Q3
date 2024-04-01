@@ -13,6 +13,10 @@ export default class WinnersView {
     "Winners Table",
   ).getElement();
 
+  private recordsAmount: HTMLElement = new BaseElement("span", [
+    "winners__total",
+  ]).getElement();
+
   private content: Set<IWinnersTableItem> = new Set();
 
   private itemsWrapper: WinnersItemWrapper | null = null;
@@ -29,7 +33,11 @@ export default class WinnersView {
       .then(() => (this.itemsWrapper = new WinnersItemWrapper(this.content)))
       .then(() => {
         if (this.itemsWrapper)
-          this.view.append(this.header, this.itemsWrapper.getView());
+          this.view.append(
+            this.recordsAmount,
+            this.header,
+            this.itemsWrapper.getView(),
+          );
       });
   }
 
@@ -45,6 +53,7 @@ export default class WinnersView {
 
   private async loadRecords() {
     const winnersData: winnerInfo[] = await this.dataHandler.getAllWinners();
+    this.recordsAmount.textContent = `Total records: ${winnersData.length}`;
 
     winnersData.forEach((winerDescr, index) =>
       this.content.add(this.createTableItem(winerDescr, index)),
