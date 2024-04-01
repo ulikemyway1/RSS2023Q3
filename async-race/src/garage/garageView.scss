@@ -111,6 +111,13 @@
   height: 30px;
   padding: 0px 2px;
   font-size: 12px;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 0 2px;
+}
+
+.car-name-selector:focus {
+  border-color: #064e15;
 }
 
 .garage__btn-wrapper {

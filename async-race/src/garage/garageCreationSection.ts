@@ -51,7 +51,7 @@ export default class GarageCreationSection {
       if (
         e.target &&
         e.target instanceof HTMLInputElement &&
-        e.target.value.length > 0
+        e.target.value.length > 2
       ) {
         this.createBtn.disabled = false;
       } else {
