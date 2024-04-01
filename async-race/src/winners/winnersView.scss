@@ -10,6 +10,20 @@
     margin-top: 20px;
     padding-bottom: 2px;
     border-bottom: 1px solid black;
+    white-space: nowrap;
+  }
+
+  &__total {
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  .car svg {
+    height: 45px;
+  }
+
+  .paginator__content-wrapper {
+    min-height: 545px;
   }
 }
 
@@ -17,7 +31,7 @@
 .winners__header {
   width: 80vw;
   display: grid;
-  grid-template-columns: 1fr 2fr 4fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 4fr 2fr 3fr;
   align-items: center;
   justify-items: center;
   .car {
@@ -40,4 +54,72 @@
   font-weight: 800;
   border: none;
   background: none;
+}
+
+.car-wins-header {
+  justify-self: left;
+}
+
+.car-time-header {
+  justify-self: right;
+}
+
+.underline {
+  position: relative;
+}
+
+.underline::after {
+  content: "";
+  display: block;
+  position: relative;
+  top: 1px;
+  width: 100%;
+  height: 1px;
+  background: #cdcdcd;
+}
+
+.asc-sorting::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 13px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid rgb(52, 52, 52);
+}
+
+.desc-sorting::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 13px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid rgb(52, 52, 52);
+}
+
+@media (max-width: 499px) {
+  .car-wins-header,
+  .car-time-header,
+  .winners__header {
+    font-size: 16px;
+  }
+
+  .asc-sorting::before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 8px solid rgb(52, 52, 52);
+  }
+
+  .desc-sorting::before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid rgb(52, 52, 52);
+  }
 }

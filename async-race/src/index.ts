@@ -7,7 +7,7 @@ import "./style.scss";
 import WinnersView from "./winners/winnersView";
 const garage = new GarageView();
 const winners = new WinnersView();
-const mainVeiw = new MainVeiw();
+export const mainVeiw = new MainVeiw();
 
 mainVeiw.addContent([
   {
@@ -17,6 +17,7 @@ mainVeiw.addContent([
   {
     name: "Open Winners Table",
     element: winners.getView(),
+    navCallbacl: winners.updateContent.bind(winners),
   },
 ]);
 

@@ -1,4 +1,4 @@
-import garage from "..";
+import garage, { mainVeiw } from "..";
 import Car from "../garage/car";
 import GarageItem from "../garage/garageItem";
 
@@ -17,6 +17,7 @@ export default class Engine {
   async start(mode: driveMode): Promise<Response> {
     if (this.context) this.context.editBtn.disabled = true;
     garage.getRaceController().getStartBrn().disabled = true;
+    mainVeiw.btnControls.forEach((btn) => (btn.disabled = true));
     const response = fetch(
       `http://127.0.0.1:3000/engine?id=${this.car.getID()}&status=started`,
       {
@@ -109,6 +110,8 @@ export default class Engine {
           this.context.stopBtn.disabled = true;
           this.context.deleteBtn.disabled = false;
           this.context.editBtn.disabled = false;
+          mainVeiw.btnControls.forEach((btn) => (btn.disabled = false));
+          garage.getRaceController().getStartBrn().disabled = true;
           if (mode === "alone") {
             garage.getRaceController().getStartBrn().disabled = false;
             this.context.driveBtn.disabled = false;

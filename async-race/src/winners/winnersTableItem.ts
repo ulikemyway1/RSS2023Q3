@@ -50,7 +50,7 @@ export default class WinnersTableItem implements IWinnersTableItem {
       const bestTime = new BaseElement(
         "span",
         ["winner-time"],
-        String(this.carStat.time),
+        String((this.carStat.time / 1000).toFixed(2)),
       ).getElement();
       const wins = new BaseElement(
         "span",
