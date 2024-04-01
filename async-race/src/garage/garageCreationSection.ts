@@ -13,33 +13,33 @@ export default class GarageCreationSection {
     "garage__creation-section",
   ]).getElement();
 
-  private carNameInput = new CarNameSelector().getNameSelector();
+  public carNameInput = new CarNameSelector().getNameSelector();
 
-  private carColorInput = new ColorSelector().getColorSelector();
-  private createBtn = new ButtonElement(
+  public carColorInput = new ColorSelector().getColorSelector();
+
+  public createBtn = new ButtonElement(
     ["button", "create-btn"],
     "Create a car",
+  ).getButton();
+
+  public createHandredBtn = new ButtonElement(
+    ["button", "create-btn"],
+    "Generate 100 cars",
   ).getButton();
 
   constructor() {
     this.createBtn.disabled = true;
     this.createBtn.addEventListener("click", () => this.createCar.bind(this)());
 
-    const createHandredBtn = new BaseElement(
-      "button",
-      ["button", "create-btn"],
-      "Generate 100 cars",
-    ).getElement();
-
     const buttonWrapper = new BaseElement("div", [
       "garage__creation-section-wrapper",
     ]).getElement();
 
-    createHandredBtn.addEventListener("click", () =>
+    this.createHandredBtn.addEventListener("click", () =>
       this.createHundredCars.bind(this)(),
     );
 
-    buttonWrapper.append(this.createBtn, createHandredBtn);
+    buttonWrapper.append(this.createBtn, this.createHandredBtn);
 
     this.creationSection.append(
       this.carNameInput,
