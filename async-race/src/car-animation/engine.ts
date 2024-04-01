@@ -110,7 +110,9 @@ export default class Engine {
           this.context.stopBtn.disabled = true;
           this.context.deleteBtn.disabled = false;
           this.context.editBtn.disabled = false;
-          mainVeiw.btnControls.forEach((btn) => (btn.disabled = false));
+          mainVeiw.btnControls.forEach((btn) => {
+            if (btn.textContent !== "Open Garage") btn.disabled = false;
+          });
           garage.getRaceController().getStartBrn().disabled = true;
           if (mode === "alone") {
             garage.getRaceController().getStartBrn().disabled = false;
