@@ -12,13 +12,26 @@
     border-bottom: 1px solid black;
     white-space: nowrap;
   }
+
+  &__total {
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  .car svg {
+    height: 45px;
+  }
+
+  .paginator__content-wrapper {
+    min-height: 545px;
+  }
 }
 
 .winner-table__item-wrapper,
 .winners__header {
   width: 80vw;
   display: grid;
-  grid-template-columns: 1fr 2fr 4fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 4fr 2fr 2fr;
   align-items: center;
   justify-items: center;
   .car {

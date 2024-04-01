@@ -7,9 +7,13 @@ import ButtonElement from "../utils/InputElement";
 import winnersDataHandler, { WinnersDataHandler } from "./winnersDataHandler";
 
 export default class WinnersView {
-  private view: HTMLElement = new BaseElement(
-    "section",
-    ["winners"],
+  private view: HTMLElement = new BaseElement("section", [
+    "winners",
+  ]).getElement();
+
+  private winnersTitle: HTMLElement = new BaseElement(
+    "h2",
+    ["winners__title"],
     "Winners Table",
   ).getElement();
 
@@ -34,6 +38,7 @@ export default class WinnersView {
       .then(() => {
         if (this.itemsWrapper)
           this.view.append(
+            this.winnersTitle,
             this.recordsAmount,
             this.header,
             this.itemsWrapper.getView(),
