@@ -96,6 +96,7 @@ export default class GarageItem
 
     this.editBtn.addEventListener("click", () => {
       if (!this.editModeActive && this.car) {
+        garage.itesmInEditMode.add(this);
         garage.getRaceController().getStartBrn().disabled = true;
         this.driveBtn.disabled = true;
         this.editBtn.textContent = "Cancel";
@@ -104,6 +105,7 @@ export default class GarageItem
         this.colorSelector.getColorSelector().disabled = false;
         this.nameSelector.getNameSelector().disabled = false;
       } else {
+        garage.itesmInEditMode.delete(this);
         garage.getRaceController().getStartBrn().disabled = false;
         this.driveBtn.disabled = false;
         this.editBtn.textContent = "Edit";
@@ -119,10 +121,14 @@ export default class GarageItem
             .style.setProperty("--car-color", this.currentCarColor);
         }
       }
+      if (garage.itesmInEditMode.size !== 0) {
+        garage.getRaceController().getStartBrn().disabled = true;
+      }
     });
 
     applyBtn.addEventListener("click", () => {
       if (this.car) {
+        garage.itesmInEditMode.delete(this);
         this.driveBtn.disabled = false;
         garage.getRaceController().getStartBrn().disabled = false;
         const carID = this.car.getID();
@@ -134,6 +140,9 @@ export default class GarageItem
         this.nameSelector.getNameSelector().disabled = true;
         this.currentCarName = this.nameSelector.getNameSelector().value;
         this.currentCarColor = this.colorSelector.getColorSelector().value;
+        if (garage.itesmInEditMode.size !== 0) {
+          garage.getRaceController().getStartBrn().disabled = true;
+        }
       }
     });
 
@@ -196,5 +205,9 @@ export default class GarageItem
       .then(() => garage.getCarsCounter().updateCarsAmont());
     garage.getAllItems().delete(this);
     garage.getItemWrapper().updateAllContent();
+    garage.getRaceController().getStartBrn().disabled = false;
+    if (this.editModeActive) {
+      this.editModeActive = false;
+    }
   }
 }

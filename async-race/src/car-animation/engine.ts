@@ -60,7 +60,7 @@ export default class Engine {
         },
       ).then((response) => {
         if (response.status === 500) {
-          this.carView.classList.add("stop-driving");
+          this.carView.classList.add("stop-driving", "broken");
           throw new Error(
             `Car (ID ${this.car.getID()} - ${this.car.getName()}) has been stopped suddenly. It's engine was broken down.`,
           );
@@ -108,7 +108,9 @@ export default class Engine {
         method: "PATCH",
       },
     )
-      .then(() => this.car.getCar().classList.remove("driving", "stop-driving"))
+      .then(() =>
+        this.car.getCar().classList.remove("driving", "stop-driving", "broken"),
+      )
       .then(() => {
         if (this.context) {
           this.context.stopBtn.disabled = true;
