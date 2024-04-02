@@ -49,7 +49,20 @@ export default class RaceController {
     return this.startRaceBtn;
   }
 
-  private startRace(): void {
+  private async startRace(): Promise<void> {
+    garage
+      .getItemWrapper()
+      .getCurrentPageContent()
+      .forEach((garagItem) => {
+        const carID = garagItem.engine.car.getID();
+        fetch(`http://127.0.0.1:3000/engine?id=${carID}&status=stopped`, {
+          method: "PATCH",
+        }).then(() =>
+          garagItem.engine.car
+            .getCar()
+            .classList.remove("driving", "stop-driving"),
+        );
+      });
     this.race = new Race();
     this.startRaceBtn.disabled = true;
     garage.getItemWrapper().nextPageBtn.disabled = true;
