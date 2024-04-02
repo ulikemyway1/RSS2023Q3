@@ -176,6 +176,25 @@
   animation-play-state: paused;
 }
 
+.broken {
+  position: relative;
+  transform: rotate(-90deg);
+}
+
+.broken:after {
+  content: "";
+  display: block;
+  position: absolute;
+  transform: rotate(90deg);
+  width: 50px;
+  height: 50px;
+  left: 15px;
+  top: 30px;
+  background: url("../img/fire.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .start-race,
 .stop-race {
   width: 80px;
