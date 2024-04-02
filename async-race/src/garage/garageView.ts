@@ -14,6 +14,8 @@ export default class GarageView {
     "Garage",
   ).getElement();
 
+  public itesmInEditMode: Set<GarageItem> = new Set();
+
   public creationSection = new GarageCreationSection();
 
   private carsCounter = new CarsCounter();
