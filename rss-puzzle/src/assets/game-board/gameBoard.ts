@@ -225,7 +225,7 @@ class GameBoard {
         });
     }
 
-    private async getActualLevelData() {
+    public async getActualLevelData() {
         let completedRound = this.roundNumber;
         const completedLevel = this.levelNumber;
 
