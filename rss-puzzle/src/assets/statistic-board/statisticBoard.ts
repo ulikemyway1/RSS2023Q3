@@ -34,12 +34,21 @@ class StatisticBoard {
         "You don't know..."
     ).getElement();
 
+    private continueBtn = new BaseElement(
+        'button',
+        undefined,
+        ['continue', 'button'],
+        'Continue'
+    ).getElement();
+
     constructor() {
+        this.continueBtn.addEventListener('click', this.continue.bind(this));
         this.content.append(
             this.title,
             this.imgWrapper,
             this.knownSection,
-            this.unknownSection
+            this.unknownSection,
+            this.continueBtn
         );
     }
 
@@ -50,6 +59,7 @@ class StatisticBoard {
     }
 
     public clearOldContent() {
+        this.content.classList.remove('hidden');
         while (this.imgWrapper.lastElementChild) {
             this.imgWrapper.lastElementChild.remove();
         }
@@ -151,6 +161,12 @@ class StatisticBoard {
             card.classList.add('unknown-card');
         }
         return card;
+    }
+
+    private continue() {
+        gameBoard.gameBoardWrapper.classList.remove('hidden');
+        this.content.remove();
+        gameBoard.checkBtn.click();
     }
 }
 

@@ -96,3 +96,16 @@
     color: rgb(15, 88, 11);
     text-shadow: 1px 1px 1px #000000;
 }
+
+.continue {
+    padding: 5px 10px;
+    background: #045724;
+    color: #ffffff;
+    transition: all 0.6s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .continue:hover {
+        background: #09a445;
+    }
+}
