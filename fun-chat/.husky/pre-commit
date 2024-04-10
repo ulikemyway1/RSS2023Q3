@@ -1,0 +1,4 @@
+cd fun-chat
+npx validate-branch-name
+npm run ci:format
+npm run lint
