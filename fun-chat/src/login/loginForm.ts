@@ -50,6 +50,18 @@ export default class LoginForm {
         this.passWordInput.required = true;
         this.userNameInput.required = true;
 
+        this.passWordInput.addEventListener('input', () => {
+            this.passWordInput.classList.remove('valid', 'invalid');
+            this.passwordValidationMsg.textContent = '';
+            this.passWordInputValidation();
+        });
+
+        this.userNameInput.addEventListener('input', () => {
+            this.userNameInput.classList.remove('valid', 'invalid');
+            this.userNameValidationMsg.textContent = '';
+            this.userNameInputValidation();
+        });
+
         this.loginForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const formIsValid = this.formValidation();
