@@ -1,16 +1,17 @@
 import ws from '..';
 import BaseElement from '../utils/BaseElement';
+import ButtonElement from '../utils/ButtonElement';
 import InputElement from '../utils/InputElement';
 import './login.scss';
 
 export default class LoginForm {
     private loginForm: HTMLFormElement = document.createElement('form');
 
-    private submitBtn = new BaseElement(
-        'button',
+    private submitBtn = new ButtonElement(
+        'Log in',
         ['button', 'login-btn'],
-        'Log in'
-    ).getElement();
+        true
+    ).getButton();
 
     private userNameInput = new InputElement(
         'text',
@@ -45,6 +46,9 @@ export default class LoginForm {
         this.passwordValidationMsg
     );
 
+    private usernameIsValid = false;
+    private passwordIsValid = false;
+
     constructor() {
         this.loginForm.classList.add('login-form');
         this.passWordInput.required = true;
@@ -54,12 +58,14 @@ export default class LoginForm {
             this.passWordInput.classList.remove('valid', 'invalid');
             this.passwordValidationMsg.textContent = '';
             this.passWordInputValidation();
+            this.canBeSubmited();
         });
 
         this.userNameInput.addEventListener('input', () => {
             this.userNameInput.classList.remove('valid', 'invalid');
             this.userNameValidationMsg.textContent = '';
             this.userNameInputValidation();
+            this.canBeSubmited();
         });
 
         this.loginForm.addEventListener('submit', (event) => {
@@ -109,17 +115,32 @@ export default class LoginForm {
     private formValidation(): boolean {
         const hasValidUserName = this.userNameInputValidation();
         const hasValidPassword = this.passWordInputValidation();
-        return hasValidPassword && hasValidUserName;
+        const formIsValid = this.passwordIsValid && this.usernameIsValid;
+        if (formIsValid) {
+            this.submitBtn.disabled = false;
+        } else {
+            this.submitBtn.disabled = true;
+        }
+        return formIsValid;
     }
 
-    private userNameInputValidation(): boolean {
+    private canBeSubmited(): void {
+        if (this.passwordIsValid && this.usernameIsValid) {
+            this.submitBtn.disabled = false;
+        } else {
+            this.submitBtn.disabled = true;
+        }
+    }
+
+    private userNameInputValidation(): void {
         this.userNameValidationMsg.textContent = '';
         const userName = this.userNameInput.value;
         if (/^[A-Z][a-zA-Z]{2,19}$/.test(userName)) {
             this.userNameInput.classList.add('valid');
             this.userNameInput.classList.remove('invalid');
-            return true;
+            this.usernameIsValid = true;
         } else {
+            this.usernameIsValid = false;
             this.userNameInput.classList.add('invalid');
             this.userNameInput.classList.remove('valid');
             if (userName.length < 3) {
@@ -130,18 +151,17 @@ export default class LoginForm {
                     'The username must start with a capital letter';
             }
         }
-
-        return false;
     }
 
-    private passWordInputValidation(): boolean {
+    private passWordInputValidation(): void {
         this.passwordValidationMsg.textContent = '';
         const password = this.passWordInput.value;
         if (/^(?=.*[!|?])(?=.*[A-Z])(?=.*[a-z]).{8,}$/.test(password)) {
             this.passWordInput.classList.add('valid');
             this.passWordInput.classList.remove('invalid');
-            return true;
+            this.passwordIsValid = true;
         } else {
+            this.passwordIsValid = false;
             this.passWordInput.classList.add('invalid');
             this.passWordInput.classList.remove('valid');
             if (password.length < 8) {
@@ -155,7 +175,5 @@ export default class LoginForm {
                     'The password must contain atleast one capital letter';
             }
         }
-
-        return false;
     }
 }
