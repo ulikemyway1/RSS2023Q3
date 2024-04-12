@@ -16,7 +16,7 @@
   "validate-branch-name": {
     "pattern": "^fun-chat__(feat|fix|refactor|chore)/.+$",
     "errorMsg": "Check branch name..."
-},
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
