@@ -1,6 +1,4 @@
 import './style/style.scss';
-import LoginPage from './login/loginPage';
-import userView from './user/UserView';
 import responseRedirector, {
     BasicResponse,
 } from './communication/ResponseRedirector';
@@ -16,4 +14,4 @@ ws.addEventListener('message', (response: MessageEvent<string>) => {
     responseRedirector.takeResponse(responseData);
 });
 
-document.body.append(loginPage.getLoginPage(), userView.getUeserView());
+document.body.append(loginPage.getLoginPage());
