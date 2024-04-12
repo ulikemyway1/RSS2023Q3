@@ -9,16 +9,65 @@
     margin: 0 auto;
     width: 80vw;
     max-width: 440px;
-
+    background: #ffffff;
+    filter: drop-shadow(3px 3px 4px #858585);
     &__label {
         display: flex;
+        gap: 5px;
         flex-direction: column;
         align-items: center;
         width: 100%;
+        font-size: 22px;
+        font-weight: 600;
     }
 
     &__input {
+        padding: 0 5px;
         width: 90%;
-        height: 24px;
+        height: 36px;
+        border: 2px solid #6b6b6b;
+        border-radius: 6px;
+        outline: none;
+        &:focus {
+            border: 2px solid #8383dd;
+            &.valid {
+                border: 2px solid var(--valid);
+            }
+            &.invalid {
+                border: 2px solid var(--error);
+            }
+        }
     }
+}
+
+.valid {
+    border: 2px solid var(--valid);
+}
+
+.invalid {
+    border: 2px solid var(--error);
+}
+
+.validation-msg,
+.error-msg {
+    font-size: 14px;
+    height: 18px;
+    color: var(--error);
+    text-align: center;
+    &::first-letter {
+        text-transform: capitalize;
+    }
+}
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-btn {
+    padding: 5px 15px;
+    font-size: 24px;
+    background: var(--accent);
 }

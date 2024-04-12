@@ -1,14 +1,22 @@
 import BaseElement from '../utils/BaseElement';
 import LoginForm from './loginForm';
 
-export default class LoginPage {
+class LoginPage {
     private loginPage = new BaseElement('section', ['login-page']).getElement();
-
+    private loginForm = new LoginForm();
     constructor() {
-        this.loginPage.append(new LoginForm().getForm());
+        this.loginPage.append(this.loginForm.getForm());
     }
 
     public getLoginPage(): HTMLElement {
         return this.loginPage;
     }
+
+    public getLoginForm(): LoginForm {
+        return this.loginForm;
+    }
 }
+
+const loginPage = new LoginPage();
+
+export default loginPage;

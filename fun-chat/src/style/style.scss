@@ -1,6 +1,35 @@
 @import './normalize.scss';
 @import './fonts.scss';
-
+@import './colors.scss';
 body {
     font-family: Mulish, Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    color: var(--main-font);
+    background: var(--main-bg);
+}
+
+.button {
+    cursor: pointer;
+    border: 1px solid #4c4c4c;
+    border-radius: 4px;
+    filter: drop-shadow(2px 2px 4px #858585);
+}
+
+.button:disabled {
+    cursor: auto;
+    background: #d0d0d0;
+    filter: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .button:hover {
+        filter: drop-shadow(2px 2px 4px #858585) brightness(0.9);
+    }
+    .button:disabled:hover {
+        cursor: auto;
+        filter: none;
+    }
 }
