@@ -134,7 +134,7 @@ export default class LoginForm {
     private userNameInputValidation(): void {
         this.userNameValidationMsg.textContent = '';
         const userName = this.userNameInput.value;
-        if (/^[A-Z][a-zA-Z]{2,19}$/.test(userName)) {
+        if (/^[A-Z][a-zA-Z0-9]{2,19}$/.test(userName)) {
             this.userNameInput.classList.add('valid');
             this.userNameInput.classList.remove('invalid');
             this.usernameIsValid = true;
@@ -148,6 +148,9 @@ export default class LoginForm {
             } else if (!/^[A-Z]/.test(userName)) {
                 this.userNameValidationMsg.textContent =
                     'The username must start with a capital letter';
+            } else if (/[^a-zA-Z0-9]/.test(userName)) {
+                this.userNameValidationMsg.textContent =
+                    'The username contains invalid characters (only letters and numbers are allowed))';
             }
         }
     }
