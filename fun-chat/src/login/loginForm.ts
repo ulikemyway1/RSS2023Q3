@@ -82,7 +82,6 @@ export default class LoginForm {
                         },
                     },
                 };
-                console.log(JSON.stringify(userData));
                 ws.send(JSON.stringify(userData));
             }
         });
