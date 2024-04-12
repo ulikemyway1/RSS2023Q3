@@ -49,6 +49,10 @@ export default class LoginForm {
     private usernameIsValid = false;
     private passwordIsValid = false;
 
+    private serverErrorMessage = new BaseElement('span', [
+        'error-msg',
+    ]).getElement();
+
     constructor() {
         this.loginForm.classList.add('login-form');
         this.passWordInput.required = true;
@@ -73,7 +77,7 @@ export default class LoginForm {
             const formIsValid = this.formValidation();
             if (formIsValid) {
                 const userData = {
-                    id: crypto.randomUUID(),
+                    id: `USER_LOGIN:${crypto.randomUUID()}`,
                     type: 'USER_LOGIN',
                     payload: {
                         user: {
@@ -177,5 +181,15 @@ export default class LoginForm {
                     'The password must contain atleast one capital letter';
             }
         }
+    }
+
+    public showServerErrorMessage(message: string) {
+        this.serverErrorMessage.remove();
+        this.passWordInput.classList.remove('valid');
+        this.passwordIsValid = false;
+        this.passWordInput.value = '';
+        this.submitBtn.disabled = true;
+        this.serverErrorMessage.textContent = message;
+        this.loginForm.append(this.serverErrorMessage);
     }
 }

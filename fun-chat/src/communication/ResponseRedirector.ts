@@ -1,3 +1,4 @@
+import loginPage from '../login/loginPage';
 import userController, { UserDataResponse } from '../user/UserController';
 
 class ResponseRedirector {
@@ -6,11 +7,8 @@ class ResponseRedirector {
     private constructor() {}
 
     public takeResponse(response: BasicResponse) {
-        if (
-            response.type === 'USER_LOGIN' &&
-            this.isUserDataResponse(response)
-        ) {
-            userController.takeResponse(response);
+        if (response.id && response.id.split(':')[0] === 'USER_LOGIN') {
+            this.handleUserLoginResponse(response);
         }
     }
 
@@ -30,6 +28,31 @@ class ResponseRedirector {
             typeof response.payload.user.isLogined === 'boolean'
         );
     }
+
+    private isErrorResponse(
+        response: BasicResponse
+    ): response is BasicErrorResponse {
+        return (
+            response.type === 'ERROR' &&
+            typeof response.payload.error === 'string'
+        );
+    }
+
+    private handleUserLoginResponse(response: BasicResponse) {
+        if (
+            response.type === 'USER_LOGIN' &&
+            this.isUserDataResponse(response)
+        ) {
+            userController.takeResponse(response);
+        } else if (
+            response.type === 'ERROR' &&
+            this.isErrorResponse(response)
+        ) {
+            loginPage
+                .getLoginForm()
+                .showServerErrorMessage(response.payload.error);
+        }
+    }
 }
 
 const responseRedirector = ResponseRedirector.getInstance();
@@ -42,4 +65,11 @@ export type BasicResponse = {
     payload: any;
 };
 
-type ResponeType = 'USER_LOGIN';
+export type BasicErrorResponse = {
+    id: string;
+    type: 'ERROR';
+    payload: {
+        error: string;
+    };
+};
+type ResponeType = 'USER_LOGIN' | 'ERROR';

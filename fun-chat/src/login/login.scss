@@ -43,8 +43,12 @@
     border: 2px solid red;
 }
 
-.validation-msg {
+.validation-msg,
+.error-msg {
     font-size: 12px;
     color: red;
     text-align: center;
+    &::first-letter {
+        text-transform: capitalize;
+    }
 }
