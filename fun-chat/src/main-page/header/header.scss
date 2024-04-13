@@ -1,0 +1,21 @@
+header {
+    display: flex;
+    padding: 20px 10px;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--main-bg);
+    border: 1px solid var(--border);
+}
+.header {
+    &__logout-btn {
+        padding: 5px 15px;
+        background: var(--out);
+        font-size: 24px;
+        color: var(--main-bg);
+    }
+    &__app-title {
+        font-size: 28px;
+        font-weight: 800;
+        font-style: italic;
+    }
+}
