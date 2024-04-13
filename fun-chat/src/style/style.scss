@@ -32,4 +32,23 @@ body {
         cursor: auto;
         filter: none;
     }
+
+    .link:hover {
+        filter: drop-shadow(0px 0px 8px var(--out));
+    }
+}
+
+.container {
+    width: 98vw;
+    max-width: 1440px;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--main-font);
+    transition: all 0.6s;
+}
+
+.float-right {
+    float: right;
 }
