@@ -1,4 +1,6 @@
 import ws from '..';
+import app from '../app/app';
+import mainPage from '../main-page/mainPage';
 import BaseElement from '../utils/BaseElement';
 import ButtonElement from '../utils/ButtonElement';
 import InputElement from '../utils/InputElement';
@@ -72,7 +74,7 @@ export default class LoginForm {
             this.canBeSubmited();
         });
 
-        this.loginForm.addEventListener('submit', (event) => {
+        this.loginForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const formIsValid = this.formValidation();
             if (formIsValid) {
@@ -87,6 +89,10 @@ export default class LoginForm {
                     },
                 };
                 ws.send(JSON.stringify(userData));
+                app.getState().setItem(
+                    'userPassword',
+                    userData.payload.user.password
+                );
             }
         });
 
