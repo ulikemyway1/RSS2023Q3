@@ -1,5 +1,6 @@
 export class UserModel {
     private username: string | undefined = undefined;
+    private password: string | undefined = undefined;
 
     private isLogined: boolean = false;
 
@@ -17,6 +18,14 @@ export class UserModel {
 
     public getLoginStatus(): boolean {
         return this.isLogined;
+    }
+
+    public setPassword(password: string | undefined) {
+        this.password = password;
+    }
+
+    public getPassword(): string | undefined {
+        return this.password;
     }
 }
 

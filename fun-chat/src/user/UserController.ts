@@ -1,3 +1,4 @@
+import app from '../app/app';
 import userModel, { UserModel } from './UserModel';
 import userView, { UserView } from './UserView';
 
@@ -9,10 +10,19 @@ class UserController {
         this.userView = view;
     }
 
-    public takeResponse(userDataRespone: UserDataResponse) {
+    public logIn(userDataRespone: UserDataResponse) {
         this.userModel.setUsername(userDataRespone.payload.user.login);
         this.userModel.setLoginStatus(userDataRespone.payload.user.isLogined);
+        this.userModel.setPassword(app.getState().getItem('userPassword'));
         this.userView.updateUserView();
+        app.getRouter().navigate('main');
+    }
+
+    public logOut() {
+        this.userModel.setPassword(undefined);
+        this.userModel.setLoginStatus(false);
+        app.getRouter().navigate('login');
+        //todo: cleaer login form;
     }
 }
 
