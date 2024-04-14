@@ -8,6 +8,10 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(png|jpg|gif|svg)$/,
+                type: 'asset/resource',
+              },
+            {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
@@ -26,7 +30,7 @@ module.exports = {
                     {
                         loader: 'sass-loader',
                         options: { sourceMap: true },
-                    },
+                    }
                 ],
             },
         ],
@@ -55,4 +59,7 @@ module.exports = {
     },
 
     devtool: 'source-map',
+    devServer: {
+        historyApiFallback: true,
+    }
 };
