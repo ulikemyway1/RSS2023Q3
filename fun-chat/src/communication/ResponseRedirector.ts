@@ -61,7 +61,6 @@ class ResponseRedirector {
             response.type === 'USER_LOGOUT' &&
             this.isUserDataResponse(response)
         ) {
-            userController.logOut();
         }
     }
 }
