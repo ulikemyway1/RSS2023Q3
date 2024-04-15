@@ -1,4 +1,5 @@
 import app from '../app/app';
+import { ResponseTitle } from '../communication/ResponseRedirector';
 import ws from '../communication/socket';
 import userModel, { UserModel } from './UserModel';
 import userView, { UserView } from './UserView';
@@ -43,7 +44,7 @@ const userController = new UserController(userModel, userView);
 export default userController;
 
 export type UserDataResponse = {
-    id: string;
+    id: ResponseTitle;
     type: 'USER_LOGIN';
     payload: {
         user: {
