@@ -1,5 +1,5 @@
-import ws from '..';
 import app from '../app/app';
+import ws from '../communication/socket';
 import mainPage from '../main-page/mainPage';
 import BaseElement from '../utils/BaseElement';
 import ButtonElement from '../utils/ButtonElement';
@@ -93,6 +93,7 @@ export default class LoginForm {
                     'userPassword',
                     userData.payload.user.password
                 );
+                app.getState().setItem('userName', userData.payload.user.login);
             }
         });
 

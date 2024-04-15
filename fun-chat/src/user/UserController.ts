@@ -1,4 +1,5 @@
 import app from '../app/app';
+import ws from '../communication/socket';
 import userModel, { UserModel } from './UserModel';
 import userView, { UserView } from './UserView';
 
@@ -19,6 +20,17 @@ class UserController {
     }
 
     public logOut() {
+        const requestData = {
+            id: `USER_LOGOUT:${crypto.randomUUID()}`,
+            type: 'USER_LOGOUT',
+            payload: {
+                user: {
+                    login: this.userModel.getUsername(),
+                    password: app.getState().getItem('userPassword'),
+                },
+            },
+        };
+        ws.send(JSON.stringify(requestData));
         this.userModel.setPassword(undefined);
         this.userModel.setLoginStatus(false);
         app.getRouter().navigate('login');

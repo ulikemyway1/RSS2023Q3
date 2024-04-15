@@ -1,18 +1,29 @@
 export default class State {
-    private stateDB = new Map();
+    private stateDB;
 
-    public setItem(key: string, value: string) {
-        this.stateDB.set(key, value);
+    constructor() {
+        const savedStateDB = sessionStorage.getItem('savedStateDB');
+        if (savedStateDB) {
+            this.stateDB = JSON.parse(savedStateDB);
+        } else {
+            this.stateDB = {};
+        }
+    }
+
+    public setItem(key: string, value: string | undefined) {
+        this.stateDB[key] = value;
+        this.saveStateDBtoSessionStorage();
     }
 
     public getItem(key: string) {
-        try {
-            if (this.stateDB.has(key)) {
-                return this.stateDB.get(key);
-            }
-            throw new Error(`${key} not found in State`);
-        } catch (e) {
-            if (e instanceof Error) console.warn(e.message);
-        }
+        return this.stateDB[key];
+    }
+
+    public deleteItem(key: string) {
+        sessionStorage.removeItem(key);
+    }
+
+    private saveStateDBtoSessionStorage() {
+        sessionStorage.setItem('savedStateDB', JSON.stringify(this.stateDB));
     }
 }
