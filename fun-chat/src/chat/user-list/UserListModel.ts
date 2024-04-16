@@ -29,6 +29,10 @@ class UserListModel {
         }
     }
 
+    public setUser(userName: string): void {
+        this.activeUsers.set(userName, new Contact(userName, true));
+    }
+
     public updateUserStatus(userData: {
         username: string;
         status: boolean;
@@ -46,9 +50,11 @@ class UserListModel {
                 this.activeUsers.delete(username);
             }
         } else {
-            //create new Contact
+            this.setUser(username);
         }
     }
+
+    private sortUsers(): void {}
 }
 
 const userListModel = new UserListModel();
