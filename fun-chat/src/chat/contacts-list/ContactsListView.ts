@@ -14,13 +14,14 @@ class UserListView {
     ]).getElement();
     constructor() {
         this.view.append(this.searchBox, this.usersListBox);
+        this.model.getActiveContacts();
     }
 
     public getView(): HTMLElement {
         return this.view;
     }
 
-    public reloadView(type: 'USER_ACTIVE' | 'USER_INACTIVE'): void {
+    public reloadView(): void {
         while (this.usersListBox.lastElementChild) {
             this.usersListBox.lastElementChild.remove();
         }

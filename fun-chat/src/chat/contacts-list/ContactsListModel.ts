@@ -16,14 +16,14 @@ class ContactsListModel {
         data: string[]
     ): void {
         if (type === 'USER_ACTIVE') {
-            data.forEach((user) =>
-                this.activeContacts.set(user, new Contact(user, true))
-            );
+            data.forEach((user) => {
+                this.activeContacts.set(user, new Contact(user, true));
+            });
         } else {
             this.inactiveContacts.clear();
-            data.forEach((user) =>
-                this.inactiveContacts.set(user, new Contact(user, false))
-            );
+            data.forEach((user) => {
+                this.inactiveContacts.set(user, new Contact(user, false));
+            });
         }
     }
 
@@ -53,6 +53,9 @@ class ContactsListModel {
         }
     }
 
+    public removeFromActive(contactName: string) {
+        this.activeContacts.delete(contactName);
+    }
     private sortUsers(): void {}
 }
 

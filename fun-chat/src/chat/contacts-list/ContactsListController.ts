@@ -43,7 +43,7 @@ class ContactsListController {
                 users.push(userInfo.login)
             );
             this.model.setContacts(response.type, users);
-            this.view.reloadView(response.type);
+            this.view.reloadView();
         } else if (
             response.type === 'USER_EXTERNAL_LOGIN' ||
             response.type === 'USER_EXTERNAL_LOGOUT'
@@ -61,5 +61,5 @@ class ContactsListController {
     }
 }
 
-const userListController = new ContactsListController();
-export default userListController;
+const contactsListController = new ContactsListController();
+export default contactsListController;

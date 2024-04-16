@@ -1,4 +1,5 @@
 import app from '../app/app';
+import contactsListController from '../chat/contacts-list/ContactsListController';
 import ws from '../communication/socket';
 import mainPage from '../main-page/mainPage';
 import BaseElement from '../utils/BaseElement';
@@ -94,6 +95,7 @@ export default class LoginForm {
                     userData.payload.user.password
                 );
                 app.getState().setItem('userName', userData.payload.user.login);
+                contactsListController.updateView();
             }
         });
 
