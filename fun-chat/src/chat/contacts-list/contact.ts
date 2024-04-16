@@ -14,11 +14,13 @@ export default class Contact {
         '0'
     ).getElement();
     private name: string;
+    private status: boolean;
     private statusText = new BaseElement('span', [
         'contact__status-text',
     ]).getElement();
     constructor(name: string, status: boolean) {
         this.name = name;
+        this.status = status;
         this.nameBox.textContent = name;
         this.statusBox.textContent = name[0].toUpperCase();
         if (status) {
@@ -46,6 +48,7 @@ export default class Contact {
     }
     public updateContactStatus(isActive: boolean): void {
         if (isActive) {
+            this.status = true;
             this.statusBox.classList.remove('offline');
             this.statusBox.classList.add('online');
             this.statusText.textContent = 'Online';
@@ -57,6 +60,7 @@ export default class Contact {
             this.statusText.textContent = 'Offlinet';
             this.statusText.classList.remove('online-text');
             this.statusText.classList.add('offline-text');
+            this.status = false;
         }
     }
 }

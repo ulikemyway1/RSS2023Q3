@@ -1,7 +1,7 @@
 import app from '../../app/app';
 import BaseElement from '../../utils/BaseElement';
-import userListModel from './UserListModel';
-import './userList.scss';
+import userListModel from './ContactsListModel';
+import './contactsList.scss';
 
 class UserListView {
     model = userListModel;
@@ -14,27 +14,28 @@ class UserListView {
     ]).getElement();
     constructor() {
         this.view.append(this.searchBox, this.usersListBox);
-        this.model
-            .getInactiveUsers()
-            .forEach((user) => this.usersListBox.append(user.getView()));
     }
 
     public getView(): HTMLElement {
         return this.view;
     }
 
-    public reloadView(): void {
+    public reloadView(type: 'USER_ACTIVE' | 'USER_INACTIVE'): void {
         while (this.usersListBox.lastElementChild) {
             this.usersListBox.lastElementChild.remove();
         }
-        this.model.getActiveUsers().forEach((user) => {
-            if (user.getContactName() !== app.getState().getItem('userName')) {
-                this.usersListBox.append(user.getView());
+        this.model.getActiveContacts().forEach((contact) => {
+            if (
+                contact.getContactName() !== app.getState().getItem('userName')
+            ) {
+                this.usersListBox.append(contact.getView());
             }
         });
-        this.model.getInactiveUsers().forEach((user) => {
-            if (user.getContactName() !== app.getState().getItem('userName')) {
-                this.usersListBox.append(user.getView());
+        this.model.getInactiveContacts().forEach((contact) => {
+            if (
+                contact.getContactName() !== app.getState().getItem('userName')
+            ) {
+                this.usersListBox.append(contact.getView());
             }
         });
     }

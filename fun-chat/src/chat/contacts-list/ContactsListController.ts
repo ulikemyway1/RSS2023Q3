@@ -1,18 +1,16 @@
 import {
-    BasicResponse,
     UserStatutsChangeResponse,
     UsersListResponse,
 } from '../../communication/ResponseRedirector';
 import ws from '../../communication/socket';
-import BaseElement from '../../utils/BaseElement';
-import userListModel from './UserListModel';
-import userListView from './UserListView';
+import userListModel from './ContactsListModel';
+import userListView from './ContactsListView';
 
-class UserListController {
+class ContactsListController {
     model = userListModel;
     view = userListView;
 
-    public requestAllUsers() {
+    public requestAllContacts() {
         const requestActive = {
             id: `USER_LIST:${crypto.randomUUID()}`,
             type: 'USER_ACTIVE',
@@ -29,7 +27,7 @@ class UserListController {
             ws.send(JSON.stringify(requestActive));
             ws.send(JSON.stringify(requestInactive));
         } else {
-            setTimeout(() => this.requestAllUsers.bind(this), 5000);
+            setTimeout(() => this.requestAllContacts.bind(this), 5000);
         }
     }
 
@@ -44,8 +42,8 @@ class UserListController {
             response.payload.users.forEach((userInfo) =>
                 users.push(userInfo.login)
             );
-            this.model.setUsers(response.type, users);
-            this.view.reloadView();
+            this.model.setContacts(response.type, users);
+            this.view.reloadView(response.type);
         } else if (
             response.type === 'USER_EXTERNAL_LOGIN' ||
             response.type === 'USER_EXTERNAL_LOGOUT'
@@ -54,14 +52,14 @@ class UserListController {
                 username: response.payload.user.login,
                 status: response.payload.user.isLogined,
             };
-            this.model.updateUserStatus(userData);
+            this.model.updateContactStatus(userData);
         }
     }
 
     public updateView(): void {
-        this.requestAllUsers();
+        this.requestAllContacts();
     }
 }
 
-const userListController = new UserListController();
+const userListController = new ContactsListController();
 export default userListController;

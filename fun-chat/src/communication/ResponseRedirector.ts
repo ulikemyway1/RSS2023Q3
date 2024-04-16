@@ -1,4 +1,4 @@
-import userListController from '../chat/user-list/UserListController';
+import contactsListController from '../chat/contacts-list/ContactsListController';
 import loginPage from '../login/loginPage';
 import userController, { UserDataResponse } from '../user/UserController';
 const ResponseTypes = [
@@ -28,11 +28,11 @@ class ResponseRedirector {
                 this.handleUserLogoutResponse(response);
             } else if (responseTitle === 'USER_LIST') {
                 if (this.isUsersListResponse(response))
-                    userListController.handleResponse(response);
+                    contactsListController.handleResponse(response);
             }
         } else {
             if (this.isUserStatutsChangeResponse(response)) {
-                userListController.handleResponse(response);
+                contactsListController.handleResponse(response);
             }
         }
     }

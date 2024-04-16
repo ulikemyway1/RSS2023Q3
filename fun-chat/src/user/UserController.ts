@@ -1,5 +1,5 @@
 import app from '../app/app';
-import userListController from '../chat/user-list/UserListController';
+import userListController from '../chat/contacts-list/ContactsListController';
 import { ResponseTitle } from '../communication/ResponseRedirector';
 import ws from '../communication/socket';
 import userModel, { UserModel } from './UserModel';
