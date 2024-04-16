@@ -1,4 +1,5 @@
 import app from '../app/app';
+import userListController from '../chat/user-list/UserListController';
 import { ResponseTitle } from '../communication/ResponseRedirector';
 import ws from '../communication/socket';
 import userModel, { UserModel } from './UserModel';
@@ -18,6 +19,7 @@ class UserController {
         this.userModel.setPassword(app.getState().getItem('userPassword'));
         this.userView.updateUserView();
         app.getRouter().navigate('main');
+        userListController.updateView();
     }
 
     public logOut() {

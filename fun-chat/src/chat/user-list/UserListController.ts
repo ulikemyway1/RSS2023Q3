@@ -40,6 +40,10 @@ class UserListController {
         this.model.setUsers(response.type, users);
         this.view.reloadView();
     }
+
+    public updateView(): void {
+        this.requestAllUsers();
+    }
 }
 
 const userListController = new UserListController();
