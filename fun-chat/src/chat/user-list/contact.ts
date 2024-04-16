@@ -30,4 +30,13 @@ export default class Contact {
     public getContactName(): string {
         return this.name;
     }
+    public updateContactStatus(isActive: boolean): void {
+        if (isActive) {
+            this.statusBox.classList.remove('offline');
+            this.statusBox.classList.add('online');
+        } else {
+            this.statusBox.classList.add('offline');
+            this.statusBox.classList.remove('online');
+        }
+    }
 }

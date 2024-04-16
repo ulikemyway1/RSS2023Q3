@@ -1,5 +1,6 @@
 import {
     BasicResponse,
+    UserStatutsChangeResponse,
     UsersListResponse,
 } from '../../communication/ResponseRedirector';
 import ws from '../../communication/socket';
@@ -32,13 +33,29 @@ class UserListController {
         }
     }
 
-    public handleResponse(response: UsersListResponse) {
-        const users: string[] = [];
-        response.payload.users.forEach((userInfo) =>
-            users.push(userInfo.login)
-        );
-        this.model.setUsers(response.type, users);
-        this.view.reloadView();
+    public handleResponse(
+        response: UsersListResponse | UserStatutsChangeResponse
+    ) {
+        if (
+            response.type === 'USER_ACTIVE' ||
+            response.type === 'USER_INACTIVE'
+        ) {
+            const users: string[] = [];
+            response.payload.users.forEach((userInfo) =>
+                users.push(userInfo.login)
+            );
+            this.model.setUsers(response.type, users);
+            this.view.reloadView();
+        } else if (
+            response.type === 'USER_EXTERNAL_LOGIN' ||
+            response.type === 'USER_EXTERNAL_LOGOUT'
+        ) {
+            const userData = {
+                username: response.payload.user.login,
+                status: response.payload.user.isLogined,
+            };
+            this.model.updateUserStatus(userData);
+        }
     }
 
     public updateView(): void {

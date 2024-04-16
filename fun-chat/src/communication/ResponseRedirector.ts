@@ -7,6 +7,8 @@ const ResponseTypes = [
     'ERROR',
     'USER_ACTIVE',
     'USER_INACTIVE',
+    'USER_EXTERNAL_LOGOUT',
+    'USER_EXTERNAL_LOGIN',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
@@ -27,6 +29,10 @@ class ResponseRedirector {
             } else if (responseTitle === 'USER_LIST') {
                 if (this.isUsersListResponse(response))
                     userListController.handleResponse(response);
+            }
+        } else {
+            if (this.isUserStatutsChangeResponse(response)) {
+                userListController.handleResponse(response);
             }
         }
     }
@@ -54,10 +60,14 @@ class ResponseRedirector {
         return Array.isArray(response.payload.users);
     }
 
-    // private isCorrectTitle(responseTitle: string): responseTitle is ResponseTitle {
-    //     return ResponseTypes.indexOf(responseTitle);
-
-    // }
+    private isUserStatutsChangeResponse(
+        response: BasicResponse
+    ): response is UserStatutsChangeResponse {
+        return (
+            response.type === 'USER_EXTERNAL_LOGIN' ||
+            response.type === 'USER_EXTERNAL_LOGOUT'
+        );
+    }
 
     private isErrorResponse(
         response: BasicResponse
@@ -123,3 +133,14 @@ export type UserStatus = {
     login: string;
     isLogines: boolean;
 }[];
+
+export type UserStatutsChangeResponse = {
+    id: null;
+    type: 'USER_EXTERNAL_LOGIN' | 'USER_EXTERNAL_LOGOUT';
+    payload: {
+        user: {
+            login: string;
+            isLogined: boolean;
+        };
+    };
+};

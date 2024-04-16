@@ -28,6 +28,30 @@ class UserListModel {
             );
         }
     }
+
+    public updateUserStatus(userData: {
+        username: string;
+        status: boolean;
+    }): void {
+        const { username, status } = userData;
+        if (this.activeUsers.has(username)) {
+            const contact = this.activeUsers.get(username);
+            if (contact) {
+                contact.updateContactStatus(status);
+                this.inactiveUsers.set(username, contact);
+                this.activeUsers.delete(username);
+            }
+        } else if (this.inactiveUsers.has(username)) {
+            const contact = this.inactiveUsers.get(username);
+            if (contact) {
+                contact.updateContactStatus(status);
+                this.activeUsers.set(username, contact);
+                this.inactiveUsers.delete(username);
+            }
+        } else {
+            //create new Contact
+        }
+    }
 }
 
 const userListModel = new UserListModel();
