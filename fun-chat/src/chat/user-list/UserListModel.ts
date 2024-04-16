@@ -34,19 +34,16 @@ class UserListModel {
         status: boolean;
     }): void {
         const { username, status } = userData;
-        if (this.activeUsers.has(username)) {
-            const contact = this.activeUsers.get(username);
-            if (contact) {
-                contact.updateContactStatus(status);
-                this.inactiveUsers.set(username, contact);
-                this.activeUsers.delete(username);
-            }
-        } else if (this.inactiveUsers.has(username)) {
-            const contact = this.inactiveUsers.get(username);
-            if (contact) {
-                contact.updateContactStatus(status);
+        const contact =
+            this.activeUsers.get(username) || this.inactiveUsers.get(username);
+        if (contact) {
+            contact.updateContactStatus(status);
+            if (status) {
                 this.activeUsers.set(username, contact);
                 this.inactiveUsers.delete(username);
+            } else {
+                this.inactiveUsers.set(username, contact);
+                this.activeUsers.delete(username);
             }
         } else {
             //create new Contact
