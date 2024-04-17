@@ -46,6 +46,12 @@ export default class Contact {
     public getContactName(): string {
         return this.name;
     }
+    public hide(): void {
+        this.view.classList.add('hidden');
+    }
+    public show() {
+        this.view.classList.remove('hidden');
+    }
     public updateContactStatus(isActive: boolean): void {
         if (isActive) {
             this.status = true;

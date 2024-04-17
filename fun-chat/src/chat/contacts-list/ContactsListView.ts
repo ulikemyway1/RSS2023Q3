@@ -1,19 +1,22 @@
 import app from '../../app/app';
 import BaseElement from '../../utils/BaseElement';
+import InputElement from '../../utils/InputElement';
 import userListModel from './ContactsListModel';
 import './contactsList.scss';
+import SearchBox from './searchBox';
 
 class UserListView {
     model = userListModel;
-    private view = new BaseElement('section', ['user-list']).getElement();
-    private searchBox = new BaseElement('div', [
-        'user-list__search-box',
-    ]).getElement();
+    private view = new BaseElement('section', ['contacts-list']).getElement();
+
     private usersListBox = new BaseElement('div', [
-        'user-list__user-list-box',
+        'contacts-list__contacts-list-box',
     ]).getElement();
+
+    private serachBox = new SearchBox();
+
     constructor() {
-        this.view.append(this.searchBox, this.usersListBox);
+        this.view.append(this.serachBox.getView(), this.usersListBox);
         this.model.getActiveContacts();
     }
 

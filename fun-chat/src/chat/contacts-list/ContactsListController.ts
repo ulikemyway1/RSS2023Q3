@@ -5,6 +5,7 @@ import {
 import ws from '../../communication/socket';
 import userListModel from './ContactsListModel';
 import userListView from './ContactsListView';
+import Contact from './contact';
 
 class ContactsListController {
     model = userListModel;
@@ -58,6 +59,32 @@ class ContactsListController {
 
     public updateView(): void {
         this.requestAllContacts();
+    }
+
+    public findContact(query: string) {
+        this.hideContacts(this.model.getActiveContacts(), query);
+        this.hideContacts(this.model.getInactiveContacts(), query);
+    }
+
+    public cancelFilter() {
+        this.model
+            .getActiveContacts()
+            .forEach((contactView) => contactView.show());
+        this.model
+            .getInactiveContacts()
+            .forEach((contactView) => contactView.show());
+    }
+    private hideContacts(map: Map<string, Contact>, query: string) {
+        map.forEach((contactView, contactName) => {
+            if (
+                query.toUpperCase() ===
+                contactName.slice(0, query.length).toUpperCase()
+            ) {
+                contactView.show();
+            } else {
+                contactView.hide();
+            }
+        });
     }
 }
 
