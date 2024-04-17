@@ -66,7 +66,7 @@ export default class Contact {
         } else {
             this.statusBox.classList.add('offline');
             this.statusBox.classList.remove('online');
-            this.statusText.textContent = 'Offlinet';
+            this.statusText.textContent = 'Offline';
             this.statusText.classList.remove('online-text');
             this.statusText.classList.add('offline-text');
             this.status = false;
