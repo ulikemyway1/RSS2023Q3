@@ -1,7 +1,8 @@
 import app from '../../app/app';
 import BaseElement from '../../utils/BaseElement';
-import InputElement from '../../utils/InputElement';
 import dialogBoxController from '../dialog-box/DialogBoxController';
+import dialogBoxModel from '../dialog-box/DialogBoxModel';
+import dialogBoxView from '../dialog-box/DialogBoxView';
 import userListModel from './ContactsListModel';
 import './contactsList.scss';
 import SearchBox from './searchBox';
@@ -30,9 +31,10 @@ class UserListView {
                             this.model.getContactCard(contactName);
                         if (
                             contactCard &&
-                            dialogBoxController.selectedContact !== contactCard
+                            dialogBoxModel.getCurrentContact() !== contactCard
                         ) {
                             dialogBoxController.updateDialogHeader(contactCard);
+                            dialogBoxView.inputField.disabled = false;
                         }
                     }
                 }

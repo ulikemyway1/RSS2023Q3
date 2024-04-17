@@ -1,11 +1,11 @@
+import ws from '../../communication/socket';
 import Contact from '../contacts-list/contact';
 import dialogBoxModel from './DialogBoxModel';
 import dialogBoxView from './DialogBoxView';
 
-class DialobBoxController {
+class DialogBoxController {
     public view = dialogBoxView;
     public model = dialogBoxModel;
-    public selectedContact: Contact | null = null;
 
     public updateDialogHeader(contactCard: Contact): void {
         while (this.view.header.lastElementChild) {
@@ -15,14 +15,14 @@ class DialobBoxController {
             .getView()
             .cloneNode(true) as HTMLElement;
         this.view.header.append(clonedContactCardView);
-        this.selectedContact = contactCard;
+        this.model.setCurrentContact(contactCard);
     }
 
     public resetDialog(): void {
         this.view.resetView();
-        this.selectedContact = null;
+        this.model.setCurrentContact(null);
     }
 }
 
-const dialogBoxController = new DialobBoxController();
+const dialogBoxController = new DialogBoxController();
 export default dialogBoxController;
