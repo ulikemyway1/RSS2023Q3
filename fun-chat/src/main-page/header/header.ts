@@ -1,5 +1,6 @@
 import app from '../../app/app';
 import contactsListController from '../../chat/contacts-list/ContactsListController';
+import dialogBoxController from '../../chat/dialog-box/DialogBoxController';
 import userController from '../../user/UserController';
 import userView from '../../user/UserView';
 import BaseElement from '../../utils/BaseElement';
@@ -26,6 +27,7 @@ export default class Header {
             contactsListController.model.removeFromActive(
                 app.getState().getItem('userName')
             );
+            dialogBoxController.resetDialog();
         });
         this.header.append(appTittle, currentUser, logOutBtn);
     }

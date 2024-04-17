@@ -1,13 +1,10 @@
 import BaseElement from '../../utils/BaseElement';
 import ButtonElement from '../../utils/ButtonElement';
-import InputElement from '../../utils/InputElement';
 import './dialogBox.scss';
 class DialogBoxView {
     private view = new BaseElement('section', ['dialog-box']).getElement();
 
-    private header = new BaseElement('div', [
-        'dialog-box__header',
-    ]).getElement();
+    public header = new BaseElement('div', ['dialog-box__header']).getElement();
 
     private msgArea = new BaseElement(
         'div',
@@ -38,6 +35,13 @@ class DialogBoxView {
 
     public getView() {
         return this.view;
+    }
+
+    public resetView() {
+        while (this.header.lastElementChild) {
+            this.header.lastElementChild.remove();
+        }
+        this.inputField.value = '';
     }
 }
 
