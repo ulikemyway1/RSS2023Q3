@@ -53,7 +53,15 @@ class ContactsListController {
                 username: response.payload.user.login,
                 status: response.payload.user.isLogined,
             };
-            this.model.updateContactStatus(userData);
+            if (
+                !this.model.getActiveContacts().has(userData.username) &&
+                !this.model.getInactiveContacts().has(userData.username)
+            ) {
+                this.model.setContact(userData.username);
+                this.view.reloadView();
+            } else {
+                this.model.updateContactStatus(userData);
+            }
         }
     }
 
