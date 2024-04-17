@@ -1,4 +1,44 @@
 .dialog-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 100px;
     border: 1px solid black;
     padding: 10px;
+
+    &__header {
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    &__msg-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4c4c4c;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    &__input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    &__input-field {
+        resize: none;
+        flex-grow: 1;
+        font-size: 14px;
+        height: 80%;
+        padding: 5px;
+    }
+}
+
+.send-btn {
+    height: 40px;
 }
