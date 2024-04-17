@@ -28,7 +28,10 @@ class UserListView {
                             contactNameBox.textContent || undefined;
                         const contactCard =
                             this.model.getContactCard(contactName);
-                        if (contactCard) {
+                        if (
+                            contactCard &&
+                            dialogBoxController.selectedContact !== contactCard
+                        ) {
                             dialogBoxController.updateDialogHeader(contactCard);
                         }
                     }
