@@ -52,6 +52,9 @@ export default class Contact {
     public show() {
         this.view.classList.remove('hidden');
     }
+    public getStatus(): boolean {
+        return this.status;
+    }
     public updateContactStatus(isActive: boolean): void {
         if (isActive) {
             this.status = true;

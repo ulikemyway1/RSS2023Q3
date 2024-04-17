@@ -61,6 +61,7 @@ class ContactsListController {
                 this.view.reloadView();
             } else {
                 this.model.updateContactStatus(userData);
+                this.view.reloadView();
             }
         }
     }

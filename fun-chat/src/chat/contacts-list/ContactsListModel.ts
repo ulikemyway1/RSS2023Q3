@@ -56,7 +56,6 @@ class ContactsListModel {
     public removeFromActive(contactName: string) {
         this.activeContacts.delete(contactName);
     }
-    private sortUsers(): void {}
 }
 
 const contactsListModel = new ContactsListModel();
