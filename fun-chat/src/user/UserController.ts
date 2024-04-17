@@ -1,4 +1,6 @@
 import app from '../app/app';
+import userListController from '../chat/contacts-list/ContactsListController';
+import { ResponseTitle } from '../communication/ResponseRedirector';
 import ws from '../communication/socket';
 import userModel, { UserModel } from './UserModel';
 import userView, { UserView } from './UserView';
@@ -17,6 +19,7 @@ class UserController {
         this.userModel.setPassword(app.getState().getItem('userPassword'));
         this.userView.updateUserView();
         app.getRouter().navigate('main');
+        userListController.updateView();
     }
 
     public logOut() {
@@ -43,7 +46,7 @@ const userController = new UserController(userModel, userView);
 export default userController;
 
 export type UserDataResponse = {
-    id: string;
+    id: ResponseTitle;
     type: 'USER_LOGIN';
     payload: {
         user: {

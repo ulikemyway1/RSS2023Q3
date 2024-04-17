@@ -1,4 +1,5 @@
 import app from '../../app/app';
+import contactsListController from '../../chat/contacts-list/ContactsListController';
 import userController from '../../user/UserController';
 import userView from '../../user/UserView';
 import BaseElement from '../../utils/BaseElement';
@@ -22,6 +23,9 @@ export default class Header {
         logOutBtn.addEventListener('click', () => {
             userController.logOut();
             app.getState().setItem('userPassword', undefined);
+            contactsListController.model.removeFromActive(
+                app.getState().getItem('userName')
+            );
         });
         this.header.append(appTittle, currentUser, logOutBtn);
     }

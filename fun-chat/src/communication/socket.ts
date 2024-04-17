@@ -1,4 +1,5 @@
 import app from '../app/app';
+import contactsListController from '../chat/contacts-list/ContactsListController';
 import responseRedirector, { BasicResponse } from './ResponseRedirector';
 
 const ws = new WebSocket('ws://localhost:4000/');
