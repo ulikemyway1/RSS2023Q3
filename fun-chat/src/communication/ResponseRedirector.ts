@@ -1,4 +1,5 @@
 import contactsListController from '../chat/contacts-list/ContactsListController';
+import dialogBoxController from '../chat/dialog-box/DialogBoxController';
 import loginPage from '../login/loginPage';
 import userController, { UserDataResponse } from '../user/UserController';
 const ResponseTypes = [
@@ -9,10 +10,16 @@ const ResponseTypes = [
     'USER_INACTIVE',
     'USER_EXTERNAL_LOGOUT',
     'USER_EXTERNAL_LOGIN',
+    'MSG_SEND',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
-export type ResponseTitle = 'USER_LIST' | 'USER_LOGOUT' | 'USER_LOGIN';
+export type ResponseTitle =
+    | 'USER_LIST'
+    | 'USER_LOGOUT'
+    | 'USER_LOGIN'
+    | 'MSG_SEND';
+
 class ResponseRedirector {
     private static responseRedirector: ResponseRedirector;
 
@@ -29,6 +36,9 @@ class ResponseRedirector {
             } else if (responseTitle === 'USER_LIST') {
                 if (this.isUsersListResponse(response))
                     contactsListController.handleResponse(response);
+            } else if (responseTitle === 'MSG_SEND') {
+                if (this.isSentMessageResponse(response))
+                    dialogBoxController.handleResponse(response);
             }
         } else {
             if (this.isUserStatutsChangeResponse(response)) {
@@ -76,6 +86,12 @@ class ResponseRedirector {
             response.type === 'ERROR' &&
             typeof response.payload.error === 'string'
         );
+    }
+
+    private isSentMessageResponse(
+        response: BasicResponse
+    ): response is SentMessageResponse {
+        return response.type === 'MSG_SEND';
     }
 
     private handleUserLoginResponse(response: BasicResponse) {
@@ -141,6 +157,25 @@ export type UserStatutsChangeResponse = {
         user: {
             login: string;
             isLogined: boolean;
+        };
+    };
+};
+
+export type SentMessageResponse = {
+    id: ResponseTitle | null;
+    type: 'MSG_SEND';
+    payload: {
+        message: {
+            id: string;
+            from: string;
+            to: string;
+            text: string;
+            datetime: number;
+            status: {
+                isDelivered: boolean;
+                isReaded: boolean;
+                isEdited: boolean;
+            };
         };
     };
 };

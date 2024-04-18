@@ -7,7 +7,7 @@ class DialogBoxView {
     private view = new BaseElement('section', ['dialog-box']).getElement();
     private model = dialogBoxModel;
     public header = new BaseElement('div', ['dialog-box__header']).getElement();
-    private msgArea = new BaseElement(
+    msgArea = new BaseElement(
         'div',
         ['dialog-box__msg-area'],
         'Choose a contact to start chating'
@@ -39,17 +39,21 @@ class DialogBoxView {
 
         this.sendMessageBtn.addEventListener('click', () => {
             const message = this.inputField.value;
-            const messageData = {
-                id: `MSG_SEND:${crypto.randomUUID()}`,
-                type: 'MSG_SEND',
-                payload: {
-                    message: {
-                        to: this.model.getCurrentContact()?.getContactName(),
-                        text: message,
+            const targetContact = this.model.getCurrentContact();
+            if (targetContact) {
+                const targetContactName = targetContact.getContactName();
+                const messageData = {
+                    id: `MSG_SEND:${targetContactName}:${crypto.randomUUID()}`,
+                    type: 'MSG_SEND',
+                    payload: {
+                        message: {
+                            to: targetContactName,
+                            text: message,
+                        },
                     },
-                },
-            };
-            ws.send(JSON.stringify(messageData));
+                };
+                ws.send(JSON.stringify(messageData));
+            }
         });
 
         this.inputWrapper.append(this.inputField, this.sendMessageBtn);
@@ -65,6 +69,10 @@ class DialogBoxView {
             this.header.lastElementChild.remove();
         }
         this.inputField.value = '';
+    }
+
+    public appendMsg(msgCard: HTMLElement): void {
+        this.msgArea.append(msgCard);
     }
 }
 

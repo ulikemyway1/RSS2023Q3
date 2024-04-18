@@ -1,6 +1,9 @@
 @import './normalize.scss';
 @import './fonts.scss';
 @import './colors.scss';
+* {
+    box-sizing: border-box;
+}
 body {
     font-family: Mulish, Arial, Helvetica, sans-serif;
     display: flex;

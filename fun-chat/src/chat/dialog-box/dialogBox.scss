@@ -17,13 +17,17 @@
     }
 
     &__msg-area {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: grid;
+        grid-template-rows: 1fr;
+        gap: 5px;
+        padding: 5px;
+        align-items: end;
+        grid-auto-rows: min-content;
         color: #4c4c4c;
         width: 100%;
         height: 100%;
         border: 1px solid black;
+        overflow-y: scroll;
     }
 
     &__input-wrapper {
