@@ -1,0 +1,40 @@
+.message {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        'A A'
+        'B B'
+        'C D';
+    background: #ffffff;
+    width: 60%;
+    padding: 5px 10px;
+    row-gap: 5px;
+    column-gap: 10px;
+    border-radius: 9px;
+    justify-self: end;
+
+    &__content {
+        grid-area: B;
+        overflow-wrap: break-word;
+    }
+
+    &__deliv-status {
+        grid-area: C;
+    }
+
+    &__edit-status {
+        grid-area: A;
+        font-style: italic;
+    }
+
+    &__time {
+        grid-area: D;
+    }
+
+    &__deliv-status,
+    &__edit-status,
+    &__time {
+        font-size: 10px;
+        text-align: right;
+    }
+}
