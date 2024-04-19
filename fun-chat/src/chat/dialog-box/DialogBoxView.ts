@@ -75,7 +75,7 @@ class DialogBoxView {
             ) {
                 event.preventDefault();
 
-                const messageBox = event.target.closest('.message');
+                const messageBox = event.target.closest('.message.own-message');
                 if (messageBox instanceof HTMLElement) {
                     const contextMenu = new ContextMenu(
                         messageBox.dataset.id || 'null'
