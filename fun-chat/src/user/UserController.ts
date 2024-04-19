@@ -2,6 +2,7 @@ import app from '../app/app';
 import userListController from '../chat/contacts-list/ContactsListController';
 import { ResponseTitle } from '../communication/ResponseRedirector';
 import ws from '../communication/socket';
+import generateId from '../utils/generateID';
 import userModel, { UserModel } from './UserModel';
 import userView, { UserView } from './UserView';
 
@@ -24,7 +25,7 @@ class UserController {
 
     public logOut() {
         const requestData = {
-            id: `USER_LOGOUT:${crypto.randomUUID()}`,
+            id: `USER_LOGOUT:${generateId()}`,
             type: 'USER_LOGOUT',
             payload: {
                 user: {

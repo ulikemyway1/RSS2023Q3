@@ -1,6 +1,7 @@
 import app from '../../app/app';
 import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
+import generateId from '../../utils/generateID';
 import dialogBoxController from '../dialog-box/DialogBoxController';
 import dialogBoxModel from '../dialog-box/DialogBoxModel';
 import dialogBoxView from '../dialog-box/DialogBoxView';
@@ -38,7 +39,7 @@ class UserListView {
                             dialogBoxController.updateDialogHeader(contactCard);
                             dialogBoxView.inputField.disabled = false;
                             const fetchHistoryResponseData = {
-                                id: `MSG_FROM_USER:${crypto.randomUUID()}`,
+                                id: `MSG_FROM_USER:${generateId()}`,
                                 type: 'MSG_FROM_USER',
                                 payload: {
                                     user: {

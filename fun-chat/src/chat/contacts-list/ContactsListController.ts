@@ -3,6 +3,7 @@ import {
     UsersListResponse,
 } from '../../communication/ResponseRedirector';
 import ws from '../../communication/socket';
+import generateId from '../../utils/generateID';
 import userListModel from './ContactsListModel';
 import userListView from './ContactsListView';
 import Contact from './contact';
@@ -13,13 +14,13 @@ class ContactsListController {
 
     public requestAllContacts() {
         const requestActive = {
-            id: `USER_LIST:${crypto.randomUUID()}`,
+            id: `USER_LIST:${generateId()}`,
             type: 'USER_ACTIVE',
             payload: null,
         };
 
         const requestInactive = {
-            id: `USER_LIST:${crypto.randomUUID()}`,
+            id: `USER_LIST:${generateId()}`,
             type: 'USER_INACTIVE',
             payload: null,
         };

@@ -1,6 +1,7 @@
 import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
 import ButtonElement from '../../utils/ButtonElement';
+import generateId from '../../utils/generateID';
 import dialogBoxModel from './DialogBoxModel';
 import './dialogBox.scss';
 class DialogBoxView {
@@ -50,7 +51,7 @@ class DialogBoxView {
             if (targetContact) {
                 const targetContactName = targetContact.getContactName();
                 const messageData = {
-                    id: `MSG_SEND:${targetContactName}:${crypto.randomUUID()}`,
+                    id: `MSG_SEND:${targetContactName}:${generateId()}`,
                     type: 'MSG_SEND',
                     payload: {
                         message: {
