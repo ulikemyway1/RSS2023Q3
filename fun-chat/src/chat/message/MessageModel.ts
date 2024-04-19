@@ -6,7 +6,7 @@ export default class MessageModel {
     }
 
     public getMessageTime(): string {
-        return new Date(1713437467415).toLocaleString('ru-Ru', {
+        return new Date(this.messasgeInfo.datetime).toLocaleString('ru-Ru', {
             timeZone: this.userTimeZone,
         });
     }
