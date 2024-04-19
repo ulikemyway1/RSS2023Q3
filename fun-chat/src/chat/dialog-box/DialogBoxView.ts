@@ -19,7 +19,7 @@ class DialogBoxView {
 
     public inputField = document.createElement('textarea');
 
-    private sendMessageBtn = new ButtonElement(
+    public sendMessageBtn = new ButtonElement(
         'Send',
         ['button', 'send-btn'],
         true

@@ -27,6 +27,8 @@ class DialogBoxController {
     public resetDialog(): void {
         this.view.resetView();
         this.model.setCurrentContact(null);
+        this.view.inputField.disabled = true;
+        this.view.sendMessageBtn.disabled = true;
     }
 
     public handleResponse(
@@ -42,13 +44,14 @@ class DialogBoxController {
     }
 
     private pullMessage(messageInfo: MessageInfoResponse) {
-        this.model.addMessage(messageInfo.to, messageInfo.id, messageInfo);
-        const msgCard = this.model.getMessageCard(
-            messageInfo.to,
-            messageInfo.id
+        const contactKey = this.generateContactKey(
+            messageInfo.from,
+            messageInfo.to
         );
+        this.model.addMessage(contactKey, messageInfo.id, messageInfo);
+        const msgCard = this.model.getMessageCard(contactKey, messageInfo.id);
         if (msgCard) {
-            if (this.model.dialogsDB.get(messageInfo.to)?.size === 1) {
+            if (this.model.dialogsDB.get(contactKey)?.size === 1) {
                 this.view.msgArea.textContent = '';
                 this.view.msgArea.append(
                     new BaseElement('div', ['space']).getElement()
@@ -56,6 +59,11 @@ class DialogBoxController {
             }
             this.view.appendMsg(msgCard);
         }
+    }
+
+    private generateContactKey(from: string, to: string): string {
+        const contactKey = [from, to].sort().join('=');
+        return contactKey;
     }
 }
 

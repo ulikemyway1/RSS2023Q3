@@ -1,3 +1,4 @@
+import app from '../../app/app';
 import MessageModel, { MessageInfo, MessageStatus } from './MessageModel';
 import MessageView from './MessageView';
 
@@ -15,11 +16,14 @@ export default class MessageController {
         } else {
             deliveryStatus = 'Sent';
         }
+        const isOwnMessage =
+            messageInfo.from === app.getState().getItem('userName');
         this.view = new MessageView(
             this.model.messasgeInfo.text,
             this.model.getMessageTime(),
             deliveryStatus,
-            messageInfo.status.isEdited
+            messageInfo.status.isEdited,
+            isOwnMessage
         );
     }
 

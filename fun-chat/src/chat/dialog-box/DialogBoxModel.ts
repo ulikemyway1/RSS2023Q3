@@ -16,14 +16,14 @@ class DialogBoxModel {
     }
 
     public addMessage(
-        contact: string,
+        contactKey: string,
         messageId: string,
         messageInfo: MessageInfo
     ) {
-        const contactMsgDB = this.dialogsDB.get(contact);
+        const contactMsgDB = this.dialogsDB.get(contactKey);
         if (!contactMsgDB) {
             this.dialogsDB.set(
-                contact,
+                contactKey,
                 new Map().set(messageId, new MessageController(messageInfo))
             );
         } else {

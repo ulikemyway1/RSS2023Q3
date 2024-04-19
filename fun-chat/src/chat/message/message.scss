@@ -5,13 +5,14 @@
         'A A'
         'B B'
         'C D';
-    background: #ffffff;
+    background: var(--message);
     width: 60%;
     padding: 5px 10px;
     row-gap: 5px;
     column-gap: 10px;
     border-radius: 9px;
-    justify-self: end;
+    justify-self: start;
+    color: #000000;
 
     &__content {
         grid-area: B;
@@ -20,6 +21,7 @@
 
     &__deliv-status {
         grid-area: C;
+        display: none;
     }
 
     &__edit-status {
@@ -36,5 +38,14 @@
     &__time {
         font-size: 10px;
         text-align: right;
+        color: #282828;
+    }
+}
+
+.own-message {
+    background: var(--own-message);
+    justify-self: end;
+    .message__deliv-status {
+        display: block;
     }
 }

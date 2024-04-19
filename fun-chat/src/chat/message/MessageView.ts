@@ -20,12 +20,16 @@ export default class MessageView {
         msgContent: string,
         msgTime: string,
         setMsgDeliveryStatus: string,
-        msgIsEdit: boolean
+        msgIsEdit: boolean,
+        isOwnMessage: boolean
     ) {
         this.msgContentBox.textContent = msgContent;
         this.msgTime.textContent = msgTime;
         this.msgDeliveryStatus.textContent = setMsgDeliveryStatus;
         if (msgIsEdit) this.msgEditStatus.textContent = 'Edit';
+        if (isOwnMessage) {
+            this.view.classList.add('own-message');
+        }
         this.view.append(
             this.msgContentBox,
             this.msgTime,
