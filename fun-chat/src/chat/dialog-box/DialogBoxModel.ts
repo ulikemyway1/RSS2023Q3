@@ -27,14 +27,12 @@ class DialogBoxModel {
                 new Map().set(messageId, new MessageController(messageInfo))
             );
         } else {
-            console.log(messageId);
             contactMsgDB.set(messageId, new MessageController(messageInfo));
         }
     }
 
     public getMessageCard(contactName: string, msgID: string) {
         const messageCard = this.dialogsDB.get(contactName)?.get(msgID);
-        console.log(messageCard?.getView());
         return messageCard?.getView();
     }
 }

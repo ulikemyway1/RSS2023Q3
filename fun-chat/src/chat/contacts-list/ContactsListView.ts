@@ -1,4 +1,5 @@
 import app from '../../app/app';
+import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
 import dialogBoxController from '../dialog-box/DialogBoxController';
 import dialogBoxModel from '../dialog-box/DialogBoxModel';
@@ -33,8 +34,20 @@ class UserListView {
                             contactCard &&
                             dialogBoxModel.getCurrentContact() !== contactCard
                         ) {
+                            dialogBoxController.resetDialog();
                             dialogBoxController.updateDialogHeader(contactCard);
                             dialogBoxView.inputField.disabled = false;
+                            const fetchHistoryResponseData = {
+                                id: `MSG_FROM_USER:${crypto.randomUUID()}`,
+                                type: 'MSG_FROM_USER',
+                                payload: {
+                                    user: {
+                                        login: contactName,
+                                    },
+                                },
+                            };
+
+                            ws.send(JSON.stringify(fetchHistoryResponseData));
                         }
                     }
                 }

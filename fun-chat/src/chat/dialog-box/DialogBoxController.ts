@@ -1,4 +1,8 @@
-import { SentMessageResponse } from '../../communication/ResponseRedirector';
+import {
+    FetchMessageHistoryResponse,
+    MessageInfoResponse,
+    SentMessageResponse,
+} from '../../communication/ResponseRedirector';
 import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
 import Contact from '../contacts-list/contact';
@@ -25,32 +29,32 @@ class DialogBoxController {
         this.model.setCurrentContact(null);
     }
 
-    public handleResponse(response: SentMessageResponse) {
+    public handleResponse(
+        response: SentMessageResponse | FetchMessageHistoryResponse
+    ) {
         if (response.type === 'MSG_SEND' && response.id) {
-            const msgID = response.id.split(':')[2];
-            console.log(msgID);
-            this.model.addMessage(
-                response.payload.message.to,
-                msgID,
-                response.payload.message
+            this.pullMessage(response.payload.message);
+        } else if (response.type === 'MSG_FROM_USER') {
+            response.payload.messages.forEach((messageInfo) =>
+                this.pullMessage(messageInfo)
             );
-            const msgCard = this.model.getMessageCard(
-                response.payload.message.to,
-                msgID
-            );
-            console.log(this.model.dialogsDB);
-            if (msgCard) {
-                if (
-                    this.model.dialogsDB.get(response.payload.message.to)
-                        ?.size === 1
-                ) {
-                    this.view.msgArea.textContent = '';
-                    this.view.msgArea.append(
-                        new BaseElement('div', ['space']).getElement()
-                    );
-                }
-                this.view.appendMsg(msgCard);
+        }
+    }
+
+    private pullMessage(messageInfo: MessageInfoResponse) {
+        this.model.addMessage(messageInfo.to, messageInfo.id, messageInfo);
+        const msgCard = this.model.getMessageCard(
+            messageInfo.to,
+            messageInfo.id
+        );
+        if (msgCard) {
+            if (this.model.dialogsDB.get(messageInfo.to)?.size === 1) {
+                this.view.msgArea.textContent = '';
+                this.view.msgArea.append(
+                    new BaseElement('div', ['space']).getElement()
+                );
             }
+            this.view.appendMsg(msgCard);
         }
     }
 }

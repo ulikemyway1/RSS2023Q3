@@ -68,6 +68,9 @@ class DialogBoxView {
         while (this.header.lastElementChild) {
             this.header.lastElementChild.remove();
         }
+        while (this.msgArea.lastElementChild) {
+            this.msgArea.lastElementChild.remove();
+        }
         this.inputField.value = '';
     }
 

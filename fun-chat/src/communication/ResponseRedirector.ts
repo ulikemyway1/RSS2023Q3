@@ -11,6 +11,7 @@ const ResponseTypes = [
     'USER_EXTERNAL_LOGOUT',
     'USER_EXTERNAL_LOGIN',
     'MSG_SEND',
+    'MSG_FROM_USER',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
@@ -18,7 +19,8 @@ export type ResponseTitle =
     | 'USER_LIST'
     | 'USER_LOGOUT'
     | 'USER_LOGIN'
-    | 'MSG_SEND';
+    | 'MSG_SEND'
+    | 'MSG_FROM_USER';
 
 class ResponseRedirector {
     private static responseRedirector: ResponseRedirector;
@@ -38,6 +40,9 @@ class ResponseRedirector {
                     contactsListController.handleResponse(response);
             } else if (responseTitle === 'MSG_SEND') {
                 if (this.isSentMessageResponse(response))
+                    dialogBoxController.handleResponse(response);
+            } else if (responseTitle === 'MSG_FROM_USER') {
+                if (this.isFetchingMessageHistory(response))
                     dialogBoxController.handleResponse(response);
             }
         } else {
@@ -92,6 +97,12 @@ class ResponseRedirector {
         response: BasicResponse
     ): response is SentMessageResponse {
         return response.type === 'MSG_SEND';
+    }
+
+    private isFetchingMessageHistory(
+        response: BasicResponse
+    ): response is FetchMessageHistoryResponse {
+        return response.payload.messages;
     }
 
     private handleUserLoginResponse(response: BasicResponse) {
@@ -165,17 +176,27 @@ export type SentMessageResponse = {
     id: ResponseTitle | null;
     type: 'MSG_SEND';
     payload: {
-        message: {
-            id: string;
-            from: string;
-            to: string;
-            text: string;
-            datetime: number;
-            status: {
-                isDelivered: boolean;
-                isReaded: boolean;
-                isEdited: boolean;
-            };
-        };
+        message: MessageInfoResponse;
+    };
+};
+
+export type FetchMessageHistoryResponse = {
+    id: ResponseTitle | null;
+    type: 'MSG_FROM_USER';
+    payload: {
+        messages: MessageInfoResponse[];
+    };
+};
+
+export type MessageInfoResponse = {
+    id: string;
+    from: string;
+    to: string;
+    text: string;
+    datetime: number;
+    status: {
+        isDelivered: boolean;
+        isReaded: boolean;
+        isEdited: boolean;
     };
 };
