@@ -34,7 +34,7 @@ class DialogBoxController {
     public handleResponse(
         response: SentMessageResponse | FetchMessageHistoryResponse
     ) {
-        if (response.type === 'MSG_SEND' && response.id) {
+        if (response.type === 'MSG_SEND') {
             this.pullMessage(response.payload.message);
         } else if (response.type === 'MSG_FROM_USER') {
             response.payload.messages.forEach((messageInfo) =>

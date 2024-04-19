@@ -49,6 +49,11 @@ class ResponseRedirector {
             if (this.isUserStatutsChangeResponse(response)) {
                 contactsListController.handleResponse(response);
             }
+            if (response.type === 'MSG_SEND') {
+                if (this.isSentMessageResponse(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
+            }
         }
     }
 
