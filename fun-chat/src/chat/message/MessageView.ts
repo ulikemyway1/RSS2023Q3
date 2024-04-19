@@ -1,4 +1,5 @@
 import BaseElement from '../../utils/BaseElement';
+import ContextMenu from './contextMenu';
 import './message.scss';
 
 export default class MessageView {
@@ -21,7 +22,8 @@ export default class MessageView {
         msgTime: string,
         setMsgDeliveryStatus: string,
         msgIsEdit: boolean,
-        isOwnMessage: boolean
+        isOwnMessage: boolean,
+        msgDataID: string
     ) {
         this.msgContentBox.textContent = msgContent;
         this.msgTime.textContent = msgTime;
@@ -30,6 +32,7 @@ export default class MessageView {
         if (isOwnMessage) {
             this.view.classList.add('own-message');
         }
+        this.view.dataset.id = msgDataID;
         this.view.append(
             this.msgContentBox,
             this.msgTime,

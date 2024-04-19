@@ -20,14 +20,21 @@ class DialogBoxModel {
         messageId: string,
         messageInfo: MessageInfo
     ) {
+        const msgDataID = `${contactKey}|${messageId}`;
         const contactMsgDB = this.dialogsDB.get(contactKey);
         if (!contactMsgDB) {
             this.dialogsDB.set(
                 contactKey,
-                new Map().set(messageId, new MessageController(messageInfo))
+                new Map().set(
+                    messageId,
+                    new MessageController(messageInfo, msgDataID)
+                )
             );
         } else {
-            contactMsgDB.set(messageId, new MessageController(messageInfo));
+            contactMsgDB.set(
+                messageId,
+                new MessageController(messageInfo, msgDataID)
+            );
         }
     }
 

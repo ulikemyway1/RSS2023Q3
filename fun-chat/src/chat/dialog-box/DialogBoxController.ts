@@ -3,7 +3,6 @@ import {
     MessageInfoResponse,
     SentMessageResponse,
 } from '../../communication/ResponseRedirector';
-import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
 import Contact from '../contacts-list/contact';
 import dialogBoxModel from './DialogBoxModel';
@@ -60,7 +59,6 @@ class DialogBoxController {
                 this.view.appendMsg(msgCard);
                 msgCard.scrollIntoView();
                 if (this.model.dialogsDB.get(contactKey)?.size === 1) {
-                    // this.view.msgArea.textContent = '';
                     this.view.msgArea.append(
                         new BaseElement('div', ['space']).getElement()
                     );

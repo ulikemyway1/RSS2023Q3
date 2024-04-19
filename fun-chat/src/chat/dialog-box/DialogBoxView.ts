@@ -2,6 +2,7 @@ import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
 import ButtonElement from '../../utils/ButtonElement';
 import generateId from '../../utils/generateID';
+import ContextMenu from '../message/contextMenu';
 import dialogBoxModel from './DialogBoxModel';
 import './dialogBox.scss';
 class DialogBoxView {
@@ -65,6 +66,33 @@ class DialogBoxView {
         this.inputWrapper.append(this.inputField, this.sendMessageBtn);
 
         this.view.append(this.header, this.msgArea, this.inputWrapper);
+
+        this.msgArea.addEventListener('contextmenu', (event) => {
+            if (
+                event.target &&
+                event.target instanceof HTMLElement &&
+                event.target.closest('.message')
+            ) {
+                event.preventDefault();
+
+                const messageBox = event.target.closest('.message');
+                if (messageBox instanceof HTMLElement) {
+                    const contextMenu = new ContextMenu(
+                        messageBox.dataset.id || 'null'
+                    );
+                    this.msgArea
+                        .querySelectorAll('.context-menu')
+                        .forEach((item) => item.remove());
+                    messageBox.append(contextMenu.getView());
+                }
+            }
+        });
+
+        document.body.addEventListener('click', (event) => {
+            document.body
+                .querySelectorAll('.context-menu')
+                .forEach((item) => item.remove());
+        });
     }
 
     private sendMessage(): void {

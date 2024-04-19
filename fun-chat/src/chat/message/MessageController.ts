@@ -6,7 +6,7 @@ export default class MessageController {
     view: MessageView;
     model: MessageModel;
 
-    constructor(messageInfo: MessageInfo) {
+    constructor(messageInfo: MessageInfo, msgDataID: string) {
         this.model = new MessageModel(messageInfo);
         let deliveryStatus;
         if (messageInfo.status.isDelivered && !messageInfo.status.isReaded) {
@@ -23,7 +23,8 @@ export default class MessageController {
             this.model.getMessageTime(),
             deliveryStatus,
             messageInfo.status.isEdited,
-            isOwnMessage
+            isOwnMessage,
+            msgDataID
         );
     }
 
