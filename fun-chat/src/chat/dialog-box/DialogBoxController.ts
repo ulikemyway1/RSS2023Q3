@@ -58,6 +58,7 @@ class DialogBoxController {
                 );
             }
             this.view.appendMsg(msgCard);
+            msgCard.scrollIntoView();
         }
     }
 
