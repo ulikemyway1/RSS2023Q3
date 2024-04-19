@@ -46,21 +46,14 @@ class DialogBoxView {
         });
 
         this.sendMessageBtn.addEventListener('click', () => {
-            const message = this.inputField.value;
-            const targetContact = this.model.getCurrentContact();
-            if (targetContact) {
-                const targetContactName = targetContact.getContactName();
-                const messageData = {
-                    id: `MSG_SEND:${targetContactName}:${generateId()}`,
-                    type: 'MSG_SEND',
-                    payload: {
-                        message: {
-                            to: targetContactName,
-                            text: message,
-                        },
-                    },
-                };
-                ws.send(JSON.stringify(messageData));
+            this.sendMessage();
+        });
+        this.inputField.addEventListener('keydown', (event) => {
+            if (event.code === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                this.sendMessage();
+            } else if (event.code === 'Enter' && event.shiftKey) {
+                this.inputField.value += '\n';
             }
         });
 
@@ -72,6 +65,27 @@ class DialogBoxView {
         this.inputWrapper.append(this.inputField, this.sendMessageBtn);
 
         this.view.append(this.header, this.msgArea, this.inputWrapper);
+    }
+
+    private sendMessage(): void {
+        const message = this.inputField.value;
+        const targetContact = this.model.getCurrentContact();
+        if (targetContact) {
+            const targetContactName = targetContact.getContactName();
+            const messageData = {
+                id: `MSG_SEND:${targetContactName}:${generateId()}`,
+                type: 'MSG_SEND',
+                payload: {
+                    message: {
+                        to: targetContactName,
+                        text: message,
+                    },
+                },
+            };
+            ws.send(JSON.stringify(messageData));
+            this.inputField.value = '';
+            this.sendMessageBtn.disabled = true;
+        }
     }
 
     public getView() {
