@@ -46,7 +46,6 @@ class UserListView {
                                     },
                                 },
                             };
-
                             ws.send(JSON.stringify(fetchHistoryResponseData));
                         }
                     }

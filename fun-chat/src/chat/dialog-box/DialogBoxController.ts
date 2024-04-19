@@ -51,14 +51,21 @@ class DialogBoxController {
         this.model.addMessage(contactKey, messageInfo.id, messageInfo);
         const msgCard = this.model.getMessageCard(contactKey, messageInfo.id);
         if (msgCard) {
-            if (this.model.dialogsDB.get(contactKey)?.size === 1) {
-                this.view.msgArea.textContent = '';
-                this.view.msgArea.append(
-                    new BaseElement('div', ['space']).getElement()
-                );
+            if (
+                messageInfo.to ===
+                    this.model.getCurrentContact()?.getContactName() ||
+                messageInfo.from ===
+                    this.model.getCurrentContact()?.getContactName()
+            ) {
+                this.view.appendMsg(msgCard);
+                msgCard.scrollIntoView();
+                if (this.model.dialogsDB.get(contactKey)?.size === 1) {
+                    // this.view.msgArea.textContent = '';
+                    this.view.msgArea.append(
+                        new BaseElement('div', ['space']).getElement()
+                    );
+                }
             }
-            this.view.appendMsg(msgCard);
-            msgCard.scrollIntoView();
         }
     }
 
