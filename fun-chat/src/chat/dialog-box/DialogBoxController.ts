@@ -1,6 +1,7 @@
 import {
     FetchMessageHistoryResponse,
     MessageDeletionResponse,
+    MessageDeliveryStatusChange,
     MessageInfoResponse,
     MessageReadStatusChange,
     SentMessageResponse,
@@ -42,6 +43,7 @@ class DialogBoxController {
             | FetchMessageHistoryResponse
             | MessageDeletionResponse
             | MessageReadStatusChange
+            | MessageDeliveryStatusChange
     ) {
         if (response.type === 'MSG_SEND') {
             this.pullMessage(response.payload.message);
@@ -64,6 +66,9 @@ class DialogBoxController {
             } else {
                 this.model.markAsRead(msgID);
             }
+        } else if (response.type === 'MSG_DELIVER') {
+            const msgID = response.payload.message.id;
+            this.model.markAsDelivered(msgID);
         }
     }
 

@@ -14,6 +14,7 @@ const ResponseTypes = [
     'MSG_FROM_USER',
     'MSG_DELETE',
     'MSG_READ',
+    'MSG_DELIVER',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
@@ -71,6 +72,10 @@ class ResponseRedirector {
                 }
             }
             if (this.isMessageReadStatusChangeNotification(response)) {
+                dialogBoxController.handleResponse(response);
+            }
+
+            if (this.isMessageDeliveryStatusChange(response)) {
                 dialogBoxController.handleResponse(response);
             }
         }
@@ -169,6 +174,12 @@ class ResponseRedirector {
         response: BasicResponse
     ): response is MessageReadStatusChangeNotification {
         return response.type === 'MSG_READ';
+    }
+
+    private isMessageDeliveryStatusChange(
+        response: BasicResponse
+    ): response is MessageDeliveryStatusChange {
+        return response.type === 'MSG_DELIVER';
     }
 }
 
@@ -274,6 +285,19 @@ export type MessageReadStatusChangeNotification = {
             id: string;
             status: {
                 isReaded: boolean;
+            };
+        };
+    };
+};
+
+export type MessageDeliveryStatusChange = {
+    id: null;
+    type: 'MSG_DELIVER';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isDelivered: boolean;
             };
         };
     };
