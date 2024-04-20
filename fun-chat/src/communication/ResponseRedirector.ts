@@ -12,6 +12,7 @@ const ResponseTypes = [
     'USER_EXTERNAL_LOGIN',
     'MSG_SEND',
     'MSG_FROM_USER',
+    'MSG_DELETE',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
@@ -20,7 +21,8 @@ export type ResponseTitle =
     | 'USER_LOGOUT'
     | 'USER_LOGIN'
     | 'MSG_SEND'
-    | 'MSG_FROM_USER';
+    | 'MSG_FROM_USER'
+    | 'MSG_DELETE';
 
 class ResponseRedirector {
     private static responseRedirector: ResponseRedirector;
@@ -44,6 +46,10 @@ class ResponseRedirector {
             } else if (responseTitle === 'MSG_FROM_USER') {
                 if (this.isFetchingMessageHistory(response))
                     dialogBoxController.handleResponse(response);
+            } else if (responseTitle === 'MSG_DELETE') {
+                if (this.isMsgDeleteResponse(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
             }
         } else {
             if (this.isUserStatutsChangeResponse(response)) {
@@ -51,6 +57,11 @@ class ResponseRedirector {
             }
             if (response.type === 'MSG_SEND') {
                 if (this.isSentMessageResponse(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
+            }
+            if (response.type === 'MSG_DELETE') {
+                if (this.isMsgDeleteResponse(response)) {
                     dialogBoxController.handleResponse(response);
                 }
             }
@@ -108,6 +119,12 @@ class ResponseRedirector {
         response: BasicResponse
     ): response is FetchMessageHistoryResponse {
         return response.payload.messages;
+    }
+
+    private isMsgDeleteResponse(
+        response: BasicResponse
+    ): response is MessageDeletionResponse {
+        return response.type === 'MSG_DELETE';
     }
 
     private handleUserLoginResponse(response: BasicResponse) {
@@ -203,5 +220,18 @@ export type MessageInfoResponse = {
         isDelivered: boolean;
         isReaded: boolean;
         isEdited: boolean;
+    };
+};
+
+export type MessageDeletionResponse = {
+    id: ResponseTitle | null;
+    type: 'MSG_DELETE';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isDeleted: boolean;
+            };
+        };
     };
 };

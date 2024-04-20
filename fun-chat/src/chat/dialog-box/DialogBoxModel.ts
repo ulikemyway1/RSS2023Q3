@@ -38,9 +38,28 @@ class DialogBoxModel {
         }
     }
 
-    public getMessageCard(contactName: string, msgID: string) {
-        const messageCard = this.dialogsDB.get(contactName)?.get(msgID);
-        return messageCard?.getView();
+    public getMessageCard(msgID: string, contactKey?: string) {
+        if (contactKey) {
+            return this.dialogsDB.get(contactKey)?.get(msgID);
+        } else {
+            let messageCard;
+            this.dialogsDB.forEach((contactDB) => {
+                const card = contactDB.get(msgID);
+                if (card) {
+                    messageCard = card;
+                    return;
+                }
+            });
+            return messageCard;
+        }
+    }
+
+    public deleteMessage(msgID: string, contactKey?: string) {
+        if (contactKey) {
+            this.dialogsDB.get(contactKey)?.delete(msgID);
+        } else {
+            this.dialogsDB.forEach((contactDB) => contactDB.delete(msgID));
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 import {
     FetchMessageHistoryResponse,
+    MessageDeletionResponse,
     MessageInfoResponse,
     SentMessageResponse,
 } from '../../communication/ResponseRedirector';
@@ -31,7 +32,10 @@ class DialogBoxController {
     }
 
     public handleResponse(
-        response: SentMessageResponse | FetchMessageHistoryResponse
+        response:
+            | SentMessageResponse
+            | FetchMessageHistoryResponse
+            | MessageDeletionResponse
     ) {
         if (response.type === 'MSG_SEND') {
             this.pullMessage(response.payload.message);
@@ -39,6 +43,12 @@ class DialogBoxController {
             response.payload.messages.forEach((messageInfo) =>
                 this.pullMessage(messageInfo)
             );
+        } else if (response.type === 'MSG_DELETE') {
+            const contactKey = response.id?.split(':')[1];
+            const msgID = response.payload.message.id;
+            const messageCard = this.model.getMessageCard(msgID, contactKey);
+            messageCard?.getView().remove();
+            this.model.deleteMessage(msgID, contactKey);
         }
     }
 
@@ -48,7 +58,7 @@ class DialogBoxController {
             messageInfo.to
         );
         this.model.addMessage(contactKey, messageInfo.id, messageInfo);
-        const msgCard = this.model.getMessageCard(contactKey, messageInfo.id);
+        const msgCard = this.model.getMessageCard(messageInfo.id, contactKey);
         if (msgCard) {
             if (
                 messageInfo.to ===
@@ -56,8 +66,8 @@ class DialogBoxController {
                 messageInfo.from ===
                     this.model.getCurrentContact()?.getContactName()
             ) {
-                this.view.appendMsg(msgCard);
-                msgCard.scrollIntoView();
+                this.view.appendMsg(msgCard.getView());
+                msgCard.getView().scrollIntoView();
                 if (this.model.dialogsDB.get(contactKey)?.size === 1) {
                     this.view.msgArea.append(
                         new BaseElement('div', ['space']).getElement()

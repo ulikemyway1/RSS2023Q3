@@ -41,7 +41,7 @@ export default class ContextMenu {
         const messageId = dataID.split('|')[1];
         this.deleteBtn.addEventListener('click', () => {
             const dataRequest = {
-                id: contactKey,
+                id: `MSG_DELETE:${contactKey}`,
                 type: 'MSG_DELETE',
                 payload: {
                     message: {
