@@ -88,6 +88,11 @@ class DialogBoxView {
             }
         });
 
+        this.msgArea.addEventListener('scroll', () =>
+            this.notifyAboutReading()
+        );
+        this.msgArea.addEventListener('click', () => this.notifyAboutReading());
+
         document.body.addEventListener('click', (event) => {
             document.body
                 .querySelectorAll('.context-menu')
@@ -113,6 +118,7 @@ class DialogBoxView {
             ws.send(JSON.stringify(messageData));
             this.inputField.value = '';
             this.sendMessageBtn.disabled = true;
+            this.notifyAboutReading();
         }
     }
 
@@ -135,6 +141,24 @@ class DialogBoxView {
     public appendMsg(msgCard: HTMLElement): void {
         this.msgAreaNoChatHistoryTip.classList.add('hidden');
         this.msgArea.append(msgCard);
+    }
+
+    public notifyAboutReading(): void {
+        const targetContact = this.model.getCurrentContact()?.getContactName();
+        if (targetContact) {
+            this.model.unreadMessages.get(targetContact)?.forEach((msgID) => {
+                const requestData = {
+                    id: `MSG_READ:${targetContact}:${generateId()}`,
+                    type: 'MSG_READ',
+                    payload: {
+                        message: {
+                            id: msgID,
+                        },
+                    },
+                };
+                ws.send(JSON.stringify(requestData));
+            });
+        }
     }
 }
 

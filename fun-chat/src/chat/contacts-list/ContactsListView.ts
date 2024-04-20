@@ -38,16 +38,21 @@ class UserListView {
                             dialogBoxController.resetDialog();
                             dialogBoxController.updateDialogHeader(contactCard);
                             dialogBoxView.inputField.disabled = false;
-                            const fetchHistoryResponseData = {
-                                id: `MSG_FROM_USER:${generateId()}`,
-                                type: 'MSG_FROM_USER',
-                                payload: {
-                                    user: {
-                                        login: contactName,
-                                    },
-                                },
-                            };
-                            ws.send(JSON.stringify(fetchHistoryResponseData));
+                            const msgKey =
+                                dialogBoxController.generateContactKey(
+                                    app.getState().getItem('userName'),
+                                    contactCard.getContactName()
+                                );
+                            dialogBoxController.model
+                                .getMessageHistory(msgKey)
+                                ?.forEach((messageController) => {
+                                    dialogBoxView.msgAreaNoChatHistoryTip.classList.add(
+                                        'hidden'
+                                    );
+                                    dialogBoxView.msgArea.append(
+                                        messageController.getView()
+                                    );
+                                });
                         }
                     }
                 }

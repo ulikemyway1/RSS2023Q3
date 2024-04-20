@@ -4,7 +4,11 @@ import {
     MessageInfoResponse,
     SentMessageResponse,
 } from '../../communication/ResponseRedirector';
+import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
+import generateId from '../../utils/generateID';
+import contactsListController from '../contacts-list/ContactsListController';
+import contactsListModel from '../contacts-list/ContactsListModel';
 import Contact from '../contacts-list/contact';
 import dialogBoxModel from './DialogBoxModel';
 import dialogBoxView from './DialogBoxView';
@@ -58,6 +62,7 @@ class DialogBoxController {
             messageInfo.to
         );
         this.model.addMessage(contactKey, messageInfo.id, messageInfo);
+        contactsListModel.getContactCard(messageInfo.from)?.updateMsgCount();
         const msgCard = this.model.getMessageCard(messageInfo.id, contactKey);
         if (msgCard) {
             if (
@@ -68,16 +73,16 @@ class DialogBoxController {
             ) {
                 this.view.appendMsg(msgCard.getView());
                 msgCard.getView().scrollIntoView();
-                if (this.model.dialogsDB.get(contactKey)?.size === 1) {
-                    this.view.msgArea.append(
-                        new BaseElement('div', ['space']).getElement()
-                    );
-                }
+                // if (this.model.dialogsDB.get(contactKey)?.size === 1) {
+                //     this.view.msgArea.append(
+                //         new BaseElement('div', ['space']).getElement()
+                //     );
+                // }
             }
         }
     }
 
-    private generateContactKey(from: string, to: string): string {
+    public generateContactKey(from: string, to: string): string {
         const contactKey = [from, to].sort().join('=');
         return contactKey;
     }

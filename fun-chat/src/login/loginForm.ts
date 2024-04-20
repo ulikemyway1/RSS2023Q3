@@ -96,7 +96,7 @@ export default class LoginForm {
                     userData.payload.user.password
                 );
                 app.getState().setItem('userName', userData.payload.user.login);
-                contactsListController.updateView();
+                // contactsListController.updateView();
             }
         });
 

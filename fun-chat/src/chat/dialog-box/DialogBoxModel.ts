@@ -1,4 +1,5 @@
 import { SentMessageResponse } from '../../communication/ResponseRedirector';
+import contactsListModel from '../contacts-list/ContactsListModel';
 import Contact from '../contacts-list/contact';
 import MessageController from '../message/MessageController';
 import { MessageInfo } from '../message/MessageModel';
@@ -7,6 +8,8 @@ class DialogBoxModel {
     private currentContact: Contact | null = null;
 
     dialogsDB: Map<string, Map<string, MessageController>> = new Map();
+
+    unreadMessages: Map<string, Set<string>> = new Map();
 
     public setCurrentContact(contact: Contact | null): void {
         this.currentContact = contact;
@@ -36,6 +39,14 @@ class DialogBoxModel {
                 new MessageController(messageInfo, msgDataID)
             );
         }
+        if (!messageInfo.status.isReaded) {
+            let unreadMsgDB = this.unreadMessages.get(messageInfo.from);
+            if (!unreadMsgDB) {
+                this.unreadMessages.set(messageInfo.from, new Set());
+            }
+            unreadMsgDB = this.unreadMessages.get(messageInfo.from);
+            unreadMsgDB?.add(messageId);
+        }
     }
 
     public getMessageCard(msgID: string, contactKey?: string) {
@@ -60,6 +71,15 @@ class DialogBoxModel {
         } else {
             this.dialogsDB.forEach((contactDB) => contactDB.delete(msgID));
         }
+        this.unreadMessages.forEach((msgDB, contactName) => {
+            if (msgDB.delete(msgID)) {
+                contactsListModel.getContactCard(contactName)?.updateMsgCount();
+            }
+        });
+    }
+
+    public getMessageHistory(msgKey: string) {
+        return this.dialogsDB.get(msgKey);
     }
 }
 

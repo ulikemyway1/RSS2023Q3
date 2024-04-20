@@ -1,4 +1,6 @@
+import app from '../../app/app';
 import BaseElement from '../../utils/BaseElement';
+import dialogBoxController from '../dialog-box/DialogBoxController';
 
 export default class Contact {
     private view = new BaseElement('div', ['contact']).getElement();
@@ -10,7 +12,7 @@ export default class Contact {
     ]).getElement();
     private msgCountBox = new BaseElement(
         'div',
-        ['contact__msg-count'],
+        ['contact__msg-count', 'hidden'],
         '0'
     ).getElement();
     private name: string;
@@ -70,6 +72,23 @@ export default class Contact {
             this.statusText.classList.remove('online-text');
             this.statusText.classList.add('offline-text');
             this.status = false;
+        }
+    }
+
+    public updateMsgCount(): void {
+        const numberOfUnreadMsg = dialogBoxController.model.unreadMessages.get(
+            this.name
+        )?.size;
+        if (numberOfUnreadMsg) {
+            if (numberOfUnreadMsg <= 100) {
+                this.msgCountBox.textContent = String(numberOfUnreadMsg);
+            } else {
+                this.msgCountBox.textContent = `${numberOfUnreadMsg}+`;
+            }
+            this.msgCountBox.classList.remove('hidden');
+        } else {
+            this.msgCountBox.textContent = '0';
+            this.msgCountBox.classList.add('hidden');
         }
     }
 }

@@ -1,5 +1,6 @@
 import app from '../app/app';
-import userListController from '../chat/contacts-list/ContactsListController';
+import contactsListController from '../chat/contacts-list/ContactsListController';
+import dialogBoxModel from '../chat/dialog-box/DialogBoxModel';
 import { ResponseTitle } from '../communication/ResponseRedirector';
 import ws from '../communication/socket';
 import generateId from '../utils/generateID';
@@ -20,7 +21,7 @@ class UserController {
         this.userModel.setPassword(app.getState().getItem('userPassword'));
         this.userView.updateUserView();
         app.getRouter().navigate('main');
-        userListController.updateView();
+        contactsListController.updateView();
     }
 
     public logOut() {
@@ -37,6 +38,7 @@ class UserController {
         ws.send(JSON.stringify(requestData));
         this.userModel.setPassword(undefined);
         this.userModel.setLoginStatus(false);
+        dialogBoxModel.unreadMessages.clear();
         app.getRouter().navigate('login');
         //todo: cleaer login form;
     }
