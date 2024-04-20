@@ -92,9 +92,9 @@ class DialogBoxView {
             }
         });
 
-        this.msgArea.addEventListener('scroll', () =>
-            this.notifyAboutReading()
-        );
+        this.msgArea.addEventListener('wheel', () => {
+            this.notifyAboutReading();
+        });
         this.msgArea.addEventListener('click', () => this.notifyAboutReading());
 
         document.body.addEventListener('click', (event) => {
