@@ -2,6 +2,7 @@ import {
     FetchMessageHistoryResponse,
     MessageDeletionResponse,
     MessageInfoResponse,
+    MessageReadStatusChange,
     SentMessageResponse,
 } from '../../communication/ResponseRedirector';
 import ws from '../../communication/socket';
@@ -40,6 +41,7 @@ class DialogBoxController {
             | SentMessageResponse
             | FetchMessageHistoryResponse
             | MessageDeletionResponse
+            | MessageReadStatusChange
     ) {
         if (response.type === 'MSG_SEND') {
             this.pullMessage(response.payload.message);
@@ -53,6 +55,15 @@ class DialogBoxController {
             const messageCard = this.model.getMessageCard(msgID, contactKey);
             messageCard?.getView().remove();
             this.model.deleteMessage(msgID, contactKey);
+        } else if (response.type === 'MSG_READ') {
+            const msgID = response.payload.message.id;
+            if (response.id) {
+                const contactName = response.id.split(':')[1];
+                this.model.unreadMessages.get(contactName)?.delete(msgID);
+                contactsListModel.getContactCard(contactName)?.updateMsgCount();
+            } else {
+                this.model.markAsRead(msgID);
+            }
         }
     }
 

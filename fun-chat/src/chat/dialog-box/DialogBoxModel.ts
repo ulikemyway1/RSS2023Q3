@@ -81,6 +81,12 @@ class DialogBoxModel {
     public getMessageHistory(msgKey: string) {
         return this.dialogsDB.get(msgKey);
     }
+
+    public markAsRead(msgID: string) {
+        this.dialogsDB.forEach((contactMsgDB) =>
+            contactMsgDB.get(msgID)?.view.setMsgDeliveryStatus('Read')
+        );
+    }
 }
 
 const dialogBoxModel = new DialogBoxModel();

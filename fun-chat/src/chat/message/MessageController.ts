@@ -12,7 +12,7 @@ export default class MessageController {
         if (messageInfo.status.isDelivered && !messageInfo.status.isReaded) {
             deliveryStatus = 'Delivered';
         } else if (messageInfo.status.isReaded) {
-            deliveryStatus = 'Readed';
+            deliveryStatus = 'Read';
         } else {
             deliveryStatus = 'Sent';
         }

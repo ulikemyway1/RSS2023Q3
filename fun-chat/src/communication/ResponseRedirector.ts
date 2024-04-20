@@ -13,6 +13,7 @@ const ResponseTypes = [
     'MSG_SEND',
     'MSG_FROM_USER',
     'MSG_DELETE',
+    'MSG_READ',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
@@ -22,7 +23,8 @@ export type ResponseTitle =
     | 'USER_LOGIN'
     | 'MSG_SEND'
     | 'MSG_FROM_USER'
-    | 'MSG_DELETE';
+    | 'MSG_DELETE'
+    | 'MSG_READ';
 
 class ResponseRedirector {
     private static responseRedirector: ResponseRedirector;
@@ -32,7 +34,6 @@ class ResponseRedirector {
     public takeResponse(response: BasicResponse) {
         if (response.id) {
             const responseTitle = response.id.split(':')[0];
-
             if (responseTitle === 'USER_LOGIN') {
                 this.handleUserLoginResponse(response);
             } else if (responseTitle === 'USER_LOGOUT') {
@@ -50,6 +51,10 @@ class ResponseRedirector {
                 if (this.isMsgDeleteResponse(response)) {
                     dialogBoxController.handleResponse(response);
                 }
+            } else if (responseTitle === 'MSG_READ') {
+                if (this.isMessageReadStatusChange(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
             }
         } else {
             if (this.isUserStatutsChangeResponse(response)) {
@@ -64,6 +69,9 @@ class ResponseRedirector {
                 if (this.isMsgDeleteResponse(response)) {
                     dialogBoxController.handleResponse(response);
                 }
+            }
+            if (this.isMessageReadStatusChangeNotification(response)) {
+                dialogBoxController.handleResponse(response);
             }
         }
     }
@@ -150,6 +158,18 @@ class ResponseRedirector {
         ) {
         }
     }
+
+    private isMessageReadStatusChange(
+        response: BasicResponse
+    ): response is MessageReadStatusChange {
+        return typeof response.id === 'string' && response.type === 'MSG_READ';
+    }
+
+    private isMessageReadStatusChangeNotification(
+        response: BasicResponse
+    ): response is MessageReadStatusChangeNotification {
+        return response.type === 'MSG_READ';
+    }
 }
 
 const responseRedirector = ResponseRedirector.getInstance();
@@ -231,6 +251,29 @@ export type MessageDeletionResponse = {
             id: string;
             status: {
                 isDeleted: boolean;
+            };
+        };
+    };
+};
+
+export type MessageReadStatusChange = {
+    id: ResponseTitle | null;
+    type: 'MSG_READ';
+    payload: {
+        message: {
+            id: string;
+        };
+    };
+};
+
+export type MessageReadStatusChangeNotification = {
+    id: null;
+    type: 'MSG_READ';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isReaded: boolean;
             };
         };
     };
