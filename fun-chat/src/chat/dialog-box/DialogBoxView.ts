@@ -50,7 +50,11 @@ class DialogBoxView {
             this.sendMessage();
         });
         this.inputField.addEventListener('keydown', (event) => {
-            if (event.code === 'Enter' && !event.shiftKey) {
+            if (
+                event.code === 'Enter' &&
+                !event.shiftKey &&
+                this.inputField.value.trim().length > 0
+            ) {
                 event.preventDefault();
                 this.sendMessage();
             } else if (event.code === 'Enter' && event.shiftKey) {
