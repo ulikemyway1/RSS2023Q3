@@ -175,7 +175,9 @@ class DialogBoxView {
 
     private sendMessageChanges(): void {
         const message = this.inputField.value;
-        const targetContacName = this.model.getCurrentContact();
+        const targetContacName = this.model
+            .getCurrentContact()
+            ?.getContactName();
         const msgID = this.model.getMsgID();
 
         if (targetContacName && msgID) {

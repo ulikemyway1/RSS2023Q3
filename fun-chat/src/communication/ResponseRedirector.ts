@@ -15,6 +15,7 @@ const ResponseTypes = [
     'MSG_DELETE',
     'MSG_READ',
     'MSG_DELIVER',
+    'MSG_EDIT',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
@@ -25,7 +26,8 @@ export type ResponseTitle =
     | 'MSG_SEND'
     | 'MSG_FROM_USER'
     | 'MSG_DELETE'
-    | 'MSG_READ';
+    | 'MSG_READ'
+    | 'MSG_EDIT';
 
 class ResponseRedirector {
     private static responseRedirector: ResponseRedirector;
@@ -56,6 +58,8 @@ class ResponseRedirector {
                 if (this.isMessageReadStatusChange(response)) {
                     dialogBoxController.handleResponse(response);
                 }
+            } else if (this.isMessageTextEditing(response)) {
+                dialogBoxController.handleResponse(response);
             }
         } else {
             if (this.isUserStatutsChangeResponse(response)) {
@@ -76,6 +80,9 @@ class ResponseRedirector {
             }
 
             if (this.isMessageDeliveryStatusChange(response)) {
+                dialogBoxController.handleResponse(response);
+            }
+            if (this.isMessageTextEditingNotification(response)) {
                 dialogBoxController.handleResponse(response);
             }
         }
@@ -180,6 +187,18 @@ class ResponseRedirector {
         response: BasicResponse
     ): response is MessageDeliveryStatusChange {
         return response.type === 'MSG_DELIVER';
+    }
+
+    private isMessageTextEditing(
+        response: BasicResponse
+    ): response is MessageTextEditing {
+        return typeof response.id === 'string' && response.type === 'MSG_EDIT';
+    }
+
+    private isMessageTextEditingNotification(
+        response: BasicResponse
+    ): response is MessageTextEditingNotification {
+        return !response.id && response.type === 'MSG_EDIT';
     }
 }
 
@@ -298,6 +317,31 @@ export type MessageDeliveryStatusChange = {
             id: string;
             status: {
                 isDelivered: boolean;
+            };
+        };
+    };
+};
+
+export type MessageTextEditing = {
+    id: ResponseTitle | null;
+    type: 'MSG_EDIT';
+    payload: {
+        message: {
+            id: string;
+            text: string;
+        };
+    };
+};
+
+export type MessageTextEditingNotification = {
+    id: null;
+    type: 'MSG_EDIT';
+    payload: {
+        message: {
+            id: string;
+            text: string;
+            status: {
+                isEdited: boolean;
             };
         };
     };

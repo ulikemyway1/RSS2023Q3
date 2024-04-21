@@ -4,6 +4,8 @@ import {
     MessageDeliveryStatusChange,
     MessageInfoResponse,
     MessageReadStatusChange,
+    MessageTextEditing,
+    MessageTextEditingNotification,
     SentMessageResponse,
 } from '../../communication/ResponseRedirector';
 import ws from '../../communication/socket';
@@ -44,6 +46,8 @@ class DialogBoxController {
             | MessageDeletionResponse
             | MessageReadStatusChange
             | MessageDeliveryStatusChange
+            | MessageTextEditing
+            | MessageTextEditingNotification
     ) {
         if (response.type === 'MSG_SEND') {
             this.pullMessage(response.payload.message);
@@ -69,6 +73,11 @@ class DialogBoxController {
         } else if (response.type === 'MSG_DELIVER') {
             const msgID = response.payload.message.id;
             this.model.markAsDelivered(msgID);
+        } else if (response.type === 'MSG_EDIT') {
+            const msgID = response.payload.message.id;
+            const messageCard = this.model.getMessageCard(msgID);
+            messageCard?.setStatus('isEdited');
+            messageCard?.editMsgText(response.payload.message.text);
         }
     }
 
