@@ -1,6 +1,8 @@
 import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
 import ButtonElement from '../../utils/ButtonElement';
+import dialogBoxModel from '../dialog-box/DialogBoxModel';
+import dialogBoxView from '../dialog-box/DialogBoxView';
 
 export default class ContextMenu {
     private view = new BaseElement('div', ['context-menu']).getElement();
@@ -51,6 +53,37 @@ export default class ContextMenu {
             };
 
             ws.send(JSON.stringify(dataRequest));
+        });
+
+        this.editBtn.addEventListener('click', () => {
+            dialogBoxModel.setState('editing');
+
+            const contactKey = dataID.split('|')[0];
+            const messageId = dataID.split('|')[1];
+
+            dialogBoxModel.setMsgID(messageId);
+
+            const cancelBtn = dialogBoxView.cancelMessageEditingBtn;
+            const saveBtn = dialogBoxView.saveMessageChangesBtn;
+            const senBtn = dialogBoxView.sendMessageBtn;
+
+            cancelBtn.classList.remove('hidden');
+            cancelBtn.disabled = false;
+
+            saveBtn.classList.remove('hidden');
+
+            senBtn.classList.add('hidden');
+
+            dialogBoxView.inputWrapper.classList.add('edit-mode');
+
+            dialogBoxView.inputField.value = String(
+                dialogBoxModel
+                    .getMessageCard(messageId, contactKey)
+                    ?.model.getMessageContecnt()
+            );
+
+            dialogBoxView.removeSendEventListenerFromInputField();
+            dialogBoxView.addSaveChangesEventListenerToInputField();
         });
     }
 }

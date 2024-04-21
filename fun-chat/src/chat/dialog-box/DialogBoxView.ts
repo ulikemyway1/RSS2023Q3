@@ -11,7 +11,7 @@ class DialogBoxView {
     public header = new BaseElement('div', ['dialog-box__header']).getElement();
     msgArea = new BaseElement('div', ['dialog-box__msg-area']).getElement();
 
-    private inputWrapper = new BaseElement('div', [
+    public inputWrapper = new BaseElement('div', [
         'dialog-box__input-wrapper',
     ]).getElement();
 
@@ -23,11 +23,24 @@ class DialogBoxView {
         true
     ).getButton();
 
+    public cancelMessageEditingBtn = new ButtonElement(
+        'Cancel',
+        ['button', 'cancel-btn', 'hidden'],
+        true
+    ).getButton();
+
+    public saveMessageChangesBtn = new ButtonElement(
+        'Save',
+        ['button', 'savee-btn', 'hidden'],
+        true
+    ).getButton();
+
     public msgAreaNoContactTip = new BaseElement(
         'div',
         ['dialog-box__tip', 'no-contact'],
         'Choose a contact to start chating'
     ).getElement();
+
     public msgAreaNoChatHistoryTip = new BaseElement(
         'div',
         ['dialog-box__tip', 'no-history', 'hidden'],
@@ -38,25 +51,31 @@ class DialogBoxView {
         this.inputField.classList.add('dialog-box__input-field');
         this.inputField.disabled = true;
         this.inputField.placeholder = 'Type here...';
-        this.inputField.addEventListener('input', () => {
-            if (this.inputField.value.trim().length > 0) {
-                this.sendMessageBtn.disabled = false;
-            } else {
-                this.sendMessageBtn.disabled = true;
-            }
-        });
 
         this.sendMessageBtn.addEventListener('click', () => {
             this.sendMessage();
         });
+
+        this.addSendEventListenerToInputField();
+
         this.inputField.addEventListener('keydown', (event) => {
             if (
                 event.code === 'Enter' &&
                 !event.shiftKey &&
-                this.inputField.value.trim().length > 0
+                this.inputField.value.length > 0
             ) {
                 event.preventDefault();
-                this.sendMessage();
+                if (this.model.getState() === 'normal') {
+                    this.sendMessage();
+                } else {
+                    if (
+                        this.inputField.value !==
+                        this.model
+                            .getMessageCard(this.model.getMsgID())
+                            ?.model.getMessageContecnt()
+                    )
+                        this.sendMessageChanges();
+                }
             } else if (event.code === 'Enter' && event.shiftKey) {
                 this.inputField.value += '\n';
             }
@@ -67,7 +86,12 @@ class DialogBoxView {
             this.msgAreaNoContactTip
         );
 
-        this.inputWrapper.append(this.inputField, this.sendMessageBtn);
+        this.inputWrapper.append(
+            this.inputField,
+            this.sendMessageBtn,
+            this.saveMessageChangesBtn,
+            this.cancelMessageEditingBtn
+        );
 
         this.view.append(this.header, this.msgArea, this.inputWrapper);
 
@@ -95,13 +119,36 @@ class DialogBoxView {
         this.msgArea.addEventListener('wheel', () => {
             this.notifyAboutReading();
         });
+
         this.msgArea.addEventListener('click', () => this.notifyAboutReading());
+
+        this.cancelMessageEditingBtn.addEventListener('click', () =>
+            this.cancelChanges()
+        );
+
+        this.saveMessageChangesBtn.addEventListener('click', () =>
+            this.sendMessageChanges()
+        );
 
         document.body.addEventListener('click', (event) => {
             document.body
                 .querySelectorAll('.context-menu')
                 .forEach((item) => item.remove());
         });
+    }
+
+    private cancelChanges(): void {
+        this.inputField.value = '';
+        this.cancelMessageEditingBtn.classList.add('hidden');
+        this.saveMessageChangesBtn.disabled = true;
+        this.saveMessageChangesBtn.classList.add('hidden');
+        this.sendMessageBtn.disabled = true;
+        this.sendMessageBtn.classList.remove('hidden');
+        this.inputWrapper.classList.remove('edit-mode');
+        this.model.setMsgID('');
+        this.removeSaveChangesListenerFromInputField();
+        this.addSendEventListenerToInputField();
+        this.model.setState('normal');
     }
 
     private sendMessage(): void {
@@ -126,8 +173,82 @@ class DialogBoxView {
         }
     }
 
+    private sendMessageChanges(): void {
+        const message = this.inputField.value;
+        const targetContacName = this.model.getCurrentContact();
+        const msgID = this.model.getMsgID();
+
+        if (targetContacName && msgID) {
+            const messageData = {
+                id: `MSG_EDIT:${targetContacName}:${generateId()}`,
+                type: 'MSG_EDIT',
+                payload: {
+                    message: {
+                        id: msgID,
+                        text: message,
+                    },
+                },
+            };
+
+            ws.send(JSON.stringify(messageData));
+        }
+        this.cancelChanges();
+    }
+
     public getView() {
         return this.view;
+    }
+
+    public addSendEventListenerToInputField() {
+        this.inputField.addEventListener('input', () => {
+            if (this.inputField.value.length > 0) {
+                this.sendMessageBtn.disabled = false;
+            } else {
+                this.sendMessageBtn.disabled = true;
+            }
+        });
+    }
+
+    public removeSendEventListenerFromInputField() {
+        this.inputField.removeEventListener('input', () => {
+            if (this.inputField.value.length > 0) {
+                this.sendMessageBtn.disabled = false;
+            } else {
+                this.sendMessageBtn.disabled = true;
+            }
+        });
+    }
+
+    public addSaveChangesEventListenerToInputField() {
+        this.inputField.addEventListener('input', () => {
+            if (
+                this.inputField.value.length > 0 &&
+                this.inputField.value !==
+                    this.model
+                        .getMessageCard(this.model.getMsgID())
+                        ?.model.getMessageContecnt()
+            ) {
+                this.saveMessageChangesBtn.disabled = false;
+            } else {
+                this.saveMessageChangesBtn.disabled = true;
+            }
+        });
+    }
+
+    public removeSaveChangesListenerFromInputField() {
+        this.inputField.removeEventListener('input', () => {
+            if (
+                this.inputField.value.length > 0 &&
+                this.inputField.value !==
+                    this.model
+                        .getMessageCard(this.model.getMsgID())
+                        ?.model.getMessageContecnt()
+            ) {
+                this.saveMessageChangesBtn.disabled = false;
+            } else {
+                this.saveMessageChangesBtn.disabled = true;
+            }
+        });
     }
 
     public resetView() {

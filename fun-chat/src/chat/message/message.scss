@@ -18,6 +18,12 @@
     &__content {
         grid-area: B;
         overflow-wrap: break-word;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-width: 100%;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: Mulish, Arial, Helvetica, sans-serif;
     }
 
     &__deliv-status {

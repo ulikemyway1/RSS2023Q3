@@ -10,6 +10,10 @@ export default class MessageModel {
             timeZone: this.userTimeZone,
         });
     }
+
+    public getMessageContecnt(): string {
+        return this.messasgeInfo.text;
+    }
 }
 
 export type MessageInfo = {

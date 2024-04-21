@@ -45,6 +45,13 @@
         overflow-y: scroll;
     }
 
+    &__input-wrapper.edit-mode {
+        display: grid;
+        grid-template-columns: 5fr 1fr;
+        grid-template-areas:
+            'A B'
+            'A C';
+    }
     &__input-wrapper {
         display: flex;
         padding: 0 5px;
@@ -56,17 +63,36 @@
     }
 
     &__input-field {
+        grid-area: A;
         resize: none;
         flex-grow: 1;
         font-size: 14px;
         height: 80%;
         padding: 5px;
         border-radius: 6px;
+        border: 1px solid black;
+
+        &:focus {
+            outline: 1px solid black;
+        }
     }
 }
 
 .send-btn {
-    height: 40px;
+    grid-area: B;
+    height: 30px;
+    filter: none;
+    background: var(--valid);
+}
+
+.cancel-btn {
+    grid-area: C;
+    height: 30px;
+}
+
+.save-btn {
+    grid-area: B;
+    height: 30px;
     filter: none;
     background: var(--valid);
 }

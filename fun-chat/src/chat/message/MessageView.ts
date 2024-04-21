@@ -6,7 +6,7 @@ export default class MessageView {
     private view: HTMLElement = new BaseElement('div', [
         'message',
     ]).getElement();
-    private msgContentBox = new BaseElement('div', [
+    private msgContentBox = new BaseElement('pre', [
         'message__content',
     ]).getElement();
     private msgTime = new BaseElement('span', ['message__time']).getElement();
