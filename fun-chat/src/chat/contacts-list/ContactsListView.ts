@@ -35,6 +35,7 @@ class UserListView {
                             contactCard &&
                             dialogBoxModel.getCurrentContact() !== contactCard
                         ) {
+                            dialogBoxController.removeDivider();
                             dialogBoxController.resetDialog();
                             dialogBoxController.updateDialogHeader(contactCard);
                             dialogBoxView.inputField.disabled = false;
@@ -49,10 +50,28 @@ class UserListView {
                                     dialogBoxView.msgAreaNoChatHistoryTip.classList.add(
                                         'hidden'
                                     );
+                                    if (
+                                        messageController.model.messasgeInfo
+                                            .to ===
+                                        app.getState().getItem('userName')
+                                    ) {
+                                        dialogBoxController.appenDivider(
+                                            messageController.model.messasgeInfo
+                                                .status.isReaded
+                                        );
+                                    }
                                     dialogBoxView.msgArea.append(
                                         messageController.getView()
                                     );
                                 });
+                            if (dialogBoxController.dividerIsAppended) {
+                                dialogBoxView.divider.scrollIntoView({
+                                    block: 'center',
+                                });
+                            } else {
+                                dialogBoxView.msgArea.scrollTop =
+                                    dialogBoxView.msgArea.scrollHeight;
+                            }
                         }
                     }
                 }

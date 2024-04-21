@@ -96,3 +96,13 @@
     filter: none;
     background: var(--valid);
 }
+
+.divider {
+    position: sticky;
+    padding: 5px 0;
+    top: 10px;
+    font-weight: 800;
+    text-align: center;
+    z-index: 1;
+    background: #cbe312c3;
+}

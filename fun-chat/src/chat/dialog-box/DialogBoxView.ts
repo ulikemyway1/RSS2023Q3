@@ -23,6 +23,12 @@ class DialogBoxView {
         true
     ).getButton();
 
+    public divider = new BaseElement(
+        'div',
+        ['divider'],
+        'New Messages'
+    ).getElement();
+
     public cancelMessageEditingBtn = new ButtonElement(
         'Cancel',
         ['button', 'cancel-btn', 'hidden'],
@@ -286,6 +292,13 @@ class DialogBoxView {
                 ws.send(JSON.stringify(requestData));
             });
         }
+    }
+
+    public appendDivider() {
+        this.msgArea.append(this.divider);
+    }
+    public removeDivider() {
+        this.divider.remove();
     }
 }
 

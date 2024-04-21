@@ -6,7 +6,6 @@ import { MessageInfo } from '../message/MessageModel';
 
 class DialogBoxModel {
     private currentContact: Contact | null = null;
-
     dialogsDB: Map<string, Map<string, MessageController>> = new Map();
 
     unreadMessages: Map<string, Set<string>> = new Map();
@@ -45,19 +44,14 @@ class DialogBoxModel {
     ) {
         const msgDataID = `${contactKey}|${messageId}`;
         const contactMsgDB = this.dialogsDB.get(contactKey);
+        const messageController = new MessageController(messageInfo, msgDataID);
         if (!contactMsgDB) {
             this.dialogsDB.set(
                 contactKey,
-                new Map().set(
-                    messageId,
-                    new MessageController(messageInfo, msgDataID)
-                )
+                new Map().set(messageId, messageController)
             );
         } else {
-            contactMsgDB.set(
-                messageId,
-                new MessageController(messageInfo, msgDataID)
-            );
+            contactMsgDB.set(messageId, messageController);
         }
         if (!messageInfo.status.isReaded) {
             let unreadMsgDB = this.unreadMessages.get(messageInfo.from);

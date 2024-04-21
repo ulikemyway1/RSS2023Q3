@@ -1,3 +1,4 @@
+import app from '../../app/app';
 import {
     FetchMessageHistoryResponse,
     MessageDeletionResponse,
@@ -20,6 +21,7 @@ import dialogBoxView from './DialogBoxView';
 class DialogBoxController {
     public view = dialogBoxView;
     public model = dialogBoxModel;
+    public dividerIsAppended = false;
 
     public updateDialogHeader(contactCard: Contact): void {
         while (this.view.header.lastElementChild) {
@@ -63,10 +65,14 @@ class DialogBoxController {
             this.model.deleteMessage(msgID, contactKey);
         } else if (response.type === 'MSG_READ') {
             const msgID = response.payload.message.id;
+            this.removeDivider();
             if (response.id) {
                 const contactName = response.id.split(':')[1];
                 this.model.unreadMessages.get(contactName)?.delete(msgID);
                 contactsListModel.getContactCard(contactName)?.updateMsgCount();
+                this.model
+                    .getMessageCard(response.payload.message.id)
+                    ?.setStatus('isReaded');
             } else {
                 this.model.markAsRead(msgID);
             }
@@ -96,15 +102,30 @@ class DialogBoxController {
                 messageInfo.from ===
                     this.model.getCurrentContact()?.getContactName()
             ) {
+                if (messageInfo.to === app.getState().getItem('userName')) {
+                    this.appenDivider(messageInfo.status.isReaded);
+                }
+
                 this.view.appendMsg(msgCard.getView());
-                msgCard.getView().scrollIntoView();
-                // if (this.model.dialogsDB.get(contactKey)?.size === 1) {
-                //     this.view.msgArea.append(
-                //         new BaseElement('div', ['space']).getElement()
-                //     );
-                // }
+                if (this.dividerIsAppended) {
+                    this.view.divider.scrollIntoView({ block: 'center' });
+                } else {
+                    msgCard.getView().scrollIntoView();
+                }
             }
         }
+    }
+
+    public appenDivider(isReaded: boolean): void {
+        if (!isReaded && !this.dividerIsAppended) {
+            this.view.appendDivider();
+            this.dividerIsAppended = true;
+        }
+    }
+
+    public removeDivider(): void {
+        this.view.removeDivider();
+        this.dividerIsAppended = false;
     }
 
     public generateContactKey(from: string, to: string): string {
