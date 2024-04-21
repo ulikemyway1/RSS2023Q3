@@ -13,6 +13,21 @@
 
         .contact {
             pointer-events: none;
+            &__msg-count {
+                display: none;
+            }
+
+            &__name-box {
+                font-weight: 800;
+            }
+
+            &__status-text {
+                font-size: 16px;
+                font-weight: 600;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #545454;
+            }
         }
     }
 
