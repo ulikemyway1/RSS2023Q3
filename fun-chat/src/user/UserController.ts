@@ -1,8 +1,11 @@
 import app from '../app/app';
 import contactsListController from '../chat/contacts-list/ContactsListController';
+import dialogBoxController from '../chat/dialog-box/DialogBoxController';
 import dialogBoxModel from '../chat/dialog-box/DialogBoxModel';
+import dialogBoxView from '../chat/dialog-box/DialogBoxView';
 import { ResponseTitle } from '../communication/ResponseRedirector';
 import ws from '../communication/socket';
+import loginPage from '../login/loginPage';
 import generateId from '../utils/generateID';
 import userModel, { UserModel } from './UserModel';
 import userView, { UserView } from './UserView';
@@ -36,11 +39,17 @@ class UserController {
             },
         };
         ws.send(JSON.stringify(requestData));
-        this.userModel.setPassword(undefined);
+        this.userModel.setPassword('');
+        this.userModel.setUsername('');
         this.userModel.setLoginStatus(false);
         dialogBoxModel.unreadMessages.clear();
+        dialogBoxView.cancelChanges();
+        dialogBoxController.resetDialog();
         app.getRouter().navigate('login');
-        //todo: cleaer login form;
+        loginPage.getLoginForm().resetForm();
+        dialogBoxView.msgArea.append(dialogBoxView.msgAreaNoContactTip);
+        dialogBoxView.msgAreaNoContactTip.classList.remove('hidden');
+        dialogBoxView.msgAreaNoChatHistoryTip.classList.add('hidden');
     }
 }
 

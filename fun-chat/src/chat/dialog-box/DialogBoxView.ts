@@ -114,6 +114,7 @@ class DialogBoxView {
                     const contextMenu = new ContextMenu(
                         messageBox.dataset.id || 'null'
                     );
+                    contextMenu.getView().style.transform = `translateY(${event.offsetY}px)`;
                     this.msgArea
                         .querySelectorAll('.context-menu')
                         .forEach((item) => item.remove());
