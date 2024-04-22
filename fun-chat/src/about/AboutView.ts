@@ -4,6 +4,8 @@ import ImgElement from '../utils/ImgElement';
 import Footer from '../main-page/footer/footer';
 import ButtonElement from '../utils/ButtonElement';
 import app from '../app/app';
+import userController from '../user/UserController';
+import userModel from '../user/UserModel';
 const funChatImg = require('../about/fun-chat-min.png');
 export default class AboutPageView {
     private view = new BaseElement('section', ['about']).getElement();
@@ -38,7 +40,8 @@ export default class AboutPageView {
             new Footer().getFooter()
         );
         this.backBtn.addEventListener('click', () => {
-            if (app.getState().getItem('userName')) {
+            if (userModel.getUsername()) {
+                console.log(app.getState().getItem('userName').length);
                 app.getRouter().navigate('main');
             } else {
                 app.getRouter().navigate('login');

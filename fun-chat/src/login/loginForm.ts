@@ -18,7 +18,7 @@ export default class LoginForm {
         true
     ).getButton();
 
-    private userNameInput = new InputElement(
+    public userNameInput = new InputElement(
         'text',
         'userName',
         '',
@@ -26,7 +26,7 @@ export default class LoginForm {
         'username'
     ).getInput();
 
-    private passWordInput = new InputElement(
+    public passWordInput = new InputElement(
         'password',
         'password',
         '',
@@ -205,5 +205,15 @@ export default class LoginForm {
         this.submitBtn.disabled = true;
         this.serverErrorMessage.textContent = message;
         this.loginForm.append(this.serverErrorMessage);
+    }
+
+    public resetForm(): void {
+        this.passWordInput.value = '';
+        this.passWordInput.classList.remove('valid', 'invalid');
+        this.userNameInput.value = '';
+        this.userNameInput.classList.remove('valid', 'invalid');
+        this.passwordIsValid = false;
+        this.usernameIsValid = false;
+        this.submitBtn.disabled = true;
     }
 }
