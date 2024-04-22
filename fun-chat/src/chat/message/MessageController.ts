@@ -24,7 +24,8 @@ export default class MessageController {
             deliveryStatus,
             messageInfo.status.isEdited,
             isOwnMessage,
-            msgDataID
+            msgDataID,
+            messageInfo.from
         );
     }
 

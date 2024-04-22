@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-areas:
-        'A A'
+        'E A'
         'B B'
         'C D';
     background: var(--message);
@@ -22,6 +22,7 @@
         word-wrap: break-word;
         max-width: 100%;
         font-size: 14px;
+        margin: 10px 0;
         font-weight: 400;
         font-family: Mulish, Arial, Helvetica, sans-serif;
     }
@@ -42,10 +43,15 @@
 
     &__deliv-status,
     &__edit-status,
-    &__time {
+    &__time,
+    &__owner {
         font-size: 10px;
         text-align: right;
         color: #282828;
+    }
+    &__owner {
+        grid-area: E;
+        text-align: left;
     }
 }
 

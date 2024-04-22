@@ -16,6 +16,9 @@ export default class MessageView {
     private msgEditStatus = new BaseElement('span', [
         'message__edit-status',
     ]).getElement();
+    private msgOwnerBox = new BaseElement('span', [
+        'message__owner',
+    ]).getElement();
 
     constructor(
         msgContent: string,
@@ -23,7 +26,8 @@ export default class MessageView {
         setMsgDeliveryStatus: string,
         msgIsEdit: boolean,
         isOwnMessage: boolean,
-        msgDataID: string
+        msgDataID: string,
+        msgOwner: string
     ) {
         this.msgContentBox.textContent = msgContent;
         this.msgTime.textContent = msgTime;
@@ -31,13 +35,17 @@ export default class MessageView {
         if (msgIsEdit) this.msgEditStatus.textContent = 'Edit';
         if (isOwnMessage) {
             this.view.classList.add('own-message');
+            this.msgOwnerBox.textContent = 'You';
+        } else {
+            this.msgOwnerBox.textContent = msgOwner;
         }
         this.view.dataset.id = msgDataID;
         this.view.append(
             this.msgContentBox,
             this.msgTime,
             this.msgDeliveryStatus,
-            this.msgEditStatus
+            this.msgEditStatus,
+            this.msgOwnerBox
         );
     }
 
