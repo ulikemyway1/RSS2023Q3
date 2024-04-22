@@ -1,3 +1,4 @@
+import AboutBtn from '../about/AboutBtn';
 import app from '../app/app';
 import contactsListController from '../chat/contacts-list/ContactsListController';
 import ws from '../communication/socket';
@@ -96,7 +97,6 @@ export default class LoginForm {
                     userData.payload.user.password
                 );
                 app.getState().setItem('userName', userData.payload.user.login);
-                // contactsListController.updateView();
             }
         });
 
@@ -104,7 +104,8 @@ export default class LoginForm {
         this.loginForm.append(
             this.userNameLabel,
             this.passwordLabel,
-            this.submitBtn
+            this.submitBtn,
+            new AboutBtn().getButton()
         );
     }
 
