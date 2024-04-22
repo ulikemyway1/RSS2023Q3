@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const path = require('path');
 
 module.exports = {
@@ -51,6 +52,7 @@ module.exports = {
                 { from: 'src/assets', to: 'assets', noErrorOnMissing: true },
             ],
         }),
+            new FaviconsWebpackPlugin('./src/icons/logo.png')
     ],
     performance: {
         hints: false,
