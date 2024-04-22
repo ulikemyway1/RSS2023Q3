@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    padding-top: 15px;
     gap: 15px;
     border: 1px solid #000000;
     border-radius: 6px;
@@ -11,6 +12,16 @@
     max-width: 440px;
     background: #ffffff;
     filter: drop-shadow(3px 3px 4px #858585);
+    &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 90%;
+        height: 1px;
+        background: #000000;
+        bottom: 50px;
+    }
+
     &__label {
         display: flex;
         gap: 5px;
@@ -37,6 +48,18 @@
                 border: 2px solid var(--error);
             }
         }
+    }
+
+    .about-btn {
+        margin-top: 40px;
+        font-size: 15px;
+        cursor: pointer;
+        filter: none;
+        color: #ffffff;
+        width: 20%;
+        padding: 5px;
+        background: var(--accent);
+        transition: all 0.4s;
     }
 }
 
@@ -70,4 +93,10 @@
     padding: 5px 15px;
     font-size: 24px;
     background: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .login-form .about-btn:hover {
+        width: 40%;
+    }
 }

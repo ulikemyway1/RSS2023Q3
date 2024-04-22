@@ -10,7 +10,7 @@ class App {
 
     public start(): void {
         document.body.append(this.container);
-        this.router.navigate('login');
+        this.router.navigate('about');
     }
 
     public setContent(content: HTMLElement) {

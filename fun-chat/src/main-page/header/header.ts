@@ -1,3 +1,4 @@
+import AboutBtn from '../../about/AboutBtn';
 import app from '../../app/app';
 import contactsListController from '../../chat/contacts-list/ContactsListController';
 import dialogBoxController from '../../chat/dialog-box/DialogBoxController';
@@ -29,6 +30,7 @@ export default class Header {
             );
             dialogBoxController.resetDialog();
         });
+        appTittle.append(new AboutBtn().getButton());
         this.header.append(appTittle, currentUser, logOutBtn);
     }
 

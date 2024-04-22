@@ -1,3 +1,4 @@
+import AboutPageView from '../about/AboutView';
 import loginPage from '../login/loginPage';
 import mainPage from '../main-page/mainPage';
 import BaseElement from '../utils/BaseElement';
@@ -15,8 +16,7 @@ const routes: RoutesDescription = {
 
     about: {
         path: 'about',
-        getView: () =>
-            new BaseElement('section', [], 'About page').getElement(),
+        getView: () => new AboutPageView().getView(),
     },
 
     notFound: {

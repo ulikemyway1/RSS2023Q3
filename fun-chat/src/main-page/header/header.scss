@@ -1,6 +1,6 @@
 header {
     display: flex;
-    padding: 20px 10px;
+    padding: 10px;
     align-items: center;
     justify-content: space-between;
     background: var(--main-bg);
@@ -14,8 +14,27 @@ header {
         color: var(--main-bg);
     }
     &__app-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         font-size: 28px;
         font-weight: 800;
         font-style: italic;
+
+        .about-btn {
+            font-size: 15px;
+            cursor: pointer;
+            filter: none;
+            color: #ffffff;
+            width: 80%;
+            background: var(--accent);
+            transition: all 0.4s;
+        }
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .header__app-title .about-btn:hover {
+        width: 100%;
     }
 }
