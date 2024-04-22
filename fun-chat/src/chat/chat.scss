@@ -14,7 +14,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .chat {
         grid-template-columns: 40px 1fr;
         grid-template-areas: 'A B';
