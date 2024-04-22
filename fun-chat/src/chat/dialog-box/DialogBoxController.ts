@@ -22,7 +22,6 @@ class DialogBoxController {
     public view = dialogBoxView;
     public model = dialogBoxModel;
     public dividerIsAppended = false;
-
     public updateDialogHeader(contactCard: Contact): void {
         while (this.view.header.lastElementChild) {
             this.view.header.lastElementChild.remove();
@@ -63,6 +62,15 @@ class DialogBoxController {
             const messageCard = this.model.getMessageCard(msgID, contactKey);
             messageCard?.getView().remove();
             this.model.deleteMessage(msgID, contactKey);
+            const currentContactName = this.model
+                .getCurrentContact()
+                ?.getContactName();
+            if (
+                currentContactName &&
+                this.model.unreadMessages.get(currentContactName)?.size === 0
+            ) {
+                this.removeDivider();
+            }
         } else if (response.type === 'MSG_READ') {
             const msgID = response.payload.message.id;
             this.removeDivider();

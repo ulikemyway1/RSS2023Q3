@@ -64,6 +64,7 @@ class UserListView {
                                         messageController.getView()
                                     );
                                 });
+
                             if (dialogBoxController.dividerIsAppended) {
                                 dialogBoxView.divider.scrollIntoView({
                                     block: 'center',
@@ -74,6 +75,8 @@ class UserListView {
                             }
                         }
                     }
+
+                    // todo: delete divider when there was a new message but it was deleted
                 }
             }
         });
