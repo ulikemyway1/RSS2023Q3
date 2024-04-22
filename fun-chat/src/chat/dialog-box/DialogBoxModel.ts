@@ -14,6 +14,11 @@ class DialogBoxModel {
 
     private state: 'normal' | 'editing' = 'normal';
 
+    public resetModel(): void {
+        this.dialogsDB.clear();
+        this.unreadMessages.clear();
+        this.state = 'normal';
+    }
     public setCurrentContact(contact: Contact | null): void {
         this.currentContact = contact;
     }
@@ -111,5 +116,3 @@ class DialogBoxModel {
 
 const dialogBoxModel = new DialogBoxModel();
 export default dialogBoxModel;
-
-//contact -> message_ID

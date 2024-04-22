@@ -52,7 +52,7 @@ export default class ContextMenu {
                 },
             };
 
-            ws.send(JSON.stringify(dataRequest));
+            ws.getWS().send(JSON.stringify(dataRequest));
         });
 
         this.editBtn.addEventListener('click', () => {

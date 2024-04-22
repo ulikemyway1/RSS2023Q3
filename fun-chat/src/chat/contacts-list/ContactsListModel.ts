@@ -9,6 +9,11 @@ class ContactsListModel {
         return this.activeContacts;
     }
 
+    public resetContactsList(): void {
+        this.activeContacts.clear();
+        this.inactiveContacts.clear();
+    }
+
     public getInactiveContacts(): Map<string, Contact> {
         return this.inactiveContacts;
     }

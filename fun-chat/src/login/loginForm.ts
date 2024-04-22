@@ -91,7 +91,7 @@ export default class LoginForm {
                         },
                     },
                 };
-                ws.send(JSON.stringify(userData));
+                ws.getWS().send(JSON.stringify(userData));
                 app.getState().setItem(
                     'userPassword',
                     userData.payload.user.password

@@ -38,7 +38,7 @@ class UserController {
                 },
             },
         };
-        ws.send(JSON.stringify(requestData));
+        ws.getWS().send(JSON.stringify(requestData));
         this.userModel.setPassword('');
         this.userModel.setUsername('');
         this.userModel.setLoginStatus(false);
