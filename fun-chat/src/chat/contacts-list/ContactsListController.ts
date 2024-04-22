@@ -25,9 +25,9 @@ class ContactsListController {
             payload: null,
         };
 
-        if (ws.OPEN) {
-            ws.send(JSON.stringify(requestActive));
-            ws.send(JSON.stringify(requestInactive));
+        if (ws.getWS().OPEN) {
+            ws.getWS().send(JSON.stringify(requestActive));
+            ws.getWS().send(JSON.stringify(requestInactive));
         } else {
             setTimeout(() => this.requestAllContacts.bind(this), 5000);
         }
@@ -52,9 +52,10 @@ class ContactsListController {
                         },
                     },
                 };
-                ws.send(JSON.stringify(fetchHistoryResponseData));
+                ws.getWS().send(JSON.stringify(fetchHistoryResponseData));
             });
             this.model.setContacts(response.type, users);
+            console.log('sss');
             this.view.reloadView();
         } else if (
             response.type === 'USER_EXTERNAL_LOGIN' ||

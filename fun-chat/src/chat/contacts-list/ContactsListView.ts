@@ -90,8 +90,13 @@ class UserListView {
     public getView(): HTMLElement {
         return this.view;
     }
-
+    public deleteAllContactsCard(): void {
+        while (this.contactsListBox.lastElementChild) {
+            this.contactsListBox.lastElementChild.remove();
+        }
+    }
     public reloadView(): void {
+        console.log(this.model.getActiveContacts());
         while (this.contactsListBox.lastElementChild) {
             this.contactsListBox.lastElementChild.remove();
         }

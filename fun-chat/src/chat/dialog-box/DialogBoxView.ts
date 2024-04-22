@@ -173,7 +173,7 @@ class DialogBoxView {
                     },
                 },
             };
-            ws.send(JSON.stringify(messageData));
+            ws.getWS().send(JSON.stringify(messageData));
             this.inputField.value = '';
             this.sendMessageBtn.disabled = true;
             this.notifyAboutReading();
@@ -199,7 +199,7 @@ class DialogBoxView {
                 },
             };
 
-            ws.send(JSON.stringify(messageData));
+            ws.getWS().send(JSON.stringify(messageData));
         }
         this.cancelChanges();
     }
@@ -290,7 +290,7 @@ class DialogBoxView {
                         },
                     },
                 };
-                ws.send(JSON.stringify(requestData));
+                ws.getWS().send(JSON.stringify(requestData));
             });
         }
     }
