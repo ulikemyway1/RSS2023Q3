@@ -35,6 +35,9 @@ class UserListView {
                             contactCard &&
                             dialogBoxModel.getCurrentContact() !== contactCard
                         ) {
+                            if (dialogBoxModel.getState() === 'editing') {
+                                dialogBoxView.cancelChanges();
+                            }
                             dialogBoxController.removeDivider();
                             dialogBoxController.resetDialog();
                             dialogBoxController.updateDialogHeader(contactCard);

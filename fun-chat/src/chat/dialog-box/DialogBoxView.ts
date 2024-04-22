@@ -143,7 +143,7 @@ class DialogBoxView {
         });
     }
 
-    private cancelChanges(): void {
+    public cancelChanges(): void {
         this.inputField.value = '';
         this.cancelMessageEditingBtn.classList.add('hidden');
         this.saveMessageChangesBtn.disabled = true;
