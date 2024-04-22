@@ -1,4 +1,5 @@
 import contactsListController from '../chat/contacts-list/ContactsListController';
+import dialogBoxController from '../chat/dialog-box/DialogBoxController';
 import loginPage from '../login/loginPage';
 import userController, { UserDataResponse } from '../user/UserController';
 const ResponseTypes = [
@@ -9,10 +10,25 @@ const ResponseTypes = [
     'USER_INACTIVE',
     'USER_EXTERNAL_LOGOUT',
     'USER_EXTERNAL_LOGIN',
+    'MSG_SEND',
+    'MSG_FROM_USER',
+    'MSG_DELETE',
+    'MSG_READ',
+    'MSG_DELIVER',
+    'MSG_EDIT',
 ] as const;
 export type ResponseType = (typeof ResponseTypes)[number];
 
-export type ResponseTitle = 'USER_LIST' | 'USER_LOGOUT' | 'USER_LOGIN';
+export type ResponseTitle =
+    | 'USER_LIST'
+    | 'USER_LOGOUT'
+    | 'USER_LOGIN'
+    | 'MSG_SEND'
+    | 'MSG_FROM_USER'
+    | 'MSG_DELETE'
+    | 'MSG_READ'
+    | 'MSG_EDIT';
+
 class ResponseRedirector {
     private static responseRedirector: ResponseRedirector;
 
@@ -21,7 +37,6 @@ class ResponseRedirector {
     public takeResponse(response: BasicResponse) {
         if (response.id) {
             const responseTitle = response.id.split(':')[0];
-
             if (responseTitle === 'USER_LOGIN') {
                 this.handleUserLoginResponse(response);
             } else if (responseTitle === 'USER_LOGOUT') {
@@ -29,10 +44,46 @@ class ResponseRedirector {
             } else if (responseTitle === 'USER_LIST') {
                 if (this.isUsersListResponse(response))
                     contactsListController.handleResponse(response);
+            } else if (responseTitle === 'MSG_SEND') {
+                if (this.isSentMessageResponse(response))
+                    dialogBoxController.handleResponse(response);
+            } else if (responseTitle === 'MSG_FROM_USER') {
+                if (this.isFetchingMessageHistory(response))
+                    dialogBoxController.handleResponse(response);
+            } else if (responseTitle === 'MSG_DELETE') {
+                if (this.isMsgDeleteResponse(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
+            } else if (responseTitle === 'MSG_READ') {
+                if (this.isMessageReadStatusChange(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
+            } else if (this.isMessageTextEditing(response)) {
+                dialogBoxController.handleResponse(response);
             }
         } else {
             if (this.isUserStatutsChangeResponse(response)) {
                 contactsListController.handleResponse(response);
+            }
+            if (response.type === 'MSG_SEND') {
+                if (this.isSentMessageResponse(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
+            }
+            if (response.type === 'MSG_DELETE') {
+                if (this.isMsgDeleteResponse(response)) {
+                    dialogBoxController.handleResponse(response);
+                }
+            }
+            if (this.isMessageReadStatusChangeNotification(response)) {
+                dialogBoxController.handleResponse(response);
+            }
+
+            if (this.isMessageDeliveryStatusChange(response)) {
+                dialogBoxController.handleResponse(response);
+            }
+            if (this.isMessageTextEditingNotification(response)) {
+                dialogBoxController.handleResponse(response);
             }
         }
     }
@@ -78,6 +129,24 @@ class ResponseRedirector {
         );
     }
 
+    private isSentMessageResponse(
+        response: BasicResponse
+    ): response is SentMessageResponse {
+        return response.type === 'MSG_SEND';
+    }
+
+    private isFetchingMessageHistory(
+        response: BasicResponse
+    ): response is FetchMessageHistoryResponse {
+        return response.payload.messages;
+    }
+
+    private isMsgDeleteResponse(
+        response: BasicResponse
+    ): response is MessageDeletionResponse {
+        return response.type === 'MSG_DELETE';
+    }
+
     private handleUserLoginResponse(response: BasicResponse) {
         if (
             response.type === 'USER_LOGIN' &&
@@ -100,6 +169,36 @@ class ResponseRedirector {
             this.isUserDataResponse(response)
         ) {
         }
+    }
+
+    private isMessageReadStatusChange(
+        response: BasicResponse
+    ): response is MessageReadStatusChange {
+        return typeof response.id === 'string' && response.type === 'MSG_READ';
+    }
+
+    private isMessageReadStatusChangeNotification(
+        response: BasicResponse
+    ): response is MessageReadStatusChangeNotification {
+        return response.type === 'MSG_READ';
+    }
+
+    private isMessageDeliveryStatusChange(
+        response: BasicResponse
+    ): response is MessageDeliveryStatusChange {
+        return response.type === 'MSG_DELIVER';
+    }
+
+    private isMessageTextEditing(
+        response: BasicResponse
+    ): response is MessageTextEditing {
+        return typeof response.id === 'string' && response.type === 'MSG_EDIT';
+    }
+
+    private isMessageTextEditingNotification(
+        response: BasicResponse
+    ): response is MessageTextEditingNotification {
+        return !response.id && response.type === 'MSG_EDIT';
     }
 }
 
@@ -141,6 +240,109 @@ export type UserStatutsChangeResponse = {
         user: {
             login: string;
             isLogined: boolean;
+        };
+    };
+};
+
+export type SentMessageResponse = {
+    id: ResponseTitle | null;
+    type: 'MSG_SEND';
+    payload: {
+        message: MessageInfoResponse;
+    };
+};
+
+export type FetchMessageHistoryResponse = {
+    id: ResponseTitle | null;
+    type: 'MSG_FROM_USER';
+    payload: {
+        messages: MessageInfoResponse[];
+    };
+};
+
+export type MessageInfoResponse = {
+    id: string;
+    from: string;
+    to: string;
+    text: string;
+    datetime: number;
+    status: {
+        isDelivered: boolean;
+        isReaded: boolean;
+        isEdited: boolean;
+    };
+};
+
+export type MessageDeletionResponse = {
+    id: ResponseTitle | null;
+    type: 'MSG_DELETE';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isDeleted: boolean;
+            };
+        };
+    };
+};
+
+export type MessageReadStatusChange = {
+    id: ResponseTitle | null;
+    type: 'MSG_READ';
+    payload: {
+        message: {
+            id: string;
+        };
+    };
+};
+
+export type MessageReadStatusChangeNotification = {
+    id: null;
+    type: 'MSG_READ';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isReaded: boolean;
+            };
+        };
+    };
+};
+
+export type MessageDeliveryStatusChange = {
+    id: null;
+    type: 'MSG_DELIVER';
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isDelivered: boolean;
+            };
+        };
+    };
+};
+
+export type MessageTextEditing = {
+    id: ResponseTitle | null;
+    type: 'MSG_EDIT';
+    payload: {
+        message: {
+            id: string;
+            text: string;
+        };
+    };
+};
+
+export type MessageTextEditingNotification = {
+    id: null;
+    type: 'MSG_EDIT';
+    payload: {
+        message: {
+            id: string;
+            text: string;
+            status: {
+                isEdited: boolean;
+            };
         };
     };
 };

@@ -5,6 +5,7 @@ import mainPage from '../main-page/mainPage';
 import BaseElement from '../utils/BaseElement';
 import ButtonElement from '../utils/ButtonElement';
 import InputElement from '../utils/InputElement';
+import generateId from '../utils/generateID';
 import './login.scss';
 
 export default class LoginForm {
@@ -80,7 +81,7 @@ export default class LoginForm {
             const formIsValid = this.formValidation();
             if (formIsValid) {
                 const userData = {
-                    id: `USER_LOGIN:${crypto.randomUUID()}`,
+                    id: `USER_LOGIN:${generateId()}`,
                     type: 'USER_LOGIN',
                     payload: {
                         user: {
@@ -95,7 +96,7 @@ export default class LoginForm {
                     userData.payload.user.password
                 );
                 app.getState().setItem('userName', userData.payload.user.login);
-                contactsListController.updateView();
+                // contactsListController.updateView();
             }
         });
 

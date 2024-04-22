@@ -3,6 +3,7 @@ import {
     UsersListResponse,
 } from '../../communication/ResponseRedirector';
 import ws from '../../communication/socket';
+import generateId from '../../utils/generateID';
 import userListModel from './ContactsListModel';
 import userListView from './ContactsListView';
 import Contact from './contact';
@@ -13,13 +14,13 @@ class ContactsListController {
 
     public requestAllContacts() {
         const requestActive = {
-            id: `USER_LIST:${crypto.randomUUID()}`,
+            id: `USER_LIST:${generateId()}`,
             type: 'USER_ACTIVE',
             payload: null,
         };
 
         const requestInactive = {
-            id: `USER_LIST:${crypto.randomUUID()}`,
+            id: `USER_LIST:${generateId()}`,
             type: 'USER_INACTIVE',
             payload: null,
         };
@@ -40,9 +41,19 @@ class ContactsListController {
             response.type === 'USER_INACTIVE'
         ) {
             const users: string[] = [];
-            response.payload.users.forEach((userInfo) =>
-                users.push(userInfo.login)
-            );
+            response.payload.users.forEach((userInfo) => {
+                users.push(userInfo.login);
+                const fetchHistoryResponseData = {
+                    id: `MSG_FROM_USER:${generateId()}`,
+                    type: 'MSG_FROM_USER',
+                    payload: {
+                        user: {
+                            login: userInfo.login,
+                        },
+                    },
+                };
+                ws.send(JSON.stringify(fetchHistoryResponseData));
+            });
             this.model.setContacts(response.type, users);
             this.view.reloadView();
         } else if (

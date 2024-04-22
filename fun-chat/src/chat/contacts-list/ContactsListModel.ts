@@ -1,3 +1,4 @@
+import dialogBoxController from '../dialog-box/DialogBoxController';
 import Contact from './contact';
 
 class ContactsListModel {
@@ -48,6 +49,7 @@ class ContactsListModel {
                 this.inactiveContacts.set(username, contact);
                 this.activeContacts.delete(username);
             }
+            dialogBoxController.updateDialogHeader(contact);
         } else {
             this.setContact(username);
         }
@@ -55,6 +57,15 @@ class ContactsListModel {
 
     public removeFromActive(contactName: string) {
         this.activeContacts.delete(contactName);
+    }
+
+    public getContactCard(contactName: string | undefined) {
+        if (contactName) {
+            const contactCard =
+                this.activeContacts.get(contactName) ||
+                this.inactiveContacts.get(contactName);
+            return contactCard;
+        }
     }
 }
 

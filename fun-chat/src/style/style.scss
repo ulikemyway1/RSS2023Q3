@@ -1,6 +1,9 @@
 @import './normalize.scss';
 @import './fonts.scss';
 @import './colors.scss';
+* {
+    box-sizing: border-box;
+}
 body {
     font-family: Mulish, Arial, Helvetica, sans-serif;
     display: flex;
@@ -55,4 +58,21 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #cccccc;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #757575;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2b2b2b;
+    cursor: pointer;
 }

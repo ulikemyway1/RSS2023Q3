@@ -1,4 +1,108 @@
 .dialog-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 44px 1fr 100px;
     border: 1px solid black;
     padding: 10px;
+
+    &__header {
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        border-radius: 6px;
+
+        .contact {
+            pointer-events: none;
+            &__msg-count {
+                display: none;
+            }
+
+            &__name-box {
+                font-weight: 800;
+            }
+
+            &__status-text {
+                font-size: 16px;
+                font-weight: 600;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #545454;
+            }
+        }
+    }
+
+    &__msg-area {
+        display: grid;
+        grid-template-rows: 1fr;
+        gap: 5px;
+        padding: 5px;
+        align-items: end;
+        grid-auto-rows: min-content;
+        color: #4c4c4c;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        overflow-y: scroll;
+    }
+
+    &__input-wrapper.edit-mode {
+        display: grid;
+        grid-template-columns: 5fr 1fr;
+        grid-template-areas:
+            'A B'
+            'A C';
+    }
+    &__input-wrapper {
+        display: flex;
+        padding: 0 5px;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    &__input-field {
+        grid-area: A;
+        resize: none;
+        flex-grow: 1;
+        font-size: 14px;
+        height: 80%;
+        padding: 5px;
+        border-radius: 6px;
+        border: 1px solid black;
+
+        &:focus {
+            outline: 1px solid black;
+        }
+    }
+}
+
+.send-btn {
+    grid-area: B;
+    height: 30px;
+    filter: none;
+    background: var(--valid);
+}
+
+.cancel-btn {
+    grid-area: C;
+    height: 30px;
+}
+
+.save-btn {
+    grid-area: B;
+    height: 30px;
+    filter: none;
+    background: var(--valid);
+}
+
+.divider {
+    position: sticky;
+    padding: 5px 0;
+    top: 10px;
+    font-weight: 800;
+    text-align: center;
+    z-index: 1;
+    background: #cbe312c3;
 }

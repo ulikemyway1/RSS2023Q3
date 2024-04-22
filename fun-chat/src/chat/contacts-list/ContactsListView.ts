@@ -1,6 +1,10 @@
 import app from '../../app/app';
+import ws from '../../communication/socket';
 import BaseElement from '../../utils/BaseElement';
-import InputElement from '../../utils/InputElement';
+import generateId from '../../utils/generateID';
+import dialogBoxController from '../dialog-box/DialogBoxController';
+import dialogBoxModel from '../dialog-box/DialogBoxModel';
+import dialogBoxView from '../dialog-box/DialogBoxView';
 import userListModel from './ContactsListModel';
 import './contactsList.scss';
 import SearchBox from './searchBox';
@@ -9,14 +13,77 @@ class UserListView {
     model = userListModel;
     private view = new BaseElement('section', ['contacts-list']).getElement();
 
-    private usersListBox = new BaseElement('div', [
+    private contactsListBox = new BaseElement('div', [
         'contacts-list__contacts-list-box',
     ]).getElement();
 
     private serachBox = new SearchBox();
 
     constructor() {
-        this.view.append(this.serachBox.getView(), this.usersListBox);
+        this.contactsListBox.addEventListener('click', (event) => {
+            if (event.target && event.target instanceof HTMLElement) {
+                const contact = event.target.closest('.contact');
+                if (contact) {
+                    const contactNameBox =
+                        contact.querySelector('.contact__name-box');
+                    if (contactNameBox) {
+                        const contactName =
+                            contactNameBox.textContent || undefined;
+                        const contactCard =
+                            this.model.getContactCard(contactName);
+                        if (
+                            contactCard &&
+                            dialogBoxModel.getCurrentContact() !== contactCard
+                        ) {
+                            if (dialogBoxModel.getState() === 'editing') {
+                                dialogBoxView.cancelChanges();
+                            }
+                            dialogBoxController.removeDivider();
+                            dialogBoxController.resetDialog();
+                            dialogBoxController.updateDialogHeader(contactCard);
+                            dialogBoxView.inputField.disabled = false;
+                            const msgKey =
+                                dialogBoxController.generateContactKey(
+                                    app.getState().getItem('userName'),
+                                    contactCard.getContactName()
+                                );
+                            dialogBoxController.model
+                                .getMessageHistory(msgKey)
+                                ?.forEach((messageController) => {
+                                    dialogBoxView.msgAreaNoChatHistoryTip.classList.add(
+                                        'hidden'
+                                    );
+                                    if (
+                                        messageController.model.messasgeInfo
+                                            .to ===
+                                        app.getState().getItem('userName')
+                                    ) {
+                                        dialogBoxController.appenDivider(
+                                            messageController.model.messasgeInfo
+                                                .status.isReaded
+                                        );
+                                    }
+                                    dialogBoxView.msgArea.append(
+                                        messageController.getView()
+                                    );
+                                });
+
+                            if (dialogBoxController.dividerIsAppended) {
+                                dialogBoxView.divider.scrollIntoView({
+                                    block: 'center',
+                                });
+                            } else {
+                                dialogBoxView.msgArea.scrollTop =
+                                    dialogBoxView.msgArea.scrollHeight;
+                            }
+                        }
+                    }
+
+                    // todo: delete divider when there was a new message but it was deleted
+                }
+            }
+        });
+        this.view.append(this.serachBox.getView(), this.contactsListBox);
         this.model.getActiveContacts();
     }
 
@@ -25,21 +92,21 @@ class UserListView {
     }
 
     public reloadView(): void {
-        while (this.usersListBox.lastElementChild) {
-            this.usersListBox.lastElementChild.remove();
+        while (this.contactsListBox.lastElementChild) {
+            this.contactsListBox.lastElementChild.remove();
         }
         this.model.getActiveContacts().forEach((contact) => {
             if (
                 contact.getContactName() !== app.getState().getItem('userName')
             ) {
-                this.usersListBox.append(contact.getView());
+                this.contactsListBox.append(contact.getView());
             }
         });
         this.model.getInactiveContacts().forEach((contact) => {
             if (
                 contact.getContactName() !== app.getState().getItem('userName')
             ) {
-                this.usersListBox.append(contact.getView());
+                this.contactsListBox.append(contact.getView());
             }
         });
     }

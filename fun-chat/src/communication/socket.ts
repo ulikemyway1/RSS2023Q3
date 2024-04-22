@@ -1,5 +1,5 @@
 import app from '../app/app';
-import contactsListController from '../chat/contacts-list/ContactsListController';
+import generateId from '../utils/generateID';
 import responseRedirector, { BasicResponse } from './ResponseRedirector';
 
 const ws = new WebSocket('ws://localhost:4000/');
@@ -8,7 +8,7 @@ ws.addEventListener('open', () => {
     const password = app.getState().getItem('userPassword');
     if (userName && password) {
         const userData = {
-            id: `USER_LOGIN:${crypto.randomUUID()}`,
+            id: `USER_LOGIN:${generateId()}`,
             type: 'USER_LOGIN',
             payload: {
                 user: {
