@@ -149,7 +149,7 @@ export default class LoginForm {
     private userNameInputValidation(): void {
         this.userNameValidationMsg.textContent = '';
         const userName = this.userNameInput.value;
-        if (/^[A-Z][a-zA-Z0-9]{2,19}$/.test(userName)) {
+        if (/^[A-ZА-Яа-я][a-zA-Z0-9А-Яа-я]{2,9}$/.test(userName)) {
             this.userNameInput.classList.add('valid');
             this.userNameInput.classList.remove('invalid');
             this.usernameIsValid = true;
@@ -160,6 +160,9 @@ export default class LoginForm {
             if (userName.length < 3) {
                 this.userNameValidationMsg.textContent =
                     'The username must be no shorter tnan 3 characters';
+            } else if (userName.length > 10) {
+                this.userNameValidationMsg.textContent =
+                    'The username must be no longer tnan 10 characters';
             } else if (!/^[A-Z]/.test(userName)) {
                 this.userNameValidationMsg.textContent =
                     'The username must start with a capital letter';
