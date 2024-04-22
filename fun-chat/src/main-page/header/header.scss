@@ -38,3 +38,34 @@ header {
         width: 100%;
     }
 }
+
+@media (max-width: 550px) {
+    .header {
+        &__logout-btn {
+            padding: 5px;
+            font-size: 18px;
+        }
+        &__app-title {
+            font-size: 22px;
+
+            .about-btn {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .header {
+        .user__name {
+            font-size: 14px;
+        }
+
+        .user__icon {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            font-size: 14px;
+        }
+    }
+}
