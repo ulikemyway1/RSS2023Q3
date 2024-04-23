@@ -78,8 +78,6 @@ class UserListView {
                             }
                         }
                     }
-
-                    // todo: delete divider when there was a new message but it was deleted
                 }
             }
         });
@@ -96,7 +94,6 @@ class UserListView {
         }
     }
     public reloadView(): void {
-        console.log(this.model.getActiveContacts());
         while (this.contactsListBox.lastElementChild) {
             this.contactsListBox.lastElementChild.remove();
         }

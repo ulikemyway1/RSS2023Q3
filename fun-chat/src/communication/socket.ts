@@ -13,11 +13,28 @@ class Socket {
     private reconnectorID: NodeJS.Timeout | null = null;
 
     constructor() {
+        this.setHandlerOnOpen();
+        this.setHandlerOnMessage();
+        this.setHandlerOnClose();
+    }
+
+    public getWS(): WebSocket {
+        return this.ws;
+    }
+    public setHandlerOnOpen() {
         this.ws.addEventListener('open', () => {
             if (this.popup) {
                 this.popup.setResolved();
             }
-            if (this.reconnectorID) clearInterval(this.reconnectorID);
+            if (this.reconnectorID) {
+                console.log('стоп аттемп');
+                clearInterval(this.reconnectorID);
+                this.reconnectorID = null;
+
+                contactsListController.view.deleteAllContactsCard();
+                contactsListController.requestAllContacts();
+            }
+            this.setHandlerOnClose();
             const userName = app.getState().getItem('userName');
             const password = app.getState().getItem('userPassword');
             if (userName && password) {
@@ -34,7 +51,9 @@ class Socket {
                 this.ws.send(JSON.stringify(userData));
             }
         });
+    }
 
+    public setHandlerOnMessage() {
         this.ws.addEventListener(
             'message',
             (response: MessageEvent<string>) => {
@@ -42,55 +61,33 @@ class Socket {
                 responseRedirector.takeResponse(responseData);
             }
         );
+    }
 
+    public setHandlerOnClose() {
         this.ws.addEventListener('close', () => {
-            if (this.popup) {
-                document.body.append(this.popup.getView());
-            }
-            dialogBoxView.resetView();
-            dialogBoxModel.resetModel();
-            contactsListModel.resetContactsList();
-
-            this.reconnectorID = setInterval((): void => {
-                this.ws = new WebSocket('ws://localhost:4000/');
-                this.ws.addEventListener(
-                    'message',
-                    (response: MessageEvent<string>) => {
-                        const responseData: BasicResponse = JSON.parse(
-                            response.data
-                        );
-                        responseRedirector.takeResponse(responseData);
-                    }
-                );
-                this.ws.addEventListener('open', () => {
-                    if (this.popup) {
-                        this.popup.setResolved();
-                    }
-                    if (this.reconnectorID) clearInterval(this.reconnectorID);
-                    const userName = app.getState().getItem('userName');
-                    const password = app.getState().getItem('userPassword');
-                    if (userName && password) {
-                        const userData = {
-                            id: `USER_LOGIN:${generateId()}`,
-                            type: 'USER_LOGIN',
-                            payload: {
-                                user: {
-                                    login: userName,
-                                    password: password,
-                                },
-                            },
-                        };
-                        this.ws.send(JSON.stringify(userData));
-                    }
-                    contactsListController.view.deleteAllContactsCard();
-                    contactsListController.requestAllContacts();
-                });
-            }, 3000);
+            this.showPopUp();
+            this.attempReconnect();
         });
     }
 
-    public getWS(): WebSocket {
-        return this.ws;
+    public showPopUp() {
+        if (this.popup) {
+            document.body.append(this.popup.getView());
+        }
+        dialogBoxView.resetView();
+        dialogBoxModel.resetModel();
+        contactsListModel.resetContactsList();
+    }
+
+    public attempReconnect() {
+        if (!this.reconnectorID) {
+            this.reconnectorID = setInterval((): void => {
+                this.ws = new WebSocket('ws://localhost:4000/');
+                this.setHandlerOnOpen();
+                this.setHandlerOnMessage();
+                this.setHandlerOnClose();
+            }, 3000);
+        }
     }
 }
 
