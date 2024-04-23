@@ -1,6 +1,7 @@
 import app from '../app/app';
 import contactsListController from '../chat/contacts-list/ContactsListController';
 import contactsListModel from '../chat/contacts-list/ContactsListModel';
+import dialogBoxController from '../chat/dialog-box/DialogBoxController';
 import dialogBoxModel from '../chat/dialog-box/DialogBoxModel';
 import dialogBoxView from '../chat/dialog-box/DialogBoxView';
 import Popup from '../popup/Popup';
@@ -9,7 +10,7 @@ import responseRedirector, { BasicResponse } from './ResponseRedirector';
 
 class Socket {
     private ws = new WebSocket('ws://localhost:4000/');
-    private popup: Popup = new Popup('Connection lost. Trying to reconnect...');
+    private popup: Popup = new Popup();
     private reconnectorID: NodeJS.Timeout | null = null;
 
     constructor() {
@@ -27,13 +28,13 @@ class Socket {
                 this.popup.setResolved();
             }
             if (this.reconnectorID) {
-                console.log('стоп аттемп');
                 clearInterval(this.reconnectorID);
                 this.reconnectorID = null;
-
                 contactsListController.view.deleteAllContactsCard();
                 contactsListController.requestAllContacts();
+                dialogBoxController.resetDialog();
             }
+
             this.setHandlerOnClose();
             const userName = app.getState().getItem('userName');
             const password = app.getState().getItem('userPassword');
@@ -65,6 +66,7 @@ class Socket {
 
     public setHandlerOnClose() {
         this.ws.addEventListener('close', () => {
+            this.popup.setUnresolved();
             this.showPopUp();
             this.attempReconnect();
         });

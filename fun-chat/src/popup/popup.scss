@@ -3,5 +3,32 @@
     top: 50%;
     z-index: 1000;
     padding: 20px;
-    background: red;
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    background: var(--error);
+    transition: background 0.6s;
+    width: 90vw;
+    max-width: 500px;
+    text-align: center;
+    filter: drop-shadow(0 0 4px #000000);
+    transform: translateY(-50%);
+    line-height: 36px;
+    border-radius: 8px;
+
+    &__loader {
+        background: url('./load.gif');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 80px;
+    }
+}
+
+.popup.resolved {
+    color: #000000;
+    background: var(--valid);
+    .popup__loader {
+        display: none;
+    }
 }

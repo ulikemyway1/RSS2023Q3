@@ -295,10 +295,10 @@ class DialogBoxView {
         }
     }
 
-    public appendDivider() {
+    public appendDivider(): void {
         this.msgArea.append(this.divider);
     }
-    public removeDivider() {
+    public removeDivider(): void {
         this.divider.remove();
     }
 }

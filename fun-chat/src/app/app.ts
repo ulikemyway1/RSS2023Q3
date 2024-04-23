@@ -4,7 +4,7 @@ import State from '../state/State';
 import BaseElement from '../utils/BaseElement';
 
 class App {
-    private container = new BaseElement('div', ['container']).getElement();
+    public container = new BaseElement('div', ['container']).getElement();
     private state = new State();
     private router = new Router(routes);
 
