@@ -55,7 +55,6 @@ class ContactsListController {
                 ws.getWS().send(JSON.stringify(fetchHistoryResponseData));
             });
             this.model.setContacts(response.type, users);
-            console.log('sss');
             this.view.reloadView();
         } else if (
             response.type === 'USER_EXTERNAL_LOGIN' ||
