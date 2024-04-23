@@ -35,6 +35,7 @@ class DialogBoxController {
 
     public resetDialog(): void {
         this.view.resetView();
+        this.view.cancelChanges();
         this.model.setCurrentContact(null);
         this.view.inputField.disabled = true;
         this.view.sendMessageBtn.disabled = true;

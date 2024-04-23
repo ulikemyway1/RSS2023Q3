@@ -46,6 +46,11 @@ body {
     max-width: 1440px;
 }
 
+.container.fade {
+    filter: saturate(0) brightness(0.4) !important;
+    pointer-events: none;
+}
+
 .link {
     text-decoration: none;
     color: var(--main-font);
