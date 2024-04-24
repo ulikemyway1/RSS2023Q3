@@ -60,6 +60,7 @@ export default class LoginForm {
 
     constructor() {
         this.loginForm.classList.add('login-form');
+        this.loginForm.autocomplete = 'off';
         this.passWordInput.required = true;
         this.userNameInput.required = true;
 
