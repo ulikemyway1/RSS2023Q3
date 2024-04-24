@@ -12,15 +12,6 @@
     max-width: 440px;
     background: #ffffff;
     filter: drop-shadow(3px 3px 4px #858585);
-    &::after {
-        content: '';
-        position: absolute;
-        display: block;
-        width: 90%;
-        height: 1px;
-        background: #000000;
-        bottom: 50px;
-    }
 
     &__label {
         display: flex;
@@ -56,10 +47,22 @@
         cursor: pointer;
         filter: none;
         color: #ffffff;
-        width: 20%;
+        width: 30%;
+        min-width: 85px;
         padding: 5px;
         background: var(--accent);
         transition: all 0.4s;
+        &::before {
+            content: '';
+            position: relative;
+            display: block;
+            width: 300%;
+            height: 1px;
+            background: #000000;
+            bottom: 20px;
+            right: 55%;
+            transform: translateX(-15%);
+        }
     }
 }
 

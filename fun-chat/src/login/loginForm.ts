@@ -60,6 +60,7 @@ export default class LoginForm {
 
     constructor() {
         this.loginForm.classList.add('login-form');
+        this.loginForm.autocomplete = 'off';
         this.passWordInput.required = true;
         this.userNameInput.required = true;
 
@@ -68,6 +69,7 @@ export default class LoginForm {
             this.passwordValidationMsg.textContent = '';
             this.passWordInputValidation();
             this.canBeSubmited();
+            this.serverErrorMessage.remove();
         });
 
         this.userNameInput.addEventListener('input', () => {
@@ -205,6 +207,7 @@ export default class LoginForm {
         this.submitBtn.disabled = true;
         this.serverErrorMessage.textContent = message;
         this.loginForm.append(this.serverErrorMessage);
+        sessionStorage.clear();
     }
 
     public resetForm(): void {
@@ -215,5 +218,6 @@ export default class LoginForm {
         this.passwordIsValid = false;
         this.usernameIsValid = false;
         this.submitBtn.disabled = true;
+        this.serverErrorMessage.remove();
     }
 }

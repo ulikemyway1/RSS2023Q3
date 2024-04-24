@@ -50,6 +50,7 @@ class UserController {
         dialogBoxView.msgArea.append(dialogBoxView.msgAreaNoContactTip);
         dialogBoxView.msgAreaNoContactTip.classList.remove('hidden');
         dialogBoxView.msgAreaNoChatHistoryTip.classList.add('hidden');
+        sessionStorage.clear();
     }
 }
 

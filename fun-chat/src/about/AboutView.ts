@@ -22,6 +22,11 @@ export default class AboutPageView {
         ['about__descr'],
         `Fun-chat is an engaging and interactive online chat application that brings people together from all walks of life. It offers a platform for users to connect, communicate, and share their thoughts in a fun and secure environment. With its user-friendly interface and a wide range of features, Fun-chat ensures a seamless and enjoyable chatting experience. Whether it’s a casual conversation or a deep discussion, Fun-chat has got you covered. It’s not just a chat app, it’s a community where everyone can express themselves freely.`
     ).getElement();
+    private authorBox = new BaseElement(
+        'p',
+        ['about__author'],
+        'Developed by Alexander Potapchik (ulikemyway1)'
+    ).getElement();
     private header = new BaseElement('header', ['about__header']).getElement();
     private backBtn = new ButtonElement(
         '',
@@ -33,7 +38,12 @@ export default class AboutPageView {
     ]).getImg();
     constructor() {
         this.header.append(this.backBtn);
-        this.mainContent.append(this.title, this.description, this.imgAbout);
+        this.mainContent.append(
+            this.title,
+            this.description,
+            this.imgAbout,
+            this.authorBox
+        );
         this.view.append(
             this.header,
             this.mainContent,
