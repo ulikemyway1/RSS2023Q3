@@ -69,6 +69,7 @@ export default class LoginForm {
             this.passwordValidationMsg.textContent = '';
             this.passWordInputValidation();
             this.canBeSubmited();
+            this.serverErrorMessage.remove();
         });
 
         this.userNameInput.addEventListener('input', () => {
@@ -206,6 +207,7 @@ export default class LoginForm {
         this.submitBtn.disabled = true;
         this.serverErrorMessage.textContent = message;
         this.loginForm.append(this.serverErrorMessage);
+        sessionStorage.clear();
     }
 
     public resetForm(): void {
@@ -216,5 +218,6 @@ export default class LoginForm {
         this.passwordIsValid = false;
         this.usernameIsValid = false;
         this.submitBtn.disabled = true;
+        this.serverErrorMessage.remove();
     }
 }
