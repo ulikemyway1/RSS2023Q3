@@ -5,22 +5,22 @@ import BaseElement from '../utils/BaseElement';
 
 const routes: RoutesDescription = {
     login: {
-        path: 'login',
+        path: '/login',
         getView: () => loginPage.getLoginPage(),
     },
 
     main: {
-        path: 'main',
+        path: '/main',
         getView: () => mainPage.getMainPage(),
     },
 
     about: {
-        path: 'about',
+        path: '/about',
         getView: () => new AboutPageView().getView(),
     },
 
     notFound: {
-        path: 'not-found',
+        path: '/not-found',
         getView: () => new BaseElement('section', [], 'Not found').getElement(),
     },
 };

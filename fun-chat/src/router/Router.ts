@@ -8,7 +8,10 @@ export default class Router {
         this.routes = routes;
         window.addEventListener('popstate', (e) => {
             e.preventDefault();
-            this.navigate(window.location.pathname);
+            this.navigate(window.location.pathname.replace('/', ''));
+        });
+        window.addEventListener('load', () => {
+            this.navigate(window.location.pathname.replace('/', ''));
         });
     }
 
